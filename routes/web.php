@@ -17,6 +17,7 @@ use App\Http\Livewire\Dashboard\Accounts\MyProfile;
 use App\Http\Livewire\Dashboard\Borrowers\BorrowerView;
 use App\Http\Livewire\Dashboard\Borrowers\LoanStatementView as BorrowersLoanStatementView;
 use App\Http\Livewire\Dashboard\Borrowers\NewCustomer;
+use App\Http\Livewire\Dashboard\Borrowers\ReferencesView;
 use App\Http\Livewire\Dashboard\Borrowers\SendBorrowerMessageView;
 use App\Http\Livewire\Dashboard\Borrowers\TranscriptView;
 use App\Http\Livewire\Dashboard\DashboardView;
@@ -156,6 +157,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('three-months-late-loans', ThreeMonthLate::class)->name('three-month-late');
     Route::get('past-maturity-date', PastMaturityDateView::class)->name('past-maturity-date');
     Route::get('guarantors', GuarantorsView::class)->name('guarantors');
+    Route::get('references', ReferencesView::class)->name('refs');
     Route::get('missed-repayments', MissedRepaymentsView::class)->name('missed-repayments');
     Route::post('apply-for-loan', [LoanApplicationController::class, 'new_loan'])->name('apply-loan');
     Route::post('apply-proxy-loan', [LoanApplicationController::class, 'new_proxy_loan'])->name('proxy-apply-loan');

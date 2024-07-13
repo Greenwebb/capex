@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 Route::apiResource('apply-loan', LoanRequestController::class);
 Route::post('register', [UserAuthenticationController::class, 'register']);
 Route::post('login', [UserAuthenticationController::class, 'login']);

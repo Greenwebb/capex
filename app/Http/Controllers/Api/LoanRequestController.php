@@ -66,7 +66,9 @@ class LoanRequestController extends Controller
     }
 
     public function loanBalance($id){
-        return Loans::loan_balance($id);
+
+        $requests = Loans::loan_balance($id);
+        return response()->json([$requests]);
     }
 
     public function customerBalance($user_id){

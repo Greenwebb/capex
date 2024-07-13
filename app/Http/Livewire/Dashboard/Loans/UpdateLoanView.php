@@ -23,6 +23,6 @@ class UpdateLoanView extends Component
     {
         $this->loan_type = $this->loan->type;
         return view('livewire.dashboard.loans.update-loan-view')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 }

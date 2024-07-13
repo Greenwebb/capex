@@ -38,7 +38,7 @@ class LoanDetailedView extends Component
         $this->current = ApplicationStage::where('application_id', $this->loan->id)->first();
         $this->getAmoritizationTable();
         return view('livewire.dashboard.loans.loan-detailed-view')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 
     public function prefillLoanProductValues(){

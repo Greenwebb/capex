@@ -20,10 +20,10 @@ class AccountView extends Component
         $this->data = $this->searchAccount($this->key);
         if ($this->data->hasRole('user')) {
             return view('livewire.dashboard.accounts.account-view')
-            ->layout('layouts.admin');
+            ->layout('layouts.main');
         }else{
             return view('livewire.dashboard.accounts.employee-account-view')
-            ->layout('layouts.admin');
+            ->layout('layouts.main');
         }
     }
 

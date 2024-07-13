@@ -1,414 +1,511 @@
-<div class="content-body">
-    <div class="container-fluid mh-auto">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>{{ $loan->type }} Loan | K{{ $loan->amount ?? 0 }}</h4>
-
-                        @can('accept and reject loan requests')
-                        <div class="d-flex align-items-end flex-wrap">
-                            <div class="shopping-cart mb-2 me-3">
-                                <button onclick="printLoanDetails()" class="btn btn-square btn-warning">Print PDF</button>
-                            </div>
-                            @if($loan->status !== 2 && $loan->status !== 1)
-                            <div class="shopping-cart mb-2 me-3">
-                                <button 
-                                    class="btn btn-square btn-outline-primary" 
-                                    wire:click.prevent="stall({{ $loan->id }})" 
-                                    data-toggle="modal" data-target=".bd-example-modal-sm"
-                                    onclick="confirm('Are you sure you want to hold this loan application for review?') || event.stopImmediatePropagation();"
-                                >
-                                <i class="fa fa-pause me-2"></i>Hold Loan
-                                </button>
-                            </div>
-                            @endif
-
-                            @if($loan->status !== 1)
-                            <div class="shopping-cart mb-2 me-3">
-                                <button 
-                                    data-toggle="modal" data-target="#updateDueDateView"
-                                    class="btn btn-square btn-primary" 
-                                    onclick="confirm('Are you sure you want to approve and accept this loan application') || event.stopImmediatePropagation();"
-                                >
-                                <i class="fa fa-check me-2"></i>Accept Loan
-                                </button>
-                            </div>
-                            @endif
-
-                            @if($loan->status !== 3 && $loan->status !== 1)
-                            <div class="shopping-cart mb-2 me-3">
-                                <button 
-                                    class="btn btn-square btn-outline-danger" 
-                                    wire:click.prevent="reject({{ $loan->id }})" 
-                                    onclick="confirm('Are you sure you want to disapprove and reject this loan application?') || event.stopImmediatePropagation();"
-                                >
-                                <i class="fa fa-cancel me-2"></i>Reject Loan
-                                </button>
-                            </div>
-                            @endif
-                        </div>
-                        @endcan
-                    </div>
-                    <div id="loanDetailsToPrint" class="card-body">
-
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-xxl-12 col-sm-12">
-                                @include('livewire.dashboard.__parts.dash-alerts')
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-xxl-6 col-sm-12">
-                                <div class="title-sm">
-                                    <h5>Borrower Information</h5>
-                                </div>
-                                <div class="product-detail-content">
-                                    <div class="new-arrival-content pr">
-                                        <p> Borrower: 
-                                            <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id]) }}">
-                                                <span class="item">{{  $loan->fname ?? $loan->user->fname  }} {{ $loan->lname ?? $loan->user->lname }}</span>
-                                            </a> 
-                                        </p>
-                                        <p>Address: <span class="item">{{ $loan->user->address ?? 'None'}}</span></p>
-                                        <p>Phone No.: <span class="item">{{ $loan->phone ?? '' }}</span></p>
-                                        <p>Phone No 2.: <span class="item">{{ $loan->user->phone2 }}</span></p>
-                                        <p>NRC No.: <span class="item">{{ $loan->user->nrc_no }}</span></p>
-                                        <p>Basic Pay.: <span class="item">{{ $loan->user->basic_pay }}</span></p>
-                                        <p>Net Pay.: <span class="item">{{ $loan->user->net_pay }}</span></p>
-                                        <p>Sex: <span class="item">{{ $loan->gender ?? $loan->user->gender }}</span></p>
-                                        <p>Age: <span class="item">{{ $loan->gender ?? $loan->user->gender }}</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Tab slider End-->
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-xxl-6 col-sm-12">
-                                <div class="title-sm">
-                                    <h5>Loans Details & Status</h5>
-                                </div>
-                                <div class="product-detail-content">
-                                    <!--Product details-->
-                                    <div class="new-arrival-content pr">
-                                        {{-- <div class="d-table mb-2">
-                                            <p class="price float-start d-block"></p>
-                                        </div> --}}
-                                        <p>
-                                            Borrowed Amount: 
-                                            <span class="item">
-                                                K{{ $loan->amount ?? 0 }}
-                                            </span>
-                                        </p>
-                                        <p>Duration: <span class="item">{{ $loan->repayment_plan }} Months</span> </p>
-                                        <p>Interest: <span class="item">
-                                            @if($loan->repayment_plan > 1)
-                                            70%
-                                            @else
-                                            21%
-                                            @endif
-                                            {{-- per month --}}
-                                        </span>
-                                        </p>
-                                        
-                                        @if($loan->status == 1 || preg_replace('/[^A-Za-z0-9. -]/', '',  Auth::user()->roles->pluck('name')) == 'admin')
-                                            <p>Last Payment: 
-                                                <span class="item">  
-                                                {{ App\Models\Loans::last_payment($loan->id)->created_at != null ? App\Models\Loans::last_payment($loan->id)->created_at->toFormattedDateString() : 'No record'  }}
-                                                </span>
-                                            </p>
-                                            <p>Payback Amount: <span class="item"><b>K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan) }}</b></span></p>
-                                            {{-- <p>Monthly Installments: <span class="item"><b>K {{ App\Models\Application::monthly_installment($loan->amount, preg_replace('/[^0-9]/','', $loan->repayment_plan)) }}</b></span></p> --}}
-                                            {{-- <p>Total Interest Rate: <span class="item">
-                                            @if($loan->repayment_plan > 1)
-                                            {{ $loan->repayment_plan * 0.44 }}
-                                            @else
-                                            {{ $loan->repayment_plan * 0.2 }}
-                                            @endif
-                                            </span></p> --}}
-                                        @endif
-                                        
-                                        {{-- <p>Credit Score: 
-                                            <span class="item">
-                                            @if(App\Models\Application::loan_assemenent_table($loan)['credit_score'])
-                                            <a target="_blank" href="{{ route('score', ['id' => $loan->id]) }}">
-                                                <span class="badge badge-success">Eligible</span>
-                                            </a>
-                                            @else 
-                                            <a target="_blank" href="{{ route('score', ['id' => $loan->id]) }}">
-                                                <span class="badge badge-danger">Not Eligible</span>
-                                            </a>
-                                            @endif
-                                            </span>
-                                        </p> --}}
-                                        
-                                        <p>Loan Progress:&nbsp;&nbsp;
-                                            @if ($loan->status == 0)
-                                                @if($loan->complete == 0)
-                                                <span class="badge badge-dark">Incomplete KYC</span>
-                                                @else
-                                                <span class="badge badge-success">Pending</span>
-                                                @endif
-                                            @else
-                                                @if($loan->complete == 0)
-                                                <span class="badge badge-light">Incomplete KYC</span>
-                                                @else
-                                                <span class="badge badge-light">Pending</span>
-                                                @endif
-                                            @endif
-                                            @if ($loan->status == 2)
-                                            <span class="badge badge-success">Under Review</span>
-                                            @else
-                                            <span class="badge badge-light">Under Review</span>
-                                            @endif
-                                            @if ($loan->status == 1)
-                                            <span class="badge badge-success">Accepted</span>
-                                            @else
-                                            <span class="badge badge-light">Accepted</span>
-                                            @endif
-                                            @if ($loan->status == 3)
-                                            <span class="badge badge-success">Rejected</span>
-                                            @else
-                                            <span class="badge badge-light">Rejected</span>
-                                            @endif
-                                            
-                                        </p>
-                                        <p class="text-content">
-                                            
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- @if($loan->type !== 'Asset Financing') --}}
-                                @if(!empty($loan->user->nextKin->toArray()))
-                                    <div class="col-lg-6 col-xl-6 col-xxl-6 col-sm-12">
-                                        <div class="title-sm">
-                                            <h5>Next Of Kin</h5>
-                                        </div>
-                                        <p>Firstname: <span class="item">{{ $loan->user->nextKin->first()->fname }}</span></p>
-                                        <p>Surname: <span class="item">{{ $loan->user->nextKin->first()->lname }}</span></p>
-                                        <p>Phone No.: <span class="item">{{ $loan->user->nextKin->first()->phone }}</span></p>
-                                        {{-- <p>Email: <span class="item">{{ $loan->user->nextKin->first()->email }}</span></p> --}}
-                                        <p>Relation: <span class="item">{{ $loan->user->nextKin->first()->address }}</span></p>
-                                        {{-- <p>Occupation: <span class="item">{{ $loan->user->nextKin->first()->occupation }}</span></p> --}}
-                                        {{-- <p>Sex: <span class="item">{{ $loan->user->nextKin->first()->gender }}</span></p> --}}
-                                    </div>
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Post-->
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <!--begin::Container-->
+        <div id="kt_content_container" class="container-xxl">
+            <!--begin::Navbar-->
+            <div class="card mb-6">
+                <div class="card-body pt-9 pb-0">
+                    <!--begin::Details-->
+                    <div class="d-flex flex-wrap flex-sm-nowrap">
+                        <!--begin: Pic-->
+                        <div class="me-7 mb-4">
+                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                                @if ($loan->user->profile_photo_path)
+                                    <img src="{{ '../public/'.Storage::url($loan->user->profile_photo_path) }}" alt="image" />
+                                @else
+                                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg" alt="image"/>
                                 @endif
-                            {{-- @else --}}
-                                <div class="col-lg-6 col-xl-6 col-xxl-6 col-sm-12">
-                                    <div class="title-sm">
-                                        <h5>First Guarantors</h5>
+                                <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
+                            </div>
+                        </div>
+                        <!--end::Pic-->
+                        <!--begin::Info-->
+                        <div class="flex-grow-1">
+                            <!--begin::Title-->
+                            <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                                <!--begin::User-->
+                                <div class="d-flex flex-column">
+                                    <!--begin::Name-->
+                                    <div class="d-flex align-items-center mb-2">
+                                        <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ $loan->user->fname.' '.$loan->user->lname }}</a>
+                                        <a href="#">
+                                            <i class="ki-duotone ki-verify fs-1 text-primary">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </a>
                                     </div>
-                                    <p>1st Garantors Name: <span class="item">{{ $loan->gfname.' '.$loan->glname }}</span></p>
-                                    <p>1st Garantors Phone No.: <span class="item">{{ $loan->gphone }}</span></p>
-                                    {{-- <p>1st Garantors Email: <span class="item">{{ $loan->gemail }}</span></p> --}}
-                                    {{-- <p>1st Garantors Sex: <span class="item">{{ $loan->g_gender }}</span></p> --}}
-                                    <p>1st Garantors Relation: <span class="item">{{ $loan->g_relation }}</span></p>
-                                </div>
-                                {{-- <div class="col-lg-6 col-xl-6 col-xxl-6 col-sm-12">
-                                    <div class="title-sm">
-                                        <h5>Second Guarantors</h5>
-                                    </div>
-                                    <p>2nd Garantors Name: <span class="item">{{ $loan->g2fname.' '.$loan->g2lname }}</span></p>
-                                    <p>2nd Garantors Phone No.: <span class="item">{{ $loan->g2phone }}</span></p>
-                                    <p>2nd Garantors Email: <span class="item">{{ $loan->g2email }}</span></p>
-                                    <p>2nd Garantors Sex: <span class="item">{{ $loan->g2_gender }}</span></p>
-                                    <p>2nd Garantors Relation: <span class="item">{{ $loan->g_2relation }}</span></p>
-                                </div> --}}
-                            {{-- @endif --}}
+                                    <!--end::Name-->
+                                    <!--begin::Info-->
+                                    <div class="d-flex gap-4 flex-wrap fw-semibold fs-6 mb-4 pe-2">
+                                        @if($loan->user->nrc_no)
+                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary me-5 mb-2">
+                                            {{ $loan->user->id_type ?? 'NRC: '}}
+                                            {{ $loan->user->nrc_no ?? $loan->user->nrc}}</a>
+                                        @endif
 
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-xxl-6 col-sm-12">
-                                <div class="title-sm">
-                                    <h5>Staff Information</h5>
-                                </div>
-                                <div class="product-detail-content">
-                                    <div class="new-arrival-content pr">
-                                        <p>Processed By: <span class="item">{{  $loan->done_by->fname.' '.$loan->done_by->lname ?? 'No Record' }}</span> </p>
-                                        @if($loan->done_by !== '')
-                                        <p>Processed On: <span class="item">{{ $loan->updated_at->toFormattedDateString() }}</span></p>
+                                        @if($loan->user->occupation)
+                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary me-5 mb-2">
+                                            {{ $loan->user->occupation }}</a>
+                                        @endif
+
+                                        @if($loan->user->jobTitle)
+                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary me-5 mb-2">
+                                            {{ $loan->user->jobTitle }}</a>
+                                        @endif
+
+                                        @if($loan->user->address)
+                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary me-5 mb-2">
+                                            {{ $loan->user->address }}</a>
+                                        @endif
+
+                                        @if($loan->user->email)
+                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary mb-2">
+                                            {{ $loan->user->email }}</a>
+                                        @endif
+
+                                        @if($loan->user->phone)
+                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary mb-2">
+                                            {{ $loan->user->phone }}</a>
+                                        @endif
+
+                                        @if($loan->user->dob)
+                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary mb-2">
+                                            DOB:{{ $loan->user->dob }}</a>
+                                        @endif
+
+                                        @if($loan->user->gender)
+                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary mb-2">
+                                            {{ $loan->user->gender }}</a>
                                         @endif
                                     </div>
+                                    <!--end::Info-->
                                 </div>
-                            </div>
+                                <!--end::User-->
+                                <!--begin::Actions-->
+                                <div class="d-flex my-4">
+                                    {{-- !mportant --}}
+                                    {{-- <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
+                                        <i class="ki-duotone ki-check fs-3 d-none"></i>
+                                        <!--begin::Indicator label-->
+                                        <span class="indicator-label">Follow</span>
+                                        <!--end::Indicator label-->
+                                        <!--begin::Indicator progress-->
+                                        <span class="indicator-progress">Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        <!--end::Indicator progress-->
+                                    </a> --}}
+                                    {{-- <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_offer_a_deal">Hire Me</a> --}}
+                                    <!--begin::Menu-->
+                                    <div class="me-0">
 
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-xxl-12 col-sm-12">
-                                <div class="title-sm">
-                                    <h5>Attched Documents</h5>
-                                </div>
-                                <div class="px-2 row">
-                                    <div class="profile-email col-lg-3 px-2 pt-2">
-                                        <a href="{{ 'public/'.Storage::url($loan->user->uploads[4]->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[4]->path) }}">
-                                            <img width="90" src="https://img.freepik.com/free-vector/illustration-folder-with-document_53876-37005.jpg?w=740&t=st=1676996943~exp=1676997543~hmac=d03d65c77d403c5ed653a733705504e21b5b3fb42e7cfe3c4340f90aaf55f9d2">
-                                        </a>
-                                        <p class="text-xs text-muted mb-0">NRC ID</p>
-                                    </div>
-                                    <div class="profile-email col-lg-3 px-2 pt-2">
-                                        <a href="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
-                                            <img width="90" src="https://img.freepik.com/free-vector/illustration-folder-with-document_53876-37005.jpg?w=740&t=st=1676996943~exp=1676997543~hmac=d03d65c77d403c5ed653a733705504e21b5b3fb42e7cfe3c4340f90aaf55f9d2">
-                                        </a>
-                                        <p class="text-xs text-muted mb-0">Preapproval<br>Document</p>
-                                    </div>
-                                    <div class="profile-email col-lg-3 px-2 pt-2">
-                                        <a href="{{ 'public/'.Storage::url($loan->user->uploads[1]->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[1]->path) }}">
-                                            <img width="90" src="https://img.freepik.com/free-vector/illustration-folder-with-document_53876-37005.jpg?w=740&t=st=1676996943~exp=1676997543~hmac=d03d65c77d403c5ed653a733705504e21b5b3fb42e7cfe3c4340f90aaf55f9d2">
-                                        </a>
-                                        <p class="text-xs text-muted mb-0">Passport Photo</p>
-                                    </div>
-                                    <div class="profile-email col-lg-3 px-2 pt-2">
-                                        <a href="{{ 'public/'.Storage::url($loan->user->uploads[2]->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[2]->path) }}">
-                                            <img width="90" src="https://img.freepik.com/free-vector/illustration-folder-with-document_53876-37005.jpg?w=740&t=st=1676996943~exp=1676997543~hmac=d03d65c77d403c5ed653a733705504e21b5b3fb42e7cfe3c4340f90aaf55f9d2">
-                                        </a>
-                                        <p class="text-xs text-muted mb-0">Bank Statement</p>
-                                    </div>
-                                    <div class="profile-email col-lg-3 px-2 pt-2">
-                                        <a href="{{ 'public/'.Storage::url($loan->user->uploads[3]->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[3]->path) }}">
-                                            <img width="90" src="https://img.freepik.com/free-vector/illustration-folder-with-document_53876-37005.jpg?w=740&t=st=1676996943~exp=1676997543~hmac=d03d65c77d403c5ed653a733705504e21b5b3fb42e7cfe3c4340f90aaf55f9d2">
-                                        </a>
-                                        <p class="text-xs text-muted mb-0">Latest Payslip</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            <!-- review -->
-            <div class="modal fade" id="reviewModal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Review</h5>
-                            <button type="button" class="btn-close" data-dismiss="modal">
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="text-center mb-4">
-                                    <img class="img-fluid rounded" width="78" src="images/avatar/1.jpg" alt="DexignZone">
-                                </div>
-                                <div class="mb-3">
-                                    <div class="rating-widget mb-4 text-center">
-                                        <!-- Rating Stars Box -->
-                                        <div class="rating-stars">
-                                            <ul id="stars">
-                                                <li class="star" title="Poor" data-value="1">
-                                                    <i class="fa fa-star fa-fw"></i>
-                                                </li>
-                                                <li class="star" title="Fair" data-value="2">
-                                                    <i class="fa fa-star fa-fw"></i>
-                                                </li>
-                                                <li class="star" title="Good" data-value="3">
-                                                    <i class="fa fa-star fa-fw"></i>
-                                                </li>
-                                                <li class="star" title="Excellent" data-value="4">
-                                                    <i class="fa fa-star fa-fw"></i>
-                                                </li>
-                                                <li class="star" title="WOW!!!" data-value="5">
-                                                    <i class="fa fa-star fa-fw"></i>
-                                                </li>
-                                            </ul>
+                                        {{-- !mportant --}}
+                                        {{-- <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                            <i class="ki-solid ki-dots-horizontal fs-2x"></i>
+                                        </button> --}}
+                                        <!--begin::Menu 3-->
+                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
+                                            <!--begin::Heading-->
+                                            <div class="menu-item px-3">
+                                                <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Payments</div>
+                                            </div>
+                                            <!--end::Heading-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">Create Invoice</a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link flex-stack px-3">Create Payment
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference">
+                                                    <i class="ki-duotone ki-information fs-6">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span></a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">Generate Bill</a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                                <a href="#" class="menu-link px-3">
+                                                    <span class="menu-title">Subscription</span>
+                                                    <span class="menu-arrow"></span>
+                                                </a>
+                                                <!--begin::Menu sub-->
+                                                <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="#" class="menu-link px-3">Plans</a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="#" class="menu-link px-3">Billing</a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="#" class="menu-link px-3">Statements</a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                    <!--begin::Menu separator-->
+                                                    <div class="separator my-2"></div>
+                                                    <!--end::Menu separator-->
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <div class="menu-content px-3">
+                                                            <!--begin::Switch-->
+                                                            <label class="form-check form-switch form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+                                                                <!--end::Input-->
+                                                                <!--end::Label-->
+                                                                <span class="form-check-label text-muted fs-6">Recuring</span>
+                                                                <!--end::Label-->
+                                                            </label>
+                                                            <!--end::Switch-->
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                </div>
+                                                <!--end::Menu sub-->
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3 my-1">
+                                                <a href="#" class="menu-link px-3">Settings</a>
+                                            </div>
+                                            <!--end::Menu item-->
                                         </div>
+                                        <!--end::Menu 3-->
                                     </div>
+                                    <!--end::Menu-->
                                 </div>
-                                <div class="mb-3">
-                                    <textarea class="form-control" placeholder="Comment" rows="5"></textarea>
+                                <!--end::Actions-->
+                            </div>
+                            <!--end::Title-->
+                            <!--begin::Stats-->
+                            <div class="d-flex flex-wrap flex-stack">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column flex-grow-1 pe-8">
+                                    <!--begin::Stats-->
+                                    <div class="d-flex flex-wrap">
+                                        <!--begin::Stat-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            <!--begin::Number-->
+                                            <div class="d-flex align-items-center">
+                                                {{-- <i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i> --}}
+                                                <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="{{ $loan->amount }}" data-kt-countup-prefix="K">0</div>
+                                            </div>
+                                            <!--end::Number-->
+                                            <!--begin::Label-->
+                                            <div class="fw-semibold fs-6 text-gray-400">Principal Amount</div>
+                                            <!--end::Label-->
+                                        </div>
+                                        <!--end::Stat-->
+                                        <!--begin::Stat-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            <!--begin::Number-->
+                                            <div class="d-flex align-items-center">
+                                                {{-- <i class="ki-duotone ki-arrow-down fs-3 text-danger me-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i> --}}
+                                                <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-prefix="K" data-kt-countup-value="{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}">0</div>
+                                            </div>
+                                            <!--end::Number-->
+                                            <!--begin::Label-->
+                                            <div class="fw-semibold fs-6 text-gray-400">Est. Repayment</div>
+                                            <!--end::Label-->
+                                        </div>
+                                        <!--end::Stat-->
+                                        <!--begin::Stat-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            <!--begin::Number-->
+                                            <div class="d-flex align-items-center">
+                                                {{-- <i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i> --}}
+                                                <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="{{ App\Models\Loans::customer_balance($loan->user->id) }}" data-kt-countup-prefix="K">0</div>
+                                            </div>
+                                            <!--end::Number-->
+                                            <!--begin::Label-->
+                                            <div class="fw-semibold fs-6 text-gray-400">Pending Repayments</div>
+                                            <!--end::Label-->
+                                        </div>
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            <!--begin::Number-->
+                                            <div class="d-flex align-items-center">
+                                                {{-- <i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i> --}}
+                                                <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="{{ $loan->repayment_plan }}" data-kt-countup-postfix="Months ">0</div>
+                                            </div>
+                                            <!--end::Number-->
+                                            <!--begin::Label-->
+                                            <div class="fw-semibold fs-6 text-gray-400">Duration (Months)</div>
+                                            <!--end::Label-->
+                                        </div>
+                                        <!--end::Stat-->
+                                    </div>
+                                    <!--end::Stats-->
                                 </div>
-                                <button class="btn btn-success btn-block">RATE</button>
-                            </form>
+                                <!--end::Wrapper-->
+                                <!--begin::Progress-->
+                                {{-- <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
+                                    <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+                                        <span class="fw-semibold fs-6 text-gray-400">Profile Compleation</span>
+                                        <span class="fw-bold fs-6">50%</span>
+                                    </div>
+                                    <div class="h-5px mx-3 w-100 bg-light mb-3">
+                                        <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div> --}}
+                                <!--end::Progress-->
+                            </div>
+                            <!--end::Stats-->
+                        </div>
+                        <!--end::Info-->
+                    </div>
+                    <!--end::Details-->
+                    <!--begin::Navs-->
+                    <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#repayments_tab" data-bs-toggle="tab">Repayments</a>
+                        </li>
+                        <!--end::Nav item-->
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            {{-- <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="#loan_terms_tab" data-bs-toggle="tab">Loan Terms</a> --}}
+                        </li>
+                        <!--end::Nav item-->
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#loan_schedule_tab" data-bs-toggle="tab">Loan Schedule</a>
+                        </li>
+                        <!--end::Nav item-->
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            {{-- <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#pending_settings_tab" data-bs-toggle="tab">Pending Settings</a> --}}
+                        </li>
+                        <!--end::Nav item-->
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            {{-- <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#loan_collateral_tab" data-bs-toggle="tab">Loan Collateral</a> --}}
+                        </li>
+                        <!--end::Nav item-->
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#expenses_tab" data-bs-toggle="tab">Expenses</a>
+                        </li>
+                        <!--end::Nav item-->
+                        <!-- Add other nav items here -->
+                    </ul>
+                    <!--begin::Navs-->
+                </div>
+            </div>
+
+
+             @include('livewire.dashboard.__parts.dash-alerts')
+            <!--end::Navbar-->
+            <div class="tab-content">
+                <!-- Tab content for Repayments -->
+                <div class="tab-pane fade" id="repayments_tab">
+                    <div class="d-flex flex-wrap flex-stack mb-6">
+                        <!--begin::Heading-->
+                        <h3 class="fw-bold my-2">Repayment Details
+                        {{-- !mportant --}}
+                        <span class="fs-6 text-gray-400 fw-semibold ms-1">Active</span></h3>
+                        <!--end::Heading-->
+                        <!--begin::Actions-->
+                         <div class="d-flex flex-wrap my-2">
+                            {{-- <div class="me-4">
+                                <!--begin::Select-->
+                                <select name="status" data-control="select2" data-hide-search="true" class="form-select form-select-sm bg-body border-body w-125px">
+                                    <option value="Active" selected="selected">Active</option>
+                                    <option value="Approved">In Progress</option>
+                                    <option value="Declined">To Do</option>
+                                    <option value="In Progress">Completed</option>
+                                </select>
+                                <!--end::Select-->
+                            </div> --}}
+                            <a href="{{ route('make-payment') }}" class="btn btn-primary btn-sm">Proceed to Make Payements</a>
+                            {{-- <a href="{{ route('make-payment') }}" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_create_project">Proceed to Make Payements</a> --}}
+                        </div>
+                        <!--end::Actions-->
+                    </div>
+
+                    <div class="row">
+                        <!--begin::Col-->
+                        <div class="col-md-12 col-xl-12">
+                            <!--begin::Card-->
+                            <table class="table align-middle table-row-dashed gy-5" id="kt_table_customers_payment">
+                                <thead class="border-bottom border-gray-200">
+                                    <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                                        <th class="w-100px">Date</th>
+                                        <th class="w-100px">Loan</th>
+                                        <th class="w-300px">Principal(K)</th>
+                                        <th class="w-100px">Payback(K)</th>
+                                        <th class="w-100px">Amount Settled(K)</th>
+                                        <th class="w-100px">Balance(K)</th>
+                                        <th class="w-100px">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="fs-6 fw-semibold text-gray-600">
+                                    @forelse (App\Models\Transaction::customer_transactions($loan->user_id) as $item)
+                                    <tr>
+                                        <td>{{ $item->created_at->toFormattedDateString() }}</td>
+                                        <td>
+                                            <a href="#" class="text-gray-600 text-hover-primary mb-1">{{ $item->application->loan_product->name }}</a>
+                                        </td>
+                                        <td><b>K {{ $item->application->amount }}</b></td>
+                                        <td >
+                                            <a href="#" class="bg-active-light-primary">
+                                            K {{
+                                                number_format(App\Models\Application::payback($item->application->amount, $item->application->repayment_plan, $item->application->loan_product_id), 2, '.', ',')
+                                            }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span class="bg-light-success">
+                                                K {{  $item->amount_settled  }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                           K {{ App\Models\Loans::loan_balance( $item->application->id) }}
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-light">
+                                                Repayment
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    @empty
+
+                                    @endforelse
+                                </tbody>
+                                <!--end::Table body-->
+                            </table>
+                            <!--end::Card-->
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-    </div>
-    <div wire:ignore.self class="modal fade" id="updateDueDateView" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-header bg-primary text-white">
-                <h3 style="color:#fff">{{ $loan->type }} Loan</h3>
-                <h5 style="color:#fff">{{ $loan->fname.' '.$loan->lname }}</h5>
-            </div>
-            <div class="modal-content p-4">
-                @if ($loan !== null)
-                <div class="row mb-3">
-                    <div class="col-xl-12">
-                        <h5>Amount: {{ $loan->amount }}</h5>
-                        <h5>Duration: {{ $loan->repayment_plan }} Months</h5>
-                        <h6>Submitted on {{ $loan->created_at->toFormattedDateString() }}</h6>
-                    </div>
-                    
+
+                <!-- Tab content for Loan Terms -->
+                <div class="tab-pane fade" id="loan_terms_tab">
+
                 </div>
-                @endif
-                <div class="col-xl-12">
-                    <div class="mb-3">
-                        <div>
-                            <h5 class="text-label form-label text-warning">Change Due Date (Optional)</h5>
-                            <input type="date" placeholder="Due Date" name="datepicker" wire:model.defer="due_date" class=" form-control" id="">
-                        </div>
-                        <br>
-                        <button modal-bs-dismiss="close" wire:click="clear()" class="btn btn-light btn-square">Cancel</button>
-                        @if($loan !== null)
-                            <button wire:click="accept({{ $loan->id }})" data-dismiss="modal" class="btn btn-primary btn-square">Approve Loan</button>
-                        @endif
-                    </div>
+
+                <!-- Tab content for Loan Schedule -->
+                <div class="tab-pane show active" id="loan_schedule_tab">
+                    @if ($amortization_table)
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Due Date</th>
+                                    <th>Principal Amount</th>
+                                    <th>Interest Amount</th>
+                                    {{-- <th>Penalty Amount</th> --}}
+                                    <th>Due Amount</th>
+                                    <th>Principal Balance</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($amortization_table['amortization_table']['installments'] as $index => $row)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $row['due_date'] }}</td>
+                                    <td>{{ $row['principal'] }}</td>
+                                    <td>{{ $row['interest'] }}</td>
+                                    {{-- <td>{{ $row['fee_amount'] }}</td> --}}
+                                    {{-- <td>{{ isset($row['penalty']) ? $row['penalty'] : '0.00' }}</td> --}}
+                                    <td>{{ $row['due'] }}</td>
+                                    <td>{{ $row['principal_balance'] }}</td>
+                                    <td>{{ $row['description'] }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
+
+                <!-- Tab content for Pending Settings -->
+                <div class="tab-pane fade" id="pending_settings_tab">
+                    <!-- Content for Pending Settings tab -->
+                </div>
+
+                <!-- Tab content for Loan Collateral -->
+                <div class="tab-pane fade" id="loan_collateral_tab">
+                    <!-- Content for Loan Collateral tab -->
+                </div>
+
+                <!-- Tab content for Expenses -->
+                <div class="tab-pane fade" id="expenses_tab">
+
+                    <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_create_expense">Create Loan Expense</a>
+
+                    @if ($current_expenses)
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($current_expenses as $index => $exp)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $exp->date }}</td>
+                                <td>{{ $exp->name }}</td>
+                                <td>{{ $exp->amount }}</td>
+                                <td>{{ $exp->type }}</td>
+                                <td>{{ $exp->description }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                    @endif
+                </div>
+
+                <!-- Add other tab content sections here -->
             </div>
+            <!--begin::Toolbar-->
+
+            @include('livewire.dashboard.loans.__modals.create-expense')
+            {{-- @include('livewire.dashboard.loans.__modals.loan-detailed-modals') --}}
         </div>
+        <!--end::Container-->
     </div>
+    <script>
+        $(document).ready(function() {
+            // Handle tab switching behavior
+            $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+                var target = $(e.target).attr("href"); // activated tab
+                $('.tab-pane').not(target).removeClass('show active'); // hide other tab content
+                $(target).addClass('show active'); // show activated tab content
+            });
+        });
+    </script>
 </div>
-<div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="fileModalLabel">
-                    <a id="downlink">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-                        </svg>&nbsp;Download
-                    </a>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <iframe id="filePreview" src="" frameborder="0" width="100%" height="500"></iframe>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-<!-- html2canvas library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
-<script>
-  function printLoanDetails(){
-    // element.hide();
-    // Get the HTML element that you want to convert to PDF
-    const element = document.getElementById('loanDetailsToPrint');
-
-    // Create a new jsPDF instance
-    const doc = new jsPDF();
-    var name = "{{ $loan->fname.' '.$loan->lname }}";
-    // Use the html2canvas library to render the element as a canvas
-    html2canvas(element).then(canvas => {
-      // Convert the canvas to an image data URL
-      const imgData = canvas.toDataURL('image/png');
-
-      // Add the image data URL to the PDF document
-      doc.addImage(imgData, 'PNG', 10, 10);
-
-      // Save the PDF document
-      doc.save(name+' Loan Details.pdf');
-    });
-  }
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function () {
-    $('.open-modal').click(function () {
-      var fileUrl = $(this).data('file-url');
-      $('#filePreview').attr('src', fileUrl);
-      $('#downlink').attr('download', fileUrl);
-      $('#downlink').attr('href', fileUrl)
-    });
-  });
-</script>

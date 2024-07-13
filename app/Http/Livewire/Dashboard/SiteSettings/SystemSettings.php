@@ -9,6 +9,6 @@ class SystemSettings extends Component
     public function render()
     {
         return view('livewire.dashboard.site-settings.system-settings')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 }

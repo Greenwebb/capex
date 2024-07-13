@@ -1,511 +1,1006 @@
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
-        <!--begin::Container-->
-        <div id="kt_content_container" class="container-xxl">
-            <!--begin::Navbar-->
-            <div class="card mb-6">
-                <div class="card-body pt-9 pb-0">
-                    <!--begin::Details-->
-                    <div class="d-flex flex-wrap flex-sm-nowrap">
-                        <!--begin: Pic-->
-                        <div class="me-7 mb-4">
-                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                @if ($loan->user->profile_photo_path)
-                                    <img src="{{ '../public/'.Storage::url($loan->user->profile_photo_path) }}" alt="image" />
-                                @else
-                                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg" alt="image"/>
-                                @endif
-                                <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
-                            </div>
-                        </div>
-                        <!--end::Pic-->
-                        <!--begin::Info-->
-                        <div class="flex-grow-1">
-                            <!--begin::Title-->
-                            <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
-                                <!--begin::User-->
-                                <div class="d-flex flex-column">
-                                    <!--begin::Name-->
-                                    <div class="d-flex align-items-center mb-2">
-                                        <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ $loan->user->fname.' '.$loan->user->lname }}</a>
-                                        <a href="#">
-                                            <i class="ki-duotone ki-verify fs-1 text-primary">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </a>
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mt-n4 mx-n4 card-border-effect-none">
+                    <div class="bg-primary-subtle">
+                        <div class="card-body pb-0 px-4">
+                            <div class="row mb-3">
+                                <div class="col-md">
+                                    <div class="row align-items-center g-3">
+                                        <div class="col-md-auto">
+                                            <div class="avatar-md">
+                                                <div class="avatar-title bg-white rounded-circle">
+                                                    @if ($loan->user->profile_photo_path)
+                                                        <img src="{{ '../public/'.Storage::url($loan->user->profile_photo_path) }}" alt="" class="avatar-xs">
+                                                    @else
+                                                        <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg" alt="image" class="avatar-xs"/>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div>
+                                                <h4 class="fw-bold">{{ $loan->loan_product->name }} Loan of K  {{ number_format($loan->amount, 2, '.', ',') }}</h4>
+                                                <div class="hstack gap-3 flex-wrap">
+                                                    <div><i class="ri-building-line align-bottom me-1"></i> {{ $loan->user->fname.' '.$loan->user->lname }}</div>
+                                                    <div class="vr"></div>
+                                                    <div>Date Applied : <span class="fw-medium">{{ $loan->created_at->toFormattedDateString() }}</span></div>
+                                                    <div class="vr"></div>
+                                                    {{-- <div>Due Date : <span class="fw-medium">29 Dec, 2021</span></div> --}}
+                                                    <div class="vr"></div>
+                                                    <div class="badge rounded-pill bg-info fs-12">New</div>
+                                                    <div class="badge rounded-pill bg-danger fs-12">High</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!--end::Name-->
-                                    <!--begin::Info-->
-                                    <div class="d-flex gap-4 flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                                        @if($loan->user->nrc_no)
-                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary me-5 mb-2">
-                                            {{ $loan->user->id_type ?? 'NRC: '}}
-                                            {{ $loan->user->nrc_no ?? $loan->user->nrc}}</a>
-                                        @endif
-
-                                        @if($loan->user->occupation)
-                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary me-5 mb-2">
-                                            {{ $loan->user->occupation }}</a>
-                                        @endif
-
-                                        @if($loan->user->jobTitle)
-                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary me-5 mb-2">
-                                            {{ $loan->user->jobTitle }}</a>
-                                        @endif
-
-                                        @if($loan->user->address)
-                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary me-5 mb-2">
-                                            {{ $loan->user->address }}</a>
-                                        @endif
-
-                                        @if($loan->user->email)
-                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary mb-2">
-                                            {{ $loan->user->email }}</a>
-                                        @endif
-
-                                        @if($loan->user->phone)
-                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary mb-2">
-                                            {{ $loan->user->phone }}</a>
-                                        @endif
-
-                                        @if($loan->user->dob)
-                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary mb-2">
-                                            DOB:{{ $loan->user->dob }}</a>
-                                        @endif
-
-                                        @if($loan->user->gender)
-                                        <a href="#" class="d-flex align-items-center text-primary text-hover-primary mb-2">
-                                            {{ $loan->user->gender }}</a>
-                                        @endif
-                                    </div>
-                                    <!--end::Info-->
                                 </div>
-                                <!--end::User-->
-                                <!--begin::Actions-->
-                                <div class="d-flex my-4">
-                                    {{-- !mportant --}}
-                                    {{-- <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
-                                        <i class="ki-duotone ki-check fs-3 d-none"></i>
-                                        <!--begin::Indicator label-->
-                                        <span class="indicator-label">Follow</span>
-                                        <!--end::Indicator label-->
-                                        <!--begin::Indicator progress-->
-                                        <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                        <!--end::Indicator progress-->
-                                    </a> --}}
-                                    {{-- <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_offer_a_deal">Hire Me</a> --}}
-                                    <!--begin::Menu-->
-                                    <div class="me-0">
+                                <div class="col-md-auto">
+                                    <div class="hstack gap-1 flex-wrap">
+                                        <button type="button" class="btn py-0 fs-16 favourite-btn active">
+                                            <i class="ri-star-fill"></i>
+                                        </button>
+                                        <button type="button" class="btn py-0 fs-16 text-body">
+                                            <i class="ri-share-line"></i>
+                                        </button>
+                                        <button type="button" class="btn py-0 fs-16 text-body">
+                                            <i class="ri-flag-line"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
 
-                                        {{-- !mportant --}}
-                                        {{-- <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                            <i class="ki-solid ki-dots-horizontal fs-2x"></i>
-                                        </button> --}}
-                                        <!--begin::Menu 3-->
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
-                                            <!--begin::Heading-->
-                                            <div class="menu-item px-3">
-                                                <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Payments</div>
-                                            </div>
-                                            <!--end::Heading-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Create Invoice</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link flex-stack px-3">Create Payment
-                                                <span class="ms-2" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference">
-                                                    <i class="ki-duotone ki-information fs-6">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                        <span class="path3"></span>
-                                                    </i>
-                                                </span></a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Generate Bill</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
-                                                <a href="#" class="menu-link px-3">
-                                                    <span class="menu-title">Subscription</span>
-                                                    <span class="menu-arrow"></span>
-                                                </a>
-                                                <!--begin::Menu sub-->
-                                                <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="#" class="menu-link px-3">Plans</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="#" class="menu-link px-3">Billing</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="#" class="menu-link px-3">Statements</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu separator-->
-                                                    <div class="separator my-2"></div>
-                                                    <!--end::Menu separator-->
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <div class="menu-content px-3">
-                                                            <!--begin::Switch-->
-                                                            <label class="form-check form-switch form-check-custom form-check-solid">
-                                                                <!--begin::Input-->
-                                                                <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
-                                                                <!--end::Input-->
-                                                                <!--end::Label-->
-                                                                <span class="form-check-label text-muted fs-6">Recuring</span>
-                                                                <!--end::Label-->
-                                                            </label>
-                                                            <!--end::Switch-->
+                            <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active fw-semibold" data-bs-toggle="tab" href="#project-overview" role="tab">
+                                        Overview
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-documents" role="tab">
+                                        Repayments
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-activities" role="tab">
+                                        Staff
+                                    </a>
+                                </li>
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-team" role="tab">
+                                        Statement
+                                    </a>
+                                </li> --}}
+                            </ul>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tab-content text-muted">
+                    <div class="tab-pane fade show active" id="project-overview" role="tabpanel">
+                        <div class="row">
+                            <div class="col-xl-9 col-lg-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="text-muted">
+                                            {{-- <h6 class="mb-3 fw-semibold text-uppercase">Summary</h6>
+                                            <p>It will be as simple as occidental in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
+
+                                            <ul class="ps-4 vstack gap-2">
+                                                <li>Product Design, Figma (Software), Prototype</li>
+                                                <li>Four Dashboards : Ecommerce, Analytics, Project,etc.</li>
+                                                <li>Create calendar, chat and email app pages.</li>
+                                                <li>Add authentication pages.</li>
+                                                <li>Content listing.</li>
+                                            </ul>
+
+                                            <div>
+                                                <button type="button" class="btn btn-link link-primary p-0">Read more</button>
+                                            </div> --}}
+
+                                            <div class="pt-3 border-top border-top-dashed mt-4">
+                                                <div class="row gy-3">
+
+                                                    <div class="col-lg-3 col-sm-6">
+                                                        <div>
+                                                            <p class="mb-2 text-uppercase fw-medium">Principal Amount :</p>
+                                                            <h5 class="fs-15 mb-0"> {{ $loan->amount }}</h5>
                                                         </div>
                                                     </div>
-                                                    <!--end::Menu item-->
+                                                    <div class="col-lg-3 col-sm-6">
+                                                        <div>
+                                                            <p class="mb-2 text-uppercase fw-medium">Duration :</p>
+                                                            <div class="fs-12">{{ $loan->repayment_plan }} Months</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-sm-6">
+                                                        <div>
+                                                            <p class="mb-2 text-uppercase fw-medium">Priority :</p>
+                                                            <div class="badge bg-primary fs-12">Normal</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-sm-6">
+                                                        <div>
+                                                            <p class="mb-2 text-uppercase fw-medium">Status :</p>
+                                                            @if($loan->status == 0)
+                                                                <div class="badge bg-warning fs-12">Pending</div>
+                                                            @elseif($loan->status == 1)
+                                                                <div class="badge bg-success fs-12">Inprogress</div>
+                                                            @elseif($loan->status == 2)
+                                                                <div class="badge bg-primary fs-12">Processing</div>
+                                                            @else
+                                                                <div class="badge bg-danger fs-12">Rejected</div>
+                                                            @endif
+                                                            
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <!--end::Menu sub-->
                                             </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3 my-1">
-                                                <a href="#" class="menu-link px-3">Settings</a>
+
+                                            <div class="pt-3 border-top border-top-dashed mt-4">
+                                                <div class="row gy-3">
+
+                                                    <div class="col-lg-3 col-sm-6">
+                                                        <div>
+                                                            <p class="mb-2 text-uppercase fw-medium">Est. Repayment Amount :</p>
+                                                            <h5 class="fs-15 mb-0">{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</h5>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-sm-6">
+                                                        <div>
+                                                            <p class="mb-2 text-uppercase fw-medium">Current Pending Repayment :</p>
+                                                            <h5 class="fs-15 mb-0"> {{ App\Models\Loans::customer_balance($loan->user->id) }}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <!--end::Menu item-->
+
+                                            <div class="pt-3 border-top border-top-dashed mt-4">
+                                                <h6 class="mb-3 fw-semibold text-uppercase">Attachments</h6>
+                                                <div class="row g-3">
+                                                    <!-- end col -->
+                                                    @if ($loan->user->uploads->where('name', 'nrc_file')->isNotEmpty())
+                                                    <a href="{{ 'https://app.mightyfinance.co.zm/public/'.Storage::url($loan->user->uploads->where('name', 'nrc_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
+                                                    <div class="col-xxl-4 col-lg-6">
+                                                        <div class="border rounded border-dashed p-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="flex-shrink-0 me-3">
+                                                                    <div class="avatar-sm">
+                                                                        <div class="avatar-title bg-light text-primary rounded fs-24">
+                                                                            <i class="ri-file-ppt-2-line"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="flex-grow-1 overflow-hidden">
+                                                                    <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">NRC</a></h5>
+                                                                    <div>2.4MB</div>
+                                                                </div>
+                                                                <div class="flex-shrink-0 ms-2">
+                                                                    <div class="d-flex gap-1">
+                                                                        <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
+                                                                        <div class="dropdown">
+                                                                            <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                <i class="ri-more-fill"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                    @endif
+                                                    @if ($loan->user->uploads->where('name', 'tpin_file')->isNotEmpty())
+                                                    <a href="{{ 'https://app.mightyfinance.co.zm/public/'.Storage::url($loan->user->uploads->where('name', 'tpin_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
+                                                    <div class="col-xxl-4 col-lg-6">
+                                                        <div class="border rounded border-dashed p-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="flex-shrink-0 me-3">
+                                                                    <div class="avatar-sm">
+                                                                        <div class="avatar-title bg-light text-primary rounded fs-24">
+                                                                            <i class="ri-file-ppt-2-line"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="flex-grow-1 overflow-hidden">
+                                                                    <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">Tax Payer Identification Number</a></h5>
+                                                                    <div>2.4MB</div>
+                                                                </div>
+                                                                <div class="flex-shrink-0 ms-2">
+                                                                    <div class="d-flex gap-1">
+                                                                        <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
+                                                                        <div class="dropdown">
+                                                                            <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                <i class="ri-more-fill"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                    @endif
+                                                    <!-- end col -->
+                                                </div>
+                                                <!-- end row -->
+                                            </div>
                                         </div>
-                                        <!--end::Menu 3-->
                                     </div>
-                                    <!--end::Menu-->
+                                    <!-- end card body -->
                                 </div>
-                                <!--end::Actions-->
+                                <!-- end card -->
+
+                                
+                                <!-- end card -->
                             </div>
-                            <!--end::Title-->
-                            <!--begin::Stats-->
-                            <div class="d-flex flex-wrap flex-stack">
-                                <!--begin::Wrapper-->
-                                <div class="d-flex flex-column flex-grow-1 pe-8">
-                                    <!--begin::Stats-->
-                                    <div class="d-flex flex-wrap">
-                                        <!--begin::Stat-->
-                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                            <!--begin::Number-->
-                                            <div class="d-flex align-items-center">
-                                                {{-- <i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                </i> --}}
-                                                <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="{{ $loan->amount }}" data-kt-countup-prefix="K">0</div>
-                                            </div>
-                                            <!--end::Number-->
-                                            <!--begin::Label-->
-                                            <div class="fw-semibold fs-6 text-gray-400">Principal Amount</div>
-                                            <!--end::Label-->
+                            <!-- ene col -->
+                            <div class="col-xl-3 col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-4">Assigned Staff</h5>
+                                        <div class="d-flex flex-wrap gap-2 fs-16">
+                                            <div class="badge fw-medium bg-primary-subtle text-primary">Bremah Nyeleti</div>
                                         </div>
-                                        <!--end::Stat-->
-                                        <!--begin::Stat-->
-                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                            <!--begin::Number-->
-                                            <div class="d-flex align-items-center">
-                                                {{-- <i class="ki-duotone ki-arrow-down fs-3 text-danger me-2">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                </i> --}}
-                                                <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-prefix="K" data-kt-countup-value="{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}">0</div>
-                                            </div>
-                                            <!--end::Number-->
-                                            <!--begin::Label-->
-                                            <div class="fw-semibold fs-6 text-gray-400">Est. Repayment</div>
-                                            <!--end::Label-->
-                                        </div>
-                                        <!--end::Stat-->
-                                        <!--begin::Stat-->
-                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                            <!--begin::Number-->
-                                            <div class="d-flex align-items-center">
-                                                {{-- <i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                </i> --}}
-                                                <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="{{ App\Models\Loans::customer_balance($loan->user->id) }}" data-kt-countup-prefix="K">0</div>
-                                            </div>
-                                            <!--end::Number-->
-                                            <!--begin::Label-->
-                                            <div class="fw-semibold fs-6 text-gray-400">Pending Repayments</div>
-                                            <!--end::Label-->
-                                        </div>
-                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                            <!--begin::Number-->
-                                            <div class="d-flex align-items-center">
-                                                {{-- <i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                </i> --}}
-                                                <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="{{ $loan->repayment_plan }}" data-kt-countup-postfix="Months ">0</div>
-                                            </div>
-                                            <!--end::Number-->
-                                            <!--begin::Label-->
-                                            <div class="fw-semibold fs-6 text-gray-400">Duration (Months)</div>
-                                            <!--end::Label-->
-                                        </div>
-                                        <!--end::Stat-->
                                     </div>
-                                    <!--end::Stats-->
+                                    <!-- end card body -->
                                 </div>
-                                <!--end::Wrapper-->
-                                <!--begin::Progress-->
-                                {{-- <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
-                                    <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                                        <span class="fw-semibold fs-6 text-gray-400">Profile Compleation</span>
-                                        <span class="fw-bold fs-6">50%</span>
+                                <!-- end card -->
+
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex border-bottom-dashed">
+                                        <h4 class="card-title mb-0 flex-grow-1">Guarantors</h4>
+                                    
                                     </div>
-                                    <div class="h-5px mx-3 w-100 bg-light mb-3">
-                                        <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+
+                                    <div class="card-body">
+                                        <div data-simplebar style="height: 235px;" class="mx-n3 px-3">
+                                            <div class="vstack gap-3">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-grow-1">
+                                                        <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Nancy Martino</a></h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end list -->
+                                        </div>
                                     </div>
-                                </div> --}}
-                                <!--end::Progress-->
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+
+                                
+                                <!-- end card -->
                             </div>
-                            <!--end::Stats-->
+                            <!-- end col -->
                         </div>
-                        <!--end::Info-->
+                        <!-- end row -->
                     </div>
-                    <!--end::Details-->
-                    <!--begin::Navs-->
-                    <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#repayments_tab" data-bs-toggle="tab">Repayments</a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            {{-- <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="#loan_terms_tab" data-bs-toggle="tab">Loan Terms</a> --}}
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#loan_schedule_tab" data-bs-toggle="tab">Loan Schedule</a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            {{-- <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#pending_settings_tab" data-bs-toggle="tab">Pending Settings</a> --}}
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            {{-- <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#loan_collateral_tab" data-bs-toggle="tab">Loan Collateral</a> --}}
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#expenses_tab" data-bs-toggle="tab">Expenses</a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!-- Add other nav items here -->
-                    </ul>
-                    <!--begin::Navs-->
+                    <!-- end tab pane -->
+                    <div class="tab-pane fade" id="project-documents" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4">
+                                    <h5 class="card-title flex-grow-1">Documents</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive table-card">
+                                            <table class="table table-borderless align-middle mb-0">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Loan</th>
+                                                        <th scope="col">Principal(K)</th>
+                                                        <th scope="col">Payback(K)</th>
+                                                        <th scope="col">Amount Settled(K)</th>
+                                                        <th scope="col">Balance(K)</th>
+                                                        <th scope="col">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse (App\Models\Transaction::customer_transactions($loan->user_id) as $item)
+                                                    <tr>
+                                                        <td>{{ $item->created_at->toFormattedDateString() }}</td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="ms-3 flex-grow-1">
+                                                                    <h5 class="fs-14 mb-0">
+                                                                        {{ $item->application->loan_product->name }}
+                                                                    </h5>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>K {{ $item->application->amount }}</td>
+                                                        <td>  K {{
+                                                            number_format(App\Models\Application::payback($item->application->amount, $item->application->repayment_plan, $item->application->loan_product_id), 2, '.', ',')
+                                                        }}</td>
+                                                        <td>K {{  $item->amount_settled  }}</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <a href="javascript:void(0);" class="btn btn-soft-secondary btn-sm btn-icon" data-bs-toggle="dropdown" aria-expanded="true">
+                                                                    <i class="ri-more-fill"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-bottom text-muted"></i>View</a></li>
+                                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a></li>
+                                                                    <li class="dropdown-divider"></li>
+                                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Delete</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @empty
+                
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center mt-3">
+                                            <a href="javascript:void(0);" class="text-success "><i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i> Load more </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end tab pane -->
+                    <div class="tab-pane fade" id="project-activities" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Assigned Staff</h5>
+                                
+                            </div>
+                            <!--end card-body-->
+                        </div>
+                        <!--end card-->
+                    </div>
+                    <!-- end tab pane -->
+                    <div class="tab-pane fade" id="project-team" role="tabpanel">
+                        <div class="row g-4 mb-3">
+                            <div class="col-sm">
+                                <div class="d-flex">
+                                    <div class="search-box me-2">
+                                        <input type="text" class="form-control" placeholder="Search member...">
+                                        <i class="ri-search-line search-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-auto">
+                                <div>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#inviteMembersModal"><i class="ri-share-line me-1 align-bottom"></i> Invite Member</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <div class="team-list list-view-filter">
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <img src="assets/images/users/avatar-2.jpg" alt="" class="img-fluid d-block rounded-circle" />
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Nancy Martino</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">Team Leader & HR</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">225</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">197</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn active">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <div class="avatar-title bg-danger-subtle text-danger rounded-circle">
+                                                        HB
+                                                    </div>
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Henry Baird</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">Full Stack Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">352</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">376</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn active">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <img src="assets/images/users/avatar-3.jpg" alt="" class="img-fluid d-block rounded-circle" />
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Frank Hook</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">Project Manager</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">164</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">182</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <img src="assets/images/users/avatar-8.jpg" alt="" class="img-fluid d-block rounded-circle" />
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Jennifer Carter</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">UI/UX Designer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">225</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">197</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <div class="avatar-title bg-success-subtle text-success rounded-circle">
+                                                        ME
+                                                    </div>
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Megan Elmore</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">Team Leader & Web Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">201</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">263</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <img src="assets/images/users/avatar-4.jpg" alt="" class="img-fluid d-block rounded-circle" />
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Alexis Clarke</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">Backend Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">132</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">147</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <div class="avatar-title bg-info-subtle text-info rounded-circle">
+                                                        NC
+                                                    </div>
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Nathan Cole</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">Front-End Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">352</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">376</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <img src="assets/images/users/avatar-7.jpg" alt="" class="img-fluid d-block rounded-circle" />
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Joseph Parker</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">Team Leader & HR</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">64</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">93</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <img src="assets/images/users/avatar-5.jpg" alt="" class="img-fluid d-block rounded-circle" />
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Erica Kernan</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">Web Designer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">345</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">298</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                            <div class="card team-box">
+                                <div class="card-body px-4">
+                                    <div class="row align-items-center team-row">
+                                        <div class="col team-settings">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <button type="button" class="btn fs-16 p-0 favourite-btn">
+                                                            <i class="ri-star-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="team-profile-img">
+                                                <div class="avatar-lg img-thumbnail rounded-circle">
+                                                    <div class="avatar-title border bg-light text-primary rounded-circle">
+                                                        DP
+                                                    </div>
+                                                </div>
+                                                <div class="team-content">
+                                                    <a href="#" class="d-block">
+                                                        <h5 class="fs-16 mb-1">Donald Palmer</h5>
+                                                    </a>
+                                                    <p class="text-muted mb-0">Wed Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col">
+                                            <div class="row text-muted text-center">
+                                                <div class="col-6 border-end border-end-dashed">
+                                                    <h5 class="mb-1">97</h5>
+                                                    <p class="text-muted mb-0">Projects</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="mb-1">135</h5>
+                                                    <p class="text-muted mb-0">Tasks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col">
+                                            <div class="text-end">
+                                                <a href="pages-profile.html" class="btn btn-light view-btn">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!-- end team list -->
+
+                        <div class="row g-0 text-center text-sm-start align-items-center mb-3">
+                            <div class="col-sm-6">
+                                <div>
+                                    <p class="mb-sm-0">Showing 1 to 10 of 12 entries</p>
+                                </div>
+                            </div> <!-- end col -->
+                            <div class="col-sm-6">
+                                <ul class="pagination pagination-separated justify-content-center justify-content-sm-end mb-sm-0">
+                                    <li class="page-item disabled"> <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a> </li>
+                                    <li class="page-item"> <a href="#" class="page-link">1</a> </li>
+                                    <li class="page-item active"> <a href="#" class="page-link">2</a> </li>
+                                    <li class="page-item"> <a href="#" class="page-link">3</a> </li>
+                                    <li class="page-item"> <a href="#" class="page-link">4</a> </li>
+                                    <li class="page-item"> <a href="#" class="page-link">5</a> </li>
+                                    <li class="page-item"> <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a> </li>
+                                </ul>
+                            </div><!-- end col -->
+                        </div><!-- end row -->
+                    </div>
+                    <!-- end tab pane -->
                 </div>
             </div>
-
-
-             @include('livewire.dashboard.__parts.dash-alerts')
-            <!--end::Navbar-->
-            <div class="tab-content">
-                <!-- Tab content for Repayments -->
-                <div class="tab-pane fade" id="repayments_tab">
-                    <div class="d-flex flex-wrap flex-stack mb-6">
-                        <!--begin::Heading-->
-                        <h3 class="fw-bold my-2">Repayment Details
-                        {{-- !mportant --}}
-                        <span class="fs-6 text-gray-400 fw-semibold ms-1">Active</span></h3>
-                        <!--end::Heading-->
-                        <!--begin::Actions-->
-                         <div class="d-flex flex-wrap my-2">
-                            {{-- <div class="me-4">
-                                <!--begin::Select-->
-                                <select name="status" data-control="select2" data-hide-search="true" class="form-select form-select-sm bg-body border-body w-125px">
-                                    <option value="Active" selected="selected">Active</option>
-                                    <option value="Approved">In Progress</option>
-                                    <option value="Declined">To Do</option>
-                                    <option value="In Progress">Completed</option>
-                                </select>
-                                <!--end::Select-->
-                            </div> --}}
-                            <a href="{{ route('make-payment') }}" class="btn btn-primary btn-sm">Proceed to Make Payements</a>
-                            {{-- <a href="{{ route('make-payment') }}" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_create_project">Proceed to Make Payements</a> --}}
-                        </div>
-                        <!--end::Actions-->
-                    </div>
-
-                    <div class="row">
-                        <!--begin::Col-->
-                        <div class="col-md-12 col-xl-12">
-                            <!--begin::Card-->
-                            <table class="table align-middle table-row-dashed gy-5" id="kt_table_customers_payment">
-                                <thead class="border-bottom border-gray-200">
-                                    <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                        <th class="w-100px">Date</th>
-                                        <th class="w-100px">Loan</th>
-                                        <th class="w-300px">Principal(K)</th>
-                                        <th class="w-100px">Payback(K)</th>
-                                        <th class="w-100px">Amount Settled(K)</th>
-                                        <th class="w-100px">Balance(K)</th>
-                                        <th class="w-100px">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="fs-6 fw-semibold text-gray-600">
-                                    @forelse (App\Models\Transaction::customer_transactions($loan->user_id) as $item)
-                                    <tr>
-                                        <td>{{ $item->created_at->toFormattedDateString() }}</td>
-                                        <td>
-                                            <a href="#" class="text-gray-600 text-hover-primary mb-1">{{ $item->application->loan_product->name }}</a>
-                                        </td>
-                                        <td><b>K {{ $item->application->amount }}</b></td>
-                                        <td >
-                                            <a href="#" class="bg-active-light-primary">
-                                            K {{
-                                                number_format(App\Models\Application::payback($item->application->amount, $item->application->repayment_plan, $item->application->loan_product_id), 2, '.', ',')
-                                            }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span class="bg-light-success">
-                                                K {{  $item->amount_settled  }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                           K {{ App\Models\Loans::loan_balance( $item->application->id) }}
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-light">
-                                                Repayment
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    @empty
-
-                                    @endforelse
-                                </tbody>
-                                <!--end::Table body-->
-                            </table>
-                            <!--end::Card-->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tab content for Loan Terms -->
-                <div class="tab-pane fade" id="loan_terms_tab">
-
-                </div>
-
-                <!-- Tab content for Loan Schedule -->
-                <div class="tab-pane show active" id="loan_schedule_tab">
-                    @if ($amortization_table)
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Due Date</th>
-                                    <th>Principal Amount</th>
-                                    <th>Interest Amount</th>
-                                    {{-- <th>Penalty Amount</th> --}}
-                                    <th>Due Amount</th>
-                                    <th>Principal Balance</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($amortization_table['amortization_table']['installments'] as $index => $row)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $row['due_date'] }}</td>
-                                    <td>{{ $row['principal'] }}</td>
-                                    <td>{{ $row['interest'] }}</td>
-                                    {{-- <td>{{ $row['fee_amount'] }}</td> --}}
-                                    {{-- <td>{{ isset($row['penalty']) ? $row['penalty'] : '0.00' }}</td> --}}
-                                    <td>{{ $row['due'] }}</td>
-                                    <td>{{ $row['principal_balance'] }}</td>
-                                    <td>{{ $row['description'] }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @endif
-                </div>
-
-                <!-- Tab content for Pending Settings -->
-                <div class="tab-pane fade" id="pending_settings_tab">
-                    <!-- Content for Pending Settings tab -->
-                </div>
-
-                <!-- Tab content for Loan Collateral -->
-                <div class="tab-pane fade" id="loan_collateral_tab">
-                    <!-- Content for Loan Collateral tab -->
-                </div>
-
-                <!-- Tab content for Expenses -->
-                <div class="tab-pane fade" id="expenses_tab">
-
-                    <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_create_expense">Create Loan Expense</a>
-
-                    @if ($current_expenses)
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Date</th>
-                                <th>Name</th>
-                                <th>Amount</th>
-                                <th>Type</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($current_expenses as $index => $exp)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $exp->date }}</td>
-                                <td>{{ $exp->name }}</td>
-                                <td>{{ $exp->amount }}</td>
-                                <td>{{ $exp->type }}</td>
-                                <td>{{ $exp->description }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @else
-                    @endif
-                </div>
-
-                <!-- Add other tab content sections here -->
-            </div>
-            <!--begin::Toolbar-->
-
-            @include('livewire.dashboard.loans.__modals.create-expense')
-            {{-- @include('livewire.dashboard.loans.__modals.loan-detailed-modals') --}}
+            <!-- end col -->
         </div>
-        <!--end::Container-->
+        <!-- end row -->
     </div>
-    <script>
-        $(document).ready(function() {
-            // Handle tab switching behavior
-            $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
-                var target = $(e.target).attr("href"); // activated tab
-                $('.tab-pane').not(target).removeClass('show active'); // hide other tab content
-                $(target).addClass('show active'); // show activated tab content
-            });
-        });
-    </script>
+    <!-- container-fluid -->
 </div>

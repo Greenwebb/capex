@@ -6,7 +6,7 @@
     <div class="aside-toolbar flex-column-auto" id="kt_aside_toolbar">
         <!--begin::Aside user-->
         <!--begin::User-->
-        <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
+        <div class="py-5 aside-user d-flex align-items-sm-center justify-content-center">
             <!--begin::Symbol-->
             <div class="symbol symbol-50px">
 
@@ -22,7 +22,7 @@
             </div>
             <!--end::Symbol-->
             <!--begin::Wrapper-->
-            <div class="aside-user-info flex-row-fluid flex-wrap ms-5">
+            <div class="flex-wrap aside-user-info flex-row-fluid ms-5">
                 <!--begin::Section-->
                 <div class="d-flex">
                     <!--begin::Info-->
@@ -33,13 +33,13 @@
                         </a>
                         <!--end::Username-->
                         <!--begin::Description-->
-                        <span class="text-warning fw-semibold d-block fs-8 mb-1">
+                        <span class="mb-1 text-warning fw-semibold d-block fs-8">
                             {{ preg_replace('/[^A-Za-z0-9. -]/', '',  Auth::user()->roles->pluck('name')) ?? 'Guest' }}
                         </span>
                         <!--end::Description-->
                         <!--begin::Label-->
                         <div class="d-flex align-items-center text-success fs-9">
-                            <span class="bullet capitalize bullet-dot bg-success me-1"></span>online
+                            <span class="capitalize bullet bullet-dot bg-success me-1"></span>online
                         </div>
                         <!--end::Label-->
                     </div>
@@ -56,11 +56,11 @@
                             </i>
                         </a>
                         <!--begin::User account menu-->
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
+                        <div class="py-4 menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold fs-6 w-275px"
                             data-kt-menu="true">
                             <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <div class="menu-content d-flex align-items-center px-3">
+                            <div class="px-3 menu-item">
+                                <div class="px-3 menu-content d-flex align-items-center">
                                     <div class="symbol symbol-50px me-5">
                                         <img alt="Logo" src="{{ asset('public/mfs/admin/assets/media/avatars/blank.png')}}" />
                                     </div>
@@ -68,7 +68,7 @@
                                     <div class="d-flex flex-column">
                                         <div class="fw-bold d-flex align-items-center fs-5">
                                             {{ auth()->user()->fname.' '.auth()->user()->lname }}
-                                            <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">
+                                            <span class="px-2 py-1 badge badge-light-success fw-bold fs-8 ms-2">
                                                 {{ preg_replace('/[^A-Za-z0-9. -]/', '',  Auth::user()->roles->pluck('name')) ?? 'Staff' }}
                                             </span>
                                         </div>
@@ -77,14 +77,14 @@
                                 </div>
                             </div>
 
-                            <div class="separator my-2"></div>
+                            <div class="my-2 separator"></div>
 
-                            <div class="menu-item px-5">
-                                <a href="{{ route('my-profile', ['view' => 'profile']) }}" class="menu-link px-5">My Profile</a>
+                            <div class="px-5 menu-item">
+                                <a href="{{ route('my-profile', ['view' => 'profile']) }}" class="px-5 menu-link">My Profile</a>
                             </div>
 
-                            <div class="menu-item px-5">
-                                <a href="{{ route('sys-settings') }}" class="menu-link px-5">
+                            <div class="px-5 menu-item">
+                                <a href="{{ route('sys-settings') }}" class="px-5 menu-link">
                                     <span class="menu-text">System Settings</span>
                                     <span class="menu-badge">
                                         <span class="badge badge-light-danger badge-circle fw-bold fs-7">3</span>
@@ -92,11 +92,11 @@
                                 </a>
                             </div>
 
-                            <div class="separator my-2"></div>
+                            <div class="my-2 separator"></div>
 
-                            <form method="POST" action="{{ route('logout') }}" class="menu-item px-5">
+                            <form method="POST" action="{{ route('logout') }}" class="px-5 menu-item">
                                 @csrf
-                                <button type="submit" class="menu-link px-5 btn">
+                                <button type="submit" class="px-5 menu-link btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0z"/>
                                         <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
@@ -117,7 +117,7 @@
         </div>
         <!--end::User-->
         <!--begin::Aside search-->
-        <div class="aside-search py-5">
+        <div class="py-5 aside-search">
             <!--begin::Search-->
             <div id="kt_header_search" class="header-search d-flex align-items-center w-100"
                 data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter"
@@ -146,7 +146,7 @@
 
                     <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5"
                         data-kt-search-element="spinner">
-                        <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+                        <span class="text-gray-400 align-middle spinner-border h-15px w-15px"></span>
                     </span>
 
                     <span
@@ -164,7 +164,7 @@
     </div>
 
     <div class="aside-menu flex-column-fluid">
-        <div class="hover-scroll-overlay-y mx-3 my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true"
+        <div class="mx-3 my-5 hover-scroll-overlay-y my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true"
             data-kt-scroll-height="auto"
             data-kt-scroll-dependencies="{default: '#kt_aside_toolbar, #kt_aside_footer', lg: '#kt_header, #kt_aside_toolbar, #kt_aside_footer'}"
             data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="5px">
@@ -186,7 +186,7 @@
                     </a>
                 </div>
 
-                <div class="menu-item pt-5">
+                <div class="pt-5 menu-item">
                     <div class="menu-content">
                         <span class="menu-heading fw-bold text-uppercase fs-7">MODULES</span>
                     </div>
@@ -410,7 +410,7 @@
                 @endcan
 
                 @can('view operations')
-                    <div class="menu-item pt-5">
+                    <div class="pt-5 menu-item">
                         <div class="menu-content">
                             <span class="menu-heading fw-bold text-uppercase fs-7">Operations & Staff</span>
                         </div>
@@ -490,7 +490,7 @@
                         </span>
 
                         <div class="menu-sub menu-sub-accordion">
-                            <div  class="menu-item menu-accordion mb-1">
+                            <div  class="mb-1 menu-item menu-accordion">
                                 <a class="menu-link" href="{{ route('employees') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -517,7 +517,7 @@
 
                         <div class="menu-sub menu-sub-accordion">
                             @can('view transactions')
-                            <div class="menu-item menu-accordion mb-1">
+                            <div class="mb-1 menu-item menu-accordion">
                                 <a href="{{ route('make-payment') }}" class="menu-link">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -555,7 +555,7 @@
                         </span>
 
                         <div class="menu-sub menu-sub-accordion">
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                            <div data-kt-menu-trigger="click" class="mb-1 menu-item menu-accordion">
                                 <span class="menu-link">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -571,7 +571,7 @@
 
 
                 @can('system settings')
-                <div class="menu-item pt-5">
+                <div class="pt-5 menu-item">
                     <!--begin:Menu content-->
                     <div class="menu-content">
                         <span class="menu-heading fw-bold text-uppercase fs-7">Settings</span>
@@ -596,7 +596,7 @@
                     <!--begin:Menu sub-->
                     <div class="menu-sub menu-sub-accordion">
                         <!--begin:Menu item-->
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                        <div data-kt-menu-trigger="click" class="mb-1 menu-item menu-accordion">
                             <!--begin:Menu link-->
                             <span class="menu-link">
                                 <span class="menu-bullet">

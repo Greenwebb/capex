@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Models\Application;
+use App\Models\User;
 use App\Models\Wallet;
 use App\Models\WithdrawRequest;
 use App\Traits\EmailTrait;
@@ -17,12 +18,13 @@ use Illuminate\Support\Facades\Http;
 class DashboardView extends Component
 {
     use EmailTrait, WalletTrait, LoanTrait, UserTrait;
-    public $loan_requests, $loan_request, $all_loan_requests, $my_loan, $wallet;
+    public $loan_requests, $loan_request, $all_loan_requests, $my_loan, $wallet, $borrowers;
     public $payment_method, $withdraw_amount, $mobile_number, $card_name, $bank_name, $card_number;
 
     public function render()
     {
         $user = auth()->user();
+        $this->borrowers = User::role('user')->orderBy('created_at', 'desc')->get();
         $this->wallet = $this->getWalletBalance($user);
         if ($user->hasRole('user')) {
             return view('livewire.dashboard.not-admin-view')->layout('layouts.bouncer');
@@ -30,7 +32,7 @@ class DashboardView extends Component
             $this->all_loan_requests = Application::where(function ($query) {
                 $query->where('status', 2)->whereNotNull('user_id')->orWhere('status', 0);
             })->orderBy('created_at', 'desc')->take(7)->get();
-            return view('livewire.dashboard.dashboard-view')->layout('layouts.admin');
+            return view('livewire.dashboard.dashboard-view')->layout('layouts.main');
         }
     }
 

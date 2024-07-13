@@ -16,6 +16,6 @@ class NewLoanView extends Component
     {
 
         return view('livewire.dashboard.loans.new-loan-view')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 }

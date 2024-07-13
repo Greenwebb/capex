@@ -43,7 +43,7 @@ class SystemItemSettings extends Component
         $this->institutions = Institution::where('status', 1)->get();
         $this->borrowers = User::role('user')->get();
         return view('livewire.dashboard.site-settings.system-item-settings')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 
     public function CheckCRB()

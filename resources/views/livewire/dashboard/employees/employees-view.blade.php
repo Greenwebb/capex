@@ -1,559 +1,217 @@
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
-        <!--begin::Container-->
-        <div id="kt_content_container" class="container-xxl">
-            <!--begin::Card-->
-            <div class="card">
-                <!--begin::Card header-->
-                <div class="card-header border-0 pt-6">
-                    <h3 class="card-title align-items-start flex-column">
-                        <span class="card-label fw-bold fs-3 mb-1">Employees</span>
-                        {{-- <span class="text-muted mt-1 fw-semibold fs-7">Over {{$users->count()}} Employees</span> --}}
-                    </h3>
-                    <!--begin::Card title-->
-                    <div class="card-title">
-                        <!--begin::Search-->
-                        {{-- <div class="d-flex align-items-center position-relative my-1">
-                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                            <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search Customers" />
-                        </div> --}}
-                        <!--end::Search-->
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+                    <h4 class="mb-sm-0">Employees</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Employees</li>
+                        </ol>
                     </div>
-                    <!--begin::Card title-->
-                    <!--begin::Card toolbar-->
-                    <div class="card-toolbar">
-                        <!--begin::Toolbar-->
-                        <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                            <!--begin::Filter-->
-                            {{-- <div class="w-150px me-3">
-                                <!--begin::Select2-->
-                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
-                                    <option></option>
-                                    <option value="all">All</option>
-                                    <option value="active">Active</option>
-                                    <option value="locked">Locked</option>
-                                </select>
-                                <!--end::Select2-->
-                            </div>
-                            <!--end::Filter-->
-                            <!--begin::Export-->
-                            <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_customers_export_modal">
-                            <i class="ki-duotone ki-exit-up fs-2">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>Export</button> --}}
-                            <!--end::Export-->
-                            <!--begin::Add customer-->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">Add Employee</button>
-                            <!--end::Add customer-->
-                        </div>
-                        <!--end::Toolbar-->
-                        <!--begin::Group actions-->
-                        <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
-                            <div class="fw-bold me-5">
-                            <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected</div>
-                            <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">Delete Selected</button>
-                        </div>
-                        <!--end::Group actions-->
-                    </div>
-                    <!--end::Card toolbar-->
-                </div>
-                <!--end::Card header-->
-                <!--begin::Card body-->
-                <div class="card-body pt-0">
-                    @include('livewire.dashboard.__parts.dash-alerts')
-                    <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
-                        <thead>
-                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="w-10px pe-2">
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
-                                    </div>
-                                </th>
-                                <th class="min-w-125px">Fullnames</th>
-                                <th class="min-w-125px">Email</th>
-                                <th class="min-w-125px">Status</th>
-                                <th class="min-w-125px">Phone</th>
-                                <th class="min-w-125px">Created Date</th>
-                                <th class="text-end min-w-70px">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="fw-semibold text-gray-600">
-                            @forelse($users as $user)
-                                @if( !$user->hasRole('user')  && $user->id !== 1)
-                                    <tr>
-                                        <td>
-                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="1" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('client-account', ['key'=>$user->id]) }}" class="text-gray-800 text-hover-primary mb-1">
-                                                {{ $user->fname.' '.$user->name.' '.$user->lname }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="mailto:{{$user->email}}" class="text-gray-600 text-hover-primary mb-1">{{ $user->email }}</a>
-                                        </td>
-                                        <td>
-                                            <!--begin::Badges-->
-                                            <div class="badge badge-light-success">
-                                                @forelse($user->roles as $role)
-                                                    <span class="capitalize">{{ ucwords($role->name) }}</span>
-                                                @empty
-                                                    <span>Unknown</span>
-                                                @endforelse
-                                            </div>
-                                            <!--end::Badges-->
-                                        </td>
-                                        <td>{{ $user->phone ?? 'Not Set' }}</td>
-                                        <td>{{ $user->created_at->toFormattedDateString() }}</td>
-                                        <td class="text-end">
-                                            <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                            <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                            <!--begin::Menu-->
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('client-account', ['key'=>$user->id]) }}" class="menu-link px-3">View</a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('edit-user', ['id'=>$user->id]) }}" class="menu-link px-3">Edit</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="#" wire:click="destory({{$user->id}})" onclick="confirm('Are you sure you want to permanently delete this account.') || event.stopImmediatePropagation();" class="menu-link px-3" data-kt-customer-table-filter="delete_row">Delete</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                            </div>
-                                            <!--end::Menu-->
-                                        </td>
-                                    </tr>
-                                @endif
-                            @empty
-                            <div class="intro-y col-span-12 md:col-span-6">
-                                <div class="box text-center">
-                                    <p>No User Found</p>
-                                </div>
-                            </div>
-                            @endforelse
-                        </tbody>
-                        <!--end::Table body-->
-                    </table>
-                    <!--end::Table-->
-                </div>
-                <!--end::Card body-->
-            </div>
-            <!--end::Card-->
-            <!--begin::Modals-->
-            <!--begin::Modal - Customers - Add-->
-            @if($createModal)
-            <div wire:ignore class="modal fade" id="kt_modal_add_customer" tabindex="-1" aria-hidden="true">
-                <!--begin::Modal dialog-->
-                <div class="modal-dialog modal-dialog-centered mw-650px">
-                    <!--begin::Modal content-->
-                    <div class="modal-content">
-                        <!--begin::Form-->
-                        <form class="form"  method="POST" action="{{ route('create-user') }}" id="kt_modal_add_customer_form" data-kt-redirect="../apps/customers/list.html">
-                            <!--begin::Modal header-->
-                            <div class="modal-header" id="kt_modal_add_customer_header">
-                                <!--begin::Modal title-->
-                                @csrf
-                                <h2 class="fw-bold">Add an Employee</h2>
-                                <!--end::Modal title-->
-                                <!--begin::Close-->
-                                <div id="kt_modal_add_customer_close" class="btn btn-icon btn-sm btn-active-icon-primary">
-                                    <i class="ki-duotone ki-cross fs-1">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </div>
-                                <!--end::Close-->
-                            </div>
-                            <!--end::Modal header-->
-                            <!--begin::Modal body-->
-                            <div class="modal-body py-10 px-lg-17">
-                                <!--begin::Scroll-->
-                                <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-                                    <!--begin::Input group-->
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold mb-2">Firstname</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input class="form-control form-control-solid" placeholder="Firstname" name="fname"/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold mb-2">Lastname</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input class="form-control form-control-solid" placeholder="Surname" name="lname"  />
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold mb-2">
-                                            <span class="required">Email</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Email address must be active">
-                                                <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                    <span class="path3"></span>
-                                                </i>
-                                            </span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="email" class="form-control form-control-solid" placeholder="" name="email" />
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-15">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold mb-2">Password</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" disabled class="form-control form-control-solid"  placeholder="mighty.@2023@" required />
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
 
-
-                                    <!--begin::Billing toggle-->
-                                    <div class="fw-bold fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
-                                        General Information
-                                        <span class="ms-2 rotate-180">
-                                            <i class="ki-duotone ki-down fs-3"></i>
-                                        </span>
-                                    </div>
-                                    <!--end::Billing toggle-->
-                                    <!--begin::Billing form-->
-                                    <div id="kt_modal_add_customer_billing_info" class="collapse show">
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-7 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold mb-2">Address Line 1</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input class="form-control form-control-solid" placeholder="" name="address1" value="101, Collins Street" />
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-7 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold mb-2">Active Phone Number</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input class="form-control form-control-solid" placeholder="" name="phone" />
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-7 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold mb-2">Town</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input class="form-control form-control-solid" placeholder="" name="city"/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="row g-9 mb-7">
-                                            <!--begin::Col-->
-                                            <div class="col-md-6 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="required fs-6 fw-semibold mb-2">National ID Type</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <select class="form-control form-control" placeholder="" name="id_type" >
-                                                    <option value="">--choose--</option>
-                                                    <option value="NRC">NRC</option>
-                                                    <option value="Passport">Passport</option>
-                                                    <option value="Driver Liecense">Driver Liecense</option>
-                                                </select>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col-md-6 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="required fs-6 fw-semibold mb-2">National ID</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input class="form-control form-control" placeholder="" name="nrc_no" />
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--end::Col-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="row g-9 mb-7">
-                                            <!--begin::Label-->
-
-                                            <div class="col-md-6 fv-row">
-                                                <label class="fs-6 fw-semibold mb-2">
-                                                    <span class="required">Gender</span>
-                                                    <span class="ms-1" data-bs-toggle="tooltip" title="Sex of the employee">
-                                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
-                                                            <span class="path1"></span>
-                                                            <span class="path2"></span>
-                                                            <span class="path3"></span>
-                                                        </i>
-                                                    </span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <select name="gender" aria-label="Select a gender" data-control="select2" data-placeholder="Select a gender..." data-dropdown-parent="#kt_modal_add_customer" class="form-select form-select-solid fw-bold">
-                                                    <option value="">Select a gender...</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 fv-row">
-                                                <label class="fs-6 fw-semibold mb-2">
-                                                    <span class="required">Role</span>
-                                                    <span class="ms-1" data-bs-toggle="tooltip" title="User role & permissions">
-                                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
-                                                            <span class="path1"></span>
-                                                            <span class="path2"></span>
-                                                            <span class="path3"></span>
-                                                        </i>
-                                                    </span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <select name="assigned_role" aria-label="Select a role" data-control="select2" data-placeholder="Select a role..." data-dropdown-parent="#kt_modal_add_customer" class="form-select form-select-solid fw-bold">
-                                                    <option value="">Select a user role...</option>
-                                                    @foreach($roles as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Wrapper-->
-                                            <div class="d-flex flex-stack">
-                                                <!--begin::Label-->
-                                                <div class="me-5">
-                                                    <!--begin::Label-->
-                                                    <label class="fs-6 fw-semibold">Allow spooling?</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <div class="fs-7 fw-semibold text-muted">If user is allowed spooling, they will be able to pick and review a loan request when in spooling mode</div>
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Label-->
-                                                <!--begin::Switch-->
-                                                <label class="form-check form-switch form-check-custom form-check-solid">
-                                                    <!--begin::Input-->
-                                                    <input class="form-check-input" name="billing" type="checkbox" value="1" id="kt_modal_add_customer_billing" checked="checked" />
-                                                    <!--end::Input-->
-                                                    <!--begin::Label-->
-                                                    <span class="form-check-label fw-semibold text-muted" for="kt_modal_add_customer_billing">Yes</span>
-                                                    <!--end::Label-->
-                                                </label>
-                                                <!--end::Switch-->
-                                            </div>
-                                            <!--begin::Wrapper-->
-                                        </div>
-                                        <!--end::Input group-->
-                                    </div>
-                                    <!--end::Billing form-->
-                                </div>
-                                <!--end::Scroll-->
-                            </div>
-                            <!--end::Modal body-->
-                            <!--begin::Modal footer-->
-                            <div class="modal-footer flex-center">
-                                <!--begin::Button-->
-                                <button type="reset" id="kt_modal_add_customer_cancel" class="btn btn-light me-3">Discard</button>
-                                <!--end::Button-->
-                                <!--begin::Button-->
-                                <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
-                                    <span class="indicator-label">Submit</span>
-                                    <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                </button>
-                                <!--end::Button-->
-                            </div>
-                            <!--end::Modal footer-->
-                        </form>
-                        <!--end::Form-->
-                    </div>
                 </div>
             </div>
-            @endif
-            <!--end::Modal - Customers - Add-->
-            <!--begin::Modal - Adjust Balance-->
-            <div class="modal fade" id="kt_customers_export_modal" tabindex="-1" aria-hidden="true">
-                <!--begin::Modal dialog-->
-                <div class="modal-dialog modal-dialog-centered mw-650px">
-                    <!--begin::Modal content-->
-                    <div class="modal-content">
-                        <!--begin::Modal header-->
-                        <div class="modal-header">
-                            <!--begin::Modal title-->
-                            <h2 class="fw-bold">Export Customers</h2>
-                            <!--end::Modal title-->
-                            <!--begin::Close-->
-                            <div id="kt_customers_export_close" class="btn btn-icon btn-sm btn-active-icon-primary">
-                                <i class="ki-duotone ki-cross fs-1">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                            </div>
-                            <!--end::Close-->
-                        </div>
-                        <!--end::Modal header-->
-                        <!--begin::Modal body-->
-                        <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                            <!--begin::Form-->
-                            <form id="kt_customers_export_form" class="form" action="#">
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-10">
-                                    <!--begin::Label-->
-                                    <label class="fs-5 fw-semibold form-label mb-5">Select Export Format:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <select data-control="select2" data-placeholder="Select a format" data-hide-search="true" name="format" class="form-select form-select-solid">
-                                        <option value="excell">Excel</option>
-                                        <option value="pdf">PDF</option>
-                                        <option value="cvs">CVS</option>
-                                        <option value="zip">ZIP</option>
-                                    </select>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-10">
-                                    <!--begin::Label-->
-                                    <label class="fs-5 fw-semibold form-label mb-5">Select Date Range:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="Pick a date" name="date" />
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Row-->
-                                <div class="row fv-row mb-15">
-                                    <!--begin::Label-->
-                                    <label class="fs-5 fw-semibold form-label mb-5">Payment Type:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Radio group-->
-                                    <div class="d-flex flex-column">
-                                        <!--begin::Radio button-->
-                                        <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                            <input class="form-check-input" type="checkbox" value="1" checked="checked" name="payment_type" />
-                                            <span class="form-check-label text-gray-600 fw-semibold">All</span>
-                                        </label>
-                                        <!--end::Radio button-->
-                                        <!--begin::Radio button-->
-                                        <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                            <input class="form-check-input" type="checkbox" value="2" checked="checked" name="payment_type" />
-                                            <span class="form-check-label text-gray-600 fw-semibold">Visa</span>
-                                        </label>
-                                        <!--end::Radio button-->
-                                        <!--begin::Radio button-->
-                                        <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                            <input class="form-check-input" type="checkbox" value="3" name="payment_type" />
-                                            <span class="form-check-label text-gray-600 fw-semibold">Mastercard</span>
-                                        </label>
-                                        <!--end::Radio button-->
-                                        <!--begin::Radio button-->
-                                        <label class="form-check form-check-custom form-check-sm form-check-solid">
-                                            <input class="form-check-input" type="checkbox" value="4" name="payment_type" />
-                                            <span class="form-check-label text-gray-600 fw-semibold">American Express</span>
-                                        </label>
-                                        <!--end::Radio button-->
-                                    </div>
-                                    <!--end::Input group-->
-                                </div>
-                                <!--end::Row-->
-                                <!--begin::Actions-->
-                                <div class="text-center">
-                                    <button type="reset" id="kt_customers_export_cancel" class="btn btn-light me-3">Discard</button>
-                                    <button type="submit" id="kt_customers_export_submit" class="btn btn-primary">
-                                        <span class="indicator-label">Submit</span>
-                                        <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                    </button>
-                                </div>
-                                <!--end::Actions-->
-                            </form>
-                            <!--end::Form-->
-                        </div>
-                        <!--end::Modal body-->
-                    </div>
-                    <!--end::Modal content-->
-                </div>
-                <!--end::Modal dialog-->
-            </div>
-            <!--end::Modal - New Card-->
-            <!--end::Modals-->
         </div>
-        <!--end::Container-->
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Add, Edit & Remove</h4>
+                    </div><!-- end card header -->
+
+                    <div class="card-body">
+                        <div class="listjs-table" id="customerList">
+                            <div class="row g-4 mb-3">
+                                <div class="col-sm-auto">
+                                    <div>
+                                        <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                        <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="d-flex justify-content-sm-end">
+                                        <div class="search-box ms-2">
+                                            <input type="text" class="form-control search" placeholder="Search...">
+                                            <i class="ri-search-line search-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive table-card mt-3 mb-1">
+                                <table class="table align-middle table-nowrap" id="customerTable">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col" style="width: 50px;">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                                </div>
+                                            </th>
+                                            <th class="sort" data-sort="customer_name">Fullnames</th>
+                                            <th class="sort" data-sort="email">Email</th>
+                                            <th class="sort" data-sort="phone">Status</th>
+                                            <th class="sort" data-sort="date">Phone</th>
+                                            <th class="sort" data-sort="status">Created Date</th>
+                                            <th class="sort" data-sort="action">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list form-check-all">
+                                        @forelse($users as $user)
+                                            @if( !$user->hasRole('user')  && $user->id !== 1)
+                                            <tr>
+                                                <th scope="row">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                    </div>
+                                                </th>
+                                                <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
+                                                <td class="customer_name">{{ $user->fname.' '.$user->name.' '.$user->lname }}</td>
+                                                <td class="email">{{ $user->email }}</td>
+                                                <td class="phone">{{ $user->phone }}</td>
+                                                <td class="date">{{ $user->created_at->toFormattedDateString() }}</td>
+                                                <td class="status"><span class="badge bg-success-subtle text-success text-uppercase">Active</span></td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <div class="edit">
+                                                            <a href="{{ route('client-account', ['key' => $user->id]) }}" class="btn btn-sm btn-primary edit-item-btn">Edit</a>
+                                                        </div>
+                                                        <div class="remove">
+                                                            <a href="{{ route('edit-user', ['id' => $user->id]) }}" class="btn btn-sm btn-danger remove-item-btn">Remove</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        @empty
+                                        <div class="intro-y col-span-12 md:col-span-6">
+                                            <div class="box text-center">
+                                                <p>No User Found</p>
+                                            </div>
+                                        </div>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                                <div class="noresult" style="display: none">
+                                    <div class="text-center">
+                                        <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
+                                        <h5 class="mt-2">Sorry! No Result Found</h5>
+                                        <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any orders for you search.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <div class="pagination-wrap hstack gap-2">
+                                    <a class="page-item pagination-prev disabled" href="javascript:void(0);">
+                                        Previous
+                                    </a>
+                                    <ul class="pagination listjs-pagination mb-0"></ul>
+                                    <a class="page-item pagination-next" href="javascript:void(0);">
+                                        Next
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end col -->
+        </div>
+
+
+        <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-light p-3">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+                    </div>
+                    <form class="tablelist-form" autocomplete="off">
+                        <div class="modal-body">
+                            <div class="mb-3" id="modal-id" style="display: none;">
+                                <label for="id-field" class="form-label">ID</label>
+                                <input type="text" id="id-field" class="form-control" placeholder="ID" readonly />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="customername-field" class="form-label">Customer Name</label>
+                                <input type="text" id="customername-field" class="form-control" placeholder="Enter Name" required />
+                                <div class="invalid-feedback">Please enter a customer name.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email-field" class="form-label">Email</label>
+                                <input type="email" id="email-field" class="form-control" placeholder="Enter Email" required />
+                                <div class="invalid-feedback">Please enter an email.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phone-field" class="form-label">Phone</label>
+                                <input type="text" id="phone-field" class="form-control" placeholder="Enter Phone no." required />
+                                <div class="invalid-feedback">Please enter a phone.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="date-field" class="form-label">Joining Date</label>
+                                <input type="text" id="date-field" class="form-control" placeholder="Select Date" required />
+                                <div class="invalid-feedback">Please select a date.</div>
+                            </div>
+
+                            <div>
+                                <label for="status-field" class="form-label">Status</label>
+                                <select class="form-control" data-trigger name="status-field" id="status-field" required>
+                                    <option value="">Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Block">Block</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="hstack gap-2 justify-content-end">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" id="add-btn">Add Customer</button>
+                                <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mt-2 text-center">
+                            <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                            <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                <h4>Are you Sure ?</h4>
+                                <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                            <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end modal -->
+
     </div>
-    <!--end::Post-->
+    <!-- container-fluid -->
 </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function (e) {
-        $('#prof_image_create').change(function(){
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                $('#preview-image-before-upload_create').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
-    });
-
-    function printEmpTable(){
-        $('.actions-btns').hide();
-        // Get the HTML element that you want to convert to PDF
-        const element = document.getElementById('emp_table_print_view');
-        // Create a new jsPDF instance
-        const doc = new jsPDF('landscape');
-        // Use the html2canvas library to render the element as a canvas
-        html2canvas(element).then(canvas => {
-            // Convert the canvas to an image data URL
-            const imgData = canvas.toDataURL('image/png');
-            // Add the image data URL to the PDF document
-            doc.addImage(
-                imgData,
-                'PNG',
-                2, // x-coordinate
-                2, // y-coordinate
-            );
-
-            // Save the PDF document
-            doc.save('Employees.pdf');
-            $('.actions-btns').show();
-        });
-    }
-</script>

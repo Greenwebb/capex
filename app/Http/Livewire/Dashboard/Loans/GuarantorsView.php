@@ -37,7 +37,7 @@ class GuarantorsView extends Component
         return view('livewire.dashboard.loans.guarantors-view',[
             'noks' => $noks,
             'refs' => $refs
-        ])->layout('layouts.admin');
+        ])->layout('layouts.main');
     }
     public function exportGuarantors(){
         return Excel::download(new GuarantorExport, 'Guarantors.xlsx');

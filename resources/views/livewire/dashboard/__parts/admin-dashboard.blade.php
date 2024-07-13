@@ -1,231 +1,552 @@
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
-        <!--begin::Container-->
-        <div id="kt_content_container" class="container-xxl">
-            <!--begin::Row-->
-            {{-- @can('company financial stats') --}}
-            @include('livewire.dashboard.__parts.current-admin-stats')
-            {{-- @endcan --}}
-            <!--end::Row-->
-            <!--begin::Row-->
-            <div class="row g-5 g-xl-8">
-                <!--begin::Col-->
-                <div class="col-xl-4">
-                    <!--begin::List Widget 1-->
-                    <div class="card card-xl-stretch mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark">Projects Overview</span>
-                                <span class="text-muted mt-1 fw-semibold fs-7">Pending 0 tasks</span>
-                            </h3>
-                            <div class="card-toolbar">
-                                <!--begin::Menu-->
-                                {{-- <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    <i class="ki-duotone ki-category fs-6">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
-                                </button> --}}
-                                <!--begin::Menu 1-->
-                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64b784c40707d">
-                                    <!--begin::Header-->
-                                    <div class="px-7 py-5">
-                                        <div class="fs-5 text-dark fw-bold">Filter Options</div>
-                                    </div>
-                                    <!--end::Header-->
-                                    <!--begin::Menu separator-->
-                                    <div class="separator border-gray-200"></div>
-                                    <!--end::Menu separator-->
-                                    <!--begin::Form-->
-                                    <div class="px-7 py-5">
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Status:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <div>
-                                                <select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="Select option" data-dropdown-parent="#kt_menu_64b784c40707d" data-allow-clear="true">
-                                                    <option></option>
-                                                    <option value="1">Approved</option>
-                                                    <option value="2">Pending</option>
-                                                    <option value="2">In Process</option>
-                                                    <option value="2">Rejected</option>
-                                                </select>
-                                            </div>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Member Type:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Options-->
-                                            <div class="d-flex">
-                                                <!--begin::Options-->
-                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                    <input class="form-check-input" type="checkbox" value="1" />
-                                                    <span class="form-check-label">Author</span>
-                                                </label>
-                                                <!--end::Options-->
-                                                <!--begin::Options-->
-                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="checkbox" value="2" checked="checked" />
-                                                    <span class="form-check-label">Customer</span>
-                                                </label>
-                                                <!--end::Options-->
-                                            </div>
-                                            <!--end::Options-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Notifications:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Switch-->
-                                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="" name="notifications" checked="checked" />
-                                                <label class="form-check-label">Enabled</label>
-                                            </div>
-                                            <!--end::Switch-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Actions-->
-                                        <div class="d-flex justify-content-end">
-                                            <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
-                                            <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
-                                        </div>
-                                        <!--end::Actions-->
-                                    </div>
-                                    <!--end::Form-->
-                                </div>
-                                <!--end::Menu 1-->
-                                <!--end::Menu-->
-                            </div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body pt-5">
-                            <!--begin::Item-->
-                            <small>No Projects</small>
-                            {{-- <div class="d-flex align-items-center mb-7">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-50px me-5">
-                                    <span class="symbol-label bg-light-success">
-                                        <i class="ki-duotone ki-abstract-26 fs-2x text-success">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                    </span>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Text-->
-                                <div class="d-flex flex-column">
-                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bold">Project Briefing</a>
-                                    <span class="text-muted fw-bold">Project Manager</span>
-                                </div>
-                                <!--end::Text-->
-                            </div> --}}
+<div class="page-content">
+    <div class="container-fluid">
 
-                            <!--end::Item-->
-                        </div>
-                        <!--end::Body-->
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="bg-transparent page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Loan Dashboard </h4>
+
+                    <div class="page-title-right">
+                        <ol class="m-0 breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Overview</li>
+                        </ol>
                     </div>
-                    <!--end::List Widget 1-->
+
                 </div>
-                <!--end::Col-->
-                <!--begin::Col-->
-                <div class="col-xl-8">
-                    <!--begin::Tables Widget 5-->
-                    <div class="card card-xl-stretch mb-5 mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold fs-3 mb-1">Latest 7 Loan Requests</span>
-                                <span class="text-muted mt-1 fw-semibold fs-7">More than {{ $all_loan_requests->count() }} total loan requests</span>
-                            </h3>
-                            <div class="card-toolbar">
-                                {{-- <ul class="nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-secondary fw-bold px-4 me-1 active" data-bs-toggle="tab" href="#kt_table_widget_5_tab_1">Month</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-secondary fw-bold px-4 me-1" data-bs-toggle="tab" href="#kt_table_widget_5_tab_2">Week</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-secondary fw-bold px-4" data-bs-toggle="tab" href="#kt_table_widget_5_tab_3">Day</a>
-                                    </li>
-                                </ul> --}}
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col">
+
+                <div class="h-100">
+                    <div class="pb-1 mb-3 row">
+                        <div class="col-12">
+                            <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-1 fs-16">Good Morning, {{ auth()->user()->fname.' '.auth()->user()->lname }}!</h4>
+                                    <p class="mb-0 text-muted">Here's what's happening with your reports today.</p>
+                                </div>
+                                <div class="mt-3 mt-lg-0">
+                                    <form action="javascript:void(0);">
+                                        <div class="mb-0 row g-3 align-items-center">
+                                            <div class="col-sm-auto">
+                                                {{-- <div class="input-group">
+                                                    <input type="text" class="form-control dash-filter-picker" data-provider="flatpickr" data-range-date="true" data-date-format="d M, Y" data-deafult-date="01 Jan 2022 to 31 Jan 2022">
+                                                    <div class="text-white input-group-text bg-primary border-primary">
+                                                        <i class="ri-calendar-2-line"></i>
+                                                    </div>
+                                                </div> --}}
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-auto">
+                                                <a href="{{ route('proxy-loan-create') }}" type="button" class="btn btn-soft-primary"><i class="align-middle ri-add-circle-line me-1"></i> Add New Loan</a>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-auto">
+                                                <button type="button" class="btn btn-soft-primary btn-icon waves-effect waves-light layout-rightside-btn"><i class="ri-pulse-line"></i></button>
+                                            </div>
+                                            <!--end col-->
+                                        </div>
+                                        <!--end row-->
+                                    </form>
+                                </div>
+                            </div><!-- end card header -->
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="overflow-hidden flex-grow-1">
+                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate"> Total Repayments</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 d-flex align-items-end justify-content-between">
+                                        <div>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{ App\Models\Transaction::total_collected() }}">0</span> </h4>
+                                            <a href="{{ route('make-payment') }}" class="text-decoration-underline">View Repayments</a>
+                                        </div>
+                                        <div class="flex-shrink-0 avatar-sm">
+                                            <span class="rounded avatar-title bg-primary-subtle fs-3">
+                                                <i class="bx bx-dollar-circle text-primary"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="overflow-hidden flex-grow-1">
+                                         <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Loans</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 d-flex align-items-end justify-content-between">
+                                        <div>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{ $this->total_loans() }}">{{ $this->total_loans() }}</span></h4>
+                                            <a href="{{ route('loans') }}" class="text-decoration-underline">View all loans</a>
+                                        </div>
+                                        <div class="flex-shrink-0 avatar-sm">
+                                            <span class="rounded avatar-title bg-primary-subtle fs-3">
+                                                <i class="bx bx-shopping-bag text-primary"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="overflow-hidden flex-grow-1">
+                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Customers</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 d-flex align-items-end justify-content-between">
+                                        <div>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  $borrowers ? $borrowers->count() : 0 }}">{{  $borrowers ? $borrowers->count() : 0 }}</span></h4>
+                                            <a href="{{ route('borrowers') }}" class="text-decoration-underline">See details</a>
+                                        </div>
+                                        <div class="flex-shrink-0 avatar-sm">
+                                            <span class="rounded avatar-title bg-primary-subtle fs-3">
+                                                <i class="bx bx-user-circle text-primary"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="overflow-hidden flex-grow-1">
+                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate"> Total Borrowed</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 d-flex align-items-end justify-content-between">
+                                        <div>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{  App\Models\Application::totalAmountLoanedOut() }}">{{  App\Models\Application::totalAmountLoanedOut() }}</span> </h4>
+                                            <a href="#" class="text-decoration-underline">Withdraw money</a>
+                                        </div>
+                                        <div class="flex-shrink-0 avatar-sm">
+                                            <span class="rounded avatar-title bg-primary-subtle fs-3">
+                                                <i class="bx bx-wallet text-primary"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                    </div> <!-- end row-->
+
+                    {{-- <div class="row">
+                        <div class="col-xl-8">
+                            <div class="card">
+                                <div class="border-0 card-header align-items-center d-flex">
+                                    <h4 class="mb-0 card-title flex-grow-1">Revenue</h4>
+                                    <div>
+                                        <button type="button" class="btn btn-soft-secondary btn-sm">
+                                            ALL
+                                        </button>
+                                        <button type="button" class="btn btn-soft-secondary btn-sm">
+                                            1M
+                                        </button>
+                                        <button type="button" class="btn btn-soft-secondary btn-sm">
+                                            6M
+                                        </button>
+                                        <button type="button" class="btn btn-soft-primary btn-sm">
+                                            1Y
+                                        </button>
+                                    </div>
+                                </div><!-- end card header -->
+
+                                <div class="p-0 border-0 card-header bg-light-subtle">
+                                    <div class="text-center row g-0">
+                                        <div class="col-6 col-sm-3">
+                                            <div class="p-3 border border-dashed border-start-0">
+                                                <h5 class="mb-1"><span class="counter-value" data-target="7585">0</span></h5>
+                                                <p class="mb-0 text-muted">Orders</p>
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-6 col-sm-3">
+                                            <div class="p-3 border border-dashed border-start-0">
+                                                <h5 class="mb-1">$<span class="counter-value" data-target="22.89">0</span>k</h5>
+                                                <p class="mb-0 text-muted">Earnings</p>
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-6 col-sm-3">
+                                            <div class="p-3 border border-dashed border-start-0">
+                                                <h5 class="mb-1"><span class="counter-value" data-target="367">0</span></h5>
+                                                <p class="mb-0 text-muted">Refunds</p>
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-6 col-sm-3">
+                                            <div class="p-3 border border-dashed border-start-0 border-end-0">
+                                                <h5 class="mb-1 text-success"><span class="counter-value" data-target="18.92">0</span>%</h5>
+                                                <p class="mb-0 text-muted">Conversation Ratio</p>
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                    </div>
+                                </div><!-- end card header -->
+
+                                <div class="p-0 pb-2 card-body">
+                                    <div class="w-100">
+                                        <div id="customer_impression_charts" data-colors='["--vz-secondary", "--vz-primary", "--vz-primary-rgb, 0.50"]' class="apex-charts" dir="ltr"></div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-4">
+                            <!-- card -->
+                            <div class="card card-height-100">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="mb-0 card-title flex-grow-1">Sales by Locations</h4>
+                                    <div class="flex-shrink-0">
+                                        <button type="button" class="btn btn-soft-primary btn-sm">
+                                            Export Report
+                                        </button>
+                                    </div>
+                                </div><!-- end card header -->
+
+                                <!-- card body -->
+                                <div class="card-body">
+
+                                    <div id="sales-by-locations" data-colors='["--vz-light", "--vz-secondary", "--vz-primary"]' style="height: 269px" dir="ltr"></div>
+
+                                    <div class="px-2 py-2 mt-1">
+                                        <p class="mb-1">Canada <span class="float-end">75%</span></p>
+                                        <div class="mt-2 progress" style="height: 6px;">
+                                            <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="75"></div>
+                                        </div>
+
+                                        <p class="mt-3 mb-1">Greenland <span class="float-end">47%</span>
+                                        </p>
+                                        <div class="mt-2 progress" style="height: 6px;">
+                                            <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 47%" aria-valuenow="47" aria-valuemin="0" aria-valuemax="47"></div>
+                                        </div>
+
+                                        <p class="mt-3 mb-1">Russia <span class="float-end">82%</span></p>
+                                        <div class="mt-2 progress" style="height: 6px;">
+                                            <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="82"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                        <!-- end col -->
+                    </div> --}}
+
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="mb-0 card-title flex-grow-1">Open Loans</h4>
+                                    <div class="flex-shrink-0">
+                                        {{-- <div class="dropdown card-header-dropdown">
+                                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="fw-semibold text-uppercase fs-12">Sort by:
+                                                </span><span class="text-muted">Today<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#">Today</a>
+                                                <a class="dropdown-item" href="#">Yesterday</a>
+                                                <a class="dropdown-item" href="#">Last 7 Days</a>
+                                                <a class="dropdown-item" href="#">Last 30 Days</a>
+                                                <a class="dropdown-item" href="#">This Month</a>
+                                                <a class="dropdown-item" href="#">Last Month</a>
+                                            </div>
+                                        </div> --}}
+                                    </div>
+                                </div><!-- end card header -->
+
+                                <div class="card-body">
+                                    <div class="table-responsive table-card">
+                                        <table class="table mb-0 align-middle table-hover table-centered table-nowrap">
+                                            <tbody>
+                                                @forelse ($this->getOpenLoanRequests('auto'); as $loan)
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            {{-- <div class="p-1 rounded avatar-sm bg-light me-2">
+                                                                <img src="public/assets/images/products/img-4.png" alt="" class="img-fluid d-block" />
+                                                            </div> --}}
+                                                            <div>
+                                                                <h5 class="my-1 fs-14"><a href="apps-ecommerce-product-details.html" class="text-reset">{{ $loan->user->fname.' '. $loan->user->lname }}</a></h5>
+                                                                <span class="text-muted">{{ $loan->created_at->toFormattedDateString() }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <h5 class="my-1 fs-14 fw-normal">K{{ number_format($loan->amount, 2, '.', ',') }}</h5>
+                                                        <span class="text-muted">{{ $loan->loan_product->name }} Loan</span>
+                                                    </td>
+                                                    <td>
+                                                        <h5 class="my-1 fs-14 fw-normal">{{ $loan->repayment_plan }} </h5>
+                                                        <span class="text-muted">Months</span>
+                                                    </td>
+                                                    <td>
+                                                        <h5 class="my-1 fs-14 fw-normal"><span class="badge bg-suceess-subtle text-suceess">Open</span></h5>
+                                                    </td>
+                                                    <td>
+                                                        <h5 class="my-1 fs-14 fw-normal">K{{
+                                                            number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id), 2, '.', ',')
+                                                        }}</h5>
+                                                        <span class="text-muted">Repayment</span>
+                                                    </td>
+                                                </tr>
+                                                @empty
+                                                    
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="pt-2 mt-4 text-center align-items-center justify-content-between row text-sm-start">
+                                         {{-- <div class="col-sm">
+                                            <div class="text-muted">
+                                                Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
+                                            </div>
+                                        </div>
+                                       <div class="mt-3 col-sm-auto mt-sm-0">
+                                            <ul class="mb-0 pagination pagination-separated pagination-sm justify-content-center">
+                                                <li class="page-item disabled">
+                                                    <a href="#" class="page-link">←</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">1</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a href="#" class="page-link">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">→</a>
+                                                </li>
+                                            </ul>
+                                        </div> --}}
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body py-3">
-                            <div class="tab-content">
-                                <!--begin::Tap pane-->
-                                <div class="tab-pane fade show active" id="kt_table_widget_5_tab_1">
-                                    <!--begin::Table container-->
-                                    <div class="table-responsive">
-                                        <!--begin::Table-->
-                                        <table class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                                <tr class="border-0">
-                                                    <th class="p-0 w-50px"></th>
-                                                    <th class="p-0 min-w-150px"></th>
-                                                    <th class="p-0 min-w-140px"></th>
-                                                    <th class="p-0 min-w-110px"></th>
-                                                    <th class="p-0 min-w-50px"></th>
+
+                        <div class="col-xl-6">
+                            <div class="card card-height-100">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="mb-0 card-title flex-grow-1">Closed Loans</h4>
+                                    <div class="flex-shrink-0">
+                                        {{-- <div class="dropdown card-header-dropdown">
+                                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#">Download Report</a>
+                                                <a class="dropdown-item" href="#">Export</a>
+                                                <a class="dropdown-item" href="#">Import</a>
+                                            </div>
+                                        </div> --}}
+                                    </div>
+                                </div><!-- end card header -->
+
+                                <div class="card-body">
+                                    <div class="table-responsive table-card">
+                                        <table class="table mb-0 align-middle table-centered table-hover table-nowrap">
+                                            <tbody>
+                                               @forelse ($this->closed_loans() as $loan)
+                                                {{-- <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-shrink-0 me-2">
+                                                                <img src="assets/images/companies/img-1.png" alt="" class="p-2 avatar-sm" />
+                                                            </div>
+                                                            <div>
+                                                                <h5 class="my-1 fs-14 fw-medium">
+                                                                    <a href="apps-ecommerce-seller-details.html" class="text-reset">{{ $loan- }}</a>
+                                                                </h5>
+                                                                <span class="text-muted">Oliver Tyler</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-muted">Bags and Wallets</span>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb-0">8547</p>
+                                                        <span class="text-muted">Stock</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-muted">$541200</span>
+                                                    </td>
+                                                    <td>
+                                                        <h5 class="mb-0 fs-14">32%<i class="align-middle ri-bar-chart-fill text-success fs-16 ms-2"></i></h5>
+                                                    </td>
+                                                </tr> --}}
+                                               @empty
+                                                   
+                                               @endforelse
+                                            </tbody>
+                                        </table><!-- end table -->
+                                    </div>
+
+                                    <div class="pt-2 mt-4 text-center align-items-center justify-content-between row text-sm-start">
+                                        {{-- <div class="col-sm">
+                                            <div class="text-muted">
+                                                Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
+                                            </div>
+                                        </div>
+                                        <div class="mt-3 col-sm-auto mt-sm-0">
+                                            <ul class="mb-0 pagination pagination-separated pagination-sm justify-content-center">
+                                                <li class="page-item disabled">
+                                                    <a href="#" class="page-link">←</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">1</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a href="#" class="page-link">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">→</a>
+                                                </li>
+                                            </ul>
+                                        </div> --}}
+                                    </div>
+
+                                </div> <!-- .card-body-->
+                            </div> <!-- .card-->
+                        </div> <!-- .col-->
+                    </div> <!-- end row-->
+
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="card card-height-100">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="mb-0 card-title flex-grow-1">Loans by Status</h4>
+                                    {{-- <div class="flex-shrink-0">
+                                        <div class="dropdown card-header-dropdown">
+                                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#">Download Report</a>
+                                                <a class="dropdown-item" href="#">Export</a>
+                                                <a class="dropdown-item" href="#">Import</a>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                </div><!-- end card header -->
+
+                                <div class="card-body">
+                                    <div id="store-visits-source" data-colors='["--vz-primary", "--vz-primary-rgb, 0.85", "--vz-primary-rgb, 0.70", "--vz-primary-rgb, 0.60", "--vz-primary-rgb, 0.45"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div> <!-- .card-->
+                        </div> <!-- .col-->
+
+                        <div class="col-xl-8">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="mb-0 card-title flex-grow-1">Recent Loan Requests</h4>
+                                    <div class="flex-shrink-0">
+                                        <button type="button" class="btn btn-soft-info btn-sm">
+                                            <i class="align-middle ri-file-list-3-line"></i> Generate Report
+                                        </button>
+                                    </div>
+                                </div><!-- end card header -->
+
+                                <div class="card-body">
+                                    <div class="table-responsive table-card">
+                                        <table class="table mb-0 align-middle table-borderless table-centered table-nowrap">
+                                            <thead class="text-muted table-light">
+                                                <tr>
+                                                    <th scope="col">Loan ID</th>
+                                                    <th scope="col">Customer</th>
+                                                    <th scope="col">Loan Product</th>
+                                                    <th scope="col">Principal</th>
+                                                    <th scope="col">Guarantor</th>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Score</th>
                                                 </tr>
                                             </thead>
-                                            <!--end::Table head-->
-                                            <!--begin::Table body-->
                                             <tbody>
 
                                                 @forelse($all_loan_requests as $loan)
                                                 <tr>
                                                     <td>
-                                                        <div class="symbol symbol-45px me-2" style="box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;">
-                                                            {{-- <span class="symbol-label"> --}}
-                                                                <img src="{{ asset('/public/icons/mfs/loan.png') }}" class="h-50 align-self-center" alt="" />
-                                                            {{-- </span> --}}
-                                                        </div>
+                                                        <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2112</a>
                                                     </td>
                                                     <td>
-                                                        <a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">
-                                                            {{ ucwords($loan->user->fname).' '.ucwords($loan->user->lname) }}
-                                                        </a>
-                                                        <span class="text-muted fw-semibold d-block">
-                                                            <a href="tel:{{ $loan->user->phone }}">{{ $loan->user->phone }}</a> <br> {{ $loan->email }} </span>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-shrink-0 me-2">
+                                                                <img src="assets/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle" />
+                                                            </div>
+                                                            <div class="flex-grow-1">
+                                                                {{ ucwords($loan->user->fname).' '.ucwords($loan->user->lname) }}
+                                                            </div>
+                                                        </div>
                                                     </td>
-                                                    <td class="text-end text-muted fw-bold"><small>Requested on</small><br>{{ $loan->created_at->toFormattedDateString() }}</td>
-                                                    <td class="text-end">
-                                                        <span class="badge badge-light-primary">K {{ $loan->amount }}</span>
+                                                    <td>Clothes</td>
+                                                    <td>
+                                                        <span class="text-success">K{{ $loan->amount }}</span>
+                                                    </td>
+                                                    <td>--</td>
+                                                    <td>
                                                         @if($loan->status == 0)
-                                                            <span class="badge badge-light-warning">Pending</span>
+                                                        <span class="badge bg-warning-subtle text-warning">Pending</span>
                                                         @elseif($loan->status == 1)
-                                                            <span class="badge badge-light-success">Open</span>
+                                                        <span class="badge bg-success-subtle text-success">Open</span>
                                                         @elseif($loan->status == 2)
-                                                            <span class="badge badge-light-primary">Processing</span>
+                                                        <span class="badge bg-primary-subtle text-primary">Pending</span>
+                                                        @elseif($loan->status = 3)
+                                                        <span class="badge bg-danger-subtle text-danger">Danger</span>
                                                         @else
-                                                            <span class="badge badge-light-danger">Denied</span>
+                                                        <span class="badge bg-success-subtle text-success">Paid</span>
                                                         @endif
                                                     </td>
-                                                    <td class="text-end">
-                                                        @can('processes loans')
-                                                        <a href="{{ route('loan-details',['id' => $loan->id]) }}" class="btn btn-sm btn-icon btn-bg-primary btn-active-color-primary">
-                                                            <i class="ki-duotone ki-arrow-right fs-2">
-                                                                <span class="path1"></span>
-                                                                <span class="path2"></span>
-                                                            </i>
-                                                        </a>
-                                                        @endcan
+                                                    <td>
+                                                        <h5 class="mb-0 fs-14 fw-medium">0.1<span class="text-muted fs-11 ms-1">(0/10)</span></h5>
                                                     </td>
                                                 </tr>
                                                 @empty
@@ -235,735 +556,449 @@
                                                     </div>
                                                 </tr>
                                                 @endforelse
-                                            </tbody>
-                                            <!--end::Table body-->
-                                        </table>
-                                        <div class="col-xl-12 justify-center justify-content-center items-center p-4">
-                                            <a class="btn btn-sm justify-center justify-content-center items-center"  href="{{ route('view-loan-requests') }}">View More</a>
+
+                                            </tbody><!-- end tbody -->
+                                        </table><!-- end table -->
+                                    </div>
+                                </div>
+                            </div> <!-- .card-->
+                        </div> <!-- .col-->
+                    </div> <!-- end row-->
+
+                </div> <!-- end .h-100-->
+
+            </div> <!-- end col -->
+
+            <div class="col-auto layout-rightside-col">
+                <div class="overlay"></div>
+                <div class="layout-rightside">
+                    <div class="card h-100 rounded-0 card-border-effect-none">
+                        <div class="p-0 card-body">
+                            <div class="p-3">
+                                <h6 class="mb-0 text-muted text-uppercase fw-semibold">Recent Activity</h6>
+                            </div>
+                            <div data-simplebar style="max-height: 410px;" class="p-3 pt-0">
+                                <div class="acitivity-timeline acitivity-main">
+                                    <div class="acitivity-item d-flex">
+                                        <div class="flex-shrink-0 avatar-xs acitivity-avatar">
+                                            <div class="avatar-title bg-success-subtle text-success rounded-circle">
+                                                <i class="ri-shopping-cart-2-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1 lh-base">Purchase by James Price</h6>
+                                            <p class="mb-1 text-muted">Product noise evolve smartwatch </p>
+                                            <small class="mb-0 text-muted">02:14 PM Today</small>
                                         </div>
                                     </div>
-                                    <!--end::Table-->
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::Tables Widget 5-->
-                </div>
-                <!--end::Col-->
-                {{-- @can('view calculator') --}}
-                <div class="w-full d-flex gap-4">
-                    <a href="{{ route('loan-calculator') }}" class="btn btn-primary text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
-                            <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </div>
-                {{-- @endcan --}}
-            </div>
-            <!--end::Row-->
-            <!--begin::Row-->
-            {{-- <div class="row g-5 g-xl-8">
-                <div class="col-xl-4">
-                    <!--begin::List Widget 3-->
-                    <div class="card card-xl-stretch mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0">
-                            <h3 class="card-title fw-bold text-dark">Todo</h3>
-                            <div class="card-toolbar">
-                                <!--begin::Menu-->
-                                <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    <i class="ki-duotone ki-category fs-6">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
-                                </button>
-                                <!--begin::Menu 3-->
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
-                                    <!--begin::Heading-->
-                                    <div class="menu-item px-3">
-                                        <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Payments</div>
-                                    </div>
-                                    <!--end::Heading-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Create Invoice</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link flex-stack px-3">Create Payment
-                                        <span class="ms-2" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference">
-                                            <i class="ki-duotone ki-information fs-6">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                                <span class="path3"></span>
-                                            </i>
-                                        </span></a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Generate Bill</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
-                                        <a href="#" class="menu-link px-3">
-                                            <span class="menu-title">Subscription</span>
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <!--begin::Menu sub-->
-                                        <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Plans</a>
+                                    <div class="py-3 acitivity-item d-flex">
+                                        <div class="flex-shrink-0 avatar-xs acitivity-avatar">
+                                            <div class="avatar-title bg-danger-subtle text-danger rounded-circle">
+                                                <i class="ri-stack-fill"></i>
                                             </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Billing</a>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1 lh-base">Added new <span class="fw-semibold">style collection</span></h6>
+                                            <p class="mb-1 text-muted">By Nesta Technologies</p>
+                                            <div class="gap-2 p-2 mb-2 border border-dashed d-inline-flex">
+                                                <a href="apps-ecommerce-product-details.html" class="p-1 rounded bg-light">
+                                                    <img src="assets/images/products/img-8.png" alt="" class="img-fluid d-block" />
+                                                </a>
+                                                <a href="apps-ecommerce-product-details.html" class="p-1 rounded bg-light">
+                                                    <img src="assets/images/products/img-2.png" alt="" class="img-fluid d-block" />
+                                                </a>
+                                                <a href="apps-ecommerce-product-details.html" class="p-1 rounded bg-light">
+                                                    <img src="assets/images/products/img-10.png" alt="" class="img-fluid d-block" />
+                                                </a>
                                             </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Statements</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu separator-->
-                                            <div class="separator my-2"></div>
-                                            <!--end::Menu separator-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <div class="menu-content px-3">
-                                                    <!--begin::Switch-->
-                                                    <label class="form-check form-switch form-check-custom form-check-solid">
-                                                        <!--begin::Input-->
-                                                        <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
-                                                        <!--end::Input-->
-                                                        <!--end::Label-->
-                                                        <span class="form-check-label text-muted fs-6">Recuring</span>
-                                                        <!--end::Label-->
-                                                    </label>
-                                                    <!--end::Switch-->
+                                            <p class="mb-0 text-muted"><small>9:47 PM Yesterday</small></p>
+                                        </div>
+                                    </div>
+                                    <div class="py-3 acitivity-item d-flex">
+                                        <div class="flex-shrink-0">
+                                            <img src="assets/images/users/avatar-2.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar">
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1 lh-base">Natasha Carey have liked the products</h6>
+                                            <p class="mb-1 text-muted">Allow users to like products in your WooCommerce store.</p>
+                                            <small class="mb-0 text-muted">25 Dec, 2021</small>
+                                        </div>
+                                    </div>
+                                    <div class="py-3 acitivity-item d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="avatar-xs acitivity-avatar">
+                                                <div class="avatar-title rounded-circle bg-secondary">
+                                                    <i class="mdi mdi-sale fs-14"></i>
                                                 </div>
                                             </div>
-                                            <!--end::Menu item-->
                                         </div>
-                                        <!--end::Menu sub-->
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3 my-1">
-                                        <a href="#" class="menu-link px-3">Settings</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                </div>
-                                <!--end::Menu 3-->
-                                <!--end::Menu-->
-                            </div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body pt-2">
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center mb-8">
-                                <!--begin::Bullet-->
-                                <span class="bullet bullet-vertical h-40px bg-success"></span>
-                                <!--end::Bullet-->
-                                <!--begin::Checkbox-->
-                                <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                </div>
-                                <!--end::Checkbox-->
-                                <!--begin::Description-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Create FireStone Logo</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 2 Days</span>
-                                </div>
-                                <!--end::Description-->
-                                <span class="badge badge-light-success fs-8 fw-bold">New</span>
-                            </div>
-                            <!--end:Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center mb-8">
-                                <!--begin::Bullet-->
-                                <span class="bullet bullet-vertical h-40px bg-primary"></span>
-                                <!--end::Bullet-->
-                                <!--begin::Checkbox-->
-                                <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                </div>
-                                <!--end::Checkbox-->
-                                <!--begin::Description-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Stakeholder Meeting</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 3 Days</span>
-                                </div>
-                                <!--end::Description-->
-                                <span class="badge badge-light-primary fs-8 fw-bold">New</span>
-                            </div>
-                            <!--end:Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center mb-8">
-                                <!--begin::Bullet-->
-                                <span class="bullet bullet-vertical h-40px bg-warning"></span>
-                                <!--end::Bullet-->
-                                <!--begin::Checkbox-->
-                                <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                </div>
-                                <!--end::Checkbox-->
-                                <!--begin::Description-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Scoping & Estimations</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 5 Days</span>
-                                </div>
-                                <!--end::Description-->
-                                <span class="badge badge-light-warning fs-8 fw-bold">New</span>
-                            </div>
-                            <!--end:Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center mb-8">
-                                <!--begin::Bullet-->
-                                <span class="bullet bullet-vertical h-40px bg-primary"></span>
-                                <!--end::Bullet-->
-                                <!--begin::Checkbox-->
-                                <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                </div>
-                                <!--end::Checkbox-->
-                                <!--begin::Description-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">KPI App Showcase</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 2 Days</span>
-                                </div>
-                                <!--end::Description-->
-                                <span class="badge badge-light-primary fs-8 fw-bold">New</span>
-                            </div>
-                            <!--end:Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center mb-8">
-                                <!--begin::Bullet-->
-                                <span class="bullet bullet-vertical h-40px bg-danger"></span>
-                                <!--end::Bullet-->
-                                <!--begin::Checkbox-->
-                                <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                </div>
-                                <!--end::Checkbox-->
-                                <!--begin::Description-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Project Meeting</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 12 Days</span>
-                                </div>
-                                <!--end::Description-->
-                                <span class="badge badge-light-danger fs-8 fw-bold">New</span>
-                            </div>
-                            <!--end:Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Bullet-->
-                                <span class="bullet bullet-vertical h-40px bg-success"></span>
-                                <!--end::Bullet-->
-                                <!--begin::Checkbox-->
-                                <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                </div>
-                                <!--end::Checkbox-->
-                                <!--begin::Description-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Customers Update</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 1 week</span>
-                                </div>
-                                <!--end::Description-->
-                                <span class="badge badge-light-success fs-8 fw-bold">New</span>
-                            </div>
-                            <!--end:Item-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end:List Widget 3-->
-                </div>
-                <div class="col-xl-8">
-                    <!--begin::Charts Widget 1-->
-                    <div class="card card-xl-stretch mb-5 mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <!--begin::Title-->
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold fs-3 mb-1">Recent Statistics</span>
-                                <span class="text-muted fw-semibold fs-7">More than 400 new members</span>
-                            </h3>
-                            <!--end::Title-->
-                            <!--begin::Toolbar-->
-                            <div class="card-toolbar">
-                                <!--begin::Menu-->
-                                <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    <i class="ki-duotone ki-category fs-6">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
-                                </button>
-                                <!--begin::Menu 1-->
-                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64b784c407352">
-                                    <!--begin::Header-->
-                                    <div class="px-7 py-5">
-                                        <div class="fs-5 text-dark fw-bold">Filter Options</div>
-                                    </div>
-                                    <!--end::Header-->
-                                    <!--begin::Menu separator-->
-                                    <div class="separator border-gray-200"></div>
-                                    <!--end::Menu separator-->
-                                    <!--begin::Form-->
-                                    <div class="px-7 py-5">
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Status:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <div>
-                                                <select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="Select option" data-dropdown-parent="#kt_menu_64b784c407352" data-allow-clear="true">
-                                                    <option></option>
-                                                    <option value="1">Approved</option>
-                                                    <option value="2">Pending</option>
-                                                    <option value="2">In Process</option>
-                                                    <option value="2">Rejected</option>
-                                                </select>
-                                            </div>
-                                            <!--end::Input-->
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1 lh-base">Today offers by <a href="apps-ecommerce-seller-details.html" class="link-secondary">Digitech Galaxy</a></h6>
+                                            <p class="mb-2 text-muted">Offer is valid on orders of Rs.500 Or above for selected products only.</p>
+                                            <small class="mb-0 text-muted">12 Dec, 2021</small>
                                         </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Member Type:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Options-->
-                                            <div class="d-flex">
-                                                <!--begin::Options-->
-                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                    <input class="form-check-input" type="checkbox" value="1" />
-                                                    <span class="form-check-label">Author</span>
-                                                </label>
-                                                <!--end::Options-->
-                                                <!--begin::Options-->
-                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="checkbox" value="2" checked="checked" />
-                                                    <span class="form-check-label">Customer</span>
-                                                </label>
-                                                <!--end::Options-->
-                                            </div>
-                                            <!--end::Options-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Notifications:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Switch-->
-                                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="" name="notifications" checked="checked" />
-                                                <label class="form-check-label">Enabled</label>
-                                            </div>
-                                            <!--end::Switch-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Actions-->
-                                        <div class="d-flex justify-content-end">
-                                            <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
-                                            <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
-                                        </div>
-                                        <!--end::Actions-->
                                     </div>
-                                    <!--end::Form-->
-                                </div>
-                                <!--end::Menu 1-->
-                                <!--end::Menu-->
-                            </div>
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <!--begin::Chart-->
-                            <div id="kt_charts_widget_1_chart" style="height: 350px"></div>
-                            <!--end::Chart-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::Charts Widget 1-->
-                </div>
-            </div> --}}
-            <!--end::Row-->
-            <!--begin::Row-->
-            {{-- <div class="row g-5 g-xl-8">
-                <div class="col-xl-6">
-                    <!--begin::List Widget 7-->
-                    <div class="card card-xl-stretch mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header align-items-center border-0 mt-4">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="fw-bold text-dark">Latest Media</span>
-                                <span class="text-muted mt-1 fw-semibold fs-7">Articles and publications</span>
-                            </h3>
-                            <div class="card-toolbar">
-                                <!--begin::Menu-->
-                                <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    <i class="ki-duotone ki-category fs-6">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
-                                </button>
-                                <!--begin::Menu 1-->
-                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64b784c4073c3">
-                                    <!--begin::Header-->
-                                    <div class="px-7 py-5">
-                                        <div class="fs-5 text-dark fw-bold">Filter Options</div>
-                                    </div>
-                                    <!--end::Header-->
-                                    <!--begin::Menu separator-->
-                                    <div class="separator border-gray-200"></div>
-                                    <!--end::Menu separator-->
-                                    <!--begin::Form-->
-                                    <div class="px-7 py-5">
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Status:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <div>
-                                                <select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="Select option" data-dropdown-parent="#kt_menu_64b784c4073c3" data-allow-clear="true">
-                                                    <option></option>
-                                                    <option value="1">Approved</option>
-                                                    <option value="2">Pending</option>
-                                                    <option value="2">In Process</option>
-                                                    <option value="2">Rejected</option>
-                                                </select>
-                                            </div>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Member Type:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Options-->
-                                            <div class="d-flex">
-                                                <!--begin::Options-->
-                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                    <input class="form-check-input" type="checkbox" value="1" />
-                                                    <span class="form-check-label">Author</span>
-                                                </label>
-                                                <!--end::Options-->
-                                                <!--begin::Options-->
-                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="checkbox" value="2" checked="checked" />
-                                                    <span class="form-check-label">Customer</span>
-                                                </label>
-                                                <!--end::Options-->
-                                            </div>
-                                            <!--end::Options-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Notifications:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Switch-->
-                                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="" name="notifications" checked="checked" />
-                                                <label class="form-check-label">Enabled</label>
-                                            </div>
-                                            <!--end::Switch-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Actions-->
-                                        <div class="d-flex justify-content-end">
-                                            <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
-                                            <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
-                                        </div>
-                                        <!--end::Actions-->
-                                    </div>
-                                    <!--end::Form-->
-                                </div>
-                                <!--end::Menu 1-->
-                                <!--end::Menu-->
-                            </div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body pt-3">
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-sm-center mb-7">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-60px symbol-2by3 me-4">
-                                    <div class="symbol-label" style="background-image: url('assets/media/stock/600x400/img-20.jpg')"></div>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Title-->
-                                <div class="d-flex flex-row-fluid flex-wrap align-items-center">
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Cup & Green</a>
-                                        <span class="text-muted fw-semibold d-block pt-1">Size: 87KB</span>
-                                    </div>
-                                    <span class="badge badge-light-success fs-8 fw-bold my-2">Approved</span>
-                                </div>
-                                <!--end::Title-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-sm-center mb-7">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-60px symbol-2by3 me-4">
-                                    <div class="symbol-label" style="background-image: url('assets/media/stock/600x400/img-19.jpg')"></div>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Title-->
-                                <div class="d-flex flex-row-fluid flex-wrap align-items-center">
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Yellow Background</a>
-                                        <span class="text-muted fw-semibold d-block pt-1">Size: 1.2MB</span>
-                                    </div>
-                                    <span class="badge badge-light-warning fs-8 fw-bold my-2">In Progress</span>
-                                </div>
-                                <!--end::Title-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-sm-center mb-7">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-60px symbol-2by3 me-4">
-                                    <div class="symbol-label" style="background-image: url('assets/media/stock/600x400/img-25.jpg')"></div>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Title-->
-                                <div class="d-flex flex-row-fluid flex-wrap align-items-center">
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Nike & Blue</a>
-                                        <span class="text-muted fw-semibold d-block pt-1">Size: 87KB</span>
-                                    </div>
-                                    <span class="badge badge-light-success fs-8 fw-bold my-2">Success</span>
-                                </div>
-                                <!--end::Title-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-sm-center">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-60px symbol-2by3 me-4">
-                                    <div class="symbol-label" style="background-image: url('assets/media/stock/600x400/img-24.jpg')"></div>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Title-->
-                                <div class="d-flex flex-row-fluid flex-wrap align-items-center">
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Red Boots</a>
-                                        <span class="text-muted fw-semibold d-block pt-1">Size: 345KB</span>
-                                    </div>
-                                    <span class="badge badge-light-danger fs-8 fw-bold my-2">Rejected</span>
-                                </div>
-                                <!--end::Title-->
-                            </div>
-                            <!--end::Item-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::List Widget 7-->
-                </div>
-                <div class="col-xl-6">
-                    <!--begin::List Widget 6-->
-                    <div class="card card-xl-stretch mb-5 mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0">
-                            <h3 class="card-title fw-bold text-dark">Notifications</h3>
-                            <div class="card-toolbar">
-                                <!--begin::Menu-->
-                                <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    <i class="ki-duotone ki-category fs-6">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
-                                </button>
-                                <!--begin::Menu 3-->
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
-                                    <!--begin::Heading-->
-                                    <div class="menu-item px-3">
-                                        <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Payments</div>
-                                    </div>
-                                    <!--end::Heading-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Create Invoice</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link flex-stack px-3">Create Payment
-                                        <span class="ms-2" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference">
-                                            <i class="ki-duotone ki-information fs-6">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                                <span class="path3"></span>
-                                            </i>
-                                        </span></a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Generate Bill</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
-                                        <a href="#" class="menu-link px-3">
-                                            <span class="menu-title">Subscription</span>
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <!--begin::Menu sub-->
-                                        <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Plans</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Billing</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Statements</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu separator-->
-                                            <div class="separator my-2"></div>
-                                            <!--end::Menu separator-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <div class="menu-content px-3">
-                                                    <!--begin::Switch-->
-                                                    <label class="form-check form-switch form-check-custom form-check-solid">
-                                                        <!--begin::Input-->
-                                                        <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
-                                                        <!--end::Input-->
-                                                        <!--end::Label-->
-                                                        <span class="form-check-label text-muted fs-6">Recuring</span>
-                                                        <!--end::Label-->
-                                                    </label>
-                                                    <!--end::Switch-->
+                                    <div class="py-3 acitivity-item d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="avatar-xs acitivity-avatar">
+                                                <div class="avatar-title rounded-circle bg-danger-subtle text-danger">
+                                                    <i class="ri-bookmark-fill"></i>
                                                 </div>
                                             </div>
-                                            <!--end::Menu item-->
                                         </div>
-                                        <!--end::Menu sub-->
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1 lh-base">Favorite Product</h6>
+                                            <p class="mb-2 text-muted">Esther James have Favorite product.</p>
+                                            <small class="mb-0 text-muted">25 Nov, 2021</small>
+                                        </div>
                                     </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3 my-1">
-                                        <a href="#" class="menu-link px-3">Settings</a>
+                                    <div class="py-3 acitivity-item d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="avatar-xs acitivity-avatar">
+                                                <div class="avatar-title rounded-circle bg-secondary">
+                                                    <i class="mdi mdi-sale fs-14"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1 lh-base">Flash sale starting <span class="text-primary">Tomorrow.</span></h6>
+                                            <p class="mb-0 text-muted">Flash sale by <a href="javascript:void(0);" class="link-secondary fw-medium">Zoetic Fashion</a></p>
+                                            <small class="mb-0 text-muted">22 Oct, 2021</small>
+                                        </div>
                                     </div>
-                                    <!--end::Menu item-->
+                                    <div class="py-3 acitivity-item d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="avatar-xs acitivity-avatar">
+                                                <div class="avatar-title rounded-circle bg-info-subtle text-info">
+                                                    <i class="ri-line-chart-line"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1 lh-base">Monthly sales report</h6>
+                                            <p class="mb-2 text-muted"><span class="text-danger">2 days left</span> notification to submit the monthly sales report. <a href="javascript:void(0);" class="link-warning text-decoration-underline">Reports Builder</a></p>
+                                            <small class="mb-0 text-muted">15 Oct</small>
+                                        </div>
+                                    </div>
+                                    <div class="acitivity-item d-flex">
+                                        <div class="flex-shrink-0">
+                                            <img src="assets/images/users/avatar-3.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar" />
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1 lh-base">Frank Hook Commented</h6>
+                                            <p class="mb-2 text-muted fst-italic">" A product that has reviews is more likable to be sold than a product. "</p>
+                                            <small class="mb-0 text-muted">26 Aug, 2021</small>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!--end::Menu 3-->
-                                <!--end::Menu-->
                             </div>
+
+                            <div class="p-3 mt-2">
+                                <h6 class="mb-3 text-muted text-uppercase fw-semibold">Top 10 Categories
+                                </h6>
+
+                                <ol class="ps-3 text-muted">
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Mobile & Accessories <span class="float-end">(10,294)</span></a>
+                                    </li>
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Desktop <span class="float-end">(6,256)</span></a>
+                                    </li>
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Electronics <span class="float-end">(3,479)</span></a>
+                                    </li>
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Home & Furniture <span class="float-end">(2,275)</span></a>
+                                    </li>
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Grocery <span class="float-end">(1,950)</span></a>
+                                    </li>
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Fashion <span class="float-end">(1,582)</span></a>
+                                    </li>
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Appliances <span class="float-end">(1,037)</span></a>
+                                    </li>
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Beauty, Toys & More <span class="float-end">(924)</span></a>
+                                    </li>
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Food & Drinks <span class="float-end">(701)</span></a>
+                                    </li>
+                                    <li class="py-1">
+                                        <a href="#" class="text-muted">Toys & Games <span class="float-end">(239)</span></a>
+                                    </li>
+                                </ol>
+                                <div class="mt-3 text-center">
+                                    <a href="javascript:void(0);" class="text-muted text-decoration-underline">View all Categories</a>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h6 class="mb-3 text-muted text-uppercase fw-semibold">Products Reviews</h6>
+                                <!-- Swiper -->
+                                <div class="swiper vertical-swiper" style="height: 250px;">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <div class="border border-dashed shadow-none card">
+                                                <div class="card-body">
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0 avatar-sm">
+                                                            <div class="rounded avatar-title bg-light">
+                                                                <img src="assets/images/companies/img-1.png" alt="" height="30">
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <div>
+                                                                <p class="mb-1 text-muted fst-italic text-truncate-two-lines"> " Great product and looks great, lots of features. "</p>
+                                                                <div
+                                                                    class="align-middle fs-11 text-warning">
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-0 text-end text-muted">
+                                                                - by <cite title="Source Title">Force Medicines</cite>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="border border-dashed shadow-none card">
+                                                <div class="card-body">
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="assets/images/users/avatar-3.jpg" alt="" class="rounded avatar-sm">
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <div>
+                                                                <p class="mb-1 text-muted fst-italic text-truncate-two-lines"> " Amazing template, very easy to understand and manipulate. "</p>
+                                                                <div class="align-middle fs-11 text-warning">
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-half-fill"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-0 text-end text-muted">
+                                                                - by <cite title="Source Title">Henry Baird</cite>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="border border-dashed shadow-none card">
+                                                <div class="card-body">
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0 avatar-sm">
+                                                            <div class="rounded avatar-title bg-light">
+                                                                <img src="assets/images/companies/img-8.png" alt="" height="30">
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <div>
+                                                                <p class="mb-1 text-muted fst-italic text-truncate-two-lines"> "Very beautiful product and Very helpful customer service."</p>
+                                                                <div class="align-middle fs-11 text-warning">
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-line"></i>
+                                                                    <i class="ri-star-line"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-0 text-end text-muted">
+                                                                - by <cite title="Source Title">Zoetic Fashion</cite>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="border border-dashed shadow-none card">
+                                                <div class="card-body">
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="assets/images/users/avatar-2.jpg" alt="" class="rounded avatar-sm">
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <div>
+                                                                <p class="mb-1 text-muted fst-italic text-truncate-two-lines">" The product is very beautiful. I like it. "</p>
+                                                                <div class="align-middle fs-11 text-warning">
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-fill"></i>
+                                                                    <i class="ri-star-half-fill"></i>
+                                                                    <i class="ri-star-line"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-0 text-end text-muted">
+                                                                - by <cite title="Source Title">Nancy Martino</cite>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3">
+                                <h6 class="mb-3 text-muted text-uppercase fw-semibold">Customer Reviews</h6>
+                                <div class="px-3 py-2 mb-2 bg-light rounded-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <div class="align-middle fs-16 text-warning">
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-half-fill"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <h6 class="mb-0">4.5 out of 5</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-muted">Total <span class="fw-medium">5.50k</span> reviews</div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="row align-items-center g-2">
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0">5 star</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="p-1">
+                                                <div class="progress animated-progress progress-sm">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 50.16%" aria-valuenow="50.16" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0 text-muted">2758</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+
+                                    <div class="row align-items-center g-2">
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0">4 star</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="p-1">
+                                                <div class="progress animated-progress progress-sm">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 29.32%" aria-valuenow="29.32" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0 text-muted">1063</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+
+                                    <div class="row align-items-center g-2">
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0">3 star</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="p-1">
+                                                <div class="progress animated-progress progress-sm">
+                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 18.12%" aria-valuenow="18.12" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0 text-muted">997</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+
+                                    <div class="row align-items-center g-2">
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0">2 star</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="p-1">
+                                                <div class="progress animated-progress progress-sm">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 4.98%" aria-valuenow="4.98" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0 text-muted">227</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+
+                                    <div class="row align-items-center g-2">
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0">1 star</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="p-1">
+                                                <div class="progress animated-progress progress-sm">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 7.42%" aria-valuenow="7.42" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="p-1">
+                                                <h6 class="mb-0 text-muted">408</h6>
+                                            </div>
+                                        </div>
+                                    </div><!-- end row -->
+                                </div>
+                            </div>
+
+                            <div class="mx-4 mt-3 mb-0 text-center border-0 card sidebar-alert bg-light">
+                                <div class="card-body">
+                                    <img src="assets/images/giftbox.png" alt="">
+                                    <div class="mt-4">
+                                        <h5>Invite New Seller</h5>
+                                        <p class="text-muted lh-base">Refer a new seller to us and earn $100 per refer.</p>
+                                        <button type="button" class="btn btn-primary btn-label rounded-pill"><i class="align-middle ri-mail-fill label-icon rounded-pill fs-16 me-2"></i> Invite Now</button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body pt-0">
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
-                                <i class="ki-duotone ki-abstract-26 text-warning fs-1 me-5">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                <!--begin::Title-->
-                                <div class="flex-grow-1 me-2">
-                                    <a href="#" class="fw-bold text-gray-800 text-hover-primary fs-6">Group lunch celebration</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 2 Days</span>
-                                </div>
-                                <!--end::Title-->
-                                <!--begin::Lable-->
-                                <span class="fw-bold text-warning py-1">+28%</span>
-                                <!--end::Lable-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center bg-light-success rounded p-5 mb-7">
-                                <i class="ki-duotone ki-abstract-26 text-success fs-1 me-5">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                <!--begin::Title-->
-                                <div class="flex-grow-1 me-2">
-                                    <a href="#" class="fw-bold text-gray-800 text-hover-primary fs-6">Navigation optimization</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 2 Days</span>
-                                </div>
-                                <!--end::Title-->
-                                <!--begin::Lable-->
-                                <span class="fw-bold text-success py-1">+50%</span>
-                                <!--end::Lable-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center bg-light-danger rounded p-5 mb-7">
-                                <i class="ki-duotone ki-abstract-26 text-danger fs-1 me-5">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                <!--begin::Title-->
-                                <div class="flex-grow-1 me-2">
-                                    <a href="#" class="fw-bold text-gray-800 text-hover-primary fs-6">Rebrand strategy planning</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 5 Days</span>
-                                </div>
-                                <!--end::Title-->
-                                <!--begin::Lable-->
-                                <span class="fw-bold text-danger py-1">-27%</span>
-                                <!--end::Lable-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center bg-light-info rounded p-5">
-                                <i class="ki-duotone ki-abstract-26 text-info fs-1 me-5">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                <!--begin::Title-->
-                                <div class="flex-grow-1 me-2">
-                                    <a href="#" class="fw-bold text-gray-800 text-hover-primary fs-6">Product goals strategy</a>
-                                    <span class="text-muted fw-semibold d-block">Due in 7 Days</span>
-                                </div>
-                                <!--end::Title-->
-                                <!--begin::Lable-->
-                                <span class="fw-bold text-info py-1">+8%</span>
-                                <!--end::Lable-->
-                            </div>
-                            <!--end::Item-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::List Widget 6-->
-                </div>
-            </div> --}}
-            <!--end::Row-->
+                    </div> <!-- end card-->
+                </div> <!-- end .rightbar-->
+
+            </div> <!-- end col -->
         </div>
-        <!--end::Container-->
+
     </div>
-    <!--end::Post-->
+    <!-- container-fluid -->
 </div>

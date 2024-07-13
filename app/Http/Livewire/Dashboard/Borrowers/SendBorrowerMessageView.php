@@ -20,7 +20,7 @@ class SendBorrowerMessageView extends Component
         $this->authorize('view clientele');
         $this->users = User::latest()->role('user')->get();
         return view('livewire.dashboard.borrowers.send-borrower-message-view')
-        ->layout('layouts.dashboard');
+        ->layout('layouts.main');
     }
 
     public function sendMessage(){

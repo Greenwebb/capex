@@ -118,7 +118,7 @@ class UpdateSetting extends Component
             break;
         }
         return view('livewire.dashboard.site-settings.update-setting')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 
 

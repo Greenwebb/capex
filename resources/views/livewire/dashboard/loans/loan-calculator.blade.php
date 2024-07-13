@@ -1,5 +1,5 @@
 
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+<div class="page-content">
     <div class="px-10 py-4">
         <h3 class="card-title align-items-start flex-column">
             <span class="card-label fw-bold fs-3 mb-1">Loan Calculator</span>

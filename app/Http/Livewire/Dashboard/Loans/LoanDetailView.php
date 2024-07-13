@@ -47,7 +47,7 @@ class LoanDetailView extends Component
             $this->getAmoritizationTable();
             $this->change_status();
             return view('livewire.dashboard.loans.loan-detail-view')
-            ->layout('layouts.admin');
+            ->layout('layouts.main');
         } catch (\Throwable $th) {
 
         }

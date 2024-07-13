@@ -16,7 +16,7 @@ class LoanRepaymentView extends Component
     {
         $this->loan_requests = $this->getDueLoanRequests('auto');
         return view('livewire.dashboard.loans.loan-repayment-view')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 
     public function exportRepaymentLoans(){

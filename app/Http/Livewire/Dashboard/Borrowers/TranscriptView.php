@@ -23,7 +23,7 @@ class TranscriptView extends Component
     {
         $this->data = $this->searchAccount($this->key);
         return view('livewire.dashboard.borrowers.transcript-view')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 
     public function searchAccount($key){

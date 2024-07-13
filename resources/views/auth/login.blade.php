@@ -1,204 +1,190 @@
-<!DOCTYPE html>
-<html lang="en">
-<!--begin::Head-->
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-bs-theme="dark" data-body-image="img-1" data-preloader="disable">
 
+
+<!-- Mirrored from themesbrand.com/velzon/html/galaxy/auth-signin-cover.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Jul 2024 20:13:59 GMT -->
 <head>
-    <base href="" />
-    <title>MFS | Administration Dashboard</title>
+
     <meta charset="utf-8" />
-    <meta name="description"
-        content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
-    <meta name="keywords"
-        content="Mightyfin, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Mightyfin - Financial admin Dashboard" />
-    <meta property="og:url" content="https://keenthemes.com/Mightyfin" />
-    <meta property="og:site_name" content="Greenwebb | Mightyfin" />
+    <title>Sign In | Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="public/assets/images/favicon.ico">
 
-    <link rel="shortcut icon" href="{{ asset('public/images/m.jpg') }}" />
-    <!--begin::Fonts(mandatory for all pages)-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-    <!--end::Fonts-->
-    <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{ asset('public/mfs/admin/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}"
-        rel="stylesheet" type="text/css" />
-    <link href="{{ asset('public/mfs/admin/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
-    <!--end::Vendor Stylesheets-->
-    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="{{ asset('public/mfs/admin/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('public/mfs/admin/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
-    <script>
-        if (window.top != window.self) {
-            window.top.location.replace(window.self.location.href);
-        }
-    </script>
+    <!-- Layout config Js -->
+    <script src="public/assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="public/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="public/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="public/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" href="{{ asset('public/mfs/admin/assets/css/wizard.min.css') }}">
-
-    {{-- Custom --}}
-    <style>
-        .sm-btn {
-            margin-top: 2%;
-            width: 20%;
-            height: 20%;
-            font-size: 10px;
-        }
-    </style>
-    @livewireStyles
 </head>
-<!--end::Head-->
-<!--begin::Body-->
 
-<body id="kt_body" class="auth-bg">
-    <!--begin::Theme mode setup on page load-->
+<body>
 
-    <x-jet-validation-errors class="mb-4 text-danger" />
-    @if (session('status'))
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ session('status') }}
-        </div>
-    @endif
-    <!--end::Theme mode setup on page load-->
-    <!--begin::Main-->
-    <!--begin::Root-->
-    <div class="d-flex flex-column flex-root">
-        <!--begin::Authentication - Sign-in -->
-        <div class="d-flex flex-column flex-lg-row flex-column-fluid">
-            <!--begin::Body-->
-            <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
-                <!--begin::Form-->
-                <div class="d-flex flex-center flex-column flex-lg-row-fluid">
-                    <!--begin::Wrapper-->
-                    <div class="w-lg-500px p-10">
-                        <!--begin::Form-->
-                        <form class="form w-100" data-kt-redirect-url="{{ route('login') }}" novalidate="novalidate"
-                            id="kt_sign_in_form" method="POST" action="{{ route('login') }}">
-                            <!--begin::Heading-->
-                            <div class="text-center mb-11">
-                                <!--begin::Title-->
-                                <h1 class="text-dark fw-bolder mb-3"><strong>Administration Sign In</strong></h1>
-                                <!--end::Title-->
-                                <!--begin::Subtitle-->
+    <!-- auth-page wrapper -->
+    <div class="py-5 auth-page-wrapper auth-bg-cover d-flex justify-content-center align-items-center min-vh-100">
+        <div class="bg-overlay"></div>
+        <!-- auth-page content -->
+        <div class="overflow-hidden auth-page-content pt-lg-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="overflow-hidden border-0 card card-bg-fill card-border-effect-none">
+                            <div class="row g-0">
+                                <div class="col-lg-6">
+                                    <div class="p-4 p-lg-5 auth-one-bg h-100">
+                                        <div class="bg-overlay"></div>
+                                        <div class="position-relative h-100 d-flex flex-column">
+                                            <div class="mb-4">
+                                                <a href="index.html" class="d-block">
+                                                    <img src="public/assets/images/logo-light.png" alt="" height="18">
+                                                </a>
+                                            </div>
+                                            <div class="mt-auto">
+                                                <div class="mb-3">
+                                                    <i class="ri-double-quotes-l display-4 text-success"></i>
+                                                </div>
 
-                                <div class="text-gray-500 fw-semibold fs-6">Hello, <t style="color: #fabe15;">Welcome!
-                                    </t>
-
-
+                                                <div id="qoutescarouselIndicators" class="carousel slide" data-bs-ride="carousel">
+                                                    <div class="carousel-indicators">
+                                                        <button type="button" data-bs-target="#qoutescarouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                        <button type="button" data-bs-target="#qoutescarouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                        <button type="button" data-bs-target="#qoutescarouselIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                                    </div>
+                                                    <div class="pb-5 text-center text-white carousel-inner">
+                                                        <div class="carousel-item active">
+                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                        </div>
+                                                        <div class="carousel-item">
+                                                            <p class="fs-15 fst-italic">" The theme is really great with an amazing customer support."</p>
+                                                        </div>
+                                                        <div class="carousel-item">
+                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end carousel -->
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!--end::Subtitle=-->
-                            </div>
+                                <!-- end col -->
 
-                            <!--end::Login options-->
-                            <!--begin::Separator-->
-                            <div class="separator separator-content my-14">
-                                <span class="w-500px text-gray-500 fw-semibold fs-7">Stricly use your company email to
-                                    sign in</span>
-                            </div>
-                            <!--end::Separator-->
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8">
-                                <!--begin::Email-->
-                                <input type="email" placeholder="Email" name="email" autocomplete="off"
-                                    class="form-control bg-transparent" />
-                                <!--end::Email-->
-                            </div>
-                            <!--end::Input group=-->
-                            <div class="fv-row mb-3">
-                                <!--begin::Password-->
-                                <input type="password" placeholder="Password" name="password" autocomplete="off"
-                                    class="form-control bg-transparent" />
-                                <!--end::Password-->
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Wrapper-->
-                            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-                                <div></div>
-                                <!--begin::Link-->
-                                <a href="{{ route('password.request') }}" class="link-primary">Forgot Password ?</a>
-                                <!--end::Link-->
-                            </div>
-                            <!--end::Wrapper-->
-                            <!--begin::Submit button-->
-                            <div class="d-grid mb-10">
-                                <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
-                                    <!--begin::Indicator label-->
-                                    <span class="indicator-label">Administration Sign In</span>
-                                    <!--end::Indicator label-->
-                                    <!--begin::Indicator progress-->
-                                    <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                    <!--end::Indicator progress-->
-                                </button>
-                            </div>
-                            <!--end::Submit button-->
+                                <div class="col-lg-6">
+                                    <div class="p-4 p-lg-5">
+                                        <div>
+                                            <h5 class="text-primary">Welcome Back !</h5>
+                                            <p class="text-muted">Sign in to continue to Velzon.</p>
+                                        </div>
 
-                        </form>
-                        <!--end::Form-->
+                                        <div class="mt-4">
+                                            <form method="POST" action="{{ route('login') }}">
+
+                                                <x-jet-validation-errors class="mb-4 text-danger" />
+                                                @if (session('status'))
+                                                    <div class="mb-4 text-sm font-medium text-green-600">
+                                                        {{ session('status') }}
+                                                    </div>
+                                                @endif
+                                                
+                                                <div class="mb-3">
+                                                    <label for="username" class="form-label">Username</label>
+                                                    <input type="email" class="form-control" id="username" name="email" placeholder="Enter username">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div class="float-end">
+                                                        <a href="{{ route('password.request') }}" class="text-muted">Forgot password?</a>
+                                                    </div>
+                                                    <label class="form-label" for="password-input">Password</label>
+                                                    <div class="mb-3 position-relative auth-pass-inputgroup">
+                                                        <input type="password" class="form-control pe-5 password-input" name="password" placeholder="Enter password" id="password-input">
+                                                        <button class="top-0 btn btn-link position-absolute end-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="align-middle ri-eye-fill"></i></button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
+                                                    <label class="form-check-label" for="auth-remember-check">Remember me</label>
+                                                </div>
+
+                                                <div class="mt-4">
+                                                    <button class="btn btn-primary w-100" type="submit">Sign In</button>
+                                                </div>
+
+                                                <div class="mt-4 text-center">
+                                                    <div class="signin-other-title">
+                                                        <h5 class="mb-4 fs-13 title">Sign In with</h5>
+                                                    </div>
+
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
+                                                        <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
+                                                        <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                        <div class="mt-5 text-center">
+                                            <p class="mb-0">Don't have an account ? <a href="auth-signup-cover.html" class="fw-semibold text-primary text-decoration-underline"> Signup</a> </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                            </div>
+                            <!-- end row -->
+                        </div>
+                        <!-- end card -->
                     </div>
-                    <!--end::Wrapper-->
+                    <!-- end col -->
+
                 </div>
-                <!--end::Form-->
-
+                <!-- end row -->
             </div>
-            <!--end::Body-->
-            <!--begin::Aside-->
-            <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2"
-                style="background-image: linear-gradient(to right, #662d91, #912d73);">
-                <!--begin::Content-->
-                <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
-                    <!--begin::Logo-->
-                    <a href="index.html" class="mb-0 mb-lg-12">
-                        <img alt="Logo" src="{{ asset('/public/web/images/01-ft-logo.png') }}"
-                            class="h-60px h-lg-75px" />
-                    </a>
-                    <!--end::Logo-->
-                    <!--begin::Image-->
-                    <img style="width: 23dvh!important;"
-                        class="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-2 mb-lg-1" width="350px"
-                        src="{{ asset('public/mfs/admin/assets/media/misc/auth-screens.png') }}" alt="" />
-                    <!--end::Image-->
-                    <!--begin::Title-->
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7">
-
-                        "Access Point: Secure Login"</h1>
-                    <!--end::Title-->
-                    <!--begin::Text-->
-                    <div class="d-none d-lg-block text-white fs-base text-center">
-                        "Success in business comes when every <a href="#"
-                            class="opacity-75-hover text-warning fw-bold me-1">employee</a> is inspired to do their
-                        best, knowing that their efforts are valued and recognized. Remember, a company's greatest asset
-                        is not its products or services, but the people who work tirelessly to make it thrive." - <a
-                            href="#" class="opacity-75-hover text-warning fw-bold me-1">Richard Branson</a>
-
-                    </div>
-                    <!--end::Text-->
-                </div>
-                <!--end::Content-->
-            </div>
-            <!--end::Aside-->
+            <!-- end container -->
         </div>
-        <!--end::Authentication - Sign-in-->
-    </div>
-    <!--end::Root-->
-    <!--end::Main-->
-    <!--begin::Javascript-->
-    <script>
-        var hostUrl = "assets/";
-    </script>
-    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src="{{ asset('public/mfs/admin/assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('public/mfs/admin/assets/js/scripts.bundle.js') }}"></script>
-    <!--end::Global Javascript Bundle-->
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('public/mfs/admin/assets/js/custom/authentication/sign-in/general.js') }}"></script>
-    <!--end::Custom Javascript-->
-    <!--end::Javascript-->
-</body>
-<!--end::Body-->
+        <!-- end auth page content -->
 
+        <!-- footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <p class="mb-0">&copy;
+                                <script>document.write(new Date().getFullYear())</script> Velzon. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer -->
+    </div>
+    <!-- end auth-page-wrapper -->
+
+    <!-- JAVASCRIPT -->
+    <script src="public/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="public/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="public/assets/libs/node-waves/waves.min.js"></script>
+    <script src="public/assets/libs/feather-icons/feather.min.js"></script>
+    <script src="public/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="public/assets/js/plugins.js"></script>
+
+    <!-- password-addon init -->
+    <script src="public/assets/js/pages/password-addon.init.js"></script>
+</body>
+
+
+<!-- Mirrored from themesbrand.com/velzon/html/galaxy/auth-signin-cover.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Jul 2024 20:13:59 GMT -->
 </html>

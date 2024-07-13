@@ -21,7 +21,7 @@ class LoanWalletView extends Component
         $this->current_funds = $this->getCompanyWallet();
         $this->gross_funds = LoanWallet::first()->deposit ?? 0;
         return view('livewire.dashboard.settings.loan-wallet-view')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 
     public function store(){

@@ -9,6 +9,6 @@ class ViewSetting extends Component
     public function render()
     {
         return view('livewire.dashboard.site-settings.view-setting')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 }

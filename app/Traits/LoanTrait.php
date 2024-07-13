@@ -27,6 +27,15 @@ trait LoanTrait{
     use EmailTrait;
     public $application;
 
+    public function total_loans(){
+        return Loans::count();
+    }
+
+    public function closed_loans(){
+        return $this->loan_requests = Loans::with('application')->where('closed', 1 )
+        ->orderBy('id', 'desc')->get();
+    }
+
     public function get_all_loan_types(){
         return LoanType::with('loan_child_type.loan_products')->get();
     }

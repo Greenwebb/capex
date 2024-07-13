@@ -60,7 +60,7 @@ class CreateSetting extends Component
         $this->page = $_GET['page'];
         $this->get_data();
         return view('livewire.dashboard.site-settings.create-setting')
-        ->layout('layouts.admin');
+        ->layout('layouts.main');
     }
 
     public function get_data(){

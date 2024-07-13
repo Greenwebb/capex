@@ -40,7 +40,7 @@ class MissedRepaymentsView extends Component
             return view('livewire.dashboard.loans.missed-repayments-view',[
                 'users' => $users,
                 'roles' => $roles
-            ])->layout('layouts.admin');
+            ])->layout('layouts.main');
         }
     }    
     
