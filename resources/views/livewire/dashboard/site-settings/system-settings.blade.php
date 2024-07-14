@@ -1,14 +1,23 @@
-<div class="content d-flex flex-column flex-column-fluid bg-white" id="kt_content">
-    <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
-        <!--begin::Container-->
-        <div id="kt_content_container" class="container-xxl">
-            
-            <div class="d-flex flex-wrap flex-stack my-5">
-                <h2 class="fs-2 fw-bold my-6">
-                    System Settings
-                </h2>
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+                    <h4 class="mb-sm-0">Manage System Settings</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
+                            <li class="breadcrumb-item active">Manage System Settings</li>
+                        </ol>
+                    </div>
+
+                </div>
             </div>
+        </div>
+        <div>
             
             <div class="row g-6 g-xl-9 mb-6">
                 <div class="col-md-6 col-xl-4">

@@ -37,28 +37,25 @@
             display: block;
         }
     </style>
-    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <div id="kt_content_container" class="container-xxl">
-            <div class="card mb-5 mb-xl-10">
-                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
-                    <!--begin::Card title-->
-                    <div class="card-title m-0 gap-3 ">
-                        <a href="{{ route('sys-settings') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
-                                <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
-                            </svg>
-                        </a>
-                        <h3 class="fw-bold m-0">User Roles & Permission Settings</h3>
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+                        <h4 class="mb-sm-0">Manage System Settings</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
+                                <li class="breadcrumb-item active">Manage System Settings</li>
+                            </ol>
+                        </div>
+
                     </div>
-                    @can('add user roles')
-                        <button type="button" class="btn btn-primary my-5 d-flex flex-column flex-center" data-bs-toggle="modal" data-bs-target="#kt_modal_add_role">
-                            Add New Role
-                        </button>
-                    @endcan
-                    <!--end::Card title-->
                 </div>
             </div>
         </div>
+
         <div class="container">
             @if (session()->has('attention'))
                 <div class="alert alert-success">

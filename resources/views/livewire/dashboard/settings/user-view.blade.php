@@ -1,23 +1,24 @@
-<div class="content d-flex flex-column flex-column-fluid">
+<div class="page-content">
     <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+                    <h4 class="mb-sm-0">Users</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
+                            <li class="breadcrumb-item active">Users</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title align-items-start flex-column">
-                        <span class="card-label fw-bold fs-3 mb-1">Users</span>
-                        <span class="text-muted mt-1 fw-semibold fs-7">Over {{$users->count()}} Registered Users</span>
-                    </h3>
-                    {{-- <div>
-                        @can('view all loan requests')
-                            <button wire:click="exportRepaymentLoans()" title="Export to Excel" class="btn btn-square btn-success">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-spreadsheet" viewBox="0 0 16 16">
-                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5v2zM3 12v-2h2v2H3zm0 1h2v2H4a1 1 0 0 1-1-1v-1zm3 2v-2h3v2H6zm4 0v-2h3v1a1 1 0 0 1-1 1h-2zm3-3h-3v-2h3v2zm-7 0v-2h3v2H6z"/>
-                                </svg>
-                            </button>
-                        @endcan
-                    </div>               --}}
-                    {{-- <button data-toggle="modal" data-target="#createUserModeling" class="btn btn-square btn-primary">New User</button> --}}
-                </div>
 
                 <div class="card-body pb-0">
 

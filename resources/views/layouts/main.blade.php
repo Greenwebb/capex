@@ -546,7 +546,7 @@
                         <a class="dropdown-item" href="apps-tasks-kanban.html"><i class="align-middle mdi mdi-calendar-check-outline text-muted fs-16 me-1"></i> <span class="align-middle">Taskboard</span></a>
                         <a class="dropdown-item" href="pages-faqs.html"><i class="align-middle mdi mdi-lifebuoy text-muted fs-16 me-1"></i> <span class="align-middle">Help</span></a>--}}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mdi mdi-wallet text-muted fs-16 me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>
+                        <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mdi mdi-wallet text-muted fs-16 me-1"></i> <span class="align-middle">Balance : <b>K0.0</b></span></a>
                         <a class="dropdown-item" href="pages-profile-settings.html"><span class="mt-1 badge bg-success-subtle text-success float-end">New</span><i class="align-middle mdi mdi-cog-outline text-muted fs-16 me-1"></i> <span class="align-middle">Settings</span></a>
                         <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="align-middle mdi mdi-lock text-muted fs-16 me-1"></i> <span class="align-middle">Lock screen</span></a>
                         <a class="dropdown-item" href="auth-logout-basic.html"><i class="align-middle mdi mdi-logout text-muted fs-16 me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
@@ -740,19 +740,22 @@
                             <div class="collapse menu-dropdown" id="sidebarAuth">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="#sidebarSignIn" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin"> Sign In
+                                        <a href="{{ route('users') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin"> 
+                                            All Users
                                         </a>
-                                        <div class="collapse menu-dropdown" id="sidebarSignIn">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="{{ route('users') }}" class="nav-link" data-key="t-basic"> All Users
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('roles') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin"> 
+                                            User Roles & Permission
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('sys-settings') }}" aria-expanded="false" aria-controls="sidebarAuth">
+                                <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Manage Settings</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
