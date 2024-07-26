@@ -1,4 +1,4 @@
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+<div class="page-content">
     <a href="{{ route('item-settings', ['confg' => 'loan','settings' => 'loan-types']) }}" class="flex py-4 px-9">
         <span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">

@@ -652,7 +652,7 @@
                                     <li class="nav-item">
                                         <a href="{{ route('refs') }}" class="nav-link" data-key="t-chartjs"> References </a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </li>
@@ -740,12 +740,12 @@
                             <div class="collapse menu-dropdown" id="sidebarAuth">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="{{ route('users') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin"> 
+                                        <a href="{{ route('users') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
                                             All Users
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('roles') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin"> 
+                                        <a href="{{ route('roles') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
                                             User Roles & Permission
                                         </a>
                                     </li>
@@ -772,8 +772,10 @@
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
+            @livewireStyles
             <!-- End Page-content -->
             {{ $slot }}
+            @livewireScripts
             <footer class="footer border-top">
                 <div class="container-fluid">
                     <div class="row">
@@ -1552,6 +1554,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- JAVASCRIPT -->
     <script src="public/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -1,10 +1,4 @@
-<style>
-    #loading-spinner {
-        display: none;
-    }
-</style>
-
-<div class="card mb-5 mb-xl-8">
+<div class="page-content">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
@@ -62,7 +56,7 @@
                         </td>
                     </tr>
                     @empty
-                        
+
                     @endforelse
                 </tbody>
             </table>
