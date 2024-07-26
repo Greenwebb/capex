@@ -19,17 +19,37 @@
         </div>
         <!-- end page title -->
 
-        <div class="alert alert-danger" role="alert">
-            This is <strong>Datatable</strong> page in wihch we have used <b>jQuery</b> with cnd link!
-        </div>
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Fixed Header Datatables</h5>
+                        <h5 class="card-title mb-0">Recent loan requests list</h5>
                     </div>
                     <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-sm-4">
+                                <div class="search-box">
+                                    <input type="text" class="form-control" id="searchMemberList" placeholder="Search for name or designation...">
+                                    <i class="ri-search-line search-icon"></i>
+                                </div>
+                            </div>
+                            <!--end col-->
+                            <div class="col-sm-auto ms-auto">
+                                <div class="list-grid-nav hstack gap-1">
+                                    {{-- <button type="button" id="grid-view-button" class="btn btn-soft-secondary nav-link btn-icon fs-14 active filter-button"><i class="ri-grid-fill"></i></button>
+                                    <button type="button" id="list-view-button" class="btn btn-soft-secondary nav-link  btn-icon fs-14 filter-button"><i class="ri-list-unordered"></i></button>
+                                    <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-soft-secondary btn-icon fs-14"><i class="ri-more-2-fill"></i></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                                        <li><a class="dropdown-item" href="#">All</a></li>
+                                        <li><a class="dropdown-item" href="#">Last Week</a></li>
+                                        <li><a class="dropdown-item" href="#">Last Month</a></li>
+                                        <li><a class="dropdown-item" href="#">Last Year</a></li>
+                                    </ul> --}}
+                                    <button class="btn btn-primary addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Export XLS</button>
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
                         <table id="fixed-header" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                             <thead>
                                 <tr>
@@ -80,7 +100,7 @@
                                         Upto {{ $loan->repayment_plan }} Months
                                     </td>
                                     <td>K {{  number_format(App\Models\Loans::loan_balance( $loan->id)) }}</td>
-                                    
+
                                     <td>
                                         @if($loan->status == 0)
                                             <span class="badge bg-warning-subtle text-warning">Pending</span>
@@ -92,7 +112,7 @@
                                             <span class="badge bg-danger-subtle text-danger">Denied</span>
                                         @endif
                                     </td>
-                                    
+
                                     @if($this->current_configs('loan-approval')->value == 'spooling')
                                     <td class="text-success">
                                         @role('admin')@else
@@ -141,16 +161,16 @@
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li><a href="{{ route('detailed',['id' => $loan->id]) }}" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
                                                 <li><a href="{{ route('edit-loan', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                         
+
                                             </ul>
                                         </div>
                                     </td>
 
-                                </tr>                                    
+                                </tr>
                                 @empty
-                                    
+
                                 @endforelse
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -160,4 +180,90 @@
 
     </div>
     <!-- container-fluid -->
+
+    
+    @include('livewire.dashboard.loans.__modals.assign-loan')
+    @include('livewire.dashboard.loans.__modals.review-warning')
+    @include('livewire.dashboard.loans.__modals.export-loan-panel')
+    @include('livewire.dashboard.loans.__modals.import-loan-panel')
+
+    <script>
+        const delBtn = document.getElementById('deleteBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        delBtn.style.display = 'none';
+        resetBtn.style.display = 'none';
+        function showBulkOps(){
+            delBtn.style.display = 'block';
+            resetBtn.style.display = 'block';
+        }
+
+        function resetBulk() {
+            // Fetch all selected checkboxes
+            const checkboxes = document.querySelectorAll('input[name="items[]"]:checked');
+            const selectedIds = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            if (selectedIds.length > 0) {
+                // Confirm deletion
+                const confirmDelete = confirm("Are you sure you want to reset to processing on the selected loan applications?");
+
+                if (confirmDelete) {
+                    // Send an AJAX request to the Laravel route with the selected IDs
+                    fetch('reset-loans', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: JSON.stringify({ ids: selectedIds }),
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Items deleted successfully.');
+                            window.location.reload(true);
+                        } else {
+                            console.error('Failed to delete items.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            } else {
+                alert("No items selected for deletion.");
+            }
+        }
+        function deleteBulk() {
+            // Fetch all selected checkboxes
+            const checkboxes = document.querySelectorAll('input[name="items[]"]:checked');
+            const selectedIds = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            if (selectedIds.length > 0) {
+                // Confirm deletion
+                const confirmDelete = confirm("Are you sure you want to delete the selected loan applications?");
+
+                if (confirmDelete) {
+                    // Send an AJAX request to the Laravel route with the selected IDs
+                    fetch('delete-loans', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: JSON.stringify({ ids: selectedIds }),
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Items deleted successfully.');
+                            window.location.reload(true);
+                        } else {
+                            console.error('Failed to delete items.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            } else {
+                alert("No items selected for deletion.");
+            }
+        }
+
+    </script>
 </div>

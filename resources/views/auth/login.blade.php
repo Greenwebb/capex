@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Sign In | Welcome</title>
+    <title>Sign In | Capex</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -81,7 +81,7 @@
                                     <div class="p-4 p-lg-5">
                                         <div>
                                             <h5 class="text-primary">Welcome Back !</h5>
-                                            <p class="text-muted">Sign in to continue to Velzon.</p>
+                                            <p class="text-muted">Sign in to continue to Capex.</p>
                                         </div>
 
                                         <div class="mt-4">
@@ -93,7 +93,7 @@
                                                         {{ session('status') }}
                                                     </div>
                                                 @endif
-                                                
+
                                                 <div class="mb-3">
                                                     <label for="username" class="form-label">Username</label>
                                                     <input type="email" class="form-control" id="username" name="email" placeholder="Enter username">
@@ -118,26 +118,12 @@
                                                 <div class="mt-4">
                                                     <button class="btn btn-primary w-100" type="submit">Sign In</button>
                                                 </div>
-
-                                                <div class="mt-4 text-center">
-                                                    <div class="signin-other-title">
-                                                        <h5 class="mb-4 fs-13 title">Sign In with</h5>
-                                                    </div>
-
-                                                    <div>
-                                                        <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
-                                                        <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
-                                                        <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
-                                                        <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
-                                                    </div>
-                                                </div>
+{{-- staff --}}
 
                                             </form>
                                         </div>
 
-                                        <div class="mt-5 text-center">
-                                            <p class="mb-0">Don't have an account ? <a href="auth-signup-cover.html" class="fw-semibold text-primary text-decoration-underline"> Signup</a> </p>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <!-- end col -->
