@@ -16,10 +16,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'fname' => 'Mighty',
+            'fname' => 'Capex',
             'lname' => 'Finance',
-            'email' => 'info@mightyfinance.co.zm',
-            'password' => bcrypt('@mighty.@2022'),
+            'email' => 'capex@greenwebbtech.com',
+            'password' => bcrypt('@capex.@2022'),
         ])->assignRole('admin');
     }
 }
