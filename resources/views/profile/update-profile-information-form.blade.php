@@ -23,7 +23,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-xs text-white" style="background-color:blueviolet" id="openModalBtn">Change Profile Picture</button>
+                    <button class="btn btn-xs btn-primary text-white" id="openModalBtn">Change Profile Picture</button>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
                         </div>
 
                         <div class="col-12">
-                            <button type="submit" style="background-color: blueviolet" class="btn btn-xs text-white">
+                            <button type="submit"  class="btn btn-xs btn-primary text-white">
                             Save Changes
                             </button>
                         </div>

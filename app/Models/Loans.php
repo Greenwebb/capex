@@ -11,6 +11,10 @@ class Loans extends Model
 
     protected $fillable = [
         'application_id',
+        'mou_loan',
+        'related_party',
+        'penalties',
+        'days_late',
         'repaid',
         'settle_at',
         'principal',

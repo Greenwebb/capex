@@ -26,7 +26,7 @@ class UserView extends Component
 
     public function render()
     {
-        $this->authorize('view system settings');
+        // $this->authorize('view system settings');
         $this->user_role = Role::pluck('name')->toArray();
         $this->permissions = Permission::get();
         $roles = Role::orderBy('id','DESC')->paginate(5);

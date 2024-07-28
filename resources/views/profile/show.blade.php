@@ -10,8 +10,8 @@
       $view = htmlspecialchars($param);
   }
   @endphp
-    <div class="container pt-10">
-        <div class="container">
+    <div class="page-content">
+        <div class="container-fluid">
           <div class="row">
             <div class="col-xxl-12 col-xl-12">
               <div class="page-title" style="display: flex; gap:3%">
@@ -80,8 +80,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <script>
+    </div>
+    <script>
 
           document.getElementById('twoFactor').style.display = "none";
           document.getElementById('browserSession').style.display = "none";

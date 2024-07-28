@@ -395,24 +395,24 @@ trait LoanTrait{
                     }
 
                     // Fetch the loan status with relationships.
-                    $status = DB::table('loan_statuses')
-                        ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
-                        ->select('loan_statuses.*', 'statuses.status')
-                        ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
-                        ->orderBy('loan_statuses.id', 'asc')
-                        ->first();
+                    // $status = DB::table('loan_statuses')
+                    //     ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
+                    //     ->select('loan_statuses.*', 'statuses.status')
+                    //     ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
+                    //     ->orderBy('loan_statuses.id', 'asc')
+                    //     ->first();
 
-                    // Create a new application stage.
-                    DB::table('application_stages')->insert([
-                        'application_id' => $item->id,
-                        'loan_status_id' => 1,
-                        'state' => 'current',
-                        'status' => $status->status ?? 'verification', // Using the status retrieved from the query
-                        'stage' => 'processing',
-                        'prev_status' => 'current',
-                        'curr_status' => '',
-                        'position' => 1
-                    ]);
+                    // // Create a new application stage.
+                    // DB::table('application_stages')->insert([
+                    //     'application_id' => $item->id,
+                    //     'loan_status_id' => 1,
+                    //     'state' => 'current',
+                    //     'status' => $status->status ?? 'verification', // Using the status retrieved from the query
+                    //     'stage' => 'processing',
+                    //     'prev_status' => 'current',
+                    //     'curr_status' => '',
+                    //     'position' => 1
+                    // ]);
 
                     return $item->id;
                 }else{

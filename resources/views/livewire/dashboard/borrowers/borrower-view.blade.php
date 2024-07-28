@@ -61,7 +61,7 @@
                                             <th class="sort" data-sort="job">Job Title</th>
                                             <th class="sort" data-sort="nrc">NRC</th>
                                             <th class="sort" data-sort="date">Joining Date</th>
-                                            <th class="sort" data-sort="status">Status</th>
+                                            {{-- <th class="sort" data-sort="status">Status</th> --}}
                                             <th class="sort" data-sort="action">Action</th>
                                         </tr>
                                     </thead>
@@ -80,14 +80,17 @@
                                             <td class="phone">{{ $user->jobTitle ?? 'No Job title' }}</td>
                                             <td class="nrc">{{ $user->nrc_no ?? $user->nrc ?? 'No nrc no.' }}</td>
                                             <td class="date">{{ $user->created_at->diffForHumans() }}</td>
-                                            <td class="status"><span class="badge bg-success-subtle text-success text-uppercase">Active</span></td>
+                                            {{-- <td class="status"><span class="badge bg-success-subtle text-success text-uppercase">Active</span></td> --}}
                                             <td>
                                                 <div class="d-flex gap-2">
+                                                    <div class="show">
+                                                        <a href="{{ route('client-account', ['key'=>$user->id]) }}" class="btn btn-sm btn-primary">Show</a>
+                                                    </div>
                                                     <div class="edit">
-                                                        <button class="btn btn-sm btn-primary edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button>
+                                                        <a href="{{ route('edit-user', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                                     </div>
                                                     <div class="remove">
-                                                        <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                        <a wire:click="destroy({{ $user->id }})" onclick="confirm('Are you sure you want to permanently delete this account.') || event.stopImmediatePropagation();">Remove</a>
                                                     </div>
                                                 </div>
                                             </td>

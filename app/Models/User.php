@@ -46,7 +46,7 @@ class User extends Authenticatable
         'id_type',
         'email',
         'password',
-
+        'employer',
         'employeeNo',
         'jobTitle',
         'ministry',

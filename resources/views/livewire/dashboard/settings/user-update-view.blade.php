@@ -1,5 +1,5 @@
-<div class="content d-flex flex-column flex-column-fluid m-6 py-4">
-    <div class="content-body">
+<div class="page-content">
+    <div class="container-fluid">
         <div class="card pb-5">
             <form method="POST" action="{{ route('update-user') }}"  class="needs-validation" validate enctype="multipart/form-data">
                 @csrf
@@ -64,6 +64,17 @@
                                                         <input type="text" class="form-control" value="{{ $user->email }}" name="email" id="validationCustom02"  placeholder="Your valid email.." required>
                                                         <div class="invalid-feedback">
                                                             Please enter an Email.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label class="col-lg-4 col-form-label" for="validationCustom02">Employer <span
+                                                            class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" value="{{ $user->employer }}" name="employer" id="validationCustom02"  placeholder="Your valid employer.." >
+                                                        <div class="invalid-feedback">
+                                                            Please enter an Employer.
                                                         </div>
                                                     </div>
                                                 </div>
