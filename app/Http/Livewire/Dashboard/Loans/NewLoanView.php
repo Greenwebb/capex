@@ -11,10 +11,12 @@ use Livewire\Component;
 
 class NewLoanView extends Component
 {
+    public $products, $borrowers;
     use UserTrait, LoanTrait;
     public function render()
     {
-
+        $this->products = $this->get_all_loan_products();
+        $this->borrowers = User::role('user')->without('applications')->get();
         return view('livewire.dashboard.loans.new-loan-view')
         ->layout('layouts.main');
     }

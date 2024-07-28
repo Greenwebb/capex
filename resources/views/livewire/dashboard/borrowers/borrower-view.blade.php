@@ -58,12 +58,15 @@
                                             <th class="sort" data-sort="customer_name">Customer</th>
                                             <th class="sort" data-sort="email">Email</th>
                                             <th class="sort" data-sort="phone">Phone</th>
+                                            <th class="sort" data-sort="job">Job Title</th>
+                                            <th class="sort" data-sort="nrc">NRC</th>
                                             <th class="sort" data-sort="date">Joining Date</th>
-                                            <th class="sort" data-sort="status">Delivery Status</th>
+                                            <th class="sort" data-sort="status">Status</th>
                                             <th class="sort" data-sort="action">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
+                                        @forelse($users as $user)
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-check">
@@ -71,10 +74,12 @@
                                                 </div>
                                             </th>
                                             <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                            <td class="customer_name">Mary Cousar</td>
-                                            <td class="email">marycousar@velzon.com</td>
-                                            <td class="phone">580-464-4694</td>
-                                            <td class="date">06 Apr, 2021</td>
+                                            <td class="customer_name">{{ $user->fname.' '.$user->lname }}</td>
+                                            <td class="email">{{ $user->email }}</td>
+                                            <td class="email">{{ $user->phone ?? 'No phone' }}</td>
+                                            <td class="phone">{{ $user->jobTitle ?? 'No Job title' }}</td>
+                                            <td class="nrc">{{ $user->nrc_no ?? $user->nrc ?? 'No nrc no.' }}</td>
+                                            <td class="date">{{ $user->created_at->diffForHumans() }}</td>
                                             <td class="status"><span class="badge bg-success-subtle text-success text-uppercase">Active</span></td>
                                             <td>
                                                 <div class="d-flex gap-2">
@@ -87,6 +92,13 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        @empty
+                                        <div class="intro-y col-span-12 md:col-span-6">
+                                            <div class="box text-center">
+                                                <p>No User Found</p>
+                                            </div>
+                                        </div>
+                                        @endforelse
                                     </tbody>
                                 </table>
                                 <div class="noresult" style="display: none">

@@ -45,7 +45,34 @@
                                         <li><a class="dropdown-item" href="#">Last Month</a></li>
                                         <li><a class="dropdown-item" href="#">Last Year</a></li>
                                     </ul> --}}
-                                    <button class="btn btn-primary addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Export XLS</button>
+                                    @if(request()->route()->getName() == 'view-loan-requests')
+                                        <button onclick="resetBulk()" type="button" id="resetBtn" class="btn btn-sm btn-flex btn-light" data-bs-toggle="modal" data-bs-target="#kt_modal_add_payment">
+                                            <i class="ki-duotone ki-plus-cross fs-3">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>Reset
+                                        </button>
+                                        <button onclick="deleteBulk()" type="button" id="deleteBtn" class="btn mx-2 btn-sm btn-flex btn-light-danger"
+                                            data-bs-toggle="modal" data-bs-target="#kt_modal_add_payment">
+                                            <i class="ki-duotone ki-plus-cross fs-3">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>Delete
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                            <i class="ki-duotone ki-category fs-6">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                                <span class="path4"></span>
+                                            </i>
+                                        </button>
+                                    @endif
+                                    <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Export XLS</button>
+                                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Import XLS</button>
+                                    <a href="{{ route('new-loan') }}" class="btn btn-primary"><i class="ri-add-fill me-1 align-bottom"></i> Add </a>
                                 </div>
                             </div>
                             <!--end col-->

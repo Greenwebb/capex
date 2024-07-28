@@ -304,10 +304,9 @@ class LoanApplicationController extends Controller
 
     public function new_proxy_loan(Request $request)
     {
-        // DB::beginTransaction();
+        DB::beginTransaction();
         try {
             $form = $request->toArray();
-            // dd($form);
             // First Upload the files
             $this->uploadCommonFiles($request);
             $user = User::where('id', $form['borrower_id'])->first();
@@ -325,7 +324,6 @@ class LoanApplicationController extends Controller
                 'repayment_plan'=> $form['repayment_plan'],
                 'processed_by'=> auth()->user()->id
             ];
-
             $nok = [
                 'nok_email' => $form['nok_email'],
                 'nok_fname' => $form['nok_fname'],
@@ -354,16 +352,17 @@ class LoanApplicationController extends Controller
             ];
 
             // Email going to the Administrator
-            // $process = $this->send_loan_email($mail);
-            // if($process){
+            $process = $this->send_loan_email($mail);
+            if($process){
                 DB::commit();
                 Session::flash('success', "Loan created successfully");
                 return redirect()->route('view-loan-requests');
-            // }else{
-            //     DB::commit();
-            //     Session::flash('error', "Loan could not be created, something failed. ");
-            //     return redirect()->back();
-            // }
+            }else{
+                DB::commit();
+                Session::flash('success', "Loan created successfully");
+                Session::flash('error', "Could not send email to Customer, Please inform them about their new loan");
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             DB::rollback();
             Session::flash('error', "Something failed. ".$th->getMessage());
