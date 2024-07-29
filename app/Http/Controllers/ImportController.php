@@ -50,6 +50,13 @@ class ImportController extends Controller
                                         'loan_product_id' => $row['N'],
                                         'created_at' => Carbon::parse($row['O']),
                                         'updated_at' => Carbon::parse($row['O']),
+                                        'mou_loan' => $row['P'],
+                                        'related_party' => $row['Q'],
+                                        'date_paid' => $row['R'],
+                                        'due_date' => $row['S'],
+                                        'days_late' => $row['T'],
+                                        'desc' => $row['U'],
+                                        'note' => $row['V'],
                                     ]);
 
                                     ApplicationStage::create([
@@ -120,7 +127,7 @@ class ImportController extends Controller
                                         'address' => $row['I'],
                                         'gender' =>  $row['J'],
                                         'employeeNo' => $row['K'],
-                                        'password' => 'mighty4you'
+                                        'password' => 'capex+2024'
                                     ]);
                                 }
                             }

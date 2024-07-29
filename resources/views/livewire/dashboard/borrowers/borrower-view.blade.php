@@ -6,12 +6,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
-                    <h4 class="mb-sm-0">Boorowers</h4>
+                    <h4 class="mb-sm-0">Customers</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Borrowers</li>
+                            <li class="breadcrumb-item active">Customers</li>
                         </ol>
                     </div>
 
@@ -32,7 +32,7 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div>
-                                        <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                        <a href="" type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</a>
                                         <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                                     </div>
                                 </div>
@@ -140,45 +140,125 @@
                         <h5 class="modal-title" id="exampleModalLabel"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                     </div>
-                    <form class="tablelist-form" autocomplete="off">
+                    <form method="POST" action="{{ route('create-user') }}" class="tablelist-form" autocomplete="off">
+                        @csrf
                         <div class="modal-body">
-                            <div class="mb-3" id="modal-id" style="display: none;">
-                                <label for="id-field" class="form-label">ID</label>
-                                <input type="text" id="id-field" class="form-control" placeholder="ID" readonly />
+                           
+                            <div class="fv-row mb-7">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-semibold mb-2">Firstname</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-sm" placeholder="" name="fname"  />
+                                <!--end::Input-->
                             </div>
-
-                            <div class="mb-3">
-                                <label for="customername-field" class="form-label">Customer Name</label>
-                                <input type="text" id="customername-field" class="form-control" placeholder="Enter Name" required />
-                                <div class="invalid-feedback">Please enter a customer name.</div>
+                            <div class="fv-row mb-7">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-semibold mb-2">Lastname</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-sm" placeholder="" name="lname"  />
+                                <!--end::Input-->
                             </div>
-
-                            <div class="mb-3">
-                                <label for="email-field" class="form-label">Email</label>
-                                <input type="email" id="email-field" class="form-control" placeholder="Enter Email" required />
-                                <div class="invalid-feedback">Please enter an email.</div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-semibold mb-2">
+                                    <span class="required">Email</span>
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="Email address must be active">
+                                        <i class="ki-duotone ki-information fs-7">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                        </i>
+                                    </span>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="email" class="form-control form-control-sm" placeholder="" name="email" />
+                                <!--end::Input-->
                             </div>
-
-                            <div class="mb-3">
-                                <label for="phone-field" class="form-label">Phone</label>
-                                <input type="text" id="phone-field" class="form-control" placeholder="Enter Phone no." required />
-                                <div class="invalid-feedback">Please enter a phone.</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="date-field" class="form-label">Joining Date</label>
-                                <input type="text" id="date-field" class="form-control" placeholder="Select Date" required />
-                                <div class="invalid-feedback">Please select a date.</div>
-                            </div>
-
-                            <div>
-                                <label for="status-field" class="form-label">Status</label>
-                                <select class="form-control" data-trigger name="status-field" id="status-field" required>
-                                    <option value="">Status</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Block">Block</option>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-15">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-semibold mb-2">Gender</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                {{-- <input type="text" class="form-control form-control-sm" placeholder="" name="description" /> --}}
+    
+                                <select name="gender" class="form-control form-control-sm" id="validationCustom05">
+                                    <option value="">--choose--</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
+                                <!--end::Input-->
                             </div>
+                            <div class="fv-row mb-15">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-semibold mb-2">National ID Type</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                {{-- <input type="text" class="form-control form-control-sm" placeholder="" name="description" /> --}}
+    
+                                <select name="id_type" class="form-control form-control-sm" id="validationCustom05">
+                                    <option value="">--choose--</option>
+                                    <option value="NRC">NRC</option>
+                                    <option value="Passport">Passport</option>
+                                    <option value="Driver's License">Driver's License</option>
+                                </select>
+                                <!--end::Input-->
+                            </div>
+                            <div class="fv-row mb-15">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-semibold mb-2">ID Number</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-sm" placeholder="" name="nrc_no" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Billing toggle-->
+                            <div class="fw-bold fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
+                                Contact Information
+                                <span class="ms-2 rotate-180">
+                                    <i class="ki-duotone ki-down fs-3"></i>
+                                </span>
+                            </div>
+                            <!--end::Billing toggle-->
+                            <!--begin::Billing form-->
+                            <div id="kt_modal_add_customer_billing_info" class="collapse show">
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="required fs-6 fw-semibold mb-2">Address Line</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input class="form-control form-control-sm" placeholder="" name="occupation" />
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-semibold mb-2">Job Title</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input class="form-control form-control-sm" placeholder="" name="address2" />
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="required fs-6 fw-semibold mb-2">Phone</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input class="form-control form-control-sm" placeholder="" name="phone" />
+                                    <!--end::Input-->
+                                </div>
+
                         </div>
                         <div class="modal-footer">
                             <div class="hstack gap-2 justify-content-end">

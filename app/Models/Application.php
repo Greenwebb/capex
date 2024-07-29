@@ -77,7 +77,15 @@ class Application extends Model
         'continue',
         'is_assigned',
         'plp_sent',
-        'closed'
+        'closed',
+
+        'desc',
+        'date_paid',
+        'note',
+        'mou_loan',
+        'penalties',
+        'related_party',
+        'days_late',
     ];
     protected $appends = [
         'done_by',

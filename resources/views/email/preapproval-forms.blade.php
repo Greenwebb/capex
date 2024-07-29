@@ -139,8 +139,8 @@
         color: #616161;
     }
     .btn {
-        background-color:#792db8;
-        border:1px solid #9f21f3;
+        background-color:#8a671c;
+        border:1px solid #f3b121;
         border-radius:2px;
         color:#ffffff;
         display:inline-block;
@@ -192,7 +192,7 @@
     
     /* Main */
     .main {
-        -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+        -webkit-box-shadow: 0 1px 3px 0 rgba(122, 107, 39, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
         -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
     }
@@ -268,7 +268,7 @@
     .signature p, .subscription p {
         margin-top: 0;
         margin-bottom: 8px;
-        color: #616161;
+        color: #756652;
         font-family: montserrat, Helvetica, sans-serif;
         font-weight: 400;
         font-size: 12px;
@@ -280,8 +280,8 @@
         <table class="top-panel center" width="602" border="0" cellspacing="0" cellpadding="0">
             <tbody>
             <tr>
-                <td class="title" width="300">Mighty Finance Solution</td>
-                <td class="subject" width="300"><a class="strong" href="#" target="_blank">www.mightyfinance.co.zm</a></td>
+                <td class="title" width="300">Capex Finance Solution</td>
+                <td class="subject" width="300"><a class="strong" href="#" target="_blank">https://capexlms.greenwebbtech.com</a></td>
             </tr>
             <tr>
                 <td class="border" colspan="2">&nbsp;</td>
@@ -300,7 +300,7 @@
                         <tbody>
                         <tr>
                             <td class="padded">
-                                <h1>GRZ Loan Pre-approval Forms</h1>
+                                <h1>Recommendation Forms</h1>
                                 <p> <strong>Dear Sir/Madam</strong> </p>
                                 <p>
                                     We trust this message finds you well. Your immediate attention is 
@@ -314,9 +314,9 @@
                                     <a href="#" class="btn">Upload them back Here</a>
                                 </p>
                                 <p style="text-align:center;">
-                                    <a href="https:mightyfinance.co.zm" class="strong">Learn more</a>
+                                    <a href="https://capexlms.greenwebbtech.com" class="strong">Learn more</a>
                                 </p>
-                                <p class="caption">Mighty Finance Solution - Loan Pre-approval Process.</p>
+                                <p class="caption">Capex Finance  - Loan Pre-approval Process.</p>
                             </td>
                         </tr>
                         </tbody>
@@ -338,16 +338,16 @@
                 <td class="signature" width="300">
                     <p>
                         With best regards,<br>
-                        Mighty Finance Solution<br>
-                        (+260) 950 081 545 , (+260) 950 082 577<br>
+                        Capex Finance<br>
+                        Phone<br>
                         </p>
                     <p>
-                        Support: <a class="strong" href="mailto:#" target="_blank">support@mightyfinance.co.zm</a>
+                        Support: <a class="strong" href="mailto:#" target="_blank">capex@greenwebbtech.com</a>
                     </p>
                 </td>
                 <td class="subscription" width="300">
                     <div class="logo-image">
-                        <a href="https://mightyfinance.co.zm" target="_blank"><img src="https://mightyfinance.co.zm/public/web/images/logo.png" alt="logo-alt" width="150"></a>
+                        <a href="https://capexlms.greenwebbtech.com" target="_blank"><img src="https://capexlms.greenwebbtech.com/public/assets/images/logo-light.png" alt="logo-alt" width="150"></a>
                     </div>
                     <p>
                         <a class="strong block" href="#">

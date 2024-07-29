@@ -44,7 +44,7 @@ class UserController extends Controller
             }
 
             $u = $user->create(array_merge($request->all(), [
-                'password' => bcrypt('mighty.@2023@'),
+                'password' => bcrypt('@capex+2024'),
                 'active' => 1,
                 'profile_photo_path' => $url ?? ''
             ]));
@@ -56,10 +56,10 @@ class UserController extends Controller
                 $mail = [
                     'name' => $u->fname.' '.$u->lname,
                     'to' => $u->email,
-                    'from' => 'admin@mightyfinance.co.zm',
+                    'from' => 'capex@greenwebbtech.com',
                     'phone' => $u->phone,
-                    'subject' => 'Your Might Finance Account',
-                    'message' => 'Hello '.$u->fname.' '.$u->lname.' Your Might Finance account is now ready, Click on login to goto your dashboard. Your password is mighty.@2023@  -  feel free to change your password.',
+                    'subject' => 'Your Capex Finance Account',
+                    'message' => 'Hello '.$u->fname.' '.$u->lname.' Your Capex Finance account is now ready, Click on login to goto your dashboard. Your password is @capex+2024  -  feel free to change your password.',
                 ];
             }
 

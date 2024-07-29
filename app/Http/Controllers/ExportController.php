@@ -22,7 +22,7 @@ class ExportController extends Controller
         
         
         $headers = [
-            'Loan ID', 'Loan Type', 'Principal', 'Duration', 'Date', 'Borrower', 'Payback', 'Status'
+            'Loan ID', 'Loan Type', 'Principal', 'Duration', 'Date Borrowed', 'Due Date', 'Date Paid', 'Borrower', 'Contact', 'NRC', 'Payback', 'Employer', 'MOU Loan', 'Penalties', 'Status', 'Days Late', 'Note'
         ];
 
     
@@ -44,9 +44,18 @@ class ExportController extends Controller
                 number_format($app->amount, 2, '.', ','),
                 $app->repayment_plan,
                 $app->created_at,
+                $app->due_date,
+                $app->date_paid,
                 $app->user->fname.' '. $app->user->lname,
+                $app->user->phone.' '. $app->user->email.' '. $app->user->address,
+                $app->user->nrc_no ?? $app->user->nrc,
                 number_format(Application::payback($app->amount, $app->repayment_plan), 2, '.', ','),
-                $app->status
+                $app->user->employer,
+                $app->mou_loan ?? 'No',
+                $app->penalties ?? 'No',
+                $app->status ?? '',
+                $app->days_late ?? '',
+                $app->note ?? ''
             ];
         }
 

@@ -378,11 +378,11 @@ trait LoanTrait{
                     $mail = [
                         'name' => $data['fname'].' '.$data['lname'],
                         'to' => $data['email'],
-                        'from' => 'info@mightyfinance.co.zm',
+                        'from' => 'capex@greenwebbtech.com',
                         'phone' => $data['phone'],
                         'payback' => Application::payback($data['amount'], $data['repayment_plan']),
                         'subject' => $data['type'].' Loan Application',
-                        'message' => 'Thank you for choosing us. Your loan request is submitted. Sign in with username '.$data['email'].' and password is "mighty4you" to check the status. We value your trust and are committed to your satisfaction.',
+                        'message' => 'Thank you for choosing us. Your loan request is submitted. Sign in with username '.$data['email'].' and password is "capex+you" to check the status. We value your trust and are committed to your satisfaction.',
                         'message2'=>'Before proceeding, please fill out the attached Pre-approval form and submit it for the final processing of your '.$data['type'].' loan application.'
                     ];
                 }

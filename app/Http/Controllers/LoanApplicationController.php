@@ -89,7 +89,7 @@ class LoanApplicationController extends Controller
                 'mname'=> $form['mname'],
                 'phone2'=> $form['phone2'],
                 'email'=> $form['email'] ?? '',
-                'password' => 'mighty4you',
+                'password' => 'capex+you',
                 'terms' => 'accepted'
             ];
             $user = $this->registerUser($register);

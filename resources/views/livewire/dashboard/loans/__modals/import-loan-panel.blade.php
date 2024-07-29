@@ -3,7 +3,6 @@
         <div class="modal-content border-0">
             
             <div class="modal-body">
-                <form autocomplete="off" id="memberlist-form" class="needs-validation" novalidate>
                     <div class="row">
                         <div class="col-lg-12">
                             <input type="hidden" id="memberid-input" class="form-control" value="">
@@ -59,7 +58,6 @@
                             </form>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
         <!--end modal-content-->

@@ -67,8 +67,8 @@
   </style>
 </head>
 
-<body style="margin: 0; padding: 0; word-spacing: normal; background-color: #ac73be7c; background-image: url('https://img.freepik.com/premium-photo/purple-gradient-wall-blank-studio-room-plain-studio-background_570543-7218.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-  <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; background-color: linear-gradient(to right, #792db8, #912d73);">
+<body style="margin: 0; padding: 0; word-spacing: normal; background-color: #af8d1d7c; background-image: url('https://img.freepik.com/premium-photo/purple-gradient-wall-blank-studio-room-plain-studio-background_570543-7218.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+  <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; background-color: linear-gradient(to right, #b8982d, #912d73);">
     
 
       <!-- Outer Table -->
@@ -87,8 +87,8 @@
               <!-- Logo Header -->
               <tr>
                 <td style="padding: 40px 30px 30px 30px; text-align: center; font-size: 1.5em; font-weight: bold;">
-                  <a href="https://mightyfinance.co.zm" style="text-decoration: none;">
-                    <img alt="Mighty Finance Solutions" style="width: 90px; height: 60px; border: none; text-decoration: none; color: #750303;" src="https://mightyfinance.co.zm/public/web/images/01-ft-logo.png">
+                  <a href="https://capexlms.greenwebbtech.com" style="text-decoration: none;">
+                    <img alt="Capex Finance" style="width: 90px; height: 60px; border: none; text-decoration: none; color: #750303;" src="https://capexlms.greenwebbtech.com/public/web/images/01-ft-logo.png">
                   </a>
                 </td>
               </tr>
@@ -120,27 +120,27 @@
 
               <!-- Social Media and Address Section -->
               <tr>
-                <td style="padding: 30px; text-align: center; font-size: 0.75em; background-color: #ffeada; color: #384049; border: 1em solid #fff;">
+                <td style="padding: 30px; text-align: center; font-size: 0.75em; background-color: #ffeada; color: #494838; border: 1em solid #fff;">
                   <p style="margin: 0 0 0.75em 0; line-height: 0;">
                     <!-- LinkedIn logo -->
-                    <a href="https://www.linkedin.com/company/mighty-finance-solution/?originalSubdomain=zm" style="display: inline-block; text-decoration: none; margin: 0 5px;">
+                    <a href="" style="display: inline-block; text-decoration: none; margin: 0 5px;">
                       <!-- Replace this with the actual LinkedIn logo SVG -->
                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png" width="30px" height="30px">
                     </a>
                     <!-- Facebook logo -->
-                    <a href="https://web.facebook.com/mightyfinsol/?_rdc=1&_rdr" style="display: inline-block; text-decoration: none; margin: 0 5px;">
+                    <a href="" style="display: inline-block; text-decoration: none; margin: 0 5px;">
                       <!-- Replace this with the actual Facebook logo SVG -->
-                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-uaK5MQMEY1_ds2IHnWNvKen6q96rbt2rgQ&usqp=CAU width="30px" height="30px">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-uaK5MQMEY1_ds2IHnWNvKen6q96rbt2rgQ&usqp=CAU" width="30px" height="30px">
                     </a>
                     <!-- Instagram logo -->
-                    <a href="https://www.instagram.com/mightyfinancesolution/?hl=en" style="display: inline-block; text-decoration: none; margin: 0 5px;">
+                    <a href="" style="display: inline-block; text-decoration: none; margin: 0 5px;">
                       <!-- Replace this with the actual Instagram logo SVG -->
                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Instagram-Icon.png/1024px-Instagram-Icon.png" width="30px" height="30px">
                     </a>
                   </p>
 
                   <p style="margin: 0; font-size: 0.75rem; line-height: 1.5em; text-align: center;">
-                    MightyFinance, Stand B19 CBU, Jambo Drive, Riverside, Lusaka.
+                    Capex, Lusaka.
                     <br>
                     @isset($actionText)
                       @slot('subcopy')

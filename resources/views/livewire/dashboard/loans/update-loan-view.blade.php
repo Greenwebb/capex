@@ -53,8 +53,8 @@
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Principal Amount</label>
-                                    <input type="text" value="{{$loan->amount}}" class="form-control" id="fullnameInput" placeholder="Enter your name">                                    
-                                    <input type="hidden" value="{{$loan->id}}" name="amount"/>
+                                    <input type="text" value="{{$loan->amount}}" name="amount" class="form-control" id="fullnameInput" placeholder="Principal Amount">                                    
+                                    <input type="hidden" value="{{$loan->id}}" name="loan_id"/>
                                 </div>
                                 
                                 <div class="col-md-4">

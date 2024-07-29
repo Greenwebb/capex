@@ -43,10 +43,10 @@ class UserAuthenticationController extends Controller
         $mail = [
             'name' => $user->fname.' '.$user->lname,
             'to' => $user->email,
-            'from' => 'admin@bridgetrustfinance.co.zm',
+            'from' => 'capex@greenwebbtech.com',
             'phone' => $user->phone,
-            'subject' => 'Your Brigetrust Finance User Account',
-            'message' => 'Hello '.$user->fname.' '.$user->lname.' Your Bridgetrust Finance account is now ready, Click on login to goto your dashboard. Your password is 20230101bridge.@2you  -  feel free to change your password.',
+            'subject' => 'Your Capex Finance User Account',
+            'message' => 'Hello '.$user->fname.' '.$user->lname.' Your Capex Finance account is now ready, Click on login to goto your dashboard. Your password is @capex+2024  -  feel free to change your password.',
         ];
         $eMail = new BTFAccount($mail);
         Mail::to($user->email)->send($eMail);

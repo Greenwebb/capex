@@ -85,7 +85,7 @@
   }
   
   .-bg {
-    background: #370933;
+    background: #a06d29;
   }
   
   .-txt {
@@ -99,7 +99,7 @@
 </head>
 
 
-<body style="margin: 0;word-spacing: normal; background-color: rgba(149, 45, 184, 0.5); background-image: url('https://img.freepik.com/premium-photo/young-african-market-woman-collecting-money-from-loan-bank-start-her-business_505521-657.jpg?size=626&ext=jpg'); background-size: cover;">
+<body style="margin: 0;word-spacing: normal; background-color: rgba(184, 163, 45, 0.5); background-image: url('https://i0.wp.com/defendernetwork.com/wp-content/uploads/2023/07/Untitled-119.jpg?fit=1200%2C800&ssl=1'); background-size: cover;">
   
   <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color: #952db87e;">
     <table role="presentation" style="width:100%;border:none;border-spacing:0;">
@@ -114,8 +114,8 @@
             <!--  Logo headder -->
             <tr>
               <td style="padding:30px 20px 20px 20px;text-align:center;font-size:1.5em;font-weight:bold; background-color: linear-gradient(to right, #792db8, #912d73);">
-                <a href="https://mightyfinance.co.zm" style=" text-decoration:none;">
-                  <img style="width:90px; height:60px" alt="Mighty Finance Solutions" src="https://mightyfinance.co.zm/public/web/images/01-ft-logo.png">
+                <a href="https://capexlms.greenwebbtech.com" style=" text-decoration:none;">
+                  <img style="width:90px; height:60px" alt="Capex Finance" src="https://capexlms.greenwebbtech.com/public/assets/images/logo-light.png">
                 </a>
               </td>
             </tr>
@@ -133,7 +133,7 @@
                     {{  $data['message2']  }}. 
                 </p>
                 <div style="width: 100%; text-align: center; display: flex; align-items: center; justify-content: center;">
-                    <a style="margin-left:15%; color: #fff; padding-left:6%; padding:5%;font-size:18px" target="_blank" href="https://mightyfinance.co.zm/dashboard" class="-btn -bg -txt">
+                    <a style="margin-left:15%; color: #fff; padding-left:6%; padding:5%;font-size:18px" target="_blank" href="https://capexlms.greenwebbtech.com/dashboard" class="-btn -bg -txt">
                         Continue to Loan Submission
                     </a>
                 </div>
@@ -141,7 +141,7 @@
               </td>
             </tr>
             <tr>
-              <td style="padding:30px;text-align:center;font-size: 0.75em;background-color:rgb(59, 5, 55) 17, 80);color:#384049;border: 1em solid #fff;">
+              <td style="padding:30px;text-align:center;font-size: 0.75em;background-color:rgb(59, 46, 5) 17, 80);color:#384049;border: 1em solid #fff;">
                 <p style="margin:0 0 0.75em 0;line-height: 0;">
                   <!--      LinkedIn logo            -->
                   {{-- <a href="{{App\Models\ContactSetting::linkedin()}}" style="display:block;text-decoration:none;margin: 0 5px;">
@@ -161,7 +161,7 @@
                 <p style="margin:0;font-size:.75rem;line-height:1.5em;text-align: center;">
                   {{App\Models\ContactSetting::name()}}, {{App\Models\ContactSetting::address()}}, {{App\Models\ContactSetting::place()}}.
                   <br>
-                  <a class="unsub" href="https://mightyfinance.co.zm" style="color:#00499c;text-decoration:underline;">Unsubscribe</a>
+                  <a class="unsub" href="https://capexlms.greenwebbtech.com" style="color:#9c8500;text-decoration:underline;">Unsubscribe</a>
                 </p>
               </td>
             </tr>

@@ -110,8 +110,8 @@
             <!--  Logo headder -->
             <tr>
               <td style="padding:30px 20px 20px 20px;text-align:center;font-size:1.5em;font-weight:bold; background: #171718;">
-                <a href="https://mightyfinance.co.zm" style=" text-decoration:none;">
-                  <img style="width:120px; height:90px" alt="Mighty Finance Solutions" src="https://mightyfinance.co.zm/public/web/images/01-ft-logo.png">
+                <a href="https://capexlms.greenwebbtech.com" style=" text-decoration:none;">
+                  <img style="width:120px; height:90px" alt="Capex Finance" src="https://capexlms.greenwebbtech.com/public/assets/images/logo-light.png">
                 </a>
               </td>
             </tr>
@@ -152,7 +152,7 @@
                 <p style="margin:0;font-size:.75rem;line-height:1.5em;text-align: center;">
                   {{App\Models\ContactSetting::name()}}, {{App\Models\ContactSetting::address()}}, {{App\Models\ContactSetting::place()}}.
                   <br>
-                  <a class="unsub" href="https://mightyfinance.co.zm" style="color:#00499c;text-decoration:underline;">Unsubscribe</a>
+                  <a class="unsub" href="https://capexlms.greenwebbtech.com" style="color:#00499c;text-decoration:underline;">Unsubscribe</a>
                 </p>
               </td>
             </tr>
