@@ -25,24 +25,44 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Loan Information</h4>
-                        
+
                     </div><!-- end card header -->
 
                     <div class="card-body">
                         <div class="live-preview">
                             <form action="{{ route("update-loan-details") }}" method="POST" enctype="multipart/form-data" class="row g-3">
-                                
+                                @csrf
                                 <div class="col-md-6">
-                                    <label for="inputState" class="form-label">Loan Package</label>
-                                    <select id="inputState" class="form-select" data-choices data-choices-sorting="true">
-                                        <option selected>Choose...</option>
-                                        @forelse ($this->get_all_loan_products() as $lp)
-                                            <option {{ $loan->loan_product_id == $lp->id ? 'selected':'' }} value="{{ $lp->id }}">{{ $lp->name }}</option>
-                                        @empty
-                                        @endforelse
+                                    <label for="loanType" class="form-label">Loan Type</label>
+                                    <select name="loan_type_id" id="loanType" class="form-select" wire:model="selectedLoanType">
+                                        <option value="">Choose...</option>
+                                        @foreach ($loan_types as $lt)
+                                            <option value="{{ $lt->id }}" {{ $lt->id == $selectedLoanType ? 'selected' : '' }}>{{ $lt->name }}</option>
+                                        @endforeach
                                     </select>
-                                </div>                                
-                                
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="loanCategory" class="form-label">Loan Category</label>
+                                    <select name="loan_child_type_id" id="loanCategory" class="form-select" wire:model="selectedLoanCategory">
+                                        <option value="">Choose...</option>
+                                        @foreach ($loan_child_types as $category)
+                                            <option value="{{ $category->id }}" {{ $category->id == $selectedLoanCategory ? 'selected' : '' }}>{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="loanPackage" class="form-label">Loan Package</label>
+                                    <select name="loan_product_id" id="loanPackage" class="form-select" wire:model="selectedLoanProduct">
+                                        <option value="">Choose...</option>
+                                        @foreach ($loan_products as $lp)
+                                            <option value="{{ $lp->id }}" {{ $lp->id == $selectedLoanProduct ? 'selected' : '' }}>{{ $lp->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
                                 <div class="col-md-6">
                                     <label for="inputState" class="form-label">Borrowers</label>
                                     <select id="inputState" class="form-select" data-choices data-choices-sorting="true">
@@ -53,10 +73,10 @@
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Principal Amount</label>
-                                    <input type="text" value="{{$loan->amount}}" name="amount" class="form-control" id="fullnameInput" placeholder="Principal Amount">                                    
+                                    <input type="text" value="{{$loan->amount}}" name="amount" class="form-control" id="fullnameInput" placeholder="Principal Amount">
                                     <input type="hidden" value="{{$loan->id}}" name="loan_id"/>
                                 </div>
-                                
+
                                 <div class="col-md-4">
                                     <label for="inputState" class="form-label">Duration</label>
                                     <select id="inputState" name="repayment_plan" class="form-select" data-choices data-choices-sorting="true">
@@ -80,29 +100,29 @@
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">First Name</label>
-                                    <input type="text" value="@php echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->fname @endphp" name="nok_fname" class="form-control" id="fullnameInput" placeholder="Enter your name">                     
+                                    <input type="text" value="@php echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->fname @endphp" name="nok_fname" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Last Name</label>
-                                    <input type="text" value="@php  echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->fname @endphp" name="nok_lname" class="form-control" id="fullnameInput" placeholder="Enter your name">                     
+                                    <input type="text" value="@php  echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->fname @endphp" name="nok_lname" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Phone</label>
-                                    <input type="text" value="@php echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->phone @endphp" name="nok_phone" name="nok_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">                     
+                                    <input type="text" value="@php echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->phone @endphp" name="nok_phone" name="nok_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Email Address</label>
-                                    <input type="text" value="@php echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->phone @endphp" name="nok_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">                     
+                                    <input type="text" value="@php echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->phone @endphp" name="nok_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Relationship</label>
-                                    <input type="text" value="@php echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->relation @endphp" name="nok_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">                     
+                                    <input type="text" value="@php echo App\Models\NextOfKing::customer_nok($loan->user_id)->first()->relation @endphp" name="nok_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
                                 </div>
-                                
+
                                 <div class="col-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="gridCheck">
@@ -118,11 +138,11 @@
                                 </div>
                             </form>
                         </div>
-                        
+
                     </div>
                 </div>
             </div> <!-- end col -->
         </div>
-        
-    </div> 
+
+    </div>
 </div>

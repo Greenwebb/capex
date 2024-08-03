@@ -72,7 +72,7 @@
                                     @endif
                                     <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#exportModal"><i class="ri-add-fill me-1 align-bottom"></i> Export XLS</button>
                                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Import XLS</button>
-                                    <a href="{{ route('new-loan') }}" class="btn btn-primary"><i class="ri-add-fill me-1 align-bottom"></i> Add </a>
+                                    <a href="{{ route('proxy-loan-create') }}" class="btn btn-primary"><i class="ri-add-fill me-1 align-bottom"></i> Add </a>
                                 </div>
                             </div>
                             <!--end col-->
@@ -208,7 +208,7 @@
     </div>
     <!-- container-fluid -->
 
-    
+
     @include('livewire.dashboard.loans.__modals.assign-loan')
     @include('livewire.dashboard.loans.__modals.review-warning')
     @include('livewire.dashboard.loans.__modals.export-loan-panel')

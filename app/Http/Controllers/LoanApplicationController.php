@@ -307,68 +307,56 @@ class LoanApplicationController extends Controller
         DB::beginTransaction();
         try {
             $form = $request->toArray();
-            // First Upload the files
             $this->uploadCommonFiles($request);
-            $user = User::where('id', $form['borrower_id'])->first();
-
-            // Collect the loan application data
-            $data = [
-                'user_id'=> $form['borrower_id'],
-                'lname'=> $user->lname,
-                'fname'=> $user->fname,
-                'email'=> $user->email ?? '',
-                'amount'=> $form['amount'],
-                'phone'=> $user->phone,
-                'gender'=> $user->gender,
-                'loan_product_id'=> $form['loan_product_id'],
-                'repayment_plan'=> $form['repayment_plan'],
-                'processed_by'=> auth()->user()->id
-            ];
+            $user = User::find($form['borrower_id']);
+            $data = array_merge($form, [
+                'user_id' => $form['borrower_id'],
+                'lname' => $user->lname,
+                'fname' => $user->fname,
+                'email' => $user->email ?? '',
+                'phone' => $user->phone,
+                'gender' => $user->gender,
+                'processed_by' => auth()->id(),
+            ]);
             $nok = [
+                'user_id' => $form['borrower_id'],
                 'nok_email' => $form['nok_email'],
                 'nok_fname' => $form['nok_fname'],
                 'nok_lname' => $form['nok_lname'],
                 'nok_phone' => $form['nok_phone'],
                 'nok_relation' => $form['nok_relation'],
                 'nok_gender' => $form['nok_gender'],
-                'user_id' => $form['borrower_id']
             ];
             $this->createNOK($nok);
-
-            // Create a loan request application and send email to borrower
-            $application = $this->apply_loan($data);
-
-            // Send Email to Admin about this new loan
+            $applicationId = $this->apply_loan($data);
             $mail = [
-                'user_id' => '',
-                'application_id' => $application,
-                'name' => $user->fname.' '.$user->lname,
+                'application_id' => $applicationId,
+                'name' => "{$user->fname} {$user->lname}",
                 'loan_type' => $form['type'],
                 'phone' => $user->phone,
                 'duration' => $form['repayment_plan'],
                 'amount' => $form['amount'],
                 'type' => 'loan-application',
-                'msg' => 'You have new a '.$form['type'].' loan application request from '.$user->fname.' '.$user->lname.', please visit the site to view more details'
+                'msg' => "You have a new {$form['type']} loan application request from {$user->fname} {$user->lname}, please visit the site to view more details",
             ];
 
-            // Email going to the Administrator
-            $process = $this->send_loan_email($mail);
-            if($process){
-                DB::commit();
-                Session::flash('success', "Loan created successfully");
-                return redirect()->route('view-loan-requests');
-            }else{
-                DB::commit();
-                Session::flash('success', "Loan created successfully");
-                Session::flash('error', "Could not send email to Customer, Please inform them about their new loan");
-                return redirect()->back();
-            }
+            // $emailSent = $this->send_loan_email($mail);
+
+            DB::commit();
+
+            Session::flash('success', "Loan created successfully");
+            // if (!$emailSent) {
+            //     Session::flash('error', "Could not send email to Customer, Please inform them about their new loan");
+            // }
+
+            return redirect()->route('view-loan-requests');
         } catch (\Throwable $th) {
             DB::rollback();
-            Session::flash('error', "Something failed. ".$th->getMessage());
+            Session::flash('error', "Something failed. " . $th->getMessage());
             return redirect()->back();
         }
     }
+
 
     public function updateLoanDetails(Request $request)
     {

@@ -86,6 +86,8 @@ class Application extends Model
         'penalties',
         'related_party',
         'days_late',
+        'loan_type_id', //loan_type
+        'loan_child_type_id' //loan_category
     ];
     protected $appends = [
         'done_by',
@@ -121,8 +123,17 @@ class Application extends Model
     public function loan(){
         return $this->hasOne(Loans::class);
     }
+
     public function loan_product(){
         return $this->belongsTo(LoanProduct::class);
+    }
+
+    public function loan_type(){
+        return $this->belongsTo(LoanType::class);
+    }
+    
+    public function loan_child_type(){
+        return $this->belongsTo(LoanChildType::class);
     }
 
     public function user(){

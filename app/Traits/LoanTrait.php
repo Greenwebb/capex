@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Mail\LoanApplication;
 use App\Models\Application;
 use App\Models\ApplicationStage;
+use App\Models\LoanChildType;
 use App\Models\LoanExpense;
 use App\Models\LoanInstallment;
 use App\Models\LoanManualApprover;
@@ -38,6 +39,10 @@ trait LoanTrait{
 
     public function get_all_loan_types(){
         return LoanType::with('loan_child_type.loan_products')->get();
+    }
+
+    public function get_all_loan_child_types(){
+        return LoanChildType::get();
     }
 
     public function get_all_loan_products(){
@@ -365,65 +370,59 @@ trait LoanTrait{
         }
     }
 
+    public function apply_loan($data)
+    {
+        try {
+            $existingApplications = Application::where('status', 0)
+                                            ->where('complete', 0)
+                                            ->where('user_id', $data['user_id'])
+                                            ->orderBy('created_at', 'desc')
+                                            ->get();
 
-
-    public function apply_loan($data){
-            try {
-                // check if user already created a loan application
-                // that is not approved yet and not complete
-                $check = Application::where('status', 0)->where('complete', 0)
-                                    ->where('user_id', $data['user_id'])->orderBy('created_at', 'desc')->get();
-
-                if($data['email'] != ''){
+            if ($existingApplications->isEmpty()) {
+                $application = Application::create($data);
+                if (!empty($data['email'])) {
                     $mail = [
-                        'name' => $data['fname'].' '.$data['lname'],
+                        'name' => "{$data['fname']} {$data['lname']}",
                         'to' => $data['email'],
                         'from' => 'capex@greenwebbtech.com',
                         'phone' => $data['phone'],
                         'payback' => Application::payback($data['amount'], $data['repayment_plan']),
-                        'subject' => $data['type'].' Loan Application',
-                        'message' => 'Thank you for choosing us. Your loan request is submitted. Sign in with username '.$data['email'].' and password is "capex+you" to check the status. We value your trust and are committed to your satisfaction.',
-                        'message2'=>'Before proceeding, please fill out the attached Pre-approval form and submit it for the final processing of your '.$data['type'].' loan application.'
+                        'subject' => "{$data['type']} Loan Application",
+                        'message' => "Thank you for choosing us. Your loan request is submitted. Sign in with username {$data['email']} and password is 'capex+you' to check the status. We value your trust and are committed to your satisfaction.",
+                        'message2' => "Capex Finance"
                     ];
+                    // Mail::to($data['email'])->send(new LoanApplication($mail));
                 }
 
-                if(empty($check->toArray())){
-                    $item = Application::create($data);
-                    if($data['email'] != ''){
-                        $loan_data = new LoanApplication($mail);
-                        Mail::to($data['email'])->send($loan_data);
-                    }
+                // Fetch the loan status with relationships.
+                $status = DB::table('loan_statuses')
+                ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
+                ->select('loan_statuses.*', 'statuses.status')
+                ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
+                ->orderBy('loan_statuses.id', 'asc')
+                ->first();
 
-                    // Fetch the loan status with relationships.
-                    // $status = DB::table('loan_statuses')
-                    //     ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
-                    //     ->select('loan_statuses.*', 'statuses.status')
-                    //     ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
-                    //     ->orderBy('loan_statuses.id', 'asc')
-                    //     ->first();
-
-                    // // Create a new application stage.
-                    // DB::table('application_stages')->insert([
-                    //     'application_id' => $item->id,
-                    //     'loan_status_id' => 1,
-                    //     'state' => 'current',
-                    //     'status' => $status->status ?? 'verification', // Using the status retrieved from the query
-                    //     'stage' => 'processing',
-                    //     'prev_status' => 'current',
-                    //     'curr_status' => '',
-                    //     'position' => 1
-                    // ]);
-
-                    return $item->id;
-                }else{
-                    // redirect to you already have loan request
-                    return 'exists';
-                }
-
-            } catch (\Throwable $th) {
-                dd($th);
+                // Create a new application stage.
+                DB::table('application_stages')->insert([
+                    'application_id' => $application->id,
+                    'loan_status_id' => 1,
+                    'state' => 'current',
+                    'status' => $status->status ?? 'verification', // Using the status retrieved from the query
+                    'stage' => 'processing',
+                    'prev_status' => 'current',
+                    'curr_status' => '',
+                    'position' => 1
+                ]);
+                return $application->id;
             }
+            return 'exists';
+        } catch (\Throwable $th) {
+            report($th);
+            return 'error';
+        }
     }
+
 
     public function apply_update_loan($data, $loan_id){
             try {
