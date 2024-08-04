@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\LoanChildType;
 use App\Models\LoanStatus;
+use App\Models\LoanType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -74,5 +76,35 @@ class LoanStatusSeeder extends Seeder
                 ]
             );
         }
+
+
+        LoanType::create([
+            'name' => 'Personal',
+            'type_name' => 'Personal',
+        ]);
+
+        LoanType::create(
+        [
+            'name' => 'Business',
+            'type_name' => 'Business',
+        ]);
+
+        LoanChildType::create([
+            'name' => 'Auto Loan',
+            'type_name' => 'Auto Loan',
+            'loan_type_id' => 1,
+        ]);
+
+        LoanChildType::create([
+            'name' => 'House Mortage Loan',
+            'type_name' => 'House Mortage Loan',
+            'loan_type_id' => 1,
+        ]);
+
+        LoanChildType::create([
+            'name' => 'MOU',
+            'type_name' => 'MOU',
+            'loan_type_id' => 2,
+        ]);
     }
 }

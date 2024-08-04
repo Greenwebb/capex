@@ -46,6 +46,8 @@ class LoanDetailView extends Component
             $this->prefillLoanProductValues();
             $this->getAmoritizationTable();
             $this->change_status();
+            
+            // dd($this->current);
             return view('livewire.dashboard.loans.loan-detail-view')
             ->layout('layouts.main');
         } catch (\Throwable $th) {

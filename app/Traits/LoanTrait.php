@@ -374,14 +374,14 @@ trait LoanTrait{
     {
         try {
             $existingApplications = Application::where('status', 0)
-                                            ->where('complete', 0)
-                                            ->where('user_id', $data['user_id'])
-                                            ->orderBy('created_at', 'desc')
-                                            ->get();
-
+                ->where('complete', 0)
+                ->where('user_id', $data['user_id'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+                
             if ($existingApplications->isEmpty()) {
                 $application = Application::create($data);
-                if (!empty($data['email'])) {
+                if ($data['email']) {
                     $mail = [
                         'name' => "{$data['fname']} {$data['lname']}",
                         'to' => $data['email'],
@@ -395,20 +395,19 @@ trait LoanTrait{
                     // Mail::to($data['email'])->send(new LoanApplication($mail));
                 }
 
-                // Fetch the loan status with relationships.
                 $status = DB::table('loan_statuses')
-                ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
-                ->select('loan_statuses.*', 'statuses.status')
-                ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
-                ->orderBy('loan_statuses.id', 'asc')
-                ->first();
+                    ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
+                    ->select('loan_statuses.*', 'statuses.stage')
+                    ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
+                    ->orderBy('loan_statuses.id', 'asc')
+                    ->first();
 
                 // Create a new application stage.
-                DB::table('application_stages')->insert([
+                ApplicationStage::create([
                     'application_id' => $application->id,
                     'loan_status_id' => 1,
                     'state' => 'current',
-                    'status' => $status->status ?? 'verification', // Using the status retrieved from the query
+                    'status' => $status->stage ?? 'verification', // Using the status retrieved from the query
                     'stage' => 'processing',
                     'prev_status' => 'current',
                     'curr_status' => '',
@@ -419,7 +418,7 @@ trait LoanTrait{
             return 'exists';
         } catch (\Throwable $th) {
             report($th);
-            return 'error';
+            // return 'error';
         }
     }
 

@@ -11,6 +11,7 @@ class ApplicationStage extends Model
     protected $fillable = [
         'application_id',
         'loan_product_id',
+        'loan_status_id',
         'state',
         'status',
         'stage',

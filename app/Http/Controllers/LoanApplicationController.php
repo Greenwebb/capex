@@ -341,9 +341,7 @@ class LoanApplicationController extends Controller
             ];
 
             // $emailSent = $this->send_loan_email($mail);
-
-            DB::commit();
-
+            // DB::commit();
             Session::flash('success', "Loan created successfully");
             // if (!$emailSent) {
             //     Session::flash('error', "Could not send email to Customer, Please inform them about their new loan");

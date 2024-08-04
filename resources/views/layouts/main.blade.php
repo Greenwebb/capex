@@ -842,6 +842,8 @@
     <script src="public/assets/libs/cleave.js/cleave.min.js"></script>
     <!-- form masks init -->
     <script src="public/assets/js/pages/form-masks.init.js"></script>
+    <!-- form wizard init -->
+    <script src="public/assets/js/pages/form-wizard.init.js"></script>
 
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

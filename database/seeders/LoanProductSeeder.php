@@ -34,6 +34,7 @@ class LoanProductSeeder extends Seeder
                         </svg>',
             'wiz_steps' => 50,
             'release_date' => 0,
+            'loan_child_type_id' => 1,
             'auto_payment' => 0,
             'loan_duration_period' => 'month',
             'loan_interest_period' => 'per-month',

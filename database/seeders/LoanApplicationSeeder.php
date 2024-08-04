@@ -42,7 +42,10 @@ class LoanApplicationSeeder extends Seeder
             'nationality' => 'zambian',
             'continue' => 0,
             'is_assigned' => 0,
-            'loan_product_id' => 1
+            'loan_product_id' => 1,
+            'loan_child_type_id' => 1,
+            'loan_type_id' => 1,
+            'days_late' => 10
         ]);
 
         ApplicationStage::create([
