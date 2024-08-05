@@ -74,7 +74,6 @@ class UserController extends Controller
                     Wallet::create([
                         'user_id' => $u->id
                     ]);
-                    // $link = new HtmlString('<a target="_blank" href="' . $url . '">Create a loan for '.$u->fname.' '.$u->lname.'</a>');
                     $msg = '<a target="_blank" href="'.$url.'">Apply for Loan on Behalf</a>';
                     Session::flash('success', "Borrower created successfully. ");
                     Session::flash('borrower_id', $u->id);

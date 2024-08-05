@@ -127,177 +127,104 @@
             <!-- end col -->
         </div>
 
-
         <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header bg-light p-3">
                         <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                     </div>
-                    <form  method="POST" action="{{ route('create-user') }}" class="tablelist-form" autocomplete="off">
+                    <form method="POST" action="{{ route('create-user') }}" class="tablelist-form" autocomplete="off">
                         @csrf
                         <div class="modal-body">
-                            <div class="row g-9 mb-7">
-                                <!--begin::Col-->
-                                <div class="col-md-6 fv-row">
-                                    <!--begin::Label-->
+                            <div class="row g-3 mb-7">
+                                <div class="col-md-6">
                                     <label class="required fs-6 fw-semibold mb-2">Firstname</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="Firstname" name="fname"/>
-                                    <!--end::Input-->
+                                    <input class="form-control form-control-solid" placeholder="Firstname" name="fname" />
                                 </div>
-                                <!--end::Col-->
-                                <!--begin::Col-->
-                                <div class="col-md-6 fv-row">
-                                    <!--begin::Label-->
+                                <div class="col-md-6">
                                     <label class="required fs-6 fw-semibold mb-2">Lastname</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="Surname" name="lname"  />
-                                    <!--end::Input-->
+                                    <input class="form-control form-control-solid" placeholder="Surname" name="lname" />
                                 </div>
-                                <!--end::Col-->
                             </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7">
-                                <!--begin::Label-->
-                                <label class="fs-6 fw-semibold mb-2">
-                                    <span class="required">Email</span>
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="Email address must be active">
-                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                            <span class="path3"></span>
-                                        </i>
-                                    </span>
-                                </label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="email" class="form-control form-control-solid" placeholder="" name="email" />
-                                <!--end::Input-->
+                            <div class="row g-3 mb-7">
+                                <div class="col-md-12">
+                                    <label class="fs-6 fw-semibold mb-2">
+                                        <span class="required">Email</span>
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Email address must be active">
+                                            <i class="ki-duotone ki-information-5 text-gray-500 fs-6"></i>
+                                        </span>
+                                    </label>
+                                    <input type="email" class="form-control form-control-solid" placeholder="" name="email" />
+                                </div>
                             </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-15">
-                                <!--begin::Label-->
-                                <label class="fs-6 fw-semibold mb-2">Password</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="text" disabled class="form-control form-control-solid"  placeholder="mighty.@2023@" required />
-                                <!--end::Input-->
+                            <div class="row g-3 mb-7">
+                                <div class="col-md-12">
+                                    <label class="fs-6 fw-semibold mb-2">Password</label>
+                                    <input type="text" disabled class="form-control form-control-solid" placeholder="mighty.@2023@" required />
+                                </div>
                             </div>
-                            <!--end::Input group-->
-
-
-                            <!--begin::Billing toggle-->
                             <div class="fw-bold fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
                                 General Information
                                 <span class="ms-2 rotate-180">
                                     <i class="ki-duotone ki-down fs-3"></i>
                                 </span>
                             </div>
-                            <!--end::Billing toggle-->
-                            <!--begin::Billing form-->
                             <div id="kt_modal_add_customer_billing_info" class="collapse show">
-                                <!--begin::Input group-->
-                                <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
-                                    <label class="required fs-6 fw-semibold mb-2">Address Line 1</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="" name="address1" value="101, Collins Street" />
-                                    <!--end::Input-->
+                                <div class="row g-3 mb-7">
+                                    <div class="col-md-12">
+                                        <label class="required fs-6 fw-semibold mb-2">Address Line 1</label>
+                                        <input class="form-control form-control-solid" placeholder="" name="address1" value="101, Collins Street" />
+                                    </div>
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-semibold mb-2">Active Phone Number</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="" name="phone" />
-                                    <!--end::Input-->
+                                <div class="row g-3 mb-7">
+                                    <div class="col-md-12">
+                                        <label class="fs-6 fw-semibold mb-2">Active Phone Number</label>
+                                        <input class="form-control form-control-solid" placeholder="" name="phone" />
+                                    </div>
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="d-flex flex-column mb-7 fv-row">
-                                    <!--begin::Label-->
-                                    <label class="required fs-6 fw-semibold mb-2">Town</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="" name="city"/>
-                                    <!--end::Input-->
+                                <div class="row g-3 mb-7">
+                                    <div class="col-md-12">
+                                        <label class="required fs-6 fw-semibold mb-2">Town</label>
+                                        <input class="form-control form-control-solid" placeholder="" name="city" />
+                                    </div>
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
+                                <div class="row g-3 mb-7">
+                                    <div class="col-md-6">
                                         <label class="required fs-6 fw-semibold mb-2">National ID Type</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select class="form-control form-control" placeholder="" name="id_type" >
+                                        <select class="form-control form-control" placeholder="" name="id_type">
                                             <option value="">--choose--</option>
                                             <option value="NRC">NRC</option>
                                             <option value="Passport">Passport</option>
                                             <option value="Driver Liecense">Driver Liecense</option>
                                         </select>
-                                        <!--end::Input-->
                                     </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
+                                    <div class="col-md-6">
                                         <label class="required fs-6 fw-semibold mb-2">National ID</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
                                         <input class="form-control form-control" placeholder="" name="nrc_no" />
-                                        <!--end::Input-->
                                     </div>
-                                    <!--end::Col-->
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Label-->
-
-                                    <div class="col-md-6 fv-row">
+                                <div class="row g-3 mb-7">
+                                    <div class="col-md-6">
                                         <label class="fs-6 fw-semibold mb-2">
                                             <span class="required">Gender</span>
                                             <span class="ms-1" data-bs-toggle="tooltip" title="Sex of the employee">
-                                                <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                    <span class="path3"></span>
-                                                </i>
+                                                <i class="ki-duotone ki-information-5 text-gray-500 fs-6"></i>
                                             </span>
                                         </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
                                         <select name="gender" aria-label="Select a gender" data-control="select2" data-placeholder="Select a gender..." data-dropdown-parent="#kt_modal_add_customer" class="form-select form-select-solid fw-bold">
                                             <option value="">Select a gender...</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
-
                                         </select>
                                     </div>
-                                    <div class="col-md-6 fv-row">
+                                    <div class="col-md-6">
                                         <label class="fs-6 fw-semibold mb-2">
                                             <span class="required">Role</span>
                                             <span class="ms-1" data-bs-toggle="tooltip" title="User role & permissions">
-                                                <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                    <span class="path3"></span>
-                                                </i>
+                                                <i class="ki-duotone ki-information-5 text-gray-500 fs-6"></i>
                                             </span>
                                         </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
                                         <select name="assigned_role" aria-label="Select a role" data-control="select2" data-placeholder="Select a role..." data-dropdown-parent="#kt_modal_add_customer" class="form-select form-select-solid fw-bold">
                                             <option value="">Select a user role...</option>
                                             @foreach($roles as $role)
@@ -306,46 +233,33 @@
                                         </select>
                                     </div>
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Wrapper-->
-                                    <div class="d-flex flex-stack">
-                                        <!--begin::Label-->
-                                        <div class="me-5">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold">Allow spooling?</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <div class="fs-7 fw-semibold text-muted">If user is allowed spooling, they will be able to pick and review a loan request when in spooling mode</div>
-                                            <!--end::Input-->
+                                <div class="row g-3 mb-7">
+                                    <div class="col-md-12">
+                                        <div class="d-flex flex-stack">
+                                            <div class="me-5">
+                                                <label class="fs-6 fw-semibold">Allow spooling?</label>
+                                                <div class="fs-7 fw-semibold text-muted">If user is allowed spooling, they will be able to pick and review a loan request when in spooling mode</div>
+                                            </div>
+                                            <label class="form-check form-switch form-check-custom form-check-solid">
+                                                <input class="form-check-input" name="billing" type="checkbox" value="1" id="kt_modal_add_customer_billing" checked="checked" />
+                                                <span class="form-check-label fw-semibold text-muted" for="kt_modal_add_customer_billing">Yes</span>
+                                            </label>
                                         </div>
-                                        <!--end::Label-->
-                                        <!--begin::Switch-->
-                                        <label class="form-check form-switch form-check-custom form-check-solid">
-                                            <!--begin::Input-->
-                                            <input class="form-check-input" name="billing" type="checkbox" value="1" id="kt_modal_add_customer_billing" checked="checked" />
-                                            <!--end::Input-->
-                                            <!--begin::Label-->
-                                            <span class="form-check-label fw-semibold text-muted" for="kt_modal_add_customer_billing">Yes</span>
-                                            <!--end::Label-->
-                                        </label>
-                                        <!--end::Switch-->
                                     </div>
-                                    <!--begin::Wrapper-->
                                 </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <div class="hstack gap-2 justify-content-end">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-success" id="add-btn">Add Customer</button>
-                                <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
 
         <!-- Modal -->
         <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
