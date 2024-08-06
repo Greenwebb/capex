@@ -9,7 +9,6 @@
     <!--end::Header-->
     <!--begin::Body-->
     <div class="card-body py-3">
-        @include('livewire.dashboard.__parts.dash-alerts')
         <!--begin::Table container-->
         <div class="table-responsive">
             <!--begin::Table-->

@@ -6,7 +6,7 @@
             </svg>
         </span>
         <span>
-            Return Back to Loan Fees List
+            Return 
         </span>
     </a>
     <!--begin::Post-->
@@ -43,7 +43,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="loan_charge_name" class="form-control form-control-lg form-control-solid" placeholder="" required/>
+                                    <input type="text" wire:model.lazy="loan_charge_name" class="form-control  " placeholder="" required/>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -53,7 +53,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="loan_charge_amount" class="form-control form-control-lg form-control-solid" placeholder="" required/>
+                                    <input type="text" wire:model.lazy="loan_charge_amount" class="form-control  " placeholder="" required/>
                                 </div>
                                 <!--end::Col-->
                             </div>

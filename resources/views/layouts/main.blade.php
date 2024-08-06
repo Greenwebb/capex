@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-bs-theme="dark" data-body-image="img-1" data-preloader="disable">
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-bs-theme="light" data-body-image="img-1" data-preloader="enabled">
 <!-- Mirrored from themesbrand.com/velzon/html/galaxy/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Jul 2024 19:56:56 GMT -->
 <head>
 
@@ -21,6 +21,7 @@
     <!--Swiper slider css-->
     <link href="public/assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.min.css" />
     <!-- Layout config Js -->
     <script src="public/assets/js/layout.js"></script>
     <!-- Bootstrap Css -->
@@ -806,11 +807,9 @@
 
     <!--preloader-->
     <div id="preloader">
-        <div id="status">
-            <div class="spinner-border text-primary avatar-sm" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
+        <center>
+            <img width="300" src="https://bollin.inf.ed.ac.uk/img/loading.gif" alt="">
+        </center>
     </div>
 
     <!-- JAVASCRIPT -->
@@ -866,10 +865,24 @@
     </script>
     <!-- Include Flatpickr script -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.min.js"></script>
     <script>
         flatpickr("#dueDate", {
             dateFormat: "Y-m-d", // Laravel's standard format
         });
+        let table = new DataTable('#customerTable', {
+            order: [[0, 'desc']]
+        });
+        let table2 = new DataTable('#guarantorTable',{
+            order: [[0, 'desc']]
+        });
+        let table3 = new DataTable('#nxtkinTable',{
+            order: [[0, 'desc']]
+        });
+        let table4 = new DataTable('#loanReqTable',{
+            order: [[0, 'desc']]
+        });
+        
     </script>
 </body>
 </html>

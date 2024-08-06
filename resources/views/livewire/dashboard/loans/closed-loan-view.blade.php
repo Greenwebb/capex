@@ -19,8 +19,8 @@
         </div>
         <!-- end page title -->
 
-        <div class="alert alert-danger" role="alert">
-            This is <strong>Datatable</strong> page in wihch we have used <b>jQuery</b> with cnd link!
+        <div class="alert alert-info" role="alert">
+            List of loan which have been paid back & closed.
         </div>
 
         <div class="row">

@@ -7,12 +7,9 @@
             
 
             @can('approve loan')
-            <div class="col-6">
-                <button wire:click="accept({{$loan->id}})" type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="steparrow-description-info-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Disburse Funds </button>
-            
-                <div class="menu-item px-5">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_review_rollback" wire:click="setLoanID({{$loan->id}})" class="menu-link px-5"> Rollback </a>
-                </div>
+            <div class="col-12 d-flex justify-between">
+                <a title="Undo" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_review_rollback" wire:click="setLoanID({{$loan->id}})" class="btn btn-warning btn-label left nexttab nexttab"><i class="ri-arrow-left-line label-icon align-middle fs-16 ms-2"></i> Rollback </a>
+                <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="steparrow-description-info-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Disburse Funds </button>
             </div>
             @endcan
         </div>

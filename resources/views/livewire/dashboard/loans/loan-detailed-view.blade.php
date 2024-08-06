@@ -30,14 +30,24 @@
                                                     <div class="vr"></div>
                                                     {{-- <div>Due Date : <span class="fw-medium">29 Dec, 2021</span></div> --}}
                                                     <div class="vr"></div>
-                                                    <div class="badge rounded-pill bg-info fs-12">New</div>
-                                                    <div class="badge rounded-pill bg-danger fs-12">High</div>
+
+                                                    @if($loan->status == 0)
+                                                    <div class="badge rounded-pill bg-warning fs-12">Pending </div>
+                                                    @elseif($loan->status == 1)
+                                                    <div class="badge rounded-pill bg-info fs-12">Open </div>
+                                                    @elseif($loan->status == 2)
+                                                    <div class="badge rounded-pill bg-success fs-12">Processing </div>
+                                                    @elseif($loan->status == 3)
+                                                    <div class="badge rounded-pill bg-danger fs-12">Rejected/ Denied</div>
+                                                    @else
+                                                    <div class="badge rounded-pill bg-success fs-12">Closed</div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-auto">
+                                {{-- <div class="col-md-auto">
                                     <div class="hstack gap-1 flex-wrap">
                                         <button type="button" class="btn py-0 fs-16 favourite-btn active">
                                             <i class="ri-star-fill"></i>
@@ -49,7 +59,7 @@
                                             <i class="ri-flag-line"></i>
                                         </button>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
@@ -58,14 +68,14 @@
                                         Overview
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-documents" role="tab">
                                         Repayments
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-activities" role="tab">
-                                        Staff
+                                        Assigned Staff
                                     </a>
                                 </li>
                                 {{-- <li class="nav-item">
@@ -92,20 +102,18 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="text-muted">
-                                            {{-- <h6 class="mb-3 fw-semibold text-uppercase">Summary</h6>
-                                            <p>It will be as simple as occidental in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
+                                            <h6 class="mb-3 fw-semibold text-uppercase">Summary</h6>
+                                            <p>{{ $loan->desc ?? 'No Description' }}. {{ $loan->note }}</p>
 
-                                            <ul class="ps-4 vstack gap-2">
-                                                <li>Product Design, Figma (Software), Prototype</li>
-                                                <li>Four Dashboards : Ecommerce, Analytics, Project,etc.</li>
-                                                <li>Create calendar, chat and email app pages.</li>
-                                                <li>Add authentication pages.</li>
-                                                <li>Content listing.</li>
-                                            </ul>
+                                            {{-- <ul class="ps-4 vstack gap-2">
+                                                <li>kjkjk</li>
+                                            </ul> --}}
 
                                             <div>
-                                                <button type="button" class="btn btn-link link-primary p-0">Read more</button>
-                                            </div> --}}
+                                                <button type="button" class="btn btn-link link-primary p-0">{{ $loan->loan_type->name }}</button>
+                                                <button type="button" class="btn btn-link link-primary p-0">{{ $loan->loan_child_type->name }}</button>
+                                                <button type="button" class="btn btn-link link-primary p-0">{{ $loan->loan_product->name }}</button>
+                                            </div>
 
                                             <div class="pt-3 border-top border-top-dashed mt-4">
                                                 <div class="row gy-3">
@@ -113,7 +121,7 @@
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium">Principal Amount :</p>
-                                                            <h5 class="fs-15 mb-0"> {{ $loan->amount }}</h5>
+                                                            <h5 class="fs-15 mb-0"> {{ number_format($loan->amount, 2, '.',',') }}</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
@@ -134,13 +142,13 @@
                                                             @if($loan->status == 0)
                                                                 <div class="badge bg-warning fs-12">Pending</div>
                                                             @elseif($loan->status == 1)
-                                                                <div class="badge bg-success fs-12">Inprogress</div>
+                                                                <div class="badge bg-success fs-12">Open (Pending Repayment)</div>
                                                             @elseif($loan->status == 2)
                                                                 <div class="badge bg-primary fs-12">Processing</div>
                                                             @else
                                                                 <div class="badge bg-danger fs-12">Rejected</div>
                                                             @endif
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -152,14 +160,14 @@
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium">Est. Repayment Amount :</p>
-                                                            <h5 class="fs-15 mb-0">{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</h5>
+                                                            <h5 class="fs-15 mb-0">{{ number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id), 2, '.', ',') }}</h5>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium">Current Pending Repayment :</p>
-                                                            <h5 class="fs-15 mb-0"> {{ App\Models\Loans::customer_balance($loan->user->id) }}</h5>
+                                                            <h5 class="fs-15 mb-0"> {{ number_format(App\Models\Loans::loan_balance($loan->id), 2, '.', ',') }}</h5>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -241,7 +249,7 @@
                                 </div>
                                 <!-- end card -->
 
-                                
+
                                 <!-- end card -->
                             </div>
                             <!-- ene col -->
@@ -255,14 +263,12 @@
                                     </div>
                                     <!-- end card body -->
                                 </div>
-                                <!-- end card -->
+                                
 
-                                <div class="card">
+                                {{-- <div class="card">
                                     <div class="card-header align-items-center d-flex border-bottom-dashed">
                                         <h4 class="card-title mb-0 flex-grow-1">Guarantors</h4>
-                                    
                                     </div>
-
                                     <div class="card-body">
                                         <div data-simplebar style="height: 235px;" class="mx-n3 px-3">
                                             <div class="vstack gap-3">
@@ -272,15 +278,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- end list -->
                                         </div>
                                     </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
+                                </div> --}}
 
-                                
-                                <!-- end card -->
                             </div>
                             <!-- end col -->
                         </div>
@@ -341,7 +342,7 @@
                                                         </td>
                                                     </tr>
                                                     @empty
-                
+
                                                     @endforelse
                                                 </tbody>
                                             </table>
@@ -359,7 +360,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Assigned Staff</h5>
-                                
+
                             </div>
                             <!--end card-body-->
                         </div>

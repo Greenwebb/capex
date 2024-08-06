@@ -23,7 +23,6 @@ class Application extends Model
         'interest',
         'payback_amount',
         'old_amount',
-
         'glname',
         'gfname',
         'gemail',
@@ -35,14 +34,12 @@ class Application extends Model
         'gphone2',
         'gphonesp3',
         'gaddress',
-
         'g2lname',
         'g2fname',
         'g2email',
         'g2phone',
         'g2_gender',
         'g2_relation',
-
         'nrc_file',
         'tpin_file',
         'business_file',
@@ -50,20 +47,16 @@ class Application extends Model
         'bank_trans_file',
         'bill_file',
         'status',
-
         'user_id',
         'guest_id',
         'payback_amount',
         'penalty_addition',
         'due_date',
         'can_change',
-
         'processed_by',
         'approved_by',
-
         'complete',
         'doa',
-
         'monthly_payments',
         'maximum_deductable',
         'net_pay_blr', //net before loan recovery
@@ -78,7 +71,6 @@ class Application extends Model
         'is_assigned',
         'plp_sent',
         'closed',
-
         'desc',
         'date_paid',
         'note',
@@ -97,7 +89,6 @@ class Application extends Model
     protected static function boot()
     {
         parent::boot();
-
         static::addGlobalScope('withUser', function ($builder) {
             $builder->with('user')->whereNotNull('user_id');
         });
@@ -131,7 +122,7 @@ class Application extends Model
     public function loan_type(){
         return $this->belongsTo(LoanType::class);
     }
-    
+
     public function loan_child_type(){
         return $this->belongsTo(LoanChildType::class);
     }

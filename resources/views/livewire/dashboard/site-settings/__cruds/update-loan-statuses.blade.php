@@ -44,7 +44,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input readonly type="text" wire:model.lazy="new_loan_name" value="{{ $loan_product->name}}" class="form-control form-control-lg form-control-solid" placeholder="E.g Business Loan" required/>
+                                    <input readonly type="text" wire:model.lazy="new_loan_name" value="{{ $loan_product->name}}" class="form-control  form-control-solid" placeholder="E.g Business Loan" required/>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -54,7 +54,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <textarea readonly type="text" wire:model.lazy="new_loan_desc" class="form-control form-control-lg form-control-solid" placeholder="E.g Civil Servant Loan" required></textarea>
+                                    <textarea readonly type="text" wire:model.lazy="new_loan_desc" class="form-control  form-control-solid" placeholder="E.g Civil Servant Loan" required></textarea>
                                 </div>
                                 <!--end::Col-->
                             </div>

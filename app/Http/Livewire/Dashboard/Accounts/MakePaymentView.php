@@ -30,7 +30,7 @@ class MakePaymentView extends Component
     }
 
     public function makepayment(){
-        DB::beginTransaction();
+        // DB::beginTransaction();
         try {
             // Update Borrower Balance
             $borrower_loan = Application::where('id', $this->loan_id)->first();
@@ -63,7 +63,7 @@ class MakePaymentView extends Component
                     $borrower_loan->save();
                 }
 
-                DB::commit();
+                // DB::commit();
                 session()->flash('success', 'Successfully repaid '.$this->amount);
             }else{
                 session()->flash('amount_invalid', 'The amount you enter is greater than the repayment amount. Failed Transaction');
@@ -71,7 +71,8 @@ class MakePaymentView extends Component
 
 
         } catch (\Throwable $th) {
-            DB::rollback();
+            // DB::rollback();
+            dd($th);
             session()->flash('error', $th->getMessage());
         }
     }

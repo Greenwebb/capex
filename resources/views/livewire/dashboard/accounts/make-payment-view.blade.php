@@ -21,7 +21,7 @@
         }
 
         #checkbox2:not(:checked) + label.checkbox {
-            background-image: url("data:image/png;base64,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");
+            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXAqaKKon-w8--CjIYIl60yN8nhIfsf9IAiXfdQFejVAyiRg9YoyScq3NLdKI&s");
         }
 
         #checkbox3:not(:checked) + label.checkbox {
@@ -34,7 +34,7 @@
         }
 
         #checkbox2:checked + label.checkbox {
-            background-image: url("data:image/png;base64,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");
+            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXAqaKKon-w8--CjIYIl60yN8nhIfsf9IAiXfdQFejVAyiRg9YoyScq3NLdKI&s");
         }
 
         #checkbox3:checked + label.checkbox {
@@ -65,7 +65,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Add, Edit & Remove</h4>
+                        <h4 class="card-title mb-0">Settle Open Loan Replayment</h4>
                     </div><!-- end card header -->
 
                     <div class="card-body">
@@ -73,17 +73,17 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div>
-                                        <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
-                                        <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                        <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add Transaction </button>
+                                        {{-- <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button> --}}
                                     </div>
                                 </div>
                                 <div class="col-sm">
-                                    <div class="d-flex justify-content-sm-end">
+                                    {{-- <div class="d-flex justify-content-sm-end">
                                         <div class="search-box ms-2">
                                             <input type="text" class="form-control search" placeholder="Search...">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 
@@ -96,14 +96,15 @@
                                                     <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                                 </div>
                                             </th>
-                                            <th class="sort" data-sort="ref">Ref</th>
-                                            <th class="sort" data-sort="loan">Loan</th>
-                                            <th class="sort" data-sort="borrower">Borrower</th>
-                                            <th class="sort" data-sort="total_collectable">Total Collectable</th>
-                                            <th class="sort" data-sort="amount_paid">Amount Paid</th>
-                                            <th class="sort" data-sort="balance">Balance</th>
-                                            <th class="sort" data-sort="process_by">Processed By</th>
-                                            <th class="sort" data-sort="done_on">Done On</th>
+                                            <th data-sort="ref">Ref</th>
+                                            <th data-sort="loan">Loan</th>
+                                            <th data-sort="borrower">Borrower</th>
+                                            <th data-sort="total_collectable">Total Collectable</th>
+                                            <th data-sort="amount_paid">Amount Paid</th>
+                                            <th data-sort="balance">Balance</th>
+                                            <th data-sort="process_by">Processed By</th>
+                                            <th data-sort="done_on">Done On</th>
+                                            <th data-sort="done_on">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
@@ -114,21 +115,21 @@
                                                 <td >{{ $data->application->loan_product->name }} Loan</td>
                                                 <td >{{ $data->application->fname.' '.$data->application->lname }}</td>
 
-                                                <td >K{{ App\Models\Application::payback($data->application->amount, $data->application->repayment_plan) }}</td>
+                                                <td >K{{ App\Models\Application::payback($data->application->amount, $data->application->repayment_plan, $data->application->loan_product_id) }}</td>
                                                 <td style="color:green;font-weight:bold">K{{ $data->amount_settled }}</td>
                                                 <td >K {{ App\Models\Loans::loan_balance( $data->application->id) }}</td>
                                                 <td >{{ $data->proccess_by ?? '' }}</td>
                                                 <td >{{ $data->created_at->toFormattedDateString() }}</td>
-                                                {{-- <td class="d-flex">
+                                                <td class="d-flex">
                                                     <div class="btn sharp tp-btn ms-auto" title="View More Details">
-                                                        <a target="_blank" href="{{ route('loan-details',['id' => $data->application_id]) }}">
+                                                        <a target="_blank" href="{{ route('detailed',['id' => $data->application_id]) }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                                                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
                                                                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
                                                             </svg>
                                                         </a>
                                                     </div>
-                                                </td> --}}
+                                                </td>
                                             </tr>
                                         @empty
                                             <div class="intro-y col-span-12 md:col-span-6">
@@ -191,7 +192,7 @@
                             <br>
                             <p class="fs-5 fw-bold">Loan Application</p>
                             <div class="form-group">
-                                <select wire:model.lazy="loan_id" class="form-select uppercase form-control wide mb-3" id="exampleInputEmail7" placeholder="Find Customer" data-live-search="true">
+                                <select wire:ignore.self wire:model="loan_id" class="form-select uppercase form-control wide mb-3" id="exampleInputEmail7" placeholder="Find Customer" data-live-search="true">
                                     <option value="">--select--</option>
                                     @forelse ($loans as $item)
                                     <option value="{{ $item->id }}">{{ $item->user->fname.' '.$item->user->lname.' | K'.App\Models\Loans::loan_balance($item->id).' - '.$item->product->name.' Loan'.' | Duration '.$item->repayment_plan}}</option>
@@ -209,7 +210,7 @@
                         <div class="modal-footer">
                             <div class="hstack gap-2 justify-content-end">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success" id="add-btn">Add Customer</button>
+                                <button type="submit" class="btn btn-success" id="add-btn">Settle Repayment</button>
                                 <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                             </div>
                         </div>

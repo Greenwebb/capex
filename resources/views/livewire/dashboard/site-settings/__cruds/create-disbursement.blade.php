@@ -44,7 +44,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="disbursement_name" class="form-control form-control-lg form-control-solid" placeholder="E.g Cash / Bank / Wire Transfer .etc" required/>
+                                    <input type="text" wire:model.lazy="disbursement_name" class="form-control  " placeholder="E.g Cash / Bank / Wire Transfer .etc" required/>
                                 </div>
                                 <!--end::Col-->
                             </div>

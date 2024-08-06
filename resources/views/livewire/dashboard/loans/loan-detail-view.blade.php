@@ -1,16 +1,13 @@
-<div>
+<div class="page-content">
     <div class="w-full">
-            <div class="text-center pt-3 pb-4 mb-1 d-flex justify-content-center">
-                <img src="public/assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light" height="22">
+            <div class="text-center p-2 d-flex justify-content-center">
+                <h4>Application Loan Assement</h4>
             </div>
 
             <div class="step-arrow-nav mb-4">
                 <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
                     
                     @if(true)
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link done" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="true">Loan Request Submitted</button>
-                    </li>
                     {{-- @dd($loan_product->loan_status) --}}
                     @if($loan_product->loan_status !== null || $loan_product !== null)
                         @switch(strtolower($current->stage))
@@ -18,6 +15,9 @@
                                 @php
                                     $count = 1;
                                 @endphp
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link done" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="true">Loan Request Submitted</button>
+                                </li>
                                 @forelse ($loan_product->loan_status->where('stage', 'processing') as $key => $step)
                                     @php
                                         $count ++;
@@ -38,12 +38,12 @@
                                 @endforelse
                             @break
                             @case('open')
-                                <li class="nav-item" role="presentation">
+                                {{-- <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab" aria-controls="steparrow-description-info" aria-selected="false">Description</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill" data-bs-target="#pills-experience" type="button" role="tab" aria-controls="pills-experience" aria-selected="false">Finish</button>
-                                </li>
+                                </li> --}}
                             @break
                             @default
                             @break

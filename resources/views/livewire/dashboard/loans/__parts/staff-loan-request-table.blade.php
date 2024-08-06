@@ -1,6 +1,6 @@
 <div class="page-content">
     <div class="container-fluid">
-
+        
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
@@ -28,23 +28,9 @@
                     <div class="card-body">
                         <div class="row g-2">
                             <div class="col-sm-4">
-                                <div class="search-box">
-                                    <input type="text" class="form-control" id="searchMemberList" placeholder="Search">
-                                    <i class="ri-search-line search-icon"></i>
-                                </div>
                             </div>
-                            <!--end col-->
                             <div class="col-sm-auto ms-auto">
-                                <div class="list-grid-nav hstack gap-1">
-                                    {{-- <button type="button" id="grid-view-button" class="btn btn-soft-secondary nav-link btn-icon fs-14 active filter-button"><i class="ri-grid-fill"></i></button>
-                                    <button type="button" id="list-view-button" class="btn btn-soft-secondary nav-link  btn-icon fs-14 filter-button"><i class="ri-list-unordered"></i></button>
-                                    <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-soft-secondary btn-icon fs-14"><i class="ri-more-2-fill"></i></button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                        <li><a class="dropdown-item" href="#">All</a></li>
-                                        <li><a class="dropdown-item" href="#">Last Week</a></li>
-                                        <li><a class="dropdown-item" href="#">Last Month</a></li>
-                                        <li><a class="dropdown-item" href="#">Last Year</a></li>
-                                    </ul> --}}
+                                <div class="list-grid-nav hstack gap-1 mb-2">
                                     @if(request()->route()->getName() == 'view-loan-requests')
                                         <button onclick="resetBulk()" type="button" id="resetBtn" class="btn btn-sm btn-flex btn-light" data-bs-toggle="modal" data-bs-target="#kt_modal_add_payment">
                                             <i class="ki-duotone ki-plus-cross fs-3">
@@ -71,13 +57,14 @@
                                         </button>
                                     @endif
                                     <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#exportModal"><i class="ri-add-fill me-1 align-bottom"></i> Export XLS</button>
-                                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Import XLS</button>
-                                    <a href="{{ route('proxy-loan-create') }}" class="btn btn-primary"><i class="ri-add-fill me-1 align-bottom"></i> Add </a>
+                                    @if (Route::currentRouteName() !== 'approved-loans') 
+                                        <a href="{{ route('proxy-loan-create') }}" class="btn btn-primary"><i class="ri-add-fill me-1 align-bottom"></i> Add New Loan</a>
+                                    @endif
                                 </div>
                             </div>
                             <!--end col-->
                         </div>
-                        <table id="fixed-header" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+                        <table id="loanReqTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                             <thead>
                                 <tr>
                                     <th scope="col" style="width: 10px;">
@@ -91,8 +78,9 @@
                                     <th>Borrower</th>
                                     <th>Date</th>
                                     <th>Payback</th>
-                                    <th>Repayment Balance</th>
+                                    <th>Balance</th>
                                     <th>Status</th>
+                                    @if (Route::currentRouteName() !== 'approved-loans') 
                                     @if($this->current_configs('loan-approval')->value == 'spooling')
                                     <th></th>
                                     @endif
@@ -100,6 +88,7 @@
                                     <th></th>
                                     @endif
                                     <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -139,7 +128,7 @@
                                             <span class="badge bg-danger-subtle text-danger">Denied</span>
                                         @endif
                                     </td>
-
+                                    @if (Route::currentRouteName() !== 'approved-loans') 
                                     @if($this->current_configs('loan-approval')->value == 'spooling')
                                     <td class="text-success">
                                         @role('admin')@else
@@ -193,7 +182,7 @@
                                             </ul>
                                         </div>
                                     </td>
-
+                                    @endif
                                 </tr>
                                 @empty
 

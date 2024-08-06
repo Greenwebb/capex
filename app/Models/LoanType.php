@@ -17,8 +17,8 @@ class LoanType extends Model
         'alt_icon',
     ];
 
-    public function loan_type(){
-        return $this->hasMany(LoanType::class);
+    public function application(){
+        return $this->hasMany(Application::class);
     }
 
     public function loan_child_type(){

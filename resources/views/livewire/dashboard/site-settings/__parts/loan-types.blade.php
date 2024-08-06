@@ -14,9 +14,16 @@
         </div>
     </div>
 </div>
+
+
+<div class="card-header">
+    <div class="card-toolbar">
+        <a href="{{ route('system-create', ['page' => 'loan-product']) }}" class="btn btn-soft-primary">
+        Add New Loan Product</a>
+    </div>
+</div>
     
 <div class="card-body py-3">
-    @include('livewire.dashboard.__parts.dash-alerts')
     <!--begin::Table container-->
     <div class="table-responsive">
         <!--begin::Table-->
@@ -61,9 +68,9 @@
                     </td>
                     <td>
                         @if ($product->status == 1)
-                        <span class="badge badge-light-success fs-7 fw-bold">Active</span>
+                        <span class="badge badge-success fw-bold">Active</span>
                         @else
-                        <span class="badge badge-light-dark fs-7 fw-bold">Disabled</span>
+                        <span class="badge badge-primary fw-bold">Disabled</span>
                         @endif
                     </td>
                     <td class="text-end">

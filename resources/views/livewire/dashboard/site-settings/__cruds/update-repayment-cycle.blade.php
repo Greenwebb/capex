@@ -43,7 +43,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="repayment_cycle_name" class="form-control form-control-lg form-control-solid" placeholder="E.g Monthly / Quarterly / BiMonthly .etc" required/>
+                                    <input type="text" wire:model.lazy="repayment_cycle_name" class="form-control  form-control-solid" placeholder="E.g Monthly / Quarterly / BiMonthly .etc" required/>
                                 </div>
                                 <!--end::Col-->
                             </div>

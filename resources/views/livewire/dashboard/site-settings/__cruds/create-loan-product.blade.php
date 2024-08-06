@@ -7,7 +7,7 @@
             </svg>
         </span>
         <span>
-            Return Back to Loan Product List
+            Return
         </span>
     </a>
     <!--begin::Post-->
@@ -28,7 +28,7 @@
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Loan Description:</h3>
+                        <h3 class="fw-bold text-primary m-0">Loan Description:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -41,25 +41,25 @@
                             <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Name</label>
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="new_loan_name" class="form-control form-control-lg form-control-solid" placeholder="E.g Business Loan" required/>
+                                    <input type="text" wire:model.lazy="new_loan_name" class="form-control  " placeholder="E.g Safe Loan" required/>
                                 </div>
                             </div>
                             <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Description</label>
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" wire:model.lazy="new_loan_desc" class="form-control form-control-lg form-control-solid" placeholder="E.g Civil Servant Loan" required></textarea>
+                                    <textarea type="text" wire:model.lazy="new_loan_desc" class="form-control  " placeholder="E.g Health and safety loan for civil servants" required></textarea>
                                 </div>
                             </div>
                             <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Icon (SVG)</label>
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" wire:model.lazy="new_loan_icon" class="form-control form-control-lg form-control-solid" placeholder="SVG code" required></textarea>
+                                    <textarea type="text" wire:model.lazy="new_loan_icon" class="form-control  " placeholder="SVG code" required></textarea>
                                 </div>
                             </div>
                             <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Icon Alternative (SVG)</label>
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" wire:model.lazy="new_loan_icon_alt" class="form-control form-control-lg form-control-solid" placeholder="SVG code" required></textarea>
+                                    <textarea type="text" wire:model.lazy="new_loan_icon_alt" class="form-control  " placeholder="SVG code" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Loan Release:</h3>
+                        <h3 class="fw-bold text-primary m-0">Loan Release:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -120,7 +120,7 @@
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Principal Amount:</h3>
+                        <h3 class="fw-bold text-primary m-0">Principal Amount:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -154,7 +154,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="minimum_loan_principal_amount" id="minimum_loan_principal_amount" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="minimum_loan_principal_amount" id="minimum_loan_principal_amount" class="form-control  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -175,7 +175,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="default_loan_principal_amount" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="default_loan_principal_amount" class="form-control  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -187,7 +187,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="maximum_principal_amount" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="maximum_principal_amount" class="form-control  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -221,7 +221,7 @@
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Interest:</h3>
+                        <h3 class="fw-bold text-primary m-0">Interest:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -241,7 +241,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="loan_interest_method" class="form-control form-control-lg form-control-solid" placeholder="Company name" value="Keenthemes">
+                                    <select type="text" wire:model.lazy="loan_interest_method" class="form-control  " placeholder="Company name" value="Keenthemes">
                                         <option value=""></option>
                                         @forelse ($interest_methods as $option)
                                         <option value="{{ $option->id }}">{{ $option->name }}</option>
@@ -290,7 +290,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="loan_interest_period" class="form-select form-control form-control-lg form-control-solid" placeholder="Company name" value="Keenthemes">
+                                    <select type="text" wire:model.lazy="loan_interest_period" class="form-select form-control  " placeholder="Company name" value="Keenthemes">
                                         <option value=""></option>
                                         <option value="per-day">Per Day</option>
                                         <option value="per-week">Per Week</option>
@@ -307,7 +307,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="minimum_loan_interest" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="minimum_loan_interest" class="form-control  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -317,7 +317,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="default_loan_interest" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="default_loan_interest" class="form-control  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -327,7 +327,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="maximum_loan_interest" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="maximum_loan_interest" class="form-control  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -344,7 +344,7 @@
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Duration:</h3>
+                        <h3 class="fw-bold text-primary m-0">Duration:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -361,7 +361,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="loan_duration_period" class="form-select form-control form-control-lg form-control-solid" placeholder="Company name" value="Keenthemes">
+                                    <select type="text" wire:model.lazy="loan_duration_period" class="form-select form-control  " placeholder="Company name" value="Keenthemes">
                                         <option value=""></option>
                                         <option value="day">Days</option>
                                         <option value="week">Weeks</option>
@@ -377,7 +377,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="minimum_loan_duration" class="form-select form-control form-control-lg form-control-solid">
+                                    <select type="text" wire:model.lazy="minimum_loan_duration" class="form-select form-control  ">
                                         <option value=""></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -399,7 +399,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="default_loan_duration" class="form-select form-control form-control-lg form-control-solid" placeholder="0.00">
+                                    <select type="text" wire:model.lazy="default_loan_duration" class="form-select form-control  " placeholder="0.00">
                                         <option value=""></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -423,7 +423,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="maximum_loan_duration" class="form-select form-control form-control-lg form-control-solid" placeholder="0.00">
+                                    <select type="text" wire:model.lazy="maximum_loan_duration" class="form-select form-control  " placeholder="0.00">
                                         <option value=""></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -455,7 +455,7 @@
                 <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Repayments:</h3>
+                        <h3 class="fw-bold text-primary m-0">Repayments:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -492,7 +492,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="minimum_num_of_repayments" class="form-control form-control-lg form-control-solid" placeholder="1" />
+                                    <input type="text" wire:model.lazy="minimum_num_of_repayments" class="form-control  " placeholder="1" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -513,7 +513,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="default_num_of_repayments" class="form-control form-control-lg form-control-solid" placeholder="1" />
+                                    <input type="text" wire:model.lazy="default_num_of_repayments" class="form-control  " placeholder="1" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -525,7 +525,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="maximum_num_of_repayments" class="form-control form-control-lg form-control-solid" placeholder="1" />
+                                    <input type="text" wire:model.lazy="maximum_num_of_repayments" class="form-control  " placeholder="1" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -542,7 +542,7 @@
                 <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Loan Due and Loan Schedule Amount:</h3>
+                        <h3 class="fw-bold text-primary m-0">Loan Due and Loan Schedule Amount:</h3>
                     </div>
                     <div class="alert alert-primary mt-2">
                         <small>
@@ -564,7 +564,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="loan_decimal_place" class="form-select form-control form-control-lg form-control-solid">
+                                    <select type="text" wire:model.lazy="loan_decimal_place" class="form-select form-control  ">
                                         <option value=""></option>
                                         <option value="off-to-2">Round Off to 2 Decimal Places</option>
                                         <option value="off-to-int">Round Off to Integer</option>
@@ -590,7 +590,7 @@
                 <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Application Wizard Steps:</h3>
+                        <h3 class="fw-bold text-primary m-0">Application Wizard Steps:</h3>
                     </div>
                     <div class="alert alert-primary mt-2">
                         <small>
@@ -613,7 +613,7 @@
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
 
-                                    <select wire:model.defer="num_of_steps" class="form-select form-control form-control-lg form-control-solid" id="loan_product_wiz_steps">
+                                    <select wire:model.defer="num_of_steps" class="form-select form-control  " id="loan_product_wiz_steps">
                                     </select>
                                 </div>
                                 <!--end::Col-->
@@ -629,7 +629,7 @@
                 <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Repayment Order:</h3>
+                        <h3 class="fw-bold text-primary m-0">Repayment Order:</h3>
                     </div>
                     <div class="alert alert-primary mt-2">
                         <small>
@@ -667,7 +667,7 @@
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Extra Charges:</h3>
+                        <h3 class="fw-bold text-primary m-0">Extra Charges:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -708,7 +708,7 @@
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Institutions:</h3>
+                        <h3 class="fw-bold text-primary m-0">Institutions:</h3>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -722,7 +722,7 @@
                             {{-- <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Sector</label>
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model="sector" class="form-select form-control form-control-lg form-control-solid">
+                                    <select type="text" wire:model="sector" class="form-select form-control  ">
                                         <option value="">--select--</option>
                                         <option value="public">Public</option>
                                         <option value="private">Private</option>
@@ -756,7 +756,7 @@
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Loan CRB:</h3>
+                        <h3 class="fw-bold text-primary m-0">Loan CRB:</h3>
                     </div>
                     <div class="alert alert-primary mt-2">
                         <small>
@@ -775,7 +775,7 @@
                             {{-- <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Sector</label>
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model="sector" class="form-select form-control form-control-lg form-control-solid">
+                                    <select type="text" wire:model="sector" class="form-select form-control  ">
                                         <option value="">--select--</option>
                                         <option value="public">Public</option>
                                         <option value="private">Private</option>
@@ -809,7 +809,7 @@
                 <div class="card-header border-0 cursor-pointer py-3" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
                     <!--begin::Card title-->
                     <div class="card-title m-0">
-                        <h3 class="fw-bold text-info m-0">Automated Payments:</h3>
+                        <h3 class="fw-bold text-primary m-0">Automated Payments:</h3>
                     </div>
                     <div class="alert alert-primary mt-2">
                         <small>

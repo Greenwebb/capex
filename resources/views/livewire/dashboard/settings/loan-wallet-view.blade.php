@@ -30,9 +30,14 @@
                                     <h4 class="fs-18 lh-base mb-0">Receive, Withdrawl and Manage <br> your own <span class="text-primary">Wallet.</span> </h4>
                                     <p class="mb-0 mt-2 pt-1 text-muted">Get and deposit funds from mobile money within your wallet.</p>
                                     <div class="d-flex gap-3 mt-4">
-                                        <a href="#!" class="btn btn-primary">Deposit </a>
-                                        <a href="#!" class="btn btn-soft-primary">Reverse Txn</a>
-                                        <a href="#!" class="btn btn-danger">Reset</a>
+                                        <a href="#!"  data-bs-toggle="modal" data-bs-target="#loanWalletFundUpdate" class="btn btn-primary">Deposit </a>
+                                        
+                                        @if($current_funds > 0)
+                                        <button wire:click="reverseFunds()" onclick="confirm('The last updated amount will be deducted from wallet funds, Are you sure you want to continue?') || event.stopImmediatePropagation();"
+                                         class="btn btn-soft-primary">Reverse Txn</button>
+                                         <button wire:click="resetWallet()" onclick="confirm('The wallet will be set to ZMW 0, Are you sure you want continue with the action?') || event.stopImmediatePropagation();"
+                                          class="btn btn-soft-danger">Reset to Zero</button>
+                                        @endif
                                     </div>
                                 </div>
                                 <img src="public/assets/images/bg-d.png" alt="" class="img-fluid" />
@@ -170,10 +175,46 @@
                 </div><!--end row-->
             </div><!--end col-->
 
+
+            
             
         </div>
         <!--end row-->
     </div>
     <!-- container-fluid -->
+
+    <div wire:ignore class="modal fade" id="loanWalletFundUpdate" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-full"> <div class="modal-content">
+            <div class="modal-header bg-primary d-flex justify-content-between align-items-center">
+              <h5 class="modal-title text-white">Update Wallet Funds</h5>
+              <button type="button" class="btn-close" data-dismiss="modal"></button>
+            </div>
+      
+            <form wire:submit.prevent="store">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-body"> @csrf
+                        <div class="form-group">
+                          <label for="amount">Amount</label>
+                          <input wire:model.defer="amount" type="text" class="form-control" placeholder="Enter amount">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+
 </div>
 <!-- End Page-content -->

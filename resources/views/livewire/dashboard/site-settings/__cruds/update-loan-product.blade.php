@@ -43,7 +43,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="new_loan_name" value="{{ $loan_product->name}}" class="form-control form-control-lg form-control-solid" placeholder="E.g Business Loan" required/>
+                                    <input type="text" wire:model.lazy="new_loan_name" value="{{ $loan_product->name}}" class="form-control  form-control-solid" placeholder="E.g Business Loan" required/>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -53,7 +53,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" wire:model.lazy="new_loan_desc" class="form-control form-control-lg form-control-solid" placeholder="E.g Civil Servant Loan" required></textarea>
+                                    <textarea type="text" wire:model.lazy="new_loan_desc" class="form-control  form-control-solid" placeholder="E.g Civil Servant Loan" required></textarea>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -63,7 +63,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" wire:model.lazy="new_loan_icon" class="form-control form-control-lg form-control-solid" placeholder="SVG code" required></textarea>
+                                    <textarea type="text" wire:model.lazy="new_loan_icon" class="form-control  form-control-solid" placeholder="SVG code" required></textarea>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -73,7 +73,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" wire:model.lazy="new_loan_icon_alt" class="form-control form-control-lg form-control-solid" placeholder="SVG code" required></textarea>
+                                    <textarea type="text" wire:model.lazy="new_loan_icon_alt" class="form-control  form-control-solid" placeholder="SVG code" required></textarea>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -167,7 +167,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="minimum_loan_principal_amount" id="minimum_loan_principal_amount" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="minimum_loan_principal_amount" id="minimum_loan_principal_amount" class="form-control  form-control-solid" placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -188,7 +188,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="default_loan_principal_amount" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="default_loan_principal_amount" class="form-control  form-control-solid" placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -200,7 +200,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="maximum_principal_amount" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="maximum_principal_amount" class="form-control  form-control-solid" placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -255,7 +255,7 @@
                                 <!--begin::Col-->
                                 {{-- @dd($loan_interest_method) --}}
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="loan_interest_method" class="form-control form-control-lg form-control-solid" placeholder="Company name" value="Keenthemes">
+                                    <select type="text" wire:model.lazy="loan_interest_method" class="form-control  form-control-solid" placeholder="Company name" value="Keenthemes">
                                         <option value=""></option>
                                         @forelse ($interest_methods as $option)
                                             <option value="{{ $option->id }}" {{ $loan_interest_method == $option->id ? 'selected' : '' }}>
@@ -307,7 +307,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="loan_interest_period" class="form-control form-control-lg form-control-solid" placeholder="Company name" value="Keenthemes">
+                                    <select type="text" wire:model.lazy="loan_interest_period" class="form-control  form-control-solid" placeholder="Company name" value="Keenthemes">
                                         <option value=""></option>
                                         <option value="per-day">Per Day</option>
                                         <option value="per-week">Per Week</option>
@@ -324,7 +324,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="minimum_loan_interest" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="minimum_loan_interest" class="form-control  form-control-solid" placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -334,7 +334,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="default_loan_interest" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="default_loan_interest" class="form-control  form-control-solid" placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -344,7 +344,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="maximum_loan_interest" class="form-control form-control-lg form-control-solid" placeholder="0.00" />
+                                    <input type="text" wire:model.lazy="maximum_loan_interest" class="form-control  form-control-solid" placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -378,7 +378,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="loan_duration_period" class="form-control form-control-lg form-control-solid" placeholder="Company name" value="Keenthemes">
+                                    <select type="text" wire:model.lazy="loan_duration_period" class="form-control  form-control-solid" placeholder="Company name" value="Keenthemes">
                                         <option value=""></option>
                                         <option value="day">Days</option>
                                         <option value="week">Weeks</option>
@@ -394,7 +394,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="minimum_loan_duration" class="form-control form-control-lg form-control-solid">
+                                    <select type="text" wire:model.lazy="minimum_loan_duration" class="form-control  form-control-solid">
                                         <option value=""></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -418,7 +418,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="default_loan_duration" class="form-control form-control-lg form-control-solid" placeholder="0.00">
+                                    <select type="text" wire:model.lazy="default_loan_duration" class="form-control  form-control-solid" placeholder="0.00">
                                         <option value=""></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -442,7 +442,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="maximum_loan_duration" class="form-control form-control-lg form-control-solid" placeholder="0.00">
+                                    <select type="text" wire:model.lazy="maximum_loan_duration" class="form-control  form-control-solid" placeholder="0.00">
                                         <option value=""></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -511,7 +511,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="minimum_num_of_repayments" class="form-control form-control-lg form-control-solid" placeholder="1" />
+                                    <input type="text" wire:model.lazy="minimum_num_of_repayments" class="form-control  form-control-solid" placeholder="1" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -532,7 +532,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="default_num_of_repayments" class="form-control form-control-lg form-control-solid" placeholder="1" />
+                                    <input type="text" wire:model.lazy="default_num_of_repayments" class="form-control  form-control-solid" placeholder="1" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -544,7 +544,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="maximum_num_of_repayments" class="form-control form-control-lg form-control-solid" placeholder="1" />
+                                    <input type="text" wire:model.lazy="maximum_num_of_repayments" class="form-control  form-control-solid" placeholder="1" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -583,7 +583,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="loan_decimal_place" class="form-control form-control-lg form-control-solid">
+                                    <select type="text" wire:model.lazy="loan_decimal_place" class="form-control  form-control-solid">
                                         <option value=""></option>
                                         <option value="off-to-2">Round Off to 2 Decimal Places</option>
                                         <option value="off-to-int">Round Off to Integer</option>
@@ -633,7 +633,7 @@
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
 
-                                    <select wire:model.defer="num_of_steps" class="form-select form-control form-control-lg form-control-solid" id="loan_product_wiz_steps">
+                                    <select wire:model.defer="num_of_steps" class="form-select form-control  form-control-solid" id="loan_product_wiz_steps">
                                     </select>
                                 </div>
                                 <!--end::Col-->
@@ -700,7 +700,7 @@
                             {{-- <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Sector</label>
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model="sector" class="form-select form-control form-control-lg form-control-solid">
+                                    <select type="text" wire:model="sector" class="form-select form-control  form-control-solid">
                                         <option value="">--select--</option>
                                         <option value="public">Public</option>
                                         <option value="private">Private</option>
@@ -712,7 +712,7 @@
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Institutions</label>
                                 <div class="col-lg-8 fv-row">
                                     <div class="d-block mt-3">
-                                        <select id="loan_institution" class="form-select form-control form-control-lg form-control-solid" multiple wire:model="loan_institution">
+                                        <select id="loan_institution" class="form-select form-control  form-control-solid" multiple wire:model="loan_institution">
                                             @foreach ($institutions as $key => $option)
                                                 <option value="{{ $option->id }}">{{ $option->name }}</option>
                                             @endforeach
@@ -768,7 +768,7 @@
                             {{-- <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Sector</label>
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model="sector" class="form-select form-control form-control-lg form-control-solid">
+                                    <select type="text" wire:model="sector" class="form-select form-control  form-control-solid">
                                         <option value="">--select--</option>
                                         <option value="public">Public</option>
                                         <option value="private">Private</option>

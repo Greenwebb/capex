@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class LoanChildType extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'name',
         'type_name',

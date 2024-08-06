@@ -27,9 +27,7 @@ class ApprovedLoansView extends Component
     {
         try {
             $this->users = User::role('user')->without('applications')->get();
-
             if($this->current_configs('loan-approval')->value == 'auto'){
-                // get loan only if first review as approved
                 $this->loan_requests = $this->getOpenLoanRequests('auto');
             }elseif($this->current_configs('loan-approval')->value == 'manual'){
                 $this->loan_requests = $this->getOpenLoanRequests('manual');
@@ -39,7 +37,7 @@ class ApprovedLoansView extends Component
                 $requests = $this->getOpenLoanRequests('spooling');
             }
             return view('livewire.dashboard.loans.approved-loans-view',[
-                'requests'=>$requests
+                'requests' => $requests
             ])->layout('layouts.main');
 
         } catch (\Throwable $th) {
@@ -56,6 +54,7 @@ class ApprovedLoansView extends Component
                     'requests'=>$requests
                 ])->layout('layouts.main');
             }
+
         }
     }
 }

@@ -43,7 +43,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="penalty_name" class="form-control form-control-lg form-control-solid" placeholder="" required/>
+                                    <input type="text" wire:model.lazy="penalty_name" class="form-control  " placeholder="" required/>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -53,7 +53,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="penalty_amount" class="form-control form-control-lg form-control-solid" placeholder="" required/>
+                                    <input type="text" wire:model.lazy="penalty_amount" class="form-control  " placeholder="" required/>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -63,7 +63,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="penalty_grace" class="form-control form-control-lg form-control-solid" placeholder="1" required/>
+                                    <input type="text" wire:model.lazy="penalty_grace" class="form-control  " placeholder="1" required/>
                                 </div>
                                 <!--end::Col-->
                             </div>

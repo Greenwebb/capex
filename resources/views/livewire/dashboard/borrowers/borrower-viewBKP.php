@@ -333,6 +333,4 @@
         <!--end::Container-->
     </div>
     <!--end::Post-->
-    @include('livewire.dashboard.loans.__modals.export-borrowers')
-    @include('livewire.dashboard.loans.__modals.import-borrowers')
 </div>

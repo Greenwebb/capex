@@ -16,11 +16,7 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="alert alert-danger" role="alert">
-            This is <strong>Datatable</strong> page in wihch we have used <b>jQuery</b> with cnd link!
-        </div>
+        
 
         <div class="row">
             <div class="col-lg-12">
@@ -29,7 +25,7 @@
                         <h5 class="card-title mb-0">Next Of Kins</h5>
                     </div>
                     <div class="card-body">
-                        <table id="fixed-header" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+                        <table id="nxtkinTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>HR Names</th>

@@ -36,7 +36,7 @@ class BorrowerView extends Component
         $this->user_role = Role::pluck('name')->toArray();
         $this->permissions = Permission::get();
         $roles = Role::where('name', 'user')->get();
-        $users = User::role('user')->orderBy('created_at', 'desc')->paginate(7);
+        $users = User::role('user')->orderBy('created_at', 'desc')->get();
         return view('livewire.dashboard.borrowers.borrower-view',[
             'users' => $users,
             'roles' => $roles

@@ -19,9 +19,9 @@
         </div>
         <!-- end page title -->
 
-        <div class="alert alert-danger" role="alert">
-            This is <strong>Datatable</strong> page in wihch we have used <b>jQuery</b> with cnd link!
-        </div>
+        {{-- <div class="alert alert-danger" role="alert">
+            
+        </div> --}}
 
         <div class="row">
             <div class="col-lg-12">

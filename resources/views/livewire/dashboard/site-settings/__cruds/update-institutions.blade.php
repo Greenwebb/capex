@@ -40,13 +40,13 @@
                             <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Name</label>
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="loan_institute_name" class="form-control form-control-lg form-control-solid" placeholder="" required/>
+                                    <input type="text" wire:model.lazy="loan_institute_name" class="form-control  " placeholder="" required/>
                                 </div>
                             </div>
                             <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Type</label>
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" wire:model.lazy="loan_institute_type" class="form-control form-control-lg form-control-solid" placeholder="" required>
+                                    <select type="text" wire:model.lazy="loan_institute_type" class="form-control  " placeholder="" required>
                                         <option value="public">Public</option>
                                         <option value="private">Private</option>
                                         <option value="ngo">NGO</option>
@@ -56,7 +56,7 @@
                             {{-- <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Amount</label>
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" wire:model.lazy="loan_charge_amount" class="form-control form-control-lg form-control-solid" placeholder="" required/>
+                                    <input type="text" wire:model.lazy="loan_charge_amount" class="form-control  " placeholder="" required/>
                                 </div>
                             </div> --}}
                         </div>

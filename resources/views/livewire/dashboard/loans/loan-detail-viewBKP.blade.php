@@ -32,13 +32,10 @@
                                             <div class="m-2 d-flex flex-column">
                                                 <div class="d-flex fw-semibold align-items-center mb-">
                                                     <p class="text-white fs-2 me-1">#{{ $loan->id }}</p>
-
                                                 </div>
                                                 <div class="d-flex align-items-center fw-semibold">
                                                     <p class=" align-items-center text-gray-400">Loan ID</p>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -48,9 +45,7 @@
                                                 </div>
                                                 <div class="d-flex align-items-center fw-semibold">
                                                     <p class="align-items-center fs- text-gray-400">Application date</p>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -69,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-12">
                     @if(true)
                     @if($loan_product->loan_status !== null || $loan_product !== null)
