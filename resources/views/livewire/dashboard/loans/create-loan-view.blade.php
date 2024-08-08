@@ -33,7 +33,10 @@
                             <form action="{{ route("proxy-apply-loan") }}" method="POST" enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 <div class="col-md-6">
-                                    <label for="loanType" class="form-label">Loan Type</label>
+                                    <label for="loanType" class="form-label">Loan Type
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <select name="loan_type_id" id="loanType" class="form-select" wire:model="selectedLoanType">
                                         <option selected>Choose...</option>
                                         @forelse ($loan_types as $lt)
@@ -45,7 +48,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="loanCategory" class="form-label">Loan Category</label>
+                                    <label for="loanCategory" class="form-label">Loan Category
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <select name="loan_child_type_id" id="loanCategory" class="form-select" wire:model="selectedLoanCategory">
                                         <option selected>Choose...</option>
                                         @forelse ($loan_child_types as $category)
@@ -57,7 +63,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="loanPackage" class="form-label">Loan Package</label>
+                                    <label for="loanPackage" class="form-label">Loan Package
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <select name="loan_product_id" id="loanPackage" class="form-select">
                                         <option selected>Choose...</option>
                                         @forelse ($loan_products as $lp)
@@ -68,7 +77,13 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="inputState" class="form-label">Customer </label>
+                                    <label for="inputState" class="form-label">Customer
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="You can select from this list of customers who do not have any current loan requests or open loans.">
+                                            <i class="ri-information-line" style="cursor: pointer;"></i>
+                                        </span>
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <select id="inputState" name="borrower_id" class="form-select">
                                         <option selected>Choose...</option>
                                         @forelse ($borrowers as $b)
@@ -79,17 +94,41 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Loan Description</label>
-                                    <textarea cols="5"rows="10" name="desc" class="form-control" id="fullnameInput" placeholder="Description"> </textarea>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Principal Amount</label>
+                                    <label for="fullnameInput" class="form-label">Principal Amount
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Enter the total principal amount you need.">
+                                            <i class="ri-information-line" style="cursor: pointer;"></i>
+                                        </span>
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span>
+                                    </label>
                                     <input type="text" name="amount" class="form-control" id="fullnameInput" placeholder="Principal Amount">
                                 </div>
+                                <script>
+                                    document.getElementById('fullnameInput').addEventListener('input', function(e) {
+                                        let value = e.target.value;
+                                        // Remove any non-digit characters
+                                        value = value.replace(/\D/g, '');
+
+                                        // Format the number as money
+                                        value = new Intl.NumberFormat('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 0
+                                        }).format(value);
+
+                                        // Update the input value
+                                        e.target.value = value.replace('K', '').trim();
+                                    });
+                                </script>
+
 
                                 <div class="col-md-4 mb-4">
-                                    <label for="inputState" class="form-label">Duration</label>
+                                    <label for="inputState" class="form-label">Duration
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <select id="inputState" name="repayment_plan" class="form-select" data-choices data-choices-sorting="true">
                                         <option  value="1">1 Month</option>
                                         <option  value="2">2 Months</option>
@@ -107,24 +146,32 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Due Date</label>
+                                    <label for="fullnameInput" class="form-label">Due Date
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Select the date when this loan is due for final repayments.">
+                                            <i class="ri-information-line" style="cursor: pointer;"></i>
+                                        </span>
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <input type="text" name="due_date" class="form-control" id="dueDate" placeholder="YYYY-MM-DD">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related Party</label>
                                     <input type="text" name="related_party" class="form-control" id="fullnameInput" placeholder="Related Party">
                                 </div>
+
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Days Late/(Early)</label>
-                                    <input type="text" name="days_late" class="form-control" id="fullnameInput" placeholder="Days Late/Early">
+                                    <label for="fullnameInput" class="form-label">Loan Description</label>
+                                    <textarea cols="5"rows="10" name="desc" class="form-control" id="fullnameInput" placeholder="Description"> </textarea>
                                 </div>
+
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Note</label>
-                                    <input type="text" name="note" class="form-control" id="fullnameInput" placeholder="Note">
+                                    <textarea cols="5"rows="10" name="note" class="form-control" id="fullnameInput" placeholder="Note"></textarea>
                                 </div>
 
                                 <br>
-                                <h5 class="card-title mt-4 flex-grow-1">Next of Kin</h5>
+                                <h5 class="card-title mt-4 flex-grow-1">Guarantor</h5>
                                 <hr>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">First Name</label>
@@ -137,17 +184,17 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Phone</label>
-                                    <input type="text" name="nok_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <label for="fullnameInput" class="form-label">Guarantor's Phone Number</label>
+                                    <input type="number" name="nok_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Email Address</label>
+                                    <label for="fullnameInput" class="form-label">Guarantor's Email Address</label>
                                     <input type="text" name="nok_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4 ">
-                                    <label for="fullnameInput" class="form-label">Relationship</label>
+                                    <label for="fullnameInput" class="form-label">Guarantor's Relationship</label>
                                     <input type="text" name="nok_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
                                 </div>
 

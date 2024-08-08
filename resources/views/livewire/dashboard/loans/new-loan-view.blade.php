@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Loan Information</h4>
-                        
+
                     </div><!-- end card header -->
 
                     <div class="card-body">
@@ -41,7 +41,7 @@
                                         @empty
                                         @endforelse
                                     </select>
-                                </div>  
+                                </div>
 
                                 <div class="col-md-6">
                                     <label for="inputState" class="form-label">Customer </label>
@@ -52,18 +52,18 @@
                                         @empty
                                         @endforelse
                                     </select>
-                                </div>     
+                                </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Loan Description</label>
-                                    <textarea cols="5"rows="10" name="desc" class="form-control" id="fullnameInput" placeholder="Description"> </textarea>                                   
+                                    <textarea cols="5"rows="10" name="desc" class="form-control" id="fullnameInput" placeholder="Description"> </textarea>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Principal Amount</label>
-                                    <input type="text" name="amount" class="form-control" id="fullnameInput" placeholder="Principal Amount">                                    
+                                    <input type="number" name="amount" class="form-control" id="fullnameInput" placeholder="Principal Amount">
                                 </div>
-                                
+
                                 <div class="col-md-4 mb-4">
                                     <label for="inputState" class="form-label">Duration</label>
                                     <select id="inputState" name="repayment_plan" class="form-select" data-choices data-choices-sorting="true">
@@ -81,27 +81,27 @@
                                         <option  value="12">12 Months</option>
                                     </select>
                                     <input type="hidden" value="{{ $user['id'] }}" name="borrower_id" class="form-control">
-                                </div> 
+                                </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">MOU Loan</label>
-                                    <input type="text" name="mou_loan" class="form-control" id="fullnameInput" placeholder="MOU Loan">                                    
+                                    <input type="text" name="mou_loan" class="form-control" id="fullnameInput" placeholder="MOU Loan">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Due Date</label>
-                                    <input type="text" name="due_date" class="form-control" id="fullnameInput" placeholder="Due Date">                                    
+                                    <input type="text" name="due_date" class="form-control" id="fullnameInput" placeholder="Due Date">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related Party</label>
-                                    <input type="text" name="related_party" class="form-control" id="fullnameInput" placeholder="Related Party">                                    
+                                    <input type="text" name="related_party" class="form-control" id="fullnameInput" placeholder="Related Party">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Days Late/(Early)</label>
-                                    <input type="text" name="days_late" class="form-control" id="fullnameInput" placeholder="Days Late/Early">                                    
+                                    <input type="text" name="days_late" class="form-control" id="fullnameInput" placeholder="Days Late/Early">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Note</label>
-                                    <input type="text" name="note" class="form-control" id="fullnameInput" placeholder="Note">                                    
+                                    <input type="text" name="note" class="form-control" id="fullnameInput" placeholder="Note">
                                 </div>
 
                                 <br>
@@ -109,30 +109,30 @@
                                 <hr>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">First Name</label>
-                                    <input type="text" name="nok_fname" class="form-control" id="fullnameInput" placeholder="Enter your name">                     
+                                    <input type="text" name="nok_fname" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Last Name</label>
-                                    <input type="text" name="nok_lname" class="form-control" id="fullnameInput" placeholder="Enter your name">                     
+                                    <input type="text" name="nok_lname" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Phone</label>
-                                    <input type="text" name="nok_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">                     
+                                    <input type="text" name="nok_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Email Address</label>
-                                    <input type="text" name="nok_email" class="form-control" id="fullnameInput" placeholder="Enter your name">                     
+                                    <input type="text" name="nok_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4 ">
                                     <label for="fullnameInput" class="form-label">Relationship</label>
-                                    <input type="text" name="nok_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">                     
+                                    <input type="text" name="nok_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
                                 </div>
 
-                                
+
                                 <br>
                                 <h5 class="card-title mt-5 flex-grow-1">Support Ducuments</h5>
                                 <div class="card-body border-top p-9">
@@ -156,7 +156,7 @@
                                     </div>
                                 </div>
                                 <hr>
-                                
+
                                 <div class="col-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="gridCheck">
@@ -172,11 +172,11 @@
                                 </div>
                             </form>
                         </div>
-                        
+
                     </div>
                 </div>
             </div> <!-- end col -->
         </div>
-        
-    </div> 
+
+    </div>
 </div>

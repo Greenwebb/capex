@@ -19,18 +19,18 @@ class LoanStatusSeeder extends Seeder
     {
         $count = 0;
 
-        for ($i = 1; $i < 4; $i++) { 
+        for ($i = 1; $i < 4; $i++) {
             LoanStatus::create([
                 'loan_product_id' => 1,
                 'status_id' => $i,
                 'stage' => 'processing',
                 'step' => $i + 1,
             ]);
-        
+
             $count += 1; // Increment by 1 in each iteration
         }
-        
-        for ($i=1; $i < 5; $i++) { 
+
+        for ($i=1; $i < 5; $i++) {
             LoanStatus::create(
                 [
                     'loan_product_id' => 1,
@@ -42,7 +42,7 @@ class LoanStatusSeeder extends Seeder
             $count += 1;
         }
 
-        for ($i=1; $i < 9; $i++) { 
+        for ($i=1; $i < 9; $i++) {
             LoanStatus::create(
                 [
                     'loan_product_id' => 1,
@@ -54,7 +54,7 @@ class LoanStatusSeeder extends Seeder
             $count += 1;
         }
 
-        for ($i=1; $i < 6; $i++) { 
+        for ($i=1; $i < 6; $i++) {
             LoanStatus::create(
                 [
                     'loan_product_id' => 1,
@@ -66,7 +66,7 @@ class LoanStatusSeeder extends Seeder
             $count += 1;
         }
 
-        for ($i=1; $i < 4; $i++) { 
+        for ($i=1; $i < 4; $i++) {
             LoanStatus::create(
                 [
                     'loan_product_id' => 1,
@@ -90,20 +90,26 @@ class LoanStatusSeeder extends Seeder
         ]);
 
         LoanChildType::create([
-            'name' => 'Auto Loan',
-            'type_name' => 'Auto Loan',
+            'name' => 'Salary Advance Loan',
+            'type_name' => 'Salary Advance Loan',
             'loan_type_id' => 1,
         ]);
 
         LoanChildType::create([
-            'name' => 'House Mortage Loan',
+            'name' => 'Housing Loan',
             'type_name' => 'House Mortage Loan',
             'loan_type_id' => 1,
         ]);
 
         LoanChildType::create([
-            'name' => 'MOU',
-            'type_name' => 'MOU',
+            'name' => 'Vacation Loan',
+            'type_name' => 'Vacation Loan',
+            'loan_type_id' => 1,
+        ]);
+
+        LoanChildType::create([
+            'name' => 'SME Loan',
+            'type_name' => 'SME Loan',
             'loan_type_id' => 2,
         ]);
     }

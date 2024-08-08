@@ -304,7 +304,7 @@ class LoanApplicationController extends Controller
 
     public function new_proxy_loan(Request $request)
     {
-        DB::beginTransaction();
+        // DB::beginTransaction();
         try {
             $form = $request->toArray();
             $this->uploadCommonFiles($request);
@@ -349,7 +349,7 @@ class LoanApplicationController extends Controller
 
             return redirect()->route('view-loan-requests');
         } catch (\Throwable $th) {
-            DB::rollback();
+            // DB::rollback();
             Session::flash('error', "Something failed. " . $th->getMessage());
             return redirect()->back();
         }

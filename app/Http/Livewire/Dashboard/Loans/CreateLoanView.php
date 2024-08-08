@@ -26,6 +26,11 @@ class CreateLoanView extends Component
         $this->users = User::role('user')->with('active_loans.loan')->get();
     }
 
+    public function render()
+    {
+        return view('livewire.dashboard.loans.create-loan-view')->layout('layouts.main');
+    }
+
     public function updatedSelectedLoanType($loanTypeId)
     {
         $this->loan_child_types = LoanChildType::where('loan_type_id', $loanTypeId)->get();
@@ -36,10 +41,5 @@ class CreateLoanView extends Component
     public function updatedSelectedLoanCategory($loanCategoryId)
     {
         $this->loan_products = LoanProduct::where('loan_child_type_id', $loanCategoryId)->get();
-    }
-
-    public function render()
-    {
-        return view('livewire.dashboard.loans.create-loan-view')->layout('layouts.main');
     }
 }
