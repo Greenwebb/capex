@@ -46,7 +46,14 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
 
-        <header id="page-topbar">
+        <header id="page-topbar" style="
+            background-color: rgba(224, 222, 222, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(88, 64, 36, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            ">
     <div class="layout-width">
         <div class="navbar-header">
             <div class="d-flex">
@@ -86,7 +93,7 @@
                         <span class="mdi mdi-magnify search-widget-icon"></span>
                         <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
                     </div>
-                    <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
+                    {{-- <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
                         <div data-simplebar style="max-height: 320px;">
                             <!-- item-->
                             <div class="dropdown-header">
@@ -162,7 +169,7 @@
                         <div class="pt-3 pb-1 text-center">
                             <a href="pages-search-results.html" class="btn btn-primary btn-sm">View All Results <i class="ri-arrow-right-line ms-1"></i></a>
                         </div>
-                    </div>
+                    </div> --}}
                 </form>
             </div>
 
@@ -882,7 +889,7 @@
         let table4 = new DataTable('#loanReqTable',{
             order: [[0, 'desc']]
         });
-        
+
     </script>
 </body>
 </html>
