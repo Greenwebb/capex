@@ -37,7 +37,7 @@
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
-                                    <select name="loan_type_id" id="loanType" class="form-select" wire:model="selectedLoanType">
+                                    <select name="loan_type_id" id="loanType" class="form-select" wire:model="selectedLoanType" required>
                                         <option selected>Choose...</option>
                                         @forelse ($loan_types as $lt)
                                             <option value="{{ $lt->id }}">{{ $lt->name }}</option>
@@ -52,7 +52,7 @@
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
-                                    <select name="loan_child_type_id" id="loanCategory" class="form-select" wire:model="selectedLoanCategory">
+                                    <select name="loan_child_type_id" id="loanCategory" class="form-select" wire:model="selectedLoanCategory" required>
                                         <option selected>Choose...</option>
                                         @forelse ($loan_child_types as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -67,7 +67,7 @@
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
-                                    <select name="loan_product_id" id="loanPackage" class="form-select">
+                                    <select name="loan_product_id" id="loanPackage" class="form-select" required>
                                         <option selected>Choose...</option>
                                         @forelse ($loan_products as $lp)
                                             <option value="{{ $lp->id }}">{{ $lp->name }}</option>
@@ -84,7 +84,7 @@
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
-                                    <select id="inputState" name="borrower_id" class="form-select">
+                                    <select id="inputState" name="borrower_id" class="form-select" required>
                                         <option selected>Choose...</option>
                                         @forelse ($borrowers as $b)
                                         <option value="{{ $b->id }}">{{ $b->fname.' '.$b->lname.' | '.$b->phone }}</option>
@@ -102,7 +102,7 @@
                                             <i class="text-danger ri-asterisk"></i>
                                         </span>
                                     </label>
-                                    <input type="number" name="amount" class="form-control" placeholder="Principal Amount">
+                                    <input type="number" name="amount" class="form-control" placeholder="Principal Amount" required>
                                 </div>
                                 <script>
                                     document.getElementById('fullnameInput').addEventListener('input', function(e) {
@@ -127,7 +127,7 @@
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
-                                    <select id="inputState" name="repayment_plan" class="form-select" data-choices data-choices-sorting="true">
+                                    <select id="inputState" name="repayment_plan" class="form-select" data-choices data-choices-sorting="true" required>
                                         <option  value="1">1 Month</option>
                                         <option  value="2">2 Months</option>
                                         <option  value="3">3 Months</option>
@@ -151,7 +151,7 @@
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
-                                    <input type="text" name="due_date" class="form-control" id="dueDate" placeholder="YYYY-MM-DD">
+                                    <input type="text" name="due_date" class="form-control" id="dueDate" placeholder="YYYY-MM-DD" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related Party</label>
@@ -231,10 +231,30 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="text-end">
-                                        <button type="submit" class="btn btn-primary">Save Loan</button>
+                                        <button type="submit" class="btn btn-primary" id="submitButton">Save Loan</button>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+
+                                <script>
+                                    document.getElementById('submitButton').addEventListener('click', function() {
+
+                                        var button = this;
+                                        // Disable the button and show a loading spinner
+                                        // button.disabled = true;
+                                        button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...';
+
+                                        // Simulate form submission (e.g., via AJAX)
+                                        setTimeout(function() {
+                                            // Re-enable the button after the operation completes
+                                            button.disabled = false;
+                                            button.innerHTML = 'Save Loan';
+                                            // Submit the form programmatically if necessary
+                                            // document.querySelector('form').submit();
+                                        }, 2000); // Simulate a 2-second delay for the operation
+                                    });
+                                </script>
+
                         </div>
 
                     </div>
