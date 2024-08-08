@@ -51,7 +51,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(88, 64, 36, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgb(255, 255, 255);
             color: white;
             ">
     <div class="layout-width">
