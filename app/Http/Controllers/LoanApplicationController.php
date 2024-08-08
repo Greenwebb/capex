@@ -416,9 +416,14 @@ class LoanApplicationController extends Controller
             // Email going to the Administrator
             // $process = $this->send_loan_email($mail);
             DB::commit();
-            return redirect()->back();
+            Session::flash('success', $user->fname . ' ' . $user->lname ."'s Loan updated successfully");
+            // if (!$process) {
+            //     Session::flash('error', "Could not send email to Customer, Please inform them about their new loan");
+            // }
+
+            return redirect()->route('view-loan-requests');
         } catch (\Throwable $th) {
-            // dd($th);
+            Session::flash('error',"Loan updated Failed");
             DB::rollback();
             return redirect()->back();
         }

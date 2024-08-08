@@ -33,7 +33,10 @@
                             <form action="{{ route("update-loan-details") }}" method="POST" enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 <div class="col-md-6">
-                                    <label for="loanType" class="form-label">Loan Type</label>
+                                    <label for="loanType" class="form-label">Loan Type
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span></label>
                                     <select name="loan_type_id" id="loanType" class="form-select" wire:model="selectedLoanType">
                                         <option value="">Choose...</option>
                                         @foreach ($loan_types as $lt)
@@ -43,7 +46,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="loanCategory" class="form-label">Loan Category</label>
+                                    <label for="loanCategory" class="form-label">Loan Category
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <select name="loan_child_type_id" id="loanCategory" class="form-select" wire:model="selectedLoanCategory">
                                         <option value="">Choose...</option>
                                         @foreach ($loan_child_types as $category)
@@ -53,7 +59,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="loanPackage" class="form-label">Loan Package</label>
+                                    <label for="loanPackage" class="form-label">Loan Package
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <select name="loan_product_id" id="loanPackage" class="form-select" wire:model="selectedLoanProduct">
                                         <option value="">Choose...</option>
                                         @foreach ($loan_products as $lp)
@@ -64,7 +73,10 @@
 
 
                                 <div class="col-md-6">
-                                    <label for="inputState" class="form-label">Borrowers</label>
+                                    <label for="inputState" class="form-label">Customer
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <select id="inputState" class="form-select" data-choices data-choices-sorting="true">
                                         <option value="{{ $user['fname'].' '.$user['lname']}}"  selected>{{ $user['fname'].' '.$user['lname']}}</option>
                                     </select>
@@ -72,13 +84,19 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Principal Amount</label>
-                                    <input type="text" value="{{$loan->amount}}" name="amount" class="form-control" id="fullnameInput" placeholder="Principal Amount">
+                                    <label for="fullnameInput" class="form-label">Principal Amount
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
+                                    <input type="number" value="{{$loan->amount}}" name="amount" class="form-control" id="fullnameInput" placeholder="Principal Amount">
                                     <input type="hidden" value="{{$loan->id}}" name="loan_id"/>
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="inputState" class="form-label">Duration</label>
+                                    <label for="inputState" class="form-label">Duration
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
                                     <select id="inputState" name="repayment_plan" class="form-select" data-choices data-choices-sorting="true">
                                         <option {{ $loan->repayment_plan == 1 ? 'selected':'' }} value="1">1 Month</option>
                                         <option {{ $loan->repayment_plan == 2 ? 'selected':'' }} value="2">2 Months</option>
@@ -133,10 +151,29 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="text-end">
-                                        <button type="submit" class="btn btn-primary">Save Update</button>
+                                        <button type="submit" id="submitButton" class="btn btn-primary">Save Update</button>
                                     </div>
                                 </div>
                             </form>
+
+                            <script>
+                                document.getElementById('submitButton').addEventListener('click', function() {
+
+                                    var button = this;
+                                    // Disable the button and show a loading spinner
+                                    // button.disabled = true;
+                                    button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...';
+
+                                    // Simulate form submission (e.g., via AJAX)
+                                    setTimeout(function() {
+                                        // Re-enable the button after the operation completes
+                                        button.disabled = false;
+                                        button.innerHTML = 'Save Loan';
+                                        // Submit the form programmatically if necessary
+                                        // document.querySelector('form').submit();
+                                    }, 2000); // Simulate a 2-second delay for the operation
+                                });
+                            </script>
                         </div>
 
                     </div>
