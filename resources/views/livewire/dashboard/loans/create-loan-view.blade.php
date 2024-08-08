@@ -94,7 +94,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Principal Amount
+                                    <label for="fullnameInput" class="form-label">Principal Amount (K)
                                         <span data-bs-toggle="tooltip" data-bs-placement="top" title="Enter the total principal amount you need.">
                                             <i class="ri-information-line" style="cursor: pointer;"></i>
                                         </span>
@@ -102,7 +102,7 @@
                                             <i class="text-danger ri-asterisk"></i>
                                         </span>
                                     </label>
-                                    <input type="text" name="amount" class="form-control" id="fullnameInput" placeholder="Principal Amount">
+                                    <input type="number" name="amount" class="form-control" placeholder="Principal Amount">
                                 </div>
                                 <script>
                                     document.getElementById('fullnameInput').addEventListener('input', function(e) {
@@ -112,8 +112,6 @@
 
                                         // Format the number as money
                                         value = new Intl.NumberFormat('en-US', {
-                                            style: 'currency',
-                                            currency: 'USD',
                                             minimumFractionDigits: 0,
                                             maximumFractionDigits: 0
                                         }).format(value);

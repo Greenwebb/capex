@@ -378,7 +378,7 @@ trait LoanTrait{
                 ->where('user_id', $data['user_id'])
                 ->orderBy('created_at', 'desc')
                 ->get();
-                
+
             if ($existingApplications->isEmpty()) {
                 $application = Application::create($data);
                 if ($data['email']) {

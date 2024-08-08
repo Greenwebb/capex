@@ -1,6 +1,6 @@
 <div class="page-content">
     <div class="container-fluid">
-        
+
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
@@ -57,7 +57,7 @@
                                         </button>
                                     @endif
                                     <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#exportModal"><i class="ri-add-fill me-1 align-bottom"></i> Export XLS</button>
-                                    @if (Route::currentRouteName() !== 'approved-loans') 
+                                    @if (Route::currentRouteName() !== 'approved-loans')
                                         <a href="{{ route('proxy-loan-create') }}" class="btn btn-primary"><i class="ri-add-fill me-1 align-bottom"></i> Add New Loan</a>
                                     @endif
                                 </div>
@@ -77,18 +77,19 @@
                                     <th>Principal</th>
                                     <th>Borrower</th>
                                     <th>Date</th>
-                                    <th>Payback</th>
-                                    <th>Balance</th>
+                                    {{-- <th>Payback</th>
+                                    <th>Balance</th> --}}
                                     <th>Status</th>
-                                    @if (Route::currentRouteName() !== 'approved-loans') 
-                                    @if($this->current_configs('loan-approval')->value == 'spooling')
-                                    <th></th>
-                                    @endif
-                                    @if($this->current_configs('loan-approval')->value == 'manual')
-                                    <th></th>
+                                    @if (Route::currentRouteName() !== 'approved-loans')
+                                        @if($this->current_configs('loan-approval')->value == 'spooling')
+                                        <th></th>
+                                        @endif
+
+                                        @if($this->current_configs('loan-approval')->value == 'manual')
+                                        <th></th>
+                                        @endif
                                     @endif
                                     <th>Action</th>
-                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -109,13 +110,13 @@
                                         </a>
                                     </td>
                                     <td>{{ $loan->created_at->toFormattedDateString() }}</td>
-                                    <td>
+                                    {{-- <td>
                                         K {{
                                             number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id), 2, '.', ',')
                                         }}
                                         Upto {{ $loan->repayment_plan }} Months
                                     </td>
-                                    <td>K {{  number_format(App\Models\Loans::loan_balance( $loan->id)) }}</td>
+                                    <td>K {{  number_format(App\Models\Loans::loan_balance( $loan->id)) }}</td> --}}
 
                                     <td>
                                         @if($loan->status == 0)
@@ -128,7 +129,7 @@
                                             <span class="badge bg-danger-subtle text-danger">Denied</span>
                                         @endif
                                     </td>
-                                    @if (Route::currentRouteName() !== 'approved-loans') 
+                                    @if (Route::currentRouteName() !== 'approved-loans')
                                     @if($this->current_configs('loan-approval')->value == 'spooling')
                                     <td class="text-success">
                                         @role('admin')@else
