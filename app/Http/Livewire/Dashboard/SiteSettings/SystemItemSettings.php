@@ -7,6 +7,7 @@ use App\Models\Institution;
 use App\Traits\LoanTrait;
 use App\Traits\SettingTrait;
 use App\Models\LoanAccountPayment;
+use App\Models\LoanChildType;
 use App\Models\LoanDecimalPlace;
 use App\Models\LoanDisbursedBy;
 use App\Models\LoanInterestMethod;
@@ -14,6 +15,7 @@ use App\Models\LoanInterestType;
 use App\Models\LoanProduct;
 use App\Models\LoanRepaymentCycle;
 use App\Models\LoanRepaymentOrder;
+use App\Models\LoanType;
 use App\Models\Penalty;
 use App\Models\RepaymentCycle;
 use App\Models\RepaymentOrder;
@@ -31,6 +33,7 @@ class SystemItemSettings extends Component
     public $settings, $title, $subtitle, $current_conf, $borrowers;
     public $crb_response, $crb;
     public $loan_products, $disbursements, $repayment_cycles, $penalties, $loan_fees,$institutions;
+    public $loan_types, $loan_categories;
     public function render()
     {
         $this->settings = $_GET['settings'];
@@ -42,6 +45,8 @@ class SystemItemSettings extends Component
         $this->loan_fees = $this->get_all_loan_fees();
         $this->institutions = Institution::where('status', 1)->get();
         $this->borrowers = User::role('user')->get();
+        $this->loan_types = LoanType::get();
+        $this->loan_categories = LoanChildType::with('loan_type')->get();
         return view('livewire.dashboard.site-settings.system-item-settings')
         ->layout('layouts.main');
     }
@@ -65,7 +70,7 @@ class SystemItemSettings extends Component
             LoanProduct::where('id', $id)->delete();
             Session::flash('success', "Loan product deleted successfully.");
         } catch (\Throwable $th) {
-            Session::flash('success', "Loan product deleted successfully.");
+            Session::flash('success', "Loan product deleted failed.");
         }
     }
 
@@ -75,7 +80,7 @@ class SystemItemSettings extends Component
             Session::flash('success', "Repayment Cycle deleted successfully.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-repayment-cycle']);
         } catch (\Throwable $th) {
-            Session::flash('success', "Repayment Cycle deleted successfully.");
+            Session::flash('success', "Repayment Cycle deleted failed.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-repayment-cycle']);
         }
     }
@@ -85,7 +90,7 @@ class SystemItemSettings extends Component
             Session::flash('success', "Penalty deleted successfully.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-penalty-settings']);
         } catch (\Throwable $th) {
-            Session::flash('success', "Penalty deleted successfully.");
+            Session::flash('success', "Penalty deleted failed.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-penalty-settings']);
         }
     }
@@ -95,7 +100,7 @@ class SystemItemSettings extends Component
             Session::flash('success', "Disbursement method deleted successfully.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-disbursements']);
         } catch (\Throwable $th) {
-            Session::flash('success', "Disbursement method deleted successfully.");
+            Session::flash('success', "Disbursement method deleted failed.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-disbursements']);
         }
     }
@@ -105,7 +110,7 @@ class SystemItemSettings extends Component
             Session::flash('success', "Loan Fee deleted successfully.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-fees']);
         } catch (\Throwable $th) {
-            Session::flash('error', "Loan Fee deleted successfully.");
+            Session::flash('error', "Loan Fee deleted failed.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-fees']);
         }
     }
@@ -116,8 +121,30 @@ class SystemItemSettings extends Component
             Session::flash('success', "Institution deleted successfully.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-fees']);
         } catch (\Throwable $th) {
-            Session::flash('error', "Institution deleted successfully.");
+            Session::flash('error', "Institution deleted failed.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-fees']);
+        }
+    }
+
+    public function deleteLoanType($id){
+        try {
+            LoanType::where('id', $id)->delete();
+            Session::flash('success', "Loan type deleted successfully.");
+            return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-parent-types']);
+        } catch (\Throwable $th) {
+            Session::flash('error', "Loan type deleted failed.");
+            return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-parent-types']);
+        }
+    }
+
+    public function deleteLoanCategory($id){
+        try {
+            LoanChildType::where('id', $id)->delete();
+            Session::flash('success', "Loan category deleted successfully.");
+            return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-categories']);
+        } catch (\Throwable $th) {
+            Session::flash('error', "Loan category deleted failed.");
+            return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-categories']);
         }
     }
 

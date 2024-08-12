@@ -1,5 +1,13 @@
 <div wire:ignore class="page-content">
     @switch($settings)
+        @case('loan-parent-types')
+            @include('livewire.dashboard.site-settings.__parts.loan-parent-types')
+        @break
+        @case('loan-categories')
+            @include('livewire.dashboard.site-settings.__parts.loan-categories')
+        @break    @case('loan-types')
+            @include('livewire.dashboard.site-settings.__parts.loan-types')
+        @break
         @case('loan-types')
             @include('livewire.dashboard.site-settings.__parts.loan-types')
         @break
@@ -61,13 +69,13 @@
             // Display the corresponding settings
             toggleSettings('spooling');
         });
-    
+
         function toggleSettings(option) {
             const settings = document.querySelectorAll('.settings');
             settings.forEach((setting) => {
                 setting.style.display = 'none';
             });
-    
+
             const selectedSetting = document.getElementById(option);
             selectedSetting.style.display = 'block';
         }

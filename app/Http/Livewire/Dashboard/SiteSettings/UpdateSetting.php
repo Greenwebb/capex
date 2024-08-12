@@ -23,7 +23,9 @@ use App\Models\RepaymentCycle;
 use App\Models\RepaymentOrder;
 use App\Models\ServiceCharge;
 use App\Models\CrbProduct;
+use App\Models\LoanChildType;
 use App\Models\LoanCrbProduct;
+use App\Models\LoanType;
 use App\Traits\DisbursementTrait;
 use Illuminate\Support\Facades\Session;
 
@@ -36,6 +38,11 @@ class UpdateSetting extends Component
     // Preset Data
     public $interest_methods, $interest_types, $disbursements, $repayment_cycles;
     public $repayment_orders, $decimal_places, $company_accounts, $service_charges;
+
+    //Loan Product Type
+    public $loan_category_id, $loan_category_name, $loan_category_desc, $loan_type_name, $loan_type_desc, $loan_type_id;
+    public $loan_types = [], $loan_categories = [];
+    public $loan_child_types, $loan_category, $loan_type;
 
     // Loan Product Update Data
     public $new_loan_name, $loan_release_date, $minimum_loan_principal_amount, $loan_interest_type;
@@ -75,10 +82,25 @@ class UpdateSetting extends Component
         $this->id = $_GET['item_id'];
 
         switch ($_GET['page']) {
+            case 'loan-parent-type':
+                $this->get_type_data();
+                $this->loan_type = $this->get_loan_type($_GET['item_id']);
+                $this->set_loan_type_values();
+            break;
+            case 'loan-category':
+                $this->get_type_data();
+                $this->loan_category = $this->get_loan_category($_GET['item_id']);
+                $this->set_loan_category_values();
+            break;
             case 'loan-product':
                 $this->get_data();
+                $this->get_type_data();
                 $this->loan_product = $this->get_loan_product($_GET['item_id']);
+                $this->loan_category = $this->get_loan_category($this->loan_product->loan_child_type_id);
+                $this->loan_type = null; //alter
+                $this->set_loan_category_values();
                 $this->set_loan_product_values();
+                $this->set_loan_type_values();
             break;
 
             case 'loan-disbursements':
@@ -117,8 +139,11 @@ class UpdateSetting extends Component
             default:
             break;
         }
-        return view('livewire.dashboard.site-settings.update-setting')
-        ->layout('layouts.main');
+        return view('livewire.dashboard.site-settings.update-setting', [
+            'loan_child_types' => $this->loan_child_types,
+            'loan_types' => $this->loan_types,
+            // other properties
+        ])->layout('layouts.main');
     }
 
 
@@ -132,6 +157,11 @@ class UpdateSetting extends Component
         $this->service_charges = ServiceCharge::get();
         $this->institutions = Institution::where('status', 1)->get();
         $this->crb_products = CrbProduct::get();
+    }
+
+    public function get_type_data(){
+        $this->loan_types = LoanType::get();
+        $this->loan_categories = LoanChildType::get();
     }
 
     public function update_loan_product(){
@@ -326,11 +356,78 @@ class UpdateSetting extends Component
         }
     }
 
-    public function update_loan_product_process(){
-        // dd($this->processing);
+    public function update_loan_product_process(){ /* */ }
+
+    public function update_loan_type()
+    {
+        try {
+            // Validate input fields
+            $validatedData = $this->validate([
+                'loan_type_id' => 'required|exists:loan_types,id',
+                'loan_type_name' => 'required|string|max:255',
+                'loan_type_desc' => 'nullable|string|max:500',
+            ]);
+    
+            // Check if the loan type exists, if so, update it, otherwise create a new one
+            LoanType::updateOrCreate(
+                ['id' => $validatedData['loan_type_id']], // Assuming $loan_type_id is provided
+                [
+                    'name' => $validatedData['loan_type_name'],
+                    'description' => $validatedData['loan_type_desc'],
+                ]
+            );
+    
+            // Optionally, reset the form fields
+            $this->reset(['loan_type_name', 'loan_type_desc']);
+    
+            // Provide feedback to the user
+            session()->flash('success', 'Loan Type saved successfully.');
+            return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-parent-types']);
+        } catch (\Throwable $th) {
+            // Provide feedback to the user
+            session()->flash('error', 'Loan Type saving failed. ' . $th->getMessage());
+        }
+    }
+    
+    public function update_loan_category()
+    {
+        try {
+            // Check if the loan category exists, if so, update it, otherwise create a new one
+            LoanChildType::updateOrCreate(
+                ['id' => $this->loan_category_id], // Assuming $loan_category_id is provided
+                [
+                    'name' => $this->loan_category_name,
+                    'description' => $this->loan_category_desc,
+                    'loan_type_id' => $this->loan_type_id
+                ]
+            );
+
+            // Optionally, reset the form fields
+            $this->reset(['loan_category_name', 'loan_category_desc']);
+
+            // Provide feedback to the user
+            session()->flash('success', 'Loan Category saved successfully.');
+            return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-categories']);
+        } catch (\Throwable $th) {
+            // Provide feedback to the user
+            session()->flash('error', 'Loan Category saving failed. ' . $th->getMessage());
+        }
     }
 
     // ---- Setters
+    public function set_loan_type_values(){
+        $this->loan_type_id = $this->loan_type->id;
+        $this->loan_type_name = $this->loan_type->name;
+        $this->loan_type_desc = $this->loan_type->description;
+    }
+
+    public function set_loan_category_values(){
+        $this->loan_category_id = $this->loan_category->id;
+        $this->loan_category_name = $this->loan_category->name;
+        $this->loan_category_desc = $this->loan_category->description;
+        $this->loan_type_id = $this->loan_category->loan_type_id;
+    }
+
     public function set_loan_product_values(){
         // Loan Product
         $this->new_loan_name = $this->loan_product->name;

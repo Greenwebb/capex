@@ -166,9 +166,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('reset-loans', [LoanApplicationController::class, 'resetLoans'])->name('reset-loans');
     Route::post('update-loan-statuses', [LoanProductController::class, 'updateLoanStatus'])->name('update-loan-statuses');
     Route::get('delete-loan-step/{loan_step}', [LoanProductController::class, 'deleteStep'])->name('delete-loan-step');
-
+    Route::get('get-loan-categories/{loanTypeId}', [LoanProductController::class, 'getLoanCategories']);
+    Route::post('create-loan-product', [LoanProductController::class, 'create_loan_product'])->name('create_loan_product');
     // Data Import & Export
-
+    
     Route::post('export-loans', [ExportController::class, 'export_loans'])->name('export-loans');
     Route::post('export-users', [ExportController::class, 'export_users'])->name('export-users');
     Route::post('import-loans', [ImportController::class, 'import_loans'])->name('import-loans');

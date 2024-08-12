@@ -1,5 +1,11 @@
 <div wire:ignore>
     @switch($page)
+        @case('loan-parent-type')
+            @include('livewire.dashboard.site-settings.__cruds.update-loan-type')
+        @break
+        @case('loan-category')
+            @include('livewire.dashboard.site-settings.__cruds.update-loan-category')
+        @break
         @case('loan-product')
             @include('livewire.dashboard.site-settings.__cruds.update-loan-product')
         @break
@@ -21,7 +27,7 @@
         @case('institutes')
             @include('livewire.dashboard.site-settings.__cruds.update-institutions')
         @break
-        
+
         @default
 
         @break

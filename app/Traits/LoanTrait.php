@@ -58,6 +58,16 @@ trait LoanTrait{
             ])->get();
     }
 
+    public function get_loan_type($id){
+        $x = LoanType::where('id', $id)->first();
+        dd($id);
+        dd($x);
+    }
+
+    public function get_loan_category($id){
+        return LoanChildType::where('id', $id)->first();
+    }
+
     public function get_loan_product($id){
         return LoanProduct::where('id', $id)->with([
             'disbursed_by.disbursed_by',

@@ -67,7 +67,34 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div class="overflow-hidden flex-grow-1">
-                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate"> Total Repayments</p>
+                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate"> Total Number of Loans</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 d-flex align-items-end justify-content-between">
+                                        <div>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{ $this->total_loans() }}">{{ $this->total_loans() }}</span> </h4>
+                                            <a href="{{ route('loans') }}" class="text-decoration-underline">Number of active loans</a>
+                                        </div>
+                                        <div class="flex-shrink-0 avatar-sm">
+                                            <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
+                                                {{ $this->total_loans() }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="overflow-hidden flex-grow-1">
+                                         <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Total Repayments</p>
                                         </div>
                                         <div class="flex-shrink-0">
 
@@ -76,11 +103,11 @@
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
                                             <h4 class="mb-4 fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{ App\Models\Transaction::total_collected() }}">0</span> </h4>
-                                            <a href="{{ route('make-payment') }}" class="text-decoration-underline">View Repayments</a>
+                                            <a href="{{ route('make-payment') }}" class="text-decoration-underline">Number of Repayments</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
-                                            <span class="rounded avatar-title bg-primary-subtle fs-3">
-                                                <i class="bx bx-dollar-circle text-primary"></i>
+                                            <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
+                                                1
                                             </span>
                                         </div>
                                     </div>
@@ -94,7 +121,90 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div class="overflow-hidden flex-grow-1">
-                                         <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Loans</p>
+                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Total Pending Approval</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 d-flex align-items-end justify-content-between">
+                                        <div>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  $borrowers ? $borrowers->count() : 0 }}">{{  $borrowers ? $borrowers->count() : 0 }}</span></h4>
+                                            <a href="{{ route('borrowers') }}" class="text-decoration-underline">See more</a>
+                                        </div>
+                                        <div class="flex-shrink-0 avatar-sm">
+                                            <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
+                                                2
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="overflow-hidden flex-grow-1">
+                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Total Borrowers</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 d-flex align-items-end justify-content-between">
+                                        <div>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  $borrowers ? $borrowers->count() : 0 }}">{{  $borrowers ? $borrowers->count() : 0 }}</span></h4>
+                                            <a href="{{ route('borrowers') }}" class="text-decoration-underline">See more</a>
+                                        </div>
+                                        <div class="flex-shrink-0 avatar-sm">
+                                            <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
+                                                3
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                    </div> <!-- end row-->
+
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="overflow-hidden flex-grow-1">
+                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Total Loan Officers</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 d-flex align-items-end justify-content-between">
+                                        <div>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{ 0 }}">0</span> </h4>
+                                            <a href="{{ route('employees') }}" class="text-decoration-underline">Loan Officers</a>
+                                        </div>
+                                        <div class="flex-shrink-0 avatar-sm">
+                                            <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
+                                                0
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="overflow-hidden flex-grow-1">
+                                         <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Total Assigned Officers</p>
                                         </div>
                                         <div class="flex-shrink-0">
 
@@ -103,11 +213,11 @@
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
                                             <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{ $this->total_loans() }}">{{ $this->total_loans() }}</span></h4>
-                                            <a href="{{ route('loans') }}" class="text-decoration-underline">View all loans</a>
+                                            <a href="{{ route('employees') }}" class="text-decoration-underline">See more</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title bg-primary-subtle fs-3">
-                                                <i class="bx bx-shopping-bag text-primary"></i>
+                                                <i class="bx bx-user-circle text-primary"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -121,7 +231,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div class="overflow-hidden flex-grow-1">
-                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Customers</p>
+                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate">Total Unassigned Officers</p>
                                         </div>
                                         <div class="flex-shrink-0">
 
@@ -148,7 +258,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div class="overflow-hidden flex-grow-1">
-                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate"> Total Borrowed</p>
+                                            <p class="mb-0 text-uppercase fw-medium text-muted text-truncate"> Total Outstanding Loan Amount </p>
                                         </div>
                                         <div class="flex-shrink-0">
 
@@ -156,12 +266,12 @@
                                     </div>
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
-                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{  App\Models\Application::totalAmountLoanedOut() }}">{{  App\Models\Application::totalAmountLoanedOut() }}</span> </h4>
-                                            <a href="#" class="text-decoration-underline">Withdraw money</a>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  App\Models\Application::totalAmountLoanedOut() }}">{{  App\Models\Application::totalAmountLoanedOut() }}</span> </h4>
+                                            <a href="#" class="text-decoration-underline">Outstanding loans</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
-                                            <span class="rounded avatar-title bg-primary-subtle fs-3">
-                                                <i class="bx bx-wallet text-primary"></i>
+                                            <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
+                                                6
                                             </span>
                                         </div>
                                     </div>
@@ -169,7 +279,6 @@
                             </div><!-- end card -->
                         </div><!-- end col -->
                     </div> <!-- end row-->
-
                     {{-- <div class="row">
                         <div class="col-xl-8">
                             <div class="card">
@@ -333,7 +442,7 @@
                                                     </td>
                                                 </tr>
                                                 @empty
-                                                    
+
                                                 @endforelse
                                             </tbody>
                                         </table>
@@ -422,7 +531,7 @@
                                                     </td>
                                                 </tr> --}}
                                                @empty
-                                                   
+
                                                @endforelse
                                             </tbody>
                                         </table><!-- end table -->

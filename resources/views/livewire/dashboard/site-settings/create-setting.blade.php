@@ -1,5 +1,11 @@
 <div wire:ignore>
     @switch($page)
+        @case('loan-type')
+            @include('livewire.dashboard.site-settings.__cruds.create-loan-type')
+        @break
+        @case('loan-categories')
+            @include('livewire.dashboard.site-settings.__cruds.create-loan-categories')
+        @break
         @case('loan-product')
             @include('livewire.dashboard.site-settings.__cruds.create-loan-product')
         @break
@@ -18,7 +24,7 @@
         @case('loan-institution')
             @include('livewire.dashboard.site-settings.__cruds.create-loan-institution')
         @break
-        
+
         @default
 
         @break

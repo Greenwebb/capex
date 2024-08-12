@@ -19,7 +19,9 @@ use App\Models\LoanRepaymentOrder;
 use App\Models\LoanServiceCharge;
 use App\Models\Penalty;
 use App\Models\CrbProduct;
+use App\Models\LoanChildType;
 use App\Models\LoanCrbProduct;
+use App\Models\LoanType;
 use App\Models\RepaymentCycle;
 use App\Models\RepaymentOrder;
 use App\Models\ServiceCharge;
@@ -34,6 +36,11 @@ class CreateSetting extends Component
     public $interest_methods, $interest_types, $disbursements, $repayment_cycles;
     public $repayment_orders, $decimal_places, $company_accounts, $service_charges;
     public $loan_institute_name,$loan_institute_type;
+
+    //Loan Type
+    public $loan_category_name, $loan_category_desc, $loan_type_name, $loan_type_desc, $loan_type_id, $loan_child_type_id;
+    public $loan_types = [], $loan_categories = [], $loan_child_types;
+    public $selectedLoanCategory = null, $selectedLoanType = null;
 
     // Loan Product
     public $new_loan_name, $loan_release_date, $minimum_loan_principal_amount, $default_loan_principal_amount, $maximum_principal_amount, $loan_interest_method, $loan_interest_type;
@@ -54,13 +61,19 @@ class CreateSetting extends Component
     public $crb_products;
     public $crb_selected_products = [];
 
-
     public function render()
     {
         $this->page = $_GET['page'];
         $this->get_data();
-        return view('livewire.dashboard.site-settings.create-setting')
-        ->layout('layouts.main');
+        return view('livewire.dashboard.site-settings.create-setting', [
+            'loan_child_types' => $this->loan_child_types,
+            'loan_types' => $this->loan_types
+        ])->layout('layouts.main');
+    }
+
+    public function updatedSelectedLoanType($loanTypeId)
+    {
+        $this->loan_child_types = LoanChildType::where('loan_type_id', $loanTypeId)->get();
     }
 
     public function get_data(){
@@ -73,6 +86,8 @@ class CreateSetting extends Component
         $this->service_charges = ServiceCharge::get();
         $this->institutions = Institution::where('status', 1)->get();
         $this->crb_products = CrbProduct::get();
+        $this->loan_types = LoanType::get();
+        $this->loan_categories = LoanChildType::get();
     }
 
     public function updatedSector()
@@ -94,13 +109,13 @@ class CreateSetting extends Component
     }
 
     public function create_loan_product(){
-        
+
         try {
-            // Create loan product
             $loan_product = LoanProduct::Create([
                 'name' => $this->new_loan_name,
                 'description'=> $this->new_loan_desc,
                 'icon'=> $this->new_loan_icon,
+                'loan_child_type_id' => $this->loan_child_type_id,
                 'icon_alt' => $this->new_loan_icon_alt,
                 'wiz_steps' => $this->num_of_steps,
                 'release_date' => $this->loan_release_date,
@@ -291,4 +306,63 @@ class CreateSetting extends Component
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'institutes']);
         }
     }
+
+
+    public function createLoanType()
+    {
+        try {
+            // Validate the input data
+            $validatedData = $this->validate([
+                'loan_type_name' => 'required|string|max:255',
+                'loan_type_desc' => 'nullable|string|max:1000',
+            ]);
+    
+            // Save loan type data to the database
+            LoanType::create([
+                'name' => $validatedData['loan_type_name'],
+                'description' => $validatedData['loan_type_desc'],
+            ]);
+    
+            // Optionally, reset the form fields
+            $this->reset(['loan_type_name', 'loan_type_desc']);
+    
+            // Provide feedback to the user
+            session()->flash('success', 'Loan Type saved successfully.');
+            return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-parent-types']);
+        } catch (\Throwable $th) {
+            // Provide feedback to the user
+            session()->flash('error', 'Loan Type saving failed. ' . $th->getMessage());
+        }
+    }
+    
+
+    public function createLoanCategory()
+    {
+        try {
+            // Validate input fields
+            $validatedData = $this->validate([
+                'loan_category_name' => 'required|string|max:255',
+                'loan_category_desc' => 'nullable|string|max:500',
+                'loan_type_id' => 'required|exists:loan_types,id',
+            ]);
+    
+            // Save loan category data to the database
+            LoanChildType::create([
+                'name' => $validatedData['loan_category_name'],
+                'description' => $validatedData['loan_category_desc'],
+                'loan_type_id' => $validatedData['loan_type_id'],
+            ]);
+    
+            // Optionally, reset the form fields
+            $this->reset(['loan_category_name', 'loan_category_desc']);
+    
+            // Provide feedback to the user
+            session()->flash('success', 'Loan Category saved successfully.');
+            return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-categories']);
+        } catch (\Throwable $th) {
+            // Provide feedback to the user
+            session()->flash('error', 'Loan Category saving failed. ' . $th->getMessage());
+        }
+    }
+    
 }

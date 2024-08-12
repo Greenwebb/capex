@@ -399,7 +399,7 @@ class LoanApplicationController extends Controller
                 'processed_by'=> auth()->user()->id
             ];
 
-            $this->apply_update_loan($data, $form['loan_id']);
+            $this->apply_update_loan($data, $form['loan_id``']);
             // if($form['loan_status'] == 1){
             //     // Update borrower wallet
             //     $this->updateUserWallet($form['borrower_id'], $form['amount'], $form['old_amount']);
