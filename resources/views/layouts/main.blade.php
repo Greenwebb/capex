@@ -639,7 +639,8 @@
 
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('view-loan-requests') }}"  aria-expanded="false" aria-controls="sidebarLayouts">
-                                <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Loan Requests</span> <span class="badge badge-pill bg-danger" data-key="t-hot">2</span>
+                                <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Loan Requests</span>
+                                {{-- <span class="badge badge-pill bg-danger" data-key="t-hot">2</span> --}}
                             </a>
                         </li>
 
