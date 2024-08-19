@@ -327,7 +327,7 @@ class LoanApplicationController extends Controller
                 'nok_relation' => $form['nok_relation'],
                 'nok_gender' => $form['nok_gender'],
             ];
-            $this->createNOK($nok);
+            // $this->createNOK($nok);
             $applicationId = $this->apply_loan($data);
             $mail = [
                 'application_id' => $applicationId,
