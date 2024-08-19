@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
         User::create([
             'fname' => 'Capex',
             'lname' => 'Finance',
-            'email' => 'capex@greenwebbtech.com',
-            'password' => bcrypt('@capex.@2022'),
+            'email' => 'capex@capexfinancialservices.org',
+            'password' => bcrypt('c@pex2024'),
         ])->assignRole('admin');
     }
 }
