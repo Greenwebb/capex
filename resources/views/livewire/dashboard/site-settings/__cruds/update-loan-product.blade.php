@@ -12,7 +12,8 @@
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <form wire:submit.prevent="update_loan_product" id="kt_content_container" class="container-xxl">
+        <form action="{{ route('update_loan_product') }}" method="POST" id="kt_content_container" class="container-xxl">
+            @csrf
             <input type="hidden" name="loan_product_id" value="{{ $loan_product->id }}">
             <div class="card-header border-0 cursor-pointer">
                 <div class="alert alert-warning mt-2">
@@ -40,7 +41,6 @@
                                     <span><i class="text-danger ri-asterisk"></i></span>
                                 </label>
                                 <select name="loan_type_id" class="form-select" id="selectedLoanType" required>
-                                    <option selected>Choose...</option>
                                     @forelse ($loan_types as $lt)
                                         <option {{ $loan_type_id == $lt->id ? 'selected' : '' }} value="{{ $lt->id }}" >{{ $lt->name }}</option>
                                     @empty
@@ -54,7 +54,6 @@
                                     <span><i class="text-danger ri-asterisk"></i></span>
                                 </label>
                                 <select name="loan_child_type_id" class="form-select" id="loanCategory" required>
-                                    <option selected>Choose...</option>
                                     <option>No loan categories available</option>
                                 </select>
                             </div>
@@ -69,7 +68,7 @@
                                     const loanTypeId = this.value;
 
                                     // Clear previous options
-                                    loanCategory.innerHTML = '<option selected>Choose...</option>';
+                                    // loanCategory.innerHTML = '<option selected>Choose...</option>';
 
                                     if (loanTypeId) {
                                         // Fetch loan categories based on the selected loan type
@@ -85,7 +84,7 @@
                                                     });
                                                 } else {
                                                     const option = document.createElement('option');
-                                                    option.textContent = 'No loan categories available';
+                                                    // option.textContent = 'No loan categories available';
                                                     loanCategory.appendChild(option);
                                                 }
                                             })
@@ -120,7 +119,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="new_loan_name" value="{{ $loan_product->name}}" class="form-control  form-control-solid" placeholder="E.g Business Loan"/>
+                                    <input type="text" name="new_loan_name" value="{{ $loan_product->name}}" class="form-control my-2  " placeholder="E.g Business Loan"/>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -130,20 +129,20 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" name="new_loan_desc" value="{{ $loan_product->description }}" class="form-control form-control-solid">
+                                    <textarea type="text" name="new_loan_desc" value="{{ $loan_product->description }}" class="form-control my-2 ">
                                         
                                     {{ $loan_product->description }}
                                     </textarea>
                                 </div>
                                 <!--end::Col-->
                             </div>
-                            <div class="row mb-6">
+                            {{-- <div class="row mb-6">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Icon (SVG)</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" name="new_loan_icon" value="{{$loan_product->icon}}" class="form-control  form-control-solid" placeholder="SVG code" required>
+                                    <textarea type="text" name="new_loan_icon" value="{{$loan_product->icon}}" class="form-control my-2  " placeholder="SVG code" required>
                                         {{$loan_product->icon}}
                                     </textarea>
                                 </div>
@@ -155,10 +154,10 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" name="new_loan_icon_alt" value="{{$loan_product->icon_alt}}" class="form-control form-control-solid" placeholder="SVG code" required></textarea>
+                                    <textarea type="text" name="new_loan_icon_alt" value="{{$loan_product->icon_alt}}" class="form-control my-2 " placeholder="SVG code" required></textarea>
                                 </div>
                                 <!--end::Col-->
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -231,14 +230,16 @@
                                 <div class="col-lg-8 fv-row">
                                     <div class="d-block mt-3">
                                         @forelse ($disbursements as $option)
-                                            <label for="{{ $option->tag }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                                <span class="fw-semibold ps-2 fs-6">{{ $option->name }}</span>
-                                            </label>
-                                            <br>
-                                        @empty
-                                            <p>No Sources</p>
-                                        @endforelse
-
+                                        <label for="{{ $option->tag }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
+                                            <input id="{{ $option->tag }}" class="form-check-input" name="loan_disbursed_by[]" type="checkbox" value="{{ $option->id }}" 
+                                            {{ in_array($option->id, $loan_product->disbursed_by->pluck('id')->toArray()) ? 'checked' : '' }} />
+                                            <span class="fw-semibold ps-2 fs-6">{{ $option->name }}</span>
+                                        </label>
+                                        <br>
+                                    @empty
+                                        <p>No Sources</p>
+                                    @endforelse
+                                                                      
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +249,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="minimum_loan_principal_amount" id="minimum_loan_principal_amount" class="form-control  form-control-solid" placeholder="0.00" />
+                                    <input value="{{ $loan_product->min_principal_amount }}" type="text" name="minimum_loan_principal_amount" id="minimum_loan_principal_amount" class="form-control my-2  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -269,7 +270,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="default_loan_principal_amount" class="form-control  form-control-solid" placeholder="0.00" />
+                                    <input type="text" value="{{ $loan_product->def_principal_amount }}" name="default_loan_principal_amount" class="form-control my-2  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -281,7 +282,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="maximum_principal_amount" class="form-control  form-control-solid" placeholder="0.00" />
+                                    <input type="text" value="{{ $loan_product->max_principal_amount }}" name="maximum_principal_amount" class="form-control my-2  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -336,7 +337,7 @@
                                 <!--begin::Col-->
                                 {{-- @dd($loan_interest_method) --}}
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="loan_interest_method[]" class="form-control  form-control-solid" placeholder="Company name" value="Keenthemes">
+                                    <select type="text" name="loan_interest_method[]" class="form-control my-2  " placeholder="Company name" value="Keenthemes">
                                         <option value=""></option>
                                         @forelse ($interest_methods as $option)
                                             <option value="{{ $option->id }}" {{ $loan_interest_method == $option->id ? 'selected' : '' }}>
@@ -370,12 +371,13 @@
                                     <div class="d-block align-items-center mt-3">
                                         @forelse ($interest_types as $option)
                                             <label for="{{ $option->name }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_interest_type[]" type="radio" value="{{ $option->id }}" {{ $loan_interest_type == $option->id ? 'checked' : '' }} />
+                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_interest_type[]" type="radio" value="{{ $option->id }}" {{ in_array($option->id, $loan_product->interest_types->pluck('id')->toArray()) ? 'checked' : '' }} />
                                                 <span class="fw-semibold ps-2 fs-6"> {{ $option->description }} </span>
                                             </label>
                                         @empty
-                                            <!-- Handle the case when there are no interest types -->
+                                            <p>No Interest Types Available</p>
                                         @endforelse
+                                        
                                     </div>
                                 </div>
                                 <!--end::Col-->
@@ -388,13 +390,12 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="loan_interest_period" class="form-control  form-control-solid" placeholder="Company name" value="Keenthemes">
-                                        <option value=""></option>
-                                        <option value="per-day">Per Day</option>
-                                        <option value="per-week">Per Week</option>
-                                        <option value="per-month">Per Month</option>
-                                        <option value="per-year">Per Year</option>
-                                        <option value="per-loan">Per Loan</option>
+                                    <select type="text" name="loan_interest_period" class="form-control my-2">
+                                        <option {{ $loan_product->loan_interest_period == 'per-day' ? 'selected' : ''  }} value="per-day">Per Day</option>
+                                        <option {{ $loan_product->loan_interest_period == 'per-week' ? 'selected' : ''  }} value="per-week">Per Week</option>
+                                        <option {{ $loan_product->loan_interest_period == 'per-month' ? 'selected' : ''  }} value="per-month">Per Month</option>
+                                        <option {{ $loan_product->loan_interest_period == 'per-year' ? 'selected' : ''  }} value="per-year">Per Year</option>
+                                        <option {{ $loan_product->loan_interest_period == 'per-loan' ? 'selected' : ''  }} value="per-loan">Per Loan</option>
                                     </select>
                                 </div>
                                 <!--end::Col-->
@@ -405,7 +406,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="minimum_loan_interest" class="form-control  form-control-solid" placeholder="0.00" />
+                                    <input value="{{ $loan_product->min_loan_interest }}" type="text" name="minimum_loan_interest" class="form-control my-2  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -415,7 +416,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="default_loan_interest" class="form-control  form-control-solid" placeholder="0.00" />
+                                    <input value="{{ $loan_product->def_loan_interest }}"  type="text" name="default_loan_interest" class="form-control my-2  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -425,7 +426,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="maximum_loan_interest" class="form-control  form-control-solid" placeholder="0.00" />
+                                    <input type="text" value="{{ $loan_product->max_loan_interest }}"  name="maximum_loan_interest" class="form-control my-2  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -459,12 +460,12 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="loan_duration_period" class="form-control  form-control-solid" placeholder="Company name" value="Keenthemes">
-                                        <option value=""></option>
-                                        <option value="day">Days</option>
-                                        <option value="week">Weeks</option>
-                                        <option value="month">Month</option>
-                                        <option value="year">Years</option>
+                                    <select type="text" name="loan_duration_period" class="form-control my-2  " placeholder="Company name" value="Keenthemes">
+                                        
+                                        <option {{ $loan_product->loan_duration_period == 'day' ? 'selected' : ''  }} value="day">Days</option>
+                                        <option {{ $loan_product->loan_duration_period == 'week' ? 'selected' : ''  }}  value="week">Weeks</option>
+                                        <option {{ $loan_product->loan_duration_period == 'month' ? 'selected' : ''  }}  value="month">Month</option>
+                                        <option {{ $loan_product->loan_duration_period == 'year' ? 'selected' : ''  }}  value="year">Years</option>
                                     </select>
                                 </div>
                                 <!--end::Col-->
@@ -475,20 +476,19 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="minimum_loan_duration" class="form-control  form-control-solid">
-                                        <option value=""></option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
+                                    <select type="text" name="minimum_loan_duration" class="form-control my-2  ">
+                                        <option {{ $loan_product->min_loan_duration == 1 ? 'selected' : '' }} value="1">1</option>
+                                        <option {{ $loan_product->min_loan_duration == 2 ? 'selected' : '' }} value="2">2</option>
+                                        <option {{ $loan_product->min_loan_duration == 3 ? 'selected' : '' }} value="3">3</option>
+                                        <option {{ $loan_product->min_loan_duration == 4 ? 'selected' : '' }} value="4">4</option>
+                                        <option {{ $loan_product->min_loan_duration == 5 ? 'selected' : '' }} value="5">5</option>
+                                        <option {{ $loan_product->min_loan_duration == 6 ? 'selected' : '' }} value="6">6</option>
+                                        <option {{ $loan_product->min_loan_duration == 7 ? 'selected' : '' }} value="7">7</option>
+                                        <option {{ $loan_product->min_loan_duration == 8 ? 'selected' : '' }} value="8">8</option>
+                                        <option {{ $loan_product->min_loan_duration == 9 ? 'selected' : '' }} value="9">9</option>
+                                        <option {{ $loan_product->min_loan_duration == 10 ? 'selected' : '' }} value="10">10</option>
+                                        <option {{ $loan_product->min_loan_duration == 11 ? 'selected' : '' }} value="11">11</option>
+                                        <option {{ $loan_product->min_loan_duration == 12 ? 'selected' : '' }} value="12">12</option>
                                     </select>
                                 </div>
                                 <!--end::Col-->
@@ -499,20 +499,19 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="default_loan_duration" class="form-control  form-control-solid" placeholder="0.00">
-                                        <option value=""></option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
+                                    <select type="text" name="default_loan_duration" class="form-control my-2  " placeholder="0.00">
+                                        <option {{ $loan_product->def_loan_duration == 1 ? 'selected' : '' }} value="1">1</option>
+                                        <option {{ $loan_product->def_loan_duration == 2 ? 'selected' : '' }} value="2">2</option>
+                                        <option {{ $loan_product->def_loan_duration == 3 ? 'selected' : '' }} value="3">3</option>
+                                        <option {{ $loan_product->def_loan_duration == 4 ? 'selected' : '' }} value="4">4</option>
+                                        <option {{ $loan_product->def_loan_duration == 5 ? 'selected' : '' }} value="5">5</option>
+                                        <option {{ $loan_product->def_loan_duration == 6 ? 'selected' : '' }} value="6">6</option>
+                                        <option {{ $loan_product->def_loan_duration == 7 ? 'selected' : '' }} value="7">7</option>
+                                        <option {{ $loan_product->def_loan_duration == 8 ? 'selected' : '' }} value="8">8</option>
+                                        <option {{ $loan_product->def_loan_duration == 9 ? 'selected' : '' }} value="9">9</option>
+                                        <option {{ $loan_product->def_loan_duration == 10 ? 'selected' : '' }} value="10">10</option>
+                                        <option {{ $loan_product->def_loan_duration == 11 ? 'selected' : '' }} value="11">11</option>
+                                        <option {{ $loan_product->def_loan_duration == 12 ? 'selected' : '' }} value="12">12</option>
                                     </select>
                                 </div>
                                 <!--end::Col-->
@@ -523,20 +522,19 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="maximum_loan_duration" class="form-control  form-control-solid" placeholder="0.00">
-                                        <option value=""></option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
+                                    <select type="text" name="maximum_loan_duration" class="form-control my-2  " placeholder="0.00">
+                                        <option {{ $loan_product->max_loan_duration == 1 ? 'selected' : '' }} value="1">1</option>
+                                        <option {{ $loan_product->max_loan_duration == 2 ? 'selected' : '' }} value="2">2</option>
+                                        <option {{ $loan_product->max_loan_duration == 3 ? 'selected' : '' }} value="3">3</option>
+                                        <option {{ $loan_product->max_loan_duration == 4 ? 'selected' : '' }} value="4">4</option>
+                                        <option {{ $loan_product->max_loan_duration == 5 ? 'selected' : '' }} value="5">5</option>
+                                        <option {{ $loan_product->max_loan_duration == 6 ? 'selected' : '' }} value="6">6</option>
+                                        <option {{ $loan_product->max_loan_duration == 7 ? 'selected' : '' }} value="7">7</option>
+                                        <option {{ $loan_product->max_loan_duration == 8 ? 'selected' : '' }} value="8">8</option>
+                                        <option {{ $loan_product->max_loan_duration == 9 ? 'selected' : '' }} value="9">9</option>
+                                        <option {{ $loan_product->max_loan_duration == 10 ? 'selected' : '' }} value="10">10</option>
+                                        <option {{ $loan_product->max_loan_duration == 11 ? 'selected' : '' }} value="11">11</option>
+                                        <option {{ $loan_product->max_loan_duration == 12 ? 'selected' : '' }} value="12">12</option>
                                     </select>
                                 </div>
                                 <!--end::Col-->
@@ -575,13 +573,14 @@
                                     <div class="mt-3 align-items-start" style="display: block">
                                         @forelse ($repayment_cycles as $option)
                                             <label for="{{ $option->name }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_repayment_cycle[]" type="checkbox" value="{{ $option->id }}" />
+                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_repayment_cycle[]" type="checkbox" value="{{ $option->id }}" {{ in_array($option->id, $loan_product->repayment_cycle->pluck('id')->toArray()) ? 'checked' : '' }} />
                                                 <span class="fw-semibold ps-2 fs-6"> {{ $option->name }} </span>
                                             </label>
                                             <br>
                                         @empty
-
+                                            <p>No Repayment Cycles Available</p>
                                         @endforelse
+                                    
                                     </div>
                                 </div>
                                 <!--end::Col-->
@@ -592,7 +591,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="minimum_num_of_repayments" class="form-control  form-control-solid" placeholder="1" />
+                                    <input type="text" value="{{ $loan_product->min_num_of_repayments }}" name="minimum_num_of_repayments" class="form-control my-2  " placeholder="1" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -613,7 +612,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="default_num_of_repayments" class="form-control  form-control-solid" placeholder="1" />
+                                    <input type="text" value="{{ $loan_product->def_num_of_repayments }}" name="default_num_of_repayments" class="form-control my-2  " placeholder="1" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -625,7 +624,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="maximum_num_of_repayments" class="form-control  form-control-solid" placeholder="1" />
+                                    <input type="text" value="{{ $loan_product->max_num_of_repayments }}" name="maximum_num_of_repayments" class="form-control my-2  " placeholder="1" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -664,7 +663,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="loan_decimal_place" class="form-control  form-control-solid">
+                                    <select type="text" name="loan_decimal_place" class="form-control my-2  ">
                                         <option value=""></option>
                                         <option value="off-to-2">Round Off to 2 Decimal Places</option>
                                         <option value="off-to-int">Round Off to Integer</option>
@@ -714,7 +713,7 @@
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
 
-                                    <select name="num_of_steps" class="form-select form-control  form-control-solid" id="loan_product_wiz_steps">
+                                    <select value="{{ $loan_product->wiz_steps }}" name="num_of_steps" class="form-select form-control my-2  " id="loan_product_wiz_steps">
                                     </select>
                                 </div>
                                 <!--end::Col-->
@@ -781,7 +780,7 @@
                             {{-- <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Sector</label>
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="sector" class="form-select form-control  form-control-solid">
+                                    <select type="text" name="sector" class="form-select form-control my-2  ">
                                         <option value="">--select--</option>
                                         <option value="public">Public</option>
                                         <option value="private">Private</option>
@@ -793,7 +792,7 @@
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Institutions</label>
                                 <div class="col-lg-8 fv-row">
                                     <div class="d-block mt-3">
-                                        <select id="loan_institution" class="form-select form-control form-control-solid" multiple name="loan_institution[]">
+                                        <select id="loan_institution" class="form-select form-control my-2 " multiple name="loan_institution[]">
                                             @foreach ($institutions as $key => $option)
                                                 <option value="{{ $option->id }}">{{ $option->name }}</option>
                                             @endforeach
@@ -902,13 +901,13 @@
                                     <div class="d-flex align-items-center mt-3">
                                         <!--begin::Option-->
                                         <label for="no" class="form-check form-check-custom form-check-inline form-check-solid me-5">
-                                            <input class="form-check-input" id="no" name="add_automatic_payments" type="radio" value="0" />
+                                            <input class="form-check-input" id="no" value="{{ (int)$loan_product->auto_payment }}" name="add_automatic_payments" type="radio" />
                                             <span class="fw-semibold ps-2 fs-6">No</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label for="yes" class="form-check form-check-custom form-check-inline form-check-solid">
-                                            <input class="form-check-input" id="yes" name="add_automatic_payments" type="radio" value="1" />
+                                            <input class="form-check-input" id="yes" value="{{ (int)$loan_product->auto_payment }}" name="add_automatic_payments" type="radio" />
                                             <span class="fw-semibold ps-2 fs-6">Yes</span>
                                         </label>
                                         <!--end::Option-->
@@ -926,7 +925,7 @@
                                         <div class="d-block mt-3">
                                             @forelse ($company_accounts as $option)
                                                 <label for="{{ $option->id.''.$option->type }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                                    <input id="{{ $option->id.''.$option->type }}" class="form-check-input" name="auto_payment_sources[]" type="checkbox" value="{{ $option->id }}" />
+                                                    <input id="{{ $option->id.''.$option->type }}" class="form-check-input" name="auto_payment_sources[]" type="checkbox" value="{{ $option->id }}" {{ in_array($option->id, $loan_product->loan_accounts->pluck('id')->toArray()) ? 'checked' : '' }} />
                                                     <span class="fw-semibold ps-2 fs-6">{{ $option->description }}</span>
                                                 </label>
                                                 <br>

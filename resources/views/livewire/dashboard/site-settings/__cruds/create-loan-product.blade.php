@@ -133,7 +133,7 @@
                                     <textarea type="text" name="new_loan_desc" class="form-control  " placeholder="E.g Health and safety loan for civil servants" required></textarea>
                                 </div>
                             </div>
-                            <div class="row mb-6">
+                            {{-- <div class="row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Loan Icon (SVG)</label>
                                 <div class="col-lg-8 fv-row">
                                     <textarea type="text" name="new_loan_icon" class="form-control  " placeholder="SVG code" required></textarea>
@@ -144,7 +144,7 @@
                                 <div class="col-lg-8 fv-row">
                                     <textarea type="text" name="new_loan_icon_alt" class="form-control  " placeholder="SVG code" required></textarea>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
 
