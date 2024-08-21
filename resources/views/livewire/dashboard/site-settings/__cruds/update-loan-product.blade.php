@@ -234,17 +234,18 @@
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Disbursed By</label>
                                 <div class="col-lg-8 fv-row">
                                     <div class="d-block mt-3">
+                                        
                                         @forelse ($disbursements as $option)
-                                        <label for="{{ $option->tag }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                            <input id="{{ $option->tag }}" class="form-check-input" name="loan_disbursed_by[]" type="checkbox" value="{{ $option->id }}" 
-                                            {{ in_array($option->id, $loan_product->disbursed_by->pluck('id')->toArray()) ? 'checked' : '' }} />
-                                            <span class="fw-semibold ps-2 fs-6">{{ $option->name }}</span>
-                                        </label>
-                                        <br>
-                                    @empty
-                                        <p>No Sources</p>
-                                    @endforelse
-                                                                      
+                                            <label for="{{ $option->tag }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
+                                                <input id="{{ $option->tag }}" class="form-check-input" name="loan_disbursed_by[]" type="checkbox" 
+                                                {{ in_array($option->id, $loan_product->disbursed_by->pluck('disbursed_by_id')->toArray()) ? 'checked' : '' }} />
+                                                <span class="fw-semibold ps-2 fs-6">{{ $option->name }}</span>
+                                            </label>
+                                            <br>
+                                        @empty
+                                            <p>No Sources</p>
+                                        @endforelse
+                                         
                                     </div>
                                 </div>
                             </div>
@@ -340,9 +341,8 @@
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Interest Method</label>
                                 <div class="col-lg-8 fv-row">
                                     <select type="text" name="loan_interest_method" class="form-control my-2">
-                                        <option value=""></option>
                                         @forelse ($interest_methods as $option)
-                                            <option value="{{ $option->id }}" {{ $loan_interest_method == $option->id ? 'selected' : '' }}>
+                                            <option value="{{ $option->id }}" {{ $loan_product->interest_method_id == $option->id ? 'selected' : '' }}>
                                                 {{ $option->name }}
                                             </option>
                                         @empty
@@ -575,7 +575,7 @@
                                     <div class="mt-3 align-items-start" style="display: block">
                                         @forelse ($repayment_cycles as $option)
                                             <label for="{{ $option->name }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_repayment_cycle[]" type="checkbox" value="{{ $option->id }}" {{ in_array($option->id, $loan_product->repayment_cycle->pluck('id')->toArray()) ? 'checked' : '' }} />
+                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_repayment_cycle[]" type="checkbox" value="{{ $option->id }}" {{ in_array($option->id, $loan_product->repayment_cycle->pluck('repayment_cycle_id')->toArray()) ? 'checked' : '' }} />
                                                 <span class="fw-semibold ps-2 fs-6"> {{ $option->name }} </span>
                                             </label>
                                             <br>

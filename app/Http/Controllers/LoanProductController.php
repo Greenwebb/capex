@@ -28,6 +28,7 @@ class LoanProductController extends Controller
     
     public function create_loan_product(Request $request)
     {
+        
         try {
             $loan_product = LoanProduct::create([
                 'name' => $request->input('new_loan_name'),
@@ -59,7 +60,7 @@ class LoanProductController extends Controller
 
             // Disbursed By
             foreach ($request->input('loan_disbursed_by') as $value) {
-                LoanDisbursedBy::create([
+                 LoanDisbursedBy::create([
                     'disbursed_by_id' => $value,
                     'loan_product_id' => $loan_product->id
                 ]);
@@ -115,14 +116,6 @@ class LoanProductController extends Controller
                 ]);
             }
 
-            // CRBs
-            // foreach ($request->input('crb_selected_products') as $value) {
-            //     LoanCrbProduct::create([
-            //         'crb_product_id' => $value,
-            //         'loan_product_id' => $loan_product->id
-            //     ]);
-            // }
-
             Session::flash('success', "Loan product created successfully.");
             return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-types']);
 
@@ -136,7 +129,6 @@ class LoanProductController extends Controller
 
     public function update_loan_product(Request $request)
     {
-        dd($request->input('loan_release_date'));
         try {
             // Update the loan product
             LoanProduct::where('id', $request->input('loan_product_id'))->update([
