@@ -35,9 +35,32 @@ class UserController extends Controller
         return view('admin.users.index');
     }
 
+    public function checkPhone(Request $request)
+    {
+        $phone = $request->input('phone');
+        $exists = User::where('phone', $phone)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
+
+    public function checkIdNumber(Request $request)
+    {
+        $nrc_no = $request->input('nrc_no');
+        $exists = User::where('nrc_no', $nrc_no)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
+
     public function store(User $user, Request $request)
     {
         DB::beginTransaction();
+            // Validate phone and ID number
+            $request->validate([
+                'phone' => 'required|unique:users,phone',
+                'email' => 'required|unique:users,email',
+                'nrc_no' => 'required|unique:users,nrc_no',
+                // 'image_path' => 'nullable|image|max:2048' // Adjust the validation for the image file as needed
+            ]);
         try {
             if ($request->file('image_path')) {
                 $url = Storage::put('public/users', $request->file('image_path'));

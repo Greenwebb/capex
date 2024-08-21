@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\Auth\OTPController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
@@ -144,6 +145,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('loan-statement/{id}', BorrowersLoanStatementView::class)->name('loan-statement');
     Route::get('send-messages-to-borrowers', SendBorrowerMessageView::class)->name('notify-borrowers');
     Route::get('transcript', TranscriptView::class)->name('transcript');
+    Route::get('/check-phone', [UserController::class, 'checkPhone'])->name('check.phone');
+    Route::get('/check-id-number', [UserController::class, 'checkIdNumber'])->name('check.id_number');
 
     // ---- loans
     Route::get('apply-for-a-loan/{id}', LoanApplicationStandaloneView::class)->name('apply-for');

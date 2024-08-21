@@ -26,7 +26,13 @@ class BorrowerView extends Component
     public $hold = '';
     public $style = '';
     public $userEdit;
-
+    protected $rules = [
+        'phone' => 'required|unique:users,phone', // Validate uniqueness in the users table
+    ];
+    public function updatedPhone($value)
+    {
+        $this->validateOnly('phone');
+    }
     public function mount(){
         $this->userEdit = '';
     }

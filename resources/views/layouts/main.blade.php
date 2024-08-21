@@ -870,6 +870,15 @@
         @if(Session::has('warning'))
             toastr.warning("{{ Session::get('warning') }}");
         @endif
+
+        // User Input validation
+        @if ($errors->has('nrc_no'))
+            toastr.error("{{ $errors->first('nrc_no') }}", "Validation Error");
+        @endif
+
+        @if ($errors->has('phone'))
+            toastr.error("{{ $errors->first('phone') }}", "Validation Error");
+        @endif
     </script>
     <!-- Include Flatpickr script -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

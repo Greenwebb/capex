@@ -12,21 +12,21 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="required fs-6 fw-semibold mb-2">Firstname</label>
-                                <input type="text" class="form-control form-control-sm" name="fname" />
+                                <input type="text" class="form-control form-control-sm" name="fname" required/>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="required fs-6 fw-semibold mb-2">Lastname</label>
-                                <input type="text" class="form-control form-control-sm" name="lname" />
+                                <input type="text" class="form-control form-control-sm" name="lname" required/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="required fs-6 fw-semibold mb-2">Email</label>
-                                <input type="email" class="form-control form-control-sm" name="email" />
+                                <input type="email" class="form-control form-control-sm" name="email" required/>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="fs-6 fw-semibold mb-2">Gender</label>
-                                <select name="gender" class="form-control form-control-sm">
+                                <select name="gender" class="form-control form-control-sm" required>
                                     <option value="">--choose--</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="fs-6 fw-semibold mb-2">National ID Type</label>
-                                <select name="id_type" class="form-control form-control-sm">
+                                <select name="id_type" class="form-control form-control-sm" required>
                                     <option value="">--choose--</option>
                                     <option value="NRC">NRC</option>
                                     <option value="Passport">Passport</option>
@@ -45,8 +45,29 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="fs-6 fw-semibold mb-2">ID Number</label>
-                                <input type="text" class="form-control form-control-sm" name="nrc_no" />
+                                <input type="text" class="form-control form-control-sm" name="nrc_no" id="nrc_no" required/>
+                                <small id="id-number-error" class="text-danger d-none">ID Number is already taken.</small>    
+                               
                             </div>
+                            
+                            <script>
+                                document.getElementById('nrc_no').addEventListener('input', function() {
+                                    const nrc_no = this.value;
+                            
+                                    if (nrc_no.length > 0) {
+                                        fetch(`{{ route('check.id_number') }}?nrc_no=${nrc_no}`)
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                const idNumberError = document.getElementById('id-number-error');
+                                                if (data.exists) {
+                                                    idNumberError.classList.remove('d-none');
+                                                } else {
+                                                    idNumberError.classList.add('d-none');
+                                                }
+                                            });
+                                    }
+                                });
+                            </script>                            
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -55,14 +76,35 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="fs-6 fw-semibold mb-2">Job Title</label>
-                                <input type="text" class="form-control form-control-sm" name="address2" />
+                                <input type="text" class="form-control form-control-sm" name="address2" required />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="required fs-6 fw-semibold mb-2">Phone</label>
-                                <input type="text" class="form-control form-control-sm" name="phone" />
+                                <input type="text" class="form-control form-control-sm" name="phone" id="phone" required/>
+                                <small id="phone-error" class="text-danger d-none">Phone number is already taken.</small>
+                              
                             </div>
+                            
+                            <script>
+                                document.getElementById('phone').addEventListener('input', function() {
+                                    const phone = this.value;
+                            
+                                    if (phone.length > 0) {
+                                        fetch(`{{ route('check.phone') }}?phone=${phone}`)
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                const phoneError = document.getElementById('phone-error');
+                                                if (data.exists) {
+                                                    phoneError.classList.remove('d-none');
+                                                } else {
+                                                    phoneError.classList.add('d-none');
+                                                }
+                                            });
+                                    }
+                                });
+                            </script>                            
                             <div class="col-md-6 mb-3">
                                 <label class="fs-6 fw-semibold mb-2">
                                     <span class="required">Role</span>
