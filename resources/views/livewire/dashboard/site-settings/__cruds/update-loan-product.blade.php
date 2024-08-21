@@ -187,25 +187,23 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
-                                <!--begin::Options-->
                                 <div class="d-flex align-items-center mt-3">
-                                    <!--begin::Option-->
                                     <label for="no" class="form-check form-check-custom form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" id="no" value="{{$loan_product->release_date}}" name="loan_release_date" type="radio" />
+                                        <input class="form-check-input" id="no" value="0" name="loan_release_date" type="radio" 
+                                               @if($loan_product->release_date == 0) checked @endif />
                                         <span class="fw-semibold ps-2 fs-6">No</span>
                                     </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
+                                    
                                     <label for="yes" class="form-check form-check-custom form-check-inline form-check-solid">
-                                        <input class="form-check-input" id="yes" value="{{$loan_product->release_date}}" name="loan_release_date" type="radio" />
+                                        <input class="form-check-input" id="yes" value="1" name="loan_release_date" type="radio" 
+                                               @if($loan_product->release_date == 1) checked @endif />
                                         <span class="fw-semibold ps-2 fs-6">Yes</span>
                                     </label>
-                                    <!--end::Option-->
                                 </div>
+                                
                                 <div class="p-2 py-3">
                                     <p>If you select Yes, the Loan Release Date on the Add Loan page will be <br>auto-filled with today's date</p>
                                 </div>
-                                <!--end::Options-->
                             </div>
                             <!--end::Col-->
                         </div>
@@ -369,16 +367,18 @@
                                 </label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
+                                {{-- @dd($loan_product-) --}}
                                 <div class="col-lg-8 fv-row">
                                     <div class="d-block align-items-center mt-3">
                                         @forelse ($interest_types as $option)
-                                            <label for="{{ $option->name }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_interest_type" type="radio" value="{{ $option->id }}" {{ in_array($option->id, $loan_product->interest_types->pluck('id')->toArray()) ? 'checked' : '' }} />
-                                                <span class="fw-semibold ps-2 fs-6"> {{ $option->description }} </span>
-                                            </label>
-                                        @empty
-                                            <p>No Interest Types Available</p>
-                                        @endforelse
+                                        <label for="{{ $option->name }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
+                                            <input id="{{ $option->name }}" class="form-check-input" name="loan_interest_type" type="radio" value="{{ $option->id }}" 
+                                                   {{ $loan_product->interest_types->first()->interest_type_id == $option->id ? 'checked' : '' }} />
+                                            <span class="fw-semibold ps-2 fs-6"> {{ $option->description }} </span>
+                                        </label>
+                                    @empty
+                                        <p>No Interest Types Available</p>
+                                    @endforelse                                    
                                         
                                     </div>
                                 </div>
@@ -582,7 +582,6 @@
                                         @empty
                                             <p>No Repayment Cycles Available</p>
                                         @endforelse
-                                    
                                     </div>
                                 </div>
                                 <!--end::Col-->
@@ -666,15 +665,14 @@
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
                                     <select type="text" name="loan_decimal_place" class="form-control my-2  ">
-                                        <option value=""></option>
-                                        <option value="off-to-2">Round Off to 2 Decimal Places</option>
-                                        <option value="off-to-int">Round Off to Integer</option>
-                                        <option value="down-to-integer">Round Down to Integer</option>
-                                        <option value="off-to-1">Round Off to 1 Decimal Place</option>
-                                        <option value="up-to-1">Round Up to 1 Decimal Place</option>
-                                        <option value="off-to-nearest-5">Round Off to Nearest 5</option>
-                                        <option value="up-to-nearest-10">Round Up to Nearest 10</option>
-                                        <option value="off-to-nearest-100">Round Off to Nearest 100</option>
+                                        <option {{ $loan_product->loan_decimal_place == 'off-to-2' ? 'selected' : '' }} value="off-to-2">Round Off to 2 Decimal Places</option>
+                                        <option {{ $loan_product->loan_decimal_place == 'off-to-int' ? 'selected' : '' }} value="off-to-int">Round Off to Integer</option>
+                                        <option {{ $loan_product->loan_decimal_place == 'down-to-integer' ? 'selected' : '' }} value="down-to-integer">Round Down to Integer</option>
+                                        <option {{ $loan_product->loan_decimal_place == 'off-to-1' ? 'selected' : '' }} value="off-to-1">Round Off to 1 Decimal Place</option>
+                                        <option {{ $loan_product->loan_decimal_place == 'up-to-1' ? 'selected' : '' }} value="up-to-1">Round Up to 1 Decimal Place</option>
+                                        <option {{ $loan_product->loan_decimal_place == 'off-to-nearest-5' ? 'selected' : '' }} value="off-to-nearest-5">Round Off to Nearest 5</option>
+                                        <option {{ $loan_product->loan_decimal_place == 'up-to-nearest-10' ? 'selected' : '' }} value="up-to-nearest-10">Round Up to Nearest 10</option>
+                                        <option {{ $loan_product->loan_decimal_place == 'off-to-nearest-100' ? 'selected' : '' }} value="off-to-nearest-100">Round Off to Nearest 100</option>
                                     </select>
                                 </div>
                                 <!--end::Col-->
@@ -794,27 +792,30 @@
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Institutions</label>
                                 <div class="col-lg-8 fv-row">
                                     <div class="d-block mt-3">
-                                        <select id="loan_institution" class="form-select form-control my-2 " multiple name="loan_institution[]">
-                                            @foreach ($institutions as $key => $option)
-                                                <option value="{{ $option->id }}">{{ $option->name }}</option>
+                                        <select id="loan_institution" class="form-select form-control my-2" multiple name="loan_institution[]">
+                                            @foreach ($institutions as $option)
+                                                <option value="{{ $option->id }}" 
+                                                        {{ in_array($option->id, $loan_product->loan_institutes->pluck('institution_id')->toArray()) ? 'selected' : '' }}>
+                                                    {{ $option->name }}
+                                                </option>
                                             @endforeach
                                         </select>
-
+                                    
                                         <script>
                                             $(document).ready(function() {
                                                 $('#loan_institution').select2({
                                                     placeholder: 'Select institutions',
                                                     allowClear: true // Optional, enables the clear button
                                                 });
-
+                                    
                                                 // Trigger Livewire name binding when a selection is made or removed
                                                 $('#loan_institution').on('change', function (e) {
                                                     @this.set('loan_institution', $(this).val());
                                                 });
                                             });
                                         </script>
-
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -901,19 +902,18 @@
                                 <div class="col-lg-8 fv-row">
                                     <!--begin::Options-->
                                     <div class="d-flex align-items-center mt-3">
-                                        <!--begin::Option-->
                                         <label for="no" class="form-check form-check-custom form-check-inline form-check-solid me-5">
-                                            <input class="form-check-input" id="no" value="{{ (int)$loan_product->auto_payment }}" name="add_automatic_payments" type="radio" />
+                                            <input class="form-check-input" id="no" value="0" name="add_automatic_payments" type="radio" 
+                                                {{ (int)$loan_product->auto_payment === 0 ? 'checked' : '' }} />
                                             <span class="fw-semibold ps-2 fs-6">No</span>
                                         </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
                                         <label for="yes" class="form-check form-check-custom form-check-inline form-check-solid">
-                                            <input class="form-check-input" id="yes" value="{{ (int)$loan_product->auto_payment }}" name="add_automatic_payments" type="radio" />
+                                            <input class="form-check-input" id="yes" value="1" name="add_automatic_payments" type="radio" 
+                                                {{ (int)$loan_product->auto_payment === 1 ? 'checked' : '' }} />
                                             <span class="fw-semibold ps-2 fs-6">Yes</span>
                                         </label>
-                                        <!--end::Option-->
                                     </div>
+
                                     <div class="p-2 py-3">
                                         <p>
                                             If you select Yes, the system will automatically add the due payments on every repayment cycle based on the scheduled dates.
@@ -926,14 +926,16 @@
                                     <div class="col-lg-8 fv-row">
                                         <div class="d-block mt-3">
                                             @forelse ($company_accounts as $option)
-                                                <label for="{{ $option->id.''.$option->type }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                                    <input id="{{ $option->id.''.$option->type }}" class="form-check-input" name="auto_payment_sources[]" type="checkbox" value="{{ $option->id }}" {{ in_array($option->id, $loan_product->loan_accounts->pluck('id')->toArray()) ? 'checked' : '' }} />
+                                                <label for="{{ $option->id . $option->type }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
+                                                    <input id="{{ $option->id . $option->type }}" class="form-check-input" name="auto_payment_sources[]" type="checkbox" value="{{ $option->id }}" 
+                                                        {{ in_array($option->id, $loan_product->loan_accounts->pluck('account_payment_id')->toArray()) ? 'checked' : '' }} />
                                                     <span class="fw-semibold ps-2 fs-6">{{ $option->description }}</span>
                                                 </label>
                                                 <br>
                                             @empty
-
+                                                <p>No company accounts available</p>
                                             @endforelse
+                                        
                                         </div>
                                         <div class="p-2 py-3">
                                             <a href="#">Add or Edit Bank Accounts</a>

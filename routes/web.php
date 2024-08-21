@@ -213,6 +213,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('notifications', NotificationView::class)->name('notifications');
     Route::get('user-roles-and-permissions', UserRolesView::class)->name('roles');
     Route::get('settings', SettingsLanding::class)->name('settings');
+    Route::post('/loan-products/update-status', [LoanProductController::class, 'updateLPStatus'])->name('loan-products.updateStatus');
 
 
     // ------ Role Permission

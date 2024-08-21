@@ -25,10 +25,24 @@ class LoanProductController extends Controller
     
         return response()->json($loanCategories);
     }
+
+    public function updateLPStatus(Request $request)
+    {
+        $loanProduct = LoanProduct::find($request->id);
+        if ($loanProduct) {
+            $loanProduct->status = $request->status;
+            $loanProduct->save();
+
+            return response()->json(['success' => true, 'message' => 'Loan Product status updated successfully.']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Loan Product not found.']);
+        }
+    }
+
     
     public function create_loan_product(Request $request)
     {
-        
+        // dd($request);
         try {
             $loan_product = LoanProduct::create([
                 'name' => $request->input('new_loan_name'),
@@ -57,6 +71,27 @@ class LoanProductController extends Controller
                 'def_num_of_repayments' => $request->input('default_num_of_repayments'),
                 'max_num_of_repayments' => $request->input('maximum_num_of_repayments')
             ]);
+    
+            // Interest Types
+            $a = LoanInterestType::create([
+                'interest_type_id' => $request->input('loan_interest_type'),
+                'loan_product_id' => $loan_product->id
+            ]);
+
+            // dd($a);
+            // Interest Methods
+            LoanInterestMethod::create([
+                'interest_method_id' => $request->input('loan_interest_method'),
+                'loan_product_id' => $loan_product->id
+            ]);
+
+
+            // Loan Decimal Places
+            LoanDecimalPlace::create([
+                'value' => $request->input('loan_decimal_place'),
+                'loan_product_id' => $loan_product->id
+            ]);
+            
 
             // Disbursed By
             foreach ($request->input('loan_disbursed_by') as $value) {
@@ -65,19 +100,7 @@ class LoanProductController extends Controller
                     'loan_product_id' => $loan_product->id
                 ]);
             }
-
-            // Interest Methods
-            LoanInterestMethod::create([
-                'interest_method_id' => $request->input('loan_interest_method'),
-                'loan_product_id' => $loan_product->id
-            ]);
-
-            // Interest Types
-            LoanInterestType::create([
-                'interest_type_id' => $request->input('loan_interest_type'),
-                'loan_product_id' => $loan_product->id
-            ]);
-
+            
             // Repayment Cycles
             foreach ($request->input('loan_repayment_cycle') as $value) {
                 LoanRepaymentCycle::create([
@@ -85,12 +108,6 @@ class LoanProductController extends Controller
                     'loan_product_id' => $loan_product->id
                 ]);
             }
-
-            // Loan Decimal Places
-            LoanDecimalPlace::create([
-                'value' => $request->input('loan_decimal_place'),
-                'loan_product_id' => $loan_product->id
-            ]);
 
             // Loan Service Charges
             foreach ($request->input('extra_fees') as $value) {
@@ -120,6 +137,7 @@ class LoanProductController extends Controller
             return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-types']);
 
         } catch (\Throwable $th) {
+            // dd($th);
             Session::flash('error', "Failed. " . $th->getMessage());
             return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-types']);
         }

@@ -31,8 +31,8 @@
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
-                                    <input required type="text" wire:model.lazy="loan_category_name" class="form-control" id="fullnameInput" placeholder="Enter loan type name">
-                                    @error('loan_category_name') <span class="text-danger">{{ $message }}</span> @enderror
+                                        <input required type="text" wire:model.lazy="loan_category_name" class="form-control" id="fullnameInput" placeholder="Enter loan type name">
+                                        @error('loan_category_name') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div class="col-md-12">

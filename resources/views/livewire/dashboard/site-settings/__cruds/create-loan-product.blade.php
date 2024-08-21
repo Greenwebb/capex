@@ -324,7 +324,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="loan_interest_method[]" class="form-control" placeholder="Company name" value="Keenthemes">
+                                    <select type="text" name="loan_interest_method" class="form-control" placeholder="Company name" value="Keenthemes">
                                         <option value=""></option>
                                         @forelse ($interest_methods as $option)
                                         <option value="{{ $option->id }}">{{ $option->name }}</option>
@@ -355,7 +355,7 @@
                                     <div class="d-block align-items-center mt-3">
                                         @forelse ($interest_types as $option)
                                             <label for="{{ $option->name }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_interest_type[]" type="radio" value="{{ $option->id }}" />
+                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_interest_type" type="radio" value="{{ $option->id }}" />
                                                 <span class="fw-semibold ps-2 fs-6"> {{ $option->description }} </span>
                                             </label>
                                         @empty
@@ -768,7 +768,7 @@
                                     <div class="d-block mt-3">
                                         @forelse ($service_charges as $option)
                                         <label for="{{ $option->tag }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                            <input id="{{ $option->tag }}" class="form-check-input" name="extra_fees" type="checkbox" value="{{ $option->id }}" />
+                                            <input id="{{ $option->tag }}" class="form-check-input" name="extra_fees[]" type="checkbox" value="{{ $option->id }}" />
                                             <span class="fw-semibold ps-2 fs-6">{{ $option->name }}  <span class="badge badge-info">K {{ $option->value }}</span> </span>
                                         </label>
                                         <br>
@@ -819,7 +819,7 @@
                                     <div class="d-block mt-3">
                                         @forelse ($institutions as $key => $option)
                                         <label for="{{ $key }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                            <input id="{{ $key }}" class="form-check-input" name="loan_institution" type="checkbox" value="{{ $option->id }}" />
+                                            <input id="{{ $key }}" class="form-check-input" name="loan_institution[]" type="checkbox" value="{{ $option->id }}" />
                                             <span class="fw-semibold ps-2 fs-6">{{ $option->name }} </span>
                                         </label>
                                         <br>

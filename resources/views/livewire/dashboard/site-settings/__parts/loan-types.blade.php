@@ -67,12 +67,50 @@
                         <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $product->auto_payment == 1 ? 'Todate' : 'Set Date' }}</span>
                     </td>
                     <td>
-                        @if ($product->status == 1)
-                        <span class="badge badge-success fw-bold">Active</span>
-                        @else
-                        <span class="badge badge-primary fw-bold">Disabled</span>
-                        @endif
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="statusSwitch{{ $product->id }}" data-id="{{ $product->id }}" {{ $product->status == 1 ? 'checked' : '' }}>
+                            <label class="form-check-label" for="statusSwitch{{ $product->id }}">
+                                <span id="statusLabel{{ $product->id }}" class="fw-bold {{ $product->status == 1 ? 'bg-success text-white' : 'bg-light' }} p-2 rounded">
+                                    {{ $product->status == 1 ? 'Active' : 'Disabled' }}
+                                </span>
+                            </label>
+                        </div>
                     </td>
+                    <script>
+                        $(document).ready(function() {
+                            $('.form-check-input').on('change', function() {
+                                var productId = $(this).data('id');
+                                var status = $(this).is(':checked') ? 1 : 0;
+                    
+                                $.ajax({
+                                    url: '{{ route("loan-products.updateStatus") }}', // Define the route for updating status
+                                    method: 'POST',
+                                    data: {
+                                        _token: '{{ csrf_token() }}',
+                                        id: productId,
+                                        status: status
+                                    },
+                                    success: function(response) {
+                                        if(response.success) {
+                                            var statusLabel = $('#statusLabel' + productId);
+                                            if(status == 1) {
+                                                statusLabel.text('Active').removeClass('bg-light').addClass('bg-success text-white');
+                                            } else {
+                                                statusLabel.text('Disabled').removeClass('bg-success text-white').addClass('bg-light');
+                                            }
+                                            toastr.success(response.message);
+                                        } else {
+                                            toastr.error(response.message);
+                                        }
+                                    },
+                                    error: function() {
+                                        toastr.error('There was an error updating the status.');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                                        
                     <td class="text-end">
                         <a title="Manage loan statuses" href="{{ route('system-edit', ['page' => 'loan-statuses', 'item_id' => $product->id]) }}" class="btn btn-primary">
                             Manage Statuses
