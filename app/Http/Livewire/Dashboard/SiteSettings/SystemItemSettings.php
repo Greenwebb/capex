@@ -15,6 +15,7 @@ use App\Models\LoanInterestType;
 use App\Models\LoanProduct;
 use App\Models\LoanRepaymentCycle;
 use App\Models\LoanRepaymentOrder;
+use App\Models\LoanStatus;
 use App\Models\LoanType;
 use App\Models\Penalty;
 use App\Models\RepaymentCycle;
@@ -67,10 +68,14 @@ class SystemItemSettings extends Component
             LoanRepaymentCycle::where('loan_product_id', $id)->delete();
             LoanDecimalPlace::where('loan_product_id', $id)->delete();
             LoanAccountPayment::where('loan_product_id', $id)->delete();
-            LoanProduct::where('id', $id)->delete();
+            LoanAccountPayment::where('loan_product_id', $id)->delete();
+            LoanStatus::where('loan_product_id', $id)->delete();
+            LoanProduct::where('id', $id)->first()->delete();
             Session::flash('success', "Loan product deleted successfully.");
+            return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-types']);
         } catch (\Throwable $th) {
-            Session::flash('success', "Loan product deleted failed.");
+            Session::flash('error', "Loan product deleted failed.");
+            return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-types']);
         }
     }
 

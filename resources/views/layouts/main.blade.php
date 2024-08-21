@@ -855,6 +855,23 @@
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
+        toastr.options = {
+            "closeButton": true,             // Adds a close button to the notifications
+            "debug": false,                  // Disable debugging
+            "newestOnTop": true,             // Display the newest notifications on top
+            "progressBar": false,             // Show a progress bar
+            "positionClass": "toast-bottom-right",  // Positioning of the toast on the page
+            "preventDuplicates": true,       // Prevent showing duplicate notifications
+            "onclick": null,                 // Callback when a toast is clicked
+            "showDuration": "300",           // Animation duration when showing the notification
+            "hideDuration": "1000",          // Animation duration when hiding the notification
+            "timeOut": "5000",               // Time in milliseconds before the notification disappears
+            "extendedTimeOut": "1000",       // Time in milliseconds after hovering over the toast
+            "showEasing": "swing",           // Easing function when showing the toast
+            "hideEasing": "linear",          // Easing function when hiding the toast
+            "showMethod": "fadeIn",          // Method used to show the toast
+            "hideMethod": "fadeOut"          // Method used to hide the toast
+        };
         @if(Session::has('success'))
             toastr.success("{{ Session::get('success') }}");
         @endif
