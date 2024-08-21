@@ -22,7 +22,10 @@ class CreateLoanView extends Component
     public function mount()
     {
         $this->loan_types = LoanType::all();
-        $this->borrowers = User::role('user')->get();
+        $this->borrowers = User::role('user')
+                ->whereDoesntHave('loans')
+                ->get();
+
         $this->users = User::role('user')->with('active_loans.loan')->get();
     }
 
