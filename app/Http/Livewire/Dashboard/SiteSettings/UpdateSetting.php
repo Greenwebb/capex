@@ -141,6 +141,7 @@ class UpdateSetting extends Component
         }
         return view('livewire.dashboard.site-settings.update-setting', [
             'loan_child_types' => $this->loan_child_types,
+            'loan_categories' => $this->loan_categories,
             'loan_types' => $this->loan_types,
             // other properties
         ])->layout('layouts.main');

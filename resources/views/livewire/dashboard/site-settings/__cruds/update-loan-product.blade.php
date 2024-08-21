@@ -53,8 +53,13 @@
                                 <label for="loanCategory" class="form-label">Loan Category
                                     <span><i class="text-danger ri-asterisk"></i></span>
                                 </label>
+                                
                                 <select name="loan_child_type_id" class="form-select" id="loanCategory" required>
-                                    <option>No loan categories available</option>
+                                    @forelse ($loan_categories as $cat)
+                                        <option {{ $loan_product->loan_child_type_id == $cat->id ? 'selected' : '' }} value="{{ $cat->id }}" >{{ $cat->name }}</option>
+                                    @empty
+                                        <option>No loan categories available</option>
+                                    @endforelse
                                 </select>
                             </div>
                         </div>
@@ -68,7 +73,7 @@
                                     const loanTypeId = this.value;
 
                                     // Clear previous options
-                                    // loanCategory.innerHTML = '<option selected>Choose...</option>';
+                                    loanCategory.innerHTML = '<option selected>Choose...</option>';
 
                                     if (loanTypeId) {
                                         // Fetch loan categories based on the selected loan type
@@ -82,9 +87,12 @@
                                                         option.textContent = category.name;
                                                         loanCategory.appendChild(option);
                                                     });
+
+
                                                 } else {
+                                                    // if(loanCategory)
                                                     const option = document.createElement('option');
-                                                    // option.textContent = 'No loan categories available';
+                                                    option.textContent = 'No loan categories available';
                                                     loanCategory.appendChild(option);
                                                 }
                                             })
@@ -129,10 +137,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <textarea type="text" name="new_loan_desc" value="{{ $loan_product->description }}" class="form-control my-2 ">
-                                        
-                                    {{ $loan_product->description }}
-                                    </textarea>
+                                    <textarea cols="5" rows="5" name="new_loan_desc" class="form-control my-2">{{ $loan_product->description }}</textarea>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -186,13 +191,13 @@
                                 <div class="d-flex align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label for="no" class="form-check form-check-custom form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" id="no" value="{{$loan_product->release_date ?? 0}}" name="loan_release_date" type="radio" />
+                                        <input class="form-check-input" id="no" value="{{$loan_product->release_date}}" name="loan_release_date" type="radio" />
                                         <span class="fw-semibold ps-2 fs-6">No</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label for="yes" class="form-check form-check-custom form-check-inline form-check-solid">
-                                        <input class="form-check-input" id="yes" value="{{$loan_product->release_date ?? 0}}" name="loan_release_date" type="radio" />
+                                        <input class="form-check-input" id="yes" value="{{$loan_product->release_date}}" name="loan_release_date" type="radio" />
                                         <span class="fw-semibold ps-2 fs-6">Yes</span>
                                     </label>
                                     <!--end::Option-->
@@ -333,11 +338,8 @@
                             <div class="row mb-6">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Interest Method</label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
-                                {{-- @dd($loan_interest_method) --}}
                                 <div class="col-lg-8 fv-row">
-                                    <select type="text" name="loan_interest_method[]" class="form-control my-2  " placeholder="Company name" value="Keenthemes">
+                                    <select type="text" name="loan_interest_method" class="form-control my-2">
                                         <option value=""></option>
                                         @forelse ($interest_methods as $option)
                                             <option value="{{ $option->id }}" {{ $loan_interest_method == $option->id ? 'selected' : '' }}>
@@ -371,7 +373,7 @@
                                     <div class="d-block align-items-center mt-3">
                                         @forelse ($interest_types as $option)
                                             <label for="{{ $option->name }}" class="mt-2 form-check form-check-custom form-check-inline form-check-solid me-5">
-                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_interest_type[]" type="radio" value="{{ $option->id }}" {{ in_array($option->id, $loan_product->interest_types->pluck('id')->toArray()) ? 'checked' : '' }} />
+                                                <input id="{{ $option->name }}" class="form-check-input" name="loan_interest_type" type="radio" value="{{ $option->id }}" {{ in_array($option->id, $loan_product->interest_types->pluck('id')->toArray()) ? 'checked' : '' }} />
                                                 <span class="fw-semibold ps-2 fs-6"> {{ $option->description }} </span>
                                             </label>
                                         @empty

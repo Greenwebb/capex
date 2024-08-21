@@ -32,8 +32,7 @@ class LoanProductController extends Controller
             $loan_product = LoanProduct::create([
                 'name' => $request->input('new_loan_name'),
                 'description'=> $request->input('new_loan_desc'),
-                'icon'=> $request->input('new_loan_icon'),
-                'icon_alt' => $request->input('new_loan_icon_alt'),
+                'loan_type' => $request->input('loan_type_id'),
                 'loan_child_type_id' => $request->input('loan_child_type_id'),
                 'wiz_steps' => $request->input('num_of_steps'),
                 'release_date' => $request->input('loan_release_date'),
@@ -137,13 +136,14 @@ class LoanProductController extends Controller
 
     public function update_loan_product(Request $request)
     {
+        dd($request->input('loan_release_date'));
         try {
             // Update the loan product
             LoanProduct::where('id', $request->input('loan_product_id'))->update([
                 'name' => $request->input('new_loan_name'),
-                'release_date' => $request->input('loan_release_date'),
-                'icon' => $request->input('new_loan_icon'),
-                'icon_alt' => $request->input('new_loan_icon_alt'),
+                'release_date' => $request->input('loan_release_date') ?? 0,
+                // 'icon' => $request->input('new_loan_icon'),
+                // 'icon_alt' => $request->input('new_loan_icon_alt'),
                 'wiz_steps' => $request->input('num_of_steps'),
                 'auto_payment' => $request->input('add_automatic_payments'),
                 'loan_duration_period' => $request->input('loan_duration_period'),
@@ -160,6 +160,8 @@ class LoanProductController extends Controller
                 'min_num_of_repayments' => $request->input('minimum_num_of_repayments'),
                 'def_num_of_repayments' => $request->input('default_num_of_repayments'),
                 'max_num_of_repayments' => $request->input('maximum_num_of_repayments'),
+                'loan_type' => $request->input('loan_type_id'),
+                'loan_child_type_id' => $request->input('loan_child_type_id'),
             ]);
 
             // Delete existing records where loan_product_id matches
@@ -180,7 +182,7 @@ class LoanProductController extends Controller
                 );
             }
 
-            // Interest Methods
+            // Interest Methods;
             LoanInterestMethod::updateOrCreate(
                 ['loan_product_id' => $request->input('loan_product_id')],
                 ['interest_method_id' => $request->input('loan_interest_method'), 'loan_product_id' => $request->input('loan_product_id')]

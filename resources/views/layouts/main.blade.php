@@ -765,7 +765,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('sys-settings') }}" aria-expanded="false" aria-controls="sidebarAuth">
-                                <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Manage Settings</span>
+                                <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Manage Settings</span>
                             </a>
                         </li>
                     </ul>
