@@ -40,19 +40,11 @@ class LoanDetailView extends Component
 
     public function render()
     {
-        try {
-            $this->authorize('processes loans');
-            $this->dataSets();
-            $this->prefillLoanProductValues();
-            $this->getAmoritizationTable();
-            $this->change_status();
-            
-            // dd($this->current);
-            return view('livewire.dashboard.loans.loan-detail-view')
-            ->layout('layouts.main');
-        } catch (\Throwable $th) {
-
-        }
+        // $this->authorize('processes loans');
+        $this->change_status();
+        $this->init_data();
+        return view('livewire.dashboard.loans.loan-detail-view')
+        ->layout('layouts.main');
     }
 
     public function ai_score(){
@@ -74,11 +66,9 @@ class LoanDetailView extends Component
         }
     }
 
-    public function dataSets(){
-
+    public function init_data(){
         //Data fetch
         $this->loan = $this->get_loan_details($this->loan_id);
-        $this->loan_ai = $this->get_loan_qualification_ai($this->loan_id);
         $this->loan_notifications = $this->loan_notifications($this->loan->id);
         $this->loan_product = $this->get_loan_product($this->loan->loan_product_id);
         $this->crb_selected_products = $this->loan_product->loan_crb;
@@ -86,26 +76,6 @@ class LoanDetailView extends Component
         $this->denied_status = Status::where('stage', 'denied')->orderBy('id')->get();
         $this->current = ApplicationStage::where('application_id', $this->loan->id)->first();
         $this->interest_methods = InterestMethod::get();
-
-        //State control
-        $this->plp_rule = false;
-
-        //Processing
-        if ($this->loan_ai['result']) {
-            $this->basic_pay = $this->loan_ai['result']['gross_pay'];
-            $this->gross_pay = $this->loan_ai['result']['gross_pay'];
-            $this->net_pay = $this->loan_ai['result']['net_pay'];
-            $this->employee_name = $this->loan_ai['result']['employee_name'];
-            $this->employee_number = $this->loan_ai['result']['employee_number'];
-            $this->deductions = $this->loan_ai['result']['deductions'];
-        }else{
-            $this->basic_pay = 0;
-            $this->gross_pay = 0;
-            $this->net_pay = 0;
-            $this->employee_name = 0;
-            $this->employee_number = 0;
-            $this->deductions = 0;
-        }
     }
 
     public function prefillLoanProductValues(){

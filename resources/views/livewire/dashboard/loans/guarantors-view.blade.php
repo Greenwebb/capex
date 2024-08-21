@@ -17,7 +17,6 @@
             </div>
         </div>
 
-
         <div class="alert alert-info" role="alert">
             List of all Guarantors/ Next of Kin with respective borrowers
         </div>

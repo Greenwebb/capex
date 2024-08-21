@@ -59,9 +59,7 @@ trait LoanTrait{
     }
 
     public function get_loan_type($id){
-        $x = LoanType::where('id', $id)->first();
-        dd($id);
-        dd($x);
+        return LoanType::where('id', $id)->first();
     }
 
     public function get_loan_category($id){

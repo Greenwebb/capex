@@ -51,7 +51,7 @@
                         </div>
                     </td>
                     <td>
-                        <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $category->description }}</span>
+                        <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $category->description ?? 'No description' }}</span>
                     </td>
                     <td>
                         <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $category->loan_type->name ?? 'No parent' }}</span>

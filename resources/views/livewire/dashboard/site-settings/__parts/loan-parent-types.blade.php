@@ -50,7 +50,7 @@
                         </div>
                     </td>
                     <td>
-                        <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $type->description }}</span>
+                        <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $type->description ?? 'No Description' }}</span>
                     </td>
                     <td>
                         <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">{{ $type->created_at->toFormattedDateString() }}</a>

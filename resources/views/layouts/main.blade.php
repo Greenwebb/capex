@@ -13,7 +13,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="public/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="public/assets/images/c.png">
 
     <!-- jsvectormap css -->
     <link href="public/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
