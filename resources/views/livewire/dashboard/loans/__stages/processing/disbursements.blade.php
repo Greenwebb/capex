@@ -80,12 +80,12 @@
         </div>
 
         <div class="p-2 border-top border-top-dashed mt-4">
-            <div class="row g-3 p-4">
-            <h6 class="mb-3 fw-semibold text-uppercase">Attachments</h6>
+            <h6 class="mb-3 fw-semibold text-warning text-uppercase">Uploaded Attachments</h6>
+            <div class="d-flex gap-2 p-4">
                 <!-- end col -->
                 @if ($loan->user->uploads->where('name', 'nrc_file')->isNotEmpty())
-                <a href="{{ 'https://capexlms.greenwebbtech,com/public/'.Storage::url($loan->user->uploads->where('name', 'nrc_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
-                <div class="col-xxl-4 col-lg-6">
+                <a href="{{ 'http://localhost/loanman/public/'.Storage::url($loan->user->uploads->where('name', 'nrc_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
+                <div class="col-md-3">
                     <div class="border rounded border-dashed p-2">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0 me-3">
@@ -96,27 +96,40 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1 overflow-hidden">
-                                <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">NRC</a></h5>
-                                <div>2.4MB</div>
+                                <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">{{ $loan->user->fname.' '.$loan->user->lname }}'s NRC</a></h5>
+                                <div>{{ $loan->user->uploads->where('name', 'nrc_file')->first()->created_at->toFormattedDateString() }}</div>
                             </div>
-                            <div class="flex-shrink-0 ms-2">
-                                <div class="d-flex gap-1">
-                                    <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
-                                    <div class="dropdown">
-                                        <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-fill"></i>
-                                        </button>
+                            
+                        </div>
+                    </div>
+                </div>
+                </a>
+                @endif
+                
+                @if ($loan->user->uploads->where('name', 'tpin_file')->isNotEmpty())
+                <a href="{{ 'http://localhost/loanman/public/'.Storage::url($loan->user->uploads->where('name', 'tpin_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
+                <div class="col-md-3">
+                    <div class="border rounded border-dashed p-2">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar-sm">
+                                    <div class="avatar-title bg-light text-primary rounded fs-24">
+                                        <i class="ri-file-ppt-2-line"></i>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="flex-grow-1 overflow-hidden">
+                                <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">{{ $loan->user->fname.' '.$loan->user->lname }}'s TPIN</a></h5>
+                                <div>{{ $loan->user->uploads->where('name', 'tpin_file')->first()->created_at->toFormattedDateString() }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 </a>
                 @endif
-                @if ($loan->user->uploads->where('name', 'tpin_file')->isNotEmpty())
-                <a href="{{ 'https://capexlms.greenwebbtech,com/public/'.Storage::url($loan->user->uploads->where('name', 'tpin_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
-                <div class="col-xxl-4 col-lg-6">
+                @if ($loan->user->uploads->where('name', 'payslip_file')->isNotEmpty())
+                <a href="{{ 'http://localhost/loanman/public/'.Storage::url($loan->user->uploads->where('name', 'payslip_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
+                <div class="col-md-3">
                     <div class="border rounded border-dashed p-2">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0 me-3">
@@ -127,18 +140,8 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1 overflow-hidden">
-                                <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">Tax Payer Identification Number</a></h5>
-                                <div>2.4MB</div>
-                            </div>
-                            <div class="flex-shrink-0 ms-2">
-                                <div class="d-flex gap-1">
-                                    <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
-                                    <div class="dropdown">
-                                        <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-fill"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                                <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">{{ $loan->user->fname.' '.$loan->user->lname }}'s Payslip </a></h5>
+                                <div>{{ $loan->user->uploads->where('name', 'payslip_file')->first()->created_at->toFormattedDateString() }}</div>
                             </div>
                         </div>
                     </div>
