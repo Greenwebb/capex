@@ -78,7 +78,7 @@
             <div class="d-flex gap-2 p-4">
                 <!-- end col -->
                 @if ($loan->user->uploads->where('name', 'nrc_file')->isNotEmpty())
-                <a href="{{ 'http://localhost/loanman/public/'.Storage::url($loan->user->uploads->where('name', 'nrc_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
+                <a target="_blank" href="{{ 'https://admin.capexfinancialservices.org/public/'.Storage::url($loan->user->uploads->where('name', 'nrc_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                 <div class="col-md-3">
                     <div class="border rounded border-dashed p-2">
                         <div class="d-flex align-items-center">
@@ -101,7 +101,7 @@
                 @endif
                 
                 @if ($loan->user->uploads->where('name', 'tpin_file')->isNotEmpty())
-                <a href="{{ 'http://localhost/loanman/public/'.Storage::url($loan->user->uploads->where('name', 'tpin_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
+                <a target="_blank" href="{{ 'https://admin.capexfinancialservices.org/public/'.Storage::url($loan->user->uploads->where('name', 'tpin_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                 <div class="col-md-3">
                     <div class="border rounded border-dashed p-2">
                         <div class="d-flex align-items-center">
@@ -122,7 +122,7 @@
                 </a>
                 @endif
                 @if ($loan->user->uploads->where('name', 'payslip_file')->isNotEmpty())
-                <a href="{{ 'http://localhost/loanman/public/'.Storage::url($loan->user->uploads->where('name', 'payslip_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
+                <a target="_blank" href="{{ 'https://admin.capexfinancialservices.org/public/'.Storage::url($loan->user->uploads->where('name', 'payslip_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
                 <div class="col-md-3">
                     <div class="border rounded border-dashed p-2">
                         <div class="d-flex align-items-center">

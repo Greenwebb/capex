@@ -62,8 +62,8 @@ License: For each use you must have a valid license purchased only from above li
 											<div style="text-align:center; margin:0 15px 34px 15px">
 												<!--begin:Logo-->
 												<div style="margin-bottom: 10px">
-													<a href="https://capexlms.greenwebbtech.com" rel="noopener" target="_blank">
-														<img alt="Logo" src="https://capexlms.greenwebbtech.com/public/assets/images/logo-light.png" style="height: 55px" />
+													<a href="https://capexfinancialservices.org/" rel="noopener" target="_blank">
+														<img alt="Logo" src="https://capexfinancialservices.org//public/assets/images/logo-light.png" style="height: 55px" />
 													</a>
 												</div>
 												<!--end:Logo-->
@@ -83,7 +83,7 @@ License: For each use you must have a valid license purchased only from above li
 
 												<!--end:Text-->
 												<!--begin:Action-->
-												<a href="https://capexlms.greenwebbtech.com/dashboard" target="_blank" style="background-color:#582e6b; border-radius:6px;display:inline-block; padding:11px 19px; color: #FFFFFF; font-size: 14px; font-weight:500;">Goto Dashboard</a>
+												<a href="https://aqdmin.capexfinancialservices.org//dashboard" target="_blank" style="background-color:#582e6b; border-radius:6px;display:inline-block; padding:11px 19px; color: #FFFFFF; font-size: 14px; font-weight:500;">Goto Dashboard</a>
 												<!--begin:Action-->
 											</div>
 											<!--end:Email content-->
@@ -115,7 +115,7 @@ License: For each use you must have a valid license purchased only from above li
 									<tr>
 										<td align="center" valign="center" style="font-size: 13px; padding:0 15px; text-align:center; font-weight: 500; color: #A1A5B7;font-family:Arial,Helvetica,sans-serif">
 											<p>&copy; Copyright Capex.
-											<a href="https://capexlms.greenwebbtech.com" rel="noopener" target="_blank" style="font-weight: 600;font-family:Arial,Helvetica,sans-serif">Unsubscribe</a>&nbsp; from newsletter.</p>
+											<a href="https://capexfinancialservices.org/" rel="noopener" target="_blank" style="font-weight: 600;font-family:Arial,Helvetica,sans-serif">Unsubscribe</a>&nbsp; from newsletter.</p>
 										</td>
 									</tr>
 								</tbody>

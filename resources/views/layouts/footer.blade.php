@@ -143,8 +143,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
-                    <p>© Copyright {{ now()->year }} | Mighty Finance Solutions</p>
-                    <t style="color:white;">powered by <a style="color:white;" href="http://greenwebbtech.com"><t style="color:green;">green</t>webb</t></a>
+                    <p>© Copyright {{ now()->year }} | Capex Finance Solutions</p>
+                    <t style="color:white;">powered by <a style="color:white;" href="https://capexfinancialservices.org/"><t style="color:green;">green</t>webb</t></a>
                 </div>
                 <div class="col-md-6 col-sm-6 text-right col-xs-6">
                     <p><a style="color: #778191" href="#" target="_blank" rel="noopener">Terms of use</a> | <a

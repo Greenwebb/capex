@@ -43,7 +43,7 @@ class UserAuthenticationController extends Controller
         $mail = [
             'name' => $user->fname.' '.$user->lname,
             'to' => $user->email,
-            'from' => 'capex@greenwebbtech.com',
+            'from' => 'admin@capexfinancialservices.org',
             'phone' => $user->phone,
             'subject' => 'Your Capex Finance User Account',
             'message' => 'Hello '.$user->fname.' '.$user->lname.' Your Capex Finance account is now ready, Click on login to goto your dashboard. Your password is @capex+2024  -  feel free to change your password.',

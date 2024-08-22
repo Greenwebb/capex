@@ -393,7 +393,7 @@ trait LoanTrait{
                     $mail = [
                         'name' => "{$data['fname']} {$data['lname']}",
                         'to' => $data['email'],
-                        'from' => 'capex@greenwebbtech.com',
+                        'from' => 'admin@capexfinancialservices.org',
                         'phone' => $data['phone'],
                         'payback' => Application::payback($data['amount'], $data['repayment_plan']),
                         'subject' => "{$data['type']} Loan Application",

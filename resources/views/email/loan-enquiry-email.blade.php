@@ -110,8 +110,8 @@
             <!--  Logo headder -->
             <tr>
               <td style="padding:30px 20px 20px 20px;text-align:center;font-size:1.5em;font-weight:bold; background: #ffffff;">
-                <a href="https://capexlms.greenwebbtech.com" style=" text-decoration:none;">
-                  <img style="width:120px; height:90px" alt="Capex Finance" src="https://capexlms.greenwebbtech.com/public/assets/images/logo-light.png">
+                <a href="https://capexfinancialservices.org/" style=" text-decoration:none;">
+                  <img style="width:120px; height:90px" alt="Capex Finance" src="https://i0.wp.com/capexfinancialservices.org/wp-content/uploads/2023/07/CAPEX-logoCpx-1.png?resize=1536%2C283&ssl=1">
                 </a>
               </td>
             </tr>
