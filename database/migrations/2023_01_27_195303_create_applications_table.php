@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('uuid', 5)->unique();
             $table->string('lname')->nullable();
             $table->string('fname')->nullable();
             $table->string('email')->nullable();
@@ -22,14 +23,14 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('type')->nullable();
             $table->string('repayment_plan')->nullable();
-    
+
             $table->string('glname')->nullable();
             $table->string('gfname')->nullable();
             $table->string('gemail')->nullable();
             $table->integer('gphone')->nullable();
             $table->string('g_gender')->nullable();
             $table->string('g_relation')->nullable();
-    
+
             $table->string('g2lname')->nullable();
             $table->string('g2fname')->nullable();
             $table->string('g2email')->nullable();
@@ -43,7 +44,7 @@ return new class extends Migration
             $table->string('payslip_file')->nullable();
             $table->string('bank_trans_file')->nullable();
             $table->string('bill_file')->nullable();
-    
+
             $table->unsignedInteger('user_id')->nullable();
             $table->string('guest_id')->nullable();
             $table->integer('status')->default(0);

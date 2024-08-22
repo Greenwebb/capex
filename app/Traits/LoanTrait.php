@@ -562,10 +562,6 @@ trait LoanTrait{
         $approvers = LoanManualApprover::where('application_id', $application_id)->get();
         $userPriority = $approvers->where('user_id', auth()->user()->id)->pluck('priority')->first();
         $is_passed = $approvers->where('user_id', auth()->user()->id)->pluck('is_passed')->first();
-
-        // dd((int)$approvers->count());
-        // dd((int)$userPriority);
-
         // If false then there are still more approvers | must be dynamic
         if ((int)$approvers->count() >= (int)$userPriority) {
             return [

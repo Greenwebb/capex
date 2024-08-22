@@ -8,14 +8,12 @@ use App\Models\InterestMethod;
 use App\Models\LoanManualApprover;
 use App\Models\LoanStatus;
 use App\Models\Status;
-use App\Models\User;
 use App\Traits\CalculatorTrait;
 use App\Traits\CRBTrait;
 use App\Traits\EmailTrait;
 use App\Traits\LoanTrait;
 use App\Traits\WalletTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\Client\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -45,25 +43,6 @@ class LoanDetailView extends Component
         $this->init_data();
         return view('livewire.dashboard.loans.loan-detail-view')
         ->layout('layouts.main');
-    }
-
-    public function ai_score(){
-        $this->loan_ai = $this->get_loan_qualification_ai($this->loan_id);
-        if ($this->loan_ai['result']) {
-            $this->basic_pay = $this->loan_ai['result']['gross_pay'];
-            $this->gross_pay = $this->loan_ai['result']['gross_pay'];
-            $this->net_pay = $this->loan_ai['result']['net_pay'];
-            $this->employee_name = $this->loan_ai['result']['employee_name'];
-            $this->employee_number = $this->loan_ai['result']['employee_number'];
-            $this->deductions = $this->loan_ai['result']['deductions'];
-        }else{
-            $this->basic_pay = 0;
-            $this->gross_pay = 0;
-            $this->net_pay = 0;
-            $this->employee_name = 0;
-            $this->employee_number = 0;
-            $this->deductions = 0;
-        }
     }
 
     public function init_data(){
@@ -128,8 +107,6 @@ class LoanDetailView extends Component
         }
     }
 
-    public function checkRisk(){}
-
     public function acceptSuggestionBtn(){
         try {
             $switch = $this->loan;
@@ -140,14 +117,6 @@ class LoanDetailView extends Component
             dd($th);
         }
     }
-
-    public function calculateAmoritization(){
-        $this->amortizationSchedule = $this->calculateAmortizationSchedule(
-            $this->amo_principal,
-            $this->amo_duration,
-            $this->loan->loan_product_id);
-    }
-
 
     public function setLoanID($id){
         $this->loan_id = $id;
@@ -217,19 +186,28 @@ class LoanDetailView extends Component
     // This method is the actual approval process - Recommended
     public function accept($id){
         // DB::beginTransaction();
+        
         try {
             $application_request = Application::find($id);
-
             $this->change_stage();
             if($this->final_approver($id)['status']){
-                // $this->approve_final($application_request);
-
                 // Make the loan when disbursed
                 // $this->make_loan($x, $this->due_date);
                 // $this->isCompanyEnough($x->amount);
                 // dd($application_request);
                 // Do this - If this officer is the last approver
+                
                 if(strtolower($this->loan_stage) == 'disbursements'){
+                    $this->approve_final($application_request);
+                }else{
+                    $this->current->update([
+                        'state' => 'current',
+                        'status' => 'Current Loan',
+                        'stage' => 'open',
+                        'prev_status' => 'complete',
+                        'curr_status' => 'bg-white',
+                        'position' => 4,
+                    ]);
                     $this->approve_final($application_request);
                 }
             }else{
@@ -269,6 +247,7 @@ class LoanDetailView extends Component
         try {
 
             $application = Application::find($this->loan_id);
+            // dd($this->current->stage);
             if ($this->current->stage == 'open') {
                 $application->status = 1;
             } elseif($this->current->stage == 'denied') {
@@ -278,7 +257,7 @@ class LoanDetailView extends Component
                 $application->status = 4;
             }elseif($this->current->stage == 'Not Taken Up') {
                 $application->status = 5;
-            }
+            }else{}
             $application->save();
         } catch (\Throwable $th) {
             dd('Cant Change Status: '.$th->getMessage());
@@ -296,7 +275,7 @@ class LoanDetailView extends Component
         $x->status = 1;
         $x->due_date = $futureDate;
         $x->save();
-
+        
         if($x->email != null){
             $mail = [
                 'user_id' => $x->user_id,
@@ -307,7 +286,7 @@ class LoanDetailView extends Component
                 'email' => $x->email,
                 'duration' => $x->repayment_plan,
                 'amount' => $x->amount,
-                'payback' => Application::payback($x->amount, $x->repayment_plan),
+                'payback' => Application::payback($x->amount, $x->repayment_plan, $x->loan_product_id),
                 'type' => 'loan-application',
                 'msg' => 'Your '.$x->type.' loan application request has been successfully accepted'
             ];

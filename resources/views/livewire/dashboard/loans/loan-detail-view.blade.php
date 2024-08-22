@@ -8,7 +8,7 @@
                 <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
                     
                     @if(true)
-                    {{-- @dd($loan_product->loan_status) --}}
+                    {{-- @dd($current) --}}
                     @if($loan_product->loan_status !== null || $loan_product !== null)
                         @switch(strtolower($current->stage))
                             @case('processing')
@@ -26,7 +26,7 @@
                                         <button class="nav-link {{ $current->position >= $count ? 'done' : '' }}" id="{{$step->stage}}-tab" data-bs-toggle="pill" data-bs-target="#{{$step->stage}}" type="button" role="tab" aria-controls="{{$step->stage}}" aria-selected="true">{{ $step->status->name }}</button>
                                     </li>
                                 @empty
-                                    <li class="nav-item" role="presentation">
+                                    {{-- <li class="nav-item" role="presentation">
                                         <button class="nav-link {{ $current->position >= $count ? 'done' : '' }}" id="verify-tab-tab" data-bs-toggle="pill" data-bs-target="#verify-tab" type="button" role="tab" aria-controls="verify-tab" aria-selected="true">Verify Submission</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
@@ -34,7 +34,7 @@
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link {{ $current->position >= $count ? 'done' : '' }}" id="verify-tab-tab" data-bs-toggle="pill" data-bs-target="#verify-tab" type="button" role="tab" aria-controls="verify-tab" aria-selected="true">Give out Funds</button>
-                                    </li>
+                                    </li> --}}
                                 @endforelse
                             @break
                             @case('open')

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -86,13 +87,20 @@ class Application extends Model
         'confirmed_by'
     ];
 
+
+
     protected static function boot()
     {
         parent::boot();
         static::addGlobalScope('withUser', function ($builder) {
             $builder->with('user')->whereNotNull('user_id');
         });
+
+        static::creating(function ($application) {
+            $application->uuid = substr(Str::uuid(), 0, 5); // Generate 5-char UUID
+        });
     }
+
 
     public function getDoneByAttribute(){
         return User::where('id', $this->processed_by)->first();

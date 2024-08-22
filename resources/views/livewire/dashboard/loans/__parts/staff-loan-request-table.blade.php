@@ -101,9 +101,9 @@
                                             <input onclick="showBulkOps()" class="form-check-input fs-15" type="checkbox" name="items[]" value="{{ $loan->id }}">
                                         </div>
                                     </th>
-                                    <td>{{ $loan->created_at.''.$loan->id }}</td>
+                                    <td>{{ $loan->uuid }}</td>
                                     <td>{{ $loan->loan_product->name }}</td>
-                                    <td>K  {{ number_format($loan->amount, 2, '.', ',') }}</td>
+                                    <td>K {{ number_format($loan->amount, 2, '.', ',') }}</td>
                                     <td>
                                         <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id])}}">
                                             {{ $loan->user->fname.' '. $loan->user->lname }}
@@ -130,65 +130,63 @@
                                         @endif
                                     </td>
                                     @if (Route::currentRouteName() !== 'approved-loans')
-                                    @if($this->current_configs('loan-approval')->value == 'spooling')
-                                    <td class="text-success">
-                                        @role('admin')@else
-                                            @can('review loan')
-                                                @if($loan->status == 0 || $loan->status == 3)
-                                                    <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Review</button>
-                                                @endif
-                                            @endcan
-                                        @endrole
-                                    </td>
-                                    @endif
+                                        @if($this->current_configs('loan-approval')->value == 'spooling')
+                                            <td class="text-success">
+                                                @role('admin')@else
+                                                    @can('review loan')
+                                                        @if($loan->status == 0 || $loan->status == 3)
+                                                            <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Review</button>
+                                                        @endif
+                                                    @endcan
+                                                @endrole
+                                            </td>
+                                        @endif
 
-                                    @if($this->current_configs('loan-approval')->value == 'manual')
-                                    <td>
-                                        @role('admin')
-                                            @if ($loan->is_assigned == 0)
-                                                <button wire:click="setLoanID({{$loan->id}})" class="btn btn-sm btn-success"  data-bs-toggle="modal" data-bs-target="#kt_modal_assign">
-                                                    Assign
-                                                </button>
-                                            @else
-                                                @if($loan->status == 1)
-                                                <button title="Cancel loan before disbursing funds" wire:click="setLoanID({{$loan->id}})" class="btn btn-sm btn-light"  data-bs-toggle="modal" data-bs-target="#kt_modal_assign">
-                                                    Cancel
-                                                </button>
+                                        @if($this->current_configs('loan-approval')->value == 'manual')
+                                        <td>
+                                            @role('admin')
+                                                @if ($loan->is_assigned == 0)
+                                                    <button wire:click="setLoanID({{$loan->id}})" class="btn btn-sm btn-success"  data-bs-toggle="modal" data-bs-target="#kt_modal_assign">
+                                                        Assign
+                                                    </button>
                                                 @else
-                                                <button wire:click="setLoanID({{$loan->id}})" class="btn btn-xs btn-warning"  data-bs-toggle="modal" data-bs-target="#kt_modal_assign">
-                                                    Re-assign
-                                                </button>
+                                                    @if($loan->status == 1)
+                                                    <button title="Cancel loan before disbursing funds" wire:click="setLoanID({{$loan->id}})" class="btn btn-sm btn-light"  data-bs-toggle="modal" data-bs-target="#kt_modal_assign">
+                                                        Cancel
+                                                    </button>
+                                                    @else
+                                                    <button wire:click="setLoanID({{$loan->id}})" class="btn btn-xs btn-warning"  data-bs-toggle="modal" data-bs-target="#kt_modal_assign">
+                                                        Re-assign
+                                                    </button>
+                                                    @endif
                                                 @endif
-                                            @endif
-                                        @else
-                                            @can('review loan')
-                                                @if($loan->status == 0 || $loan->status == 3)
-                                                    <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Review</button>
-                                                @endif
-                                            @endcan
-                                        @endrole
-                                    </td>
+                                            @else
+                                                @can('review loan')
+                                                    @if($loan->status == 0 || $loan->status == 3)
+                                                        <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Review</button>
+                                                    @endif
+                                                @endcan
+                                            @endrole
+                                        </td>
+                                        @endif
                                     @endif
-
                                     <td>
                                         <div class="dropdown d-inline-block">
-                                            <button class="btn btn-soft-primary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <button class="btn btn-primary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="ri-more-fill align-middle"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li><a href="{{ route('detailed',['id' => $loan->id]) }}" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                                <li><a href="{{ route('edit-loan', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                                <li><a href="{{ route('loan-details', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Asses Loans</a></li>
-
+                                                @if (Route::currentRouteName() === 'view-loan-requests')
+                                                    <li><a href="{{ route('loan-details', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="ri-exchange-funds-fill align-bottom me-2 text-muted"></i> Asses Loans</a></li>
+                                                    <li><a href="{{ route('edit-loan', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+                                                @endif
                                             </ul>
                                         </div>
                                     </td>
-                                    @endif
                                 </tr>
                                 @empty
-
                                 @endforelse
-
                             </tbody>
                         </table>
                     </div>
