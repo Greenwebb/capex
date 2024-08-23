@@ -43,7 +43,7 @@
     @livewireStyles
 </head>
 
-<body>
+<body  data-route-name="{{ Route::currentRouteName() }}">
     <!-- Begin page -->
     <div id="layout-wrapper">
 
@@ -648,7 +648,7 @@
                         <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Directories</span></li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarCharts1"  data-bs-toggle="collapse" role="button"  aria-expanded="false" aria-controls="sidebarCharts1">
+                            <a class="nav-link menu-link" href="#sidebarCharts1"  data-bs-toggle="collapse" role="button"  aria-expanded="true" aria-controls="sidebarCharts1">
                                 <i class="ri-pie-chart-line"></i> <span data-key="t-charts">Manage Borrowers</span>
                             </a>
                             <div class="collapse menu-dropdown" id="sidebarCharts1">
@@ -718,16 +718,16 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCharts">
+                            <a class="nav-link menu-link" href="#sidebarApexcharts2" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApexcharts2">
                                 <i class="ri-pie-chart-line"></i> <span data-key="t-charts">Accounting</span>
                             </a>
-                            <div class="collapse menu-dropdown" id="sidebarCharts">
+                            <div class="collapse menu-dropdown" id="sidebarApexcharts2">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="#sidebarApexcharts" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApexcharts" data-key="t-apexcharts">
+                                        <a href="#sidebarApexcharts2" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApexcharts2" data-key="t-apexcharts">
                                             Repayments
                                         </a>
-                                        <div class="collapse menu-dropdown" id="sidebarApexcharts">
+                                        <div class="collapse menu-dropdown" id="sidebarApexcharts23">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
                                                     <a href="{{ route('make-payment') }}" class="nav-link" data-key="t-line"> Make Repayment
@@ -916,6 +916,70 @@
         });
         let table4 = new DataTable('#loanReqTable',{
             order: [[0, 'desc']]
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the current route name from the body or an element attribute (assume it's stored in a data attribute)
+            const currentRoute = document.body.getAttribute('data-route-name');
+
+            // Check the current route and expand/collapse accordingly
+            if (currentRoute === 'borrowers' || currentRoute === 'guarantors' || currentRoute === 'refs') {
+                const sidebarCharts = document.getElementById('sidebarCharts1');
+                
+                // Collapse if the current route doesn't match any of the specified routes
+                sidebarCharts.classList.add('show');
+            } else {
+                // Otherwise, collapse it
+                sidebarCharts.classList.remove('show');
+            }
+
+            // Check the current route and expand/collapse accordingly
+            if (currentRoute === 'approved-loans'
+                || currentRoute === 'due-loans'
+                || currentRoute === 'closed-loans'
+                || currentRoute === 'missed-repayments'
+                || currentRoute === 'loan-arrears'
+                || currentRoute === 'no-repaymentss'
+                || currentRoute === 'past-maturity-date'
+                || currentRoute === 'one-month-late'
+                || currentRoute === 'three-month-late'
+                || currentRoute === 'loan-calculator'
+            ) {
+                const sidebarCharts = document.getElementById('sidebarAdvanceUI');
+                
+                // Collapse if the current route doesn't match any of the specified routes
+                sidebarCharts.classList.add('show');
+            } else {
+                // Otherwise, collapse it
+                sidebarCharts.classList.remove('show');
+            }
+
+            // Check the current route and expand/collapse accordingly
+            if (currentRoute === 'make-payment'
+                || currentRoute === 'loan-wallet'
+            ) {
+                const sidebarCharts = document.getElementById('sidebarApexcharts');
+                
+                // Collapse if the current route doesn't match any of the specified routes
+                sidebarCharts.classList.add('show');
+            } else {
+                // Otherwise, collapse it
+                sidebarCharts.classList.remove('show');
+            }
+
+            // Check the current route and expand/collapse accordingly
+            if (currentRoute === 'make-payment'
+                || currentRoute === 'loan-wallet'
+            ) {
+                const sidebarCharts = document.getElementById('sidebarApexcharts2');
+                
+                // Collapse if the current route doesn't match any of the specified routes
+                sidebarCharts.classList.add('show');
+            } else {
+                // Otherwise, collapse it
+                sidebarCharts.classList.remove('show');
+            }
         });
 
     </script>
