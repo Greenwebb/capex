@@ -5,8 +5,10 @@ namespace App\Traits;
 use App\Models\Application;
 use App\Models\ApplicationStage;
 use App\Models\BankDetails;
+use App\Models\Guarantor;
 use App\Models\NextOfKing;
 use App\Models\References;
+use App\Models\RelatedParty;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\Hash;
@@ -125,17 +127,31 @@ trait UserTrait{
             }
         }
     }
+    
+    public function createRelatedParties($data){
+        RelatedParty::create([
+            'email' => $data['rp_email'] ?? null,
+            'fname' => $data['rp_fname'] ?? null,
+            'lname' => $data['rp_lname'] ?? null,
+            'phone' => $data['rp_phone'] ?? null,
+            'relation' => $data['rp_relation'] ?? null,
+            'address' => $data['rp_address'] ?? null,
+            'gender' => $data['rp_gender'] ?? null,
+            'user_id' => $data['borrower_id'] ?? null
+        ]);
+        return true;
+    }
 
-    public function createNOK($data){
-        NextOfKing::create([
-            'email' => $data['nok_email'],
-            'fname' => $data['nok_fname'],
-            'lname' => $data['nok_lname'],
-            'phone' => $data['nok_phone'],
-            'relation' => $data['nok_relation'],
-            'address' => $data['nok_address'],
-            'gender' => $data['nok_gender'],
-            'user_id' => $data['user_id']
+    public function createGuarantors($data){
+        Guarantor::create([
+            'email' => $data['g_email'] ?? null,
+            'fname' => $data['g_fname'] ?? null,
+            'lname' => $data['g_lname'] ?? null,
+            'phone' => $data['g_phone'] ?? null,
+            'relation' => $data['g_relation'] ?? null,
+            'address' => $data['g_address'] ?? null,
+            'gender' => $data['g_gender'] ?? null,
+            'user_id' => $data['borrower_id'] ?? null
         ]);
         return true;
     }

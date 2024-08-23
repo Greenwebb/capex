@@ -15,6 +15,7 @@ use App\Models\LoanProduct;
 use App\Models\Loans;
 use App\Models\LoanStatus;
 use App\Models\LoanType;
+use App\Models\Status;
 use App\Models\User;
 use App\Notifications\LoanRequestNotification;
 use Carbon\Carbon;
@@ -23,6 +24,8 @@ use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+
+use function PHPUnit\Framework\isEmpty;
 
 trait LoanTrait{
     use EmailTrait;
@@ -437,24 +440,36 @@ trait LoanTrait{
                     // Mail::to($data['email'])->send(new LoanApplication($mail));
                 }
 
-                $status = DB::table('loan_statuses')
-                    ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
-                    ->select('loan_statuses.*', 'statuses.stage')
-                    ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
-                    ->orderBy('loan_statuses.id', 'asc')
-                    ->first();
-
-                // Create a new application stage.
-                ApplicationStage::create([
-                    'application_id' => $application->id,
-                    'loan_status_id' => 1,
-                    'state' => 'current',
-                    'status' => $status->stage ?? 'verification', // Using the status retrieved from the query
-                    'stage' => 'processing',
-                    'prev_status' => 'current',
-                    'curr_status' => '',
-                    'position' => 1
-                ]);
+                if(!empty($data['skip_to'])){
+                    $status = Status::where('id', $data['skip_to'])->first();
+                    ApplicationStage::create([
+                        'application_id' => $application->id,
+                        'loan_status_id' => $status->id,
+                        'state' => 'current',
+                        'status' => $status->name ?? 'verification', // Using the status retrieved from the query
+                        'stage' => $status->stage ?? 'processing',
+                        'prev_status' => 'current',
+                        'curr_status' => '',
+                        'position' => 1
+                    ]);
+                }else{
+                    $status = DB::table('loan_statuses')
+                        ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
+                        ->select('loan_statuses.*', 'statuses.stage')
+                        ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
+                        ->orderBy('loan_statuses.id', 'asc')
+                        ->first();
+                    ApplicationStage::create([
+                        'application_id' => $application->id,
+                        'loan_status_id' => 1,
+                        'state' => 'current',
+                        'status' => $status->stage ?? 'verification', // Using the status retrieved from the query
+                        'stage' => 'processing',
+                        'prev_status' => 'current',
+                        'curr_status' => '',
+                        'position' => 1
+                    ]);
+                }
                 return $application->id;
             }
             return 'exists';

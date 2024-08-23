@@ -6,6 +6,7 @@ use App\Models\LoanProduct;
 use App\Models\LoanType;
 use App\Models\LoanCategory;
 use App\Models\LoanChildType;
+use App\Models\LoanStatus;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\User;
 use App\Traits\LoanTrait;
@@ -16,8 +17,8 @@ class CreateLoanView extends Component
     use AuthorizesRequests, LoanTrait;
 
     public $users, $user_basic_pay, $user_net_pay;
-    public $loan_products = [], $loan_types, $loan_child_types = [], $borrowers;
-    public $selectedLoanType = null, $selectedLoanCategory = null;
+    public $loan_products = [], $loan_products_stages = [], $loan_types, $loan_child_types = [], $borrowers;
+    public $selectedLoanType = null, $selectedLoanCategory = null, $selectedLoanProduct = null;
 
     public function mount()
     {
@@ -45,5 +46,13 @@ class CreateLoanView extends Component
     public function updatedSelectedLoanCategory($loanCategoryId)
     {
         $this->loan_products = LoanProduct::where('loan_child_type_id', $loanCategoryId)->where('status', 1)->get();
+        
+    }    
+    
+    public function updatedSelectedLoanProduct($id)
+    {
+        $this->loan_products_stages = LoanStatus::with('status')->where('loan_product_id', $id)->get();
+
+        // dd($this->loan_products_stages);
     }
 }

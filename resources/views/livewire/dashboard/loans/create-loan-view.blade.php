@@ -67,7 +67,7 @@
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
-                                    <select name="loan_product_id" id="loanPackage" class="form-select" required>
+                                    <select name="loan_product_id" id="loanPackage" class="form-select"  wire:model="selectedLoanProduct" required>
                                         <option selected>Choose...</option>
                                         @forelse ($loan_products as $lp)
                                             <option value="{{ $lp->id }}">{{ $lp->name }}</option>
@@ -154,32 +154,59 @@
                                     <input type="text" name="due_date" class="form-control" id="dueDate" placeholder="YYYY-MM-DD" required>
                                 </div>
 
+                                
+                                <div class="col-md-6">
+                                    <label for="inputState" class="form-label">Pick stage
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="You can select from this list of customers who do not have any current loan requests or open loans.">
+                                            <i class="ri-information-line" style="cursor: pointer;"></i>
+                                        </span>
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
+                                    <select id="inputState" name="skip_to" class="form-select" required>
+                                        <option selected>Choose...</option>
+                                        @forelse ($loan_products_stages as $ls)
+                                        <option value="{{ $ls->status_id }}">{{ $ls->status->name }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                </div>
+
                                 <br>
                                 <h5 class="card-title mt-4 flex-grow-1">Related Party</h5>
                                 <hr>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related party's First Name</label>
-                                    <input type="text" name="related_partyfn" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="text" name="rp_fname" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related party's Last Name</label>
-                                    <input type="text" name="related_partyln" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="text" name="rp_lname" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related party's Phone Number</label>
-                                    <input type="number" name="related_party" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="number" name="rp_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related party's Email Address</label>
-                                    <input type="text" name="nok_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="text" name="rp_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                </div>                                
+                                
+                                <div class="col-md-4 mb-4">
+                                    <label for="inputState" class="form-label">Related party's Sex</label>
+                                    <select id="inputState" name="rp_gender" class="form-select" data-choices data-choices-sorting="true">
+                                        <option  value="">--select-</option>
+                                        <option  value="Male">Male</option>
+                                        <option  value="Female">Female</option>
+                                    </select>
                                 </div>
 
                                 <div class="col-md-4 ">
                                     <label for="fullnameInput" class="form-label">Related party's Relationship</label>
-                                    <input type="text" name="nok_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
+                                    <input type="text" name="rp_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
                                 </div>
 
                                 <br>
@@ -187,27 +214,36 @@
                                 <hr>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">First Name</label>
-                                    <input type="text" name="nok_fname" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="text" name="g_fname" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Last Name</label>
-                                    <input type="text" name="nok_lname" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="text" name="g_lname" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Guarantor's Phone Number</label>
-                                    <input type="number" name="nok_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="number" name="g_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Guarantor's Email Address</label>
-                                    <input type="text" name="nok_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="text" name="g_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                </div>                             
+                                
+                                <div class="col-md-4 mb-4">
+                                    <label for="inputState" class="form-label">Guarantor's Sex </label>
+                                    <select id="inputState" name="g_gender" class="form-select" data-choices data-choices-sorting="true">
+                                        <option  value="">--select-</option>
+                                        <option  value="Male">Male</option>
+                                        <option  value="Female">Female</option>
+                                    </select>
                                 </div>
 
                                 <div class="col-md-4 ">
                                     <label for="fullnameInput" class="form-label">Guarantor's Relationship</label>
-                                    <input type="text" name="nok_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
+                                    <input type="text" name="g_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
                                 </div>
 
 
