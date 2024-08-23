@@ -50,6 +50,7 @@ class LoanDetailView extends Component
         $this->loan = $this->get_loan_details($this->loan_id);
         $this->loan_notifications = $this->loan_notifications($this->loan->id);
         $this->loan_product = $this->get_loan_product($this->loan->loan_product_id);
+        // dd($this->loan_product);
         $this->crb_selected_products = $this->loan_product->loan_crb;
         $this->loan_stage = $this->get_loan_current_stage($this->loan->loan_product_id);
         $this->denied_status = Status::where('stage', 'denied')->orderBy('id')->get();

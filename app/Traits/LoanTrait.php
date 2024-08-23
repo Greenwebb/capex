@@ -78,7 +78,10 @@ trait LoanTrait{
             'loan_status.status',
             'loan_decimal_places',
             'service_fees.service_charge',
-            'loan_institutes.institutions'
+            'loan_institutes.institutions',
+            'repayment_cycle.repayment_cycle',
+            'loan_child_type',
+
         ])->first();
     }
 

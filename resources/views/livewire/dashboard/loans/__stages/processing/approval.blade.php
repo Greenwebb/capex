@@ -153,15 +153,6 @@
         </div>
     </div>
     <!-- ene col -->
-    <div class="col-xl-12 col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title mb-4">Assigned Staff</h5>
-                <div class="d-flex flex-wrap gap-2 fs-16">
-                    {{-- <div class="badge fw-medium bg-primary-subtle text-primary">Bremah Nyeleti</div> --}}
-                </div>
-            </div>
-            <!-- end card body -->
-        </div>
-    </div>
+
+    @include('livewire.dashboard.loans.__parts.more-loan-info')
 </div>
