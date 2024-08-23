@@ -92,13 +92,24 @@ class Application extends Model
     protected static function boot()
     {
         parent::boot();
+        
         static::addGlobalScope('withUser', function ($builder) {
             $builder->with('user')->whereNotNull('user_id');
         });
-
+    
         static::creating(function ($application) {
-            $application->uuid = substr(Str::uuid(), 0, 5); // Generate 5-char UUID
+            $application->uuid = static::generateNumericUUID(5); // Generate 5-digit numeric UUID
         });
+    }
+    
+    protected static function generateNumericUUID($length = 5)
+    {
+        $digits = '0123456789';
+        $uuid = '';
+        for ($i = 0; $i < $length; $i++) {
+            $uuid .= $digits[rand(0, strlen($digits) - 1)];
+        }
+        return $uuid;
     }
 
 
