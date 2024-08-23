@@ -20,6 +20,7 @@ class LoanProduct extends Model
         'wiz_steps',
         'release_date',
         'auto_payment',
+        'status',
         'loan_duration_period',
         'loan_interest_period',
 

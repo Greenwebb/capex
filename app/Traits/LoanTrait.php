@@ -55,7 +55,7 @@ trait LoanTrait{
             // 'loan_decimal_places',
             'service_fees.service_charge',
             'loan_institutes.institutions'
-            ])->get();
+            ])->where('status', 1)->get();
     }
 
     public function get_loan_type($id){

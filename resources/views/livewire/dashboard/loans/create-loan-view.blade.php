@@ -153,19 +153,33 @@
                                         </span> </label>
                                     <input type="text" name="due_date" class="form-control" id="dueDate" placeholder="YYYY-MM-DD" required>
                                 </div>
+
+                                <br>
+                                <h5 class="card-title mt-4 flex-grow-1">Related Party</h5>
+                                <hr>
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Related Party</label>
-                                    <input type="text" name="related_party" class="form-control" id="fullnameInput" placeholder="Related Party">
+                                    <label for="fullnameInput" class="form-label">Related party's First Name</label>
+                                    <input type="text" name="related_partyfn" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Loan Description</label>
-                                    <textarea cols="5"rows="10" name="desc" class="form-control" id="fullnameInput" placeholder="Description"> </textarea>
+                                    <label for="fullnameInput" class="form-label">Related party's Last Name</label>
+                                    <input type="text" name="related_partyln" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Note</label>
-                                    <textarea cols="5"rows="10" name="note" class="form-control" id="fullnameInput" placeholder="Note"></textarea>
+                                    <label for="fullnameInput" class="form-label">Related party's Phone Number</label>
+                                    <input type="number" name="related_party" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="fullnameInput" class="form-label">Related party's Email Address</label>
+                                    <input type="text" name="nok_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <label for="fullnameInput" class="form-label">Related party's Relationship</label>
+                                    <input type="text" name="nok_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
                                 </div>
 
                                 <br>
@@ -196,6 +210,16 @@
                                     <input type="text" name="nok_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
                                 </div>
 
+
+                                <div class="col-md-6">
+                                    <label for="fullnameInput" class="form-label">Loan Description</label>
+                                    <textarea cols="5"rows="10" name="desc" class="form-control" id="fullnameInput" placeholder="Description"> </textarea>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="fullnameInput" class="form-label">Note</label>
+                                    <textarea cols="5"rows="10" name="note" class="form-control" id="fullnameInput" placeholder="Note"></textarea>
+                                </div>
 
                                 <br>
                                 <h5 class="card-title mt-5 flex-grow-1">Support Ducuments</h5>

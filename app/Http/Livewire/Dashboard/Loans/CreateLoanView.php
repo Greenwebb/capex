@@ -23,10 +23,11 @@ class CreateLoanView extends Component
     {
         $this->loan_types = LoanType::all();
         $this->borrowers = User::role('user')
-                ->whereDoesntHave('loans')
-                ->get();
-
-        $this->users = User::role('user')->with('active_loans.loan')->get();
+        ->whereDoesntHave('loans')
+        ->orWhereHas('loans', function($query) {
+            $query->where('closed', 1);
+        })
+        ->get();
     }
 
     public function render()
@@ -43,6 +44,6 @@ class CreateLoanView extends Component
 
     public function updatedSelectedLoanCategory($loanCategoryId)
     {
-        $this->loan_products = LoanProduct::where('loan_child_type_id', $loanCategoryId)->get();
+        $this->loan_products = LoanProduct::where('loan_child_type_id', $loanCategoryId)->where('status', 1)->get();
     }
 }
