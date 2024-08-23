@@ -32,7 +32,30 @@ trait LoanTrait{
     public $application;
 
     public function total_loans(){
-        return Loans::count();
+        return Application::where('status', 1)->count();
+    }
+    public function total_open_loans_amount(){
+        return Application::where('status', 1)->sum('amount');
+    }
+    public function total_closed_loans(){
+        return Application::where('closed', 1)->count();
+    }
+    public function total_closed_loan_amount(){
+        return Application::where('closed', 1)->sum('amount');
+    }
+    public function total_pending_loans(){
+        return Application::orWhere('status', 2)->orWhere('status', 0)->count();
+    }
+    public function total_pending_loans_amount(){
+        return Application::orWhere('status', 2)->orWhere('status', 0)->sum('amount');
+    }
+
+    
+    
+    public function total_loan_officers(){
+        return User::whereDoesntHave('roles', function($query) {
+            $query->where('name', 'user');
+        })->count() - 1;
     }
 
     public function closed_loans(){
@@ -191,12 +214,14 @@ trait LoanTrait{
     public function getOpenLoanRequests($type){
         $userId = auth()->user()->id;
         if(auth()->user()->hasRole('admin')){
-            return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 0)->where('status', 1)->get();
+            return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 0)->where('status', 1)
+            ->orderBy('created_at', 'desc')->get();
         }else{
             switch ($type) {
                 case 'spooling':
                     return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 0)
-                    ->where('status', 1)->get();
+                    ->where('status', 1)
+                    ->orderBy('created_at', 'desc')->get();
                     break;
                 case 'manual':
                     return Application::with('loan_product')->whereNotNull('user_id')->with(['manual_approvers' => function ($query) use ($userId) {
@@ -208,15 +233,20 @@ trait LoanTrait{
                     })
                     ->where('status', 1)
                     ->where('closed', 0)
+                    ->orderBy('created_at', 'desc')
                     ->get();
 
                     break;
                 case 'auto':
-                    # code...
+                    return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 0)->where('status', 1)
+                    ->orderBy('created_at', 'desc')->get();
+
                     break;
 
                 default:
-                    # code...
+                return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 0)->where('status', 1)
+                ->orderBy('created_at', 'desc')->get();
+
                 break;
             }
         }
@@ -225,12 +255,14 @@ trait LoanTrait{
     public function getClosedLoanRequests($type){
         $userId = auth()->user()->id;
         if(auth()->user()->hasRole('admin')){
-            return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 1)->where('status', 1)->get();
+            return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 1)->where('status', 1)
+    ->orderBy('created_at', 'desc')->get();
         }else{
             switch ($type) {
                 case 'spooling':
                     return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 1)
-                    ->where('status', 1)->get();
+                    ->where('status', 1)
+    ->orderBy('created_at', 'desc')->get();
                     break;
                 case 'manual':
                     return Application::with('loan_product')->whereNotNull('user_id')->with(['manual_approvers' => function ($query) use ($userId) {
@@ -242,15 +274,18 @@ trait LoanTrait{
                     })
                     ->where('status', 1)
                     ->where('closed', 1)
+    ->orderBy('created_at', 'desc')
                     ->get();
 
                     break;
                 case 'auto':
-                    # code...
+                    return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 1)->where('status', 1)
+    ->orderBy('created_at', 'desc')->get();
                     break;
 
                 default:
-                    # code...
+                    return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 1)->where('status', 1)
+    ->orderBy('created_at', 'desc')->get();
                 break;
             }
         }

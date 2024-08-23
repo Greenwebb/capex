@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
-                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{ $this->total_loans() }}">{{ $this->total_loans() }}</span> </h4>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{ $this->total_open_loans_amount() }}">{{ $this->total_open_loans_amount() }}</span> </h4>
                                             <a href="{{ route('loans') }}" class="text-decoration-underline">Number of active loans</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
@@ -129,12 +129,12 @@
                                     </div>
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
-                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  $borrowers ? $borrowers->count() : 0 }}">{{  $borrowers ? $borrowers->count() : 0 }}</span></h4>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  $this->total_pending_loans_amount() }}">{{  $this->total_pending_loans_amount() }}</span></h4>
                                             <a href="{{ route('borrowers') }}" class="text-decoration-underline">See more</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                2
+                                                {{ $this->total_pending_loans() }}
                                             </span>
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                3
+                                                {{ $borrowers->count() }}
                                             </span>
                                         </div>
                                     </div>
@@ -185,12 +185,12 @@
                                     </div>
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
-                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{ 0 }}">0</span> </h4>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{ $this->total_loan_officers() }}">{{ $this->total_loan_officers() }}</span> </h4>
                                             <a href="{{ route('employees') }}" class="text-decoration-underline">Loan Officers</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                0
+                                                {{ $this->total_loan_officers() }}
                                             </span>
                                         </div>
                                     </div>
@@ -212,8 +212,8 @@
                                     </div>
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
-                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{ $this->total_loans() }}">{{ $this->total_loans() }}</span></h4>
-                                            <a href="{{ route('employees') }}" class="text-decoration-underline">See more</a>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{ 0 }}">{{ 0 }}</span></h4>
+                                            {{-- <a href="{{ route('employees') }}" class="text-decoration-underline">See more</a> --}}
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title bg-primary-subtle fs-3">
@@ -239,8 +239,8 @@
                                     </div>
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
-                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  $borrowers ? $borrowers->count() : 0 }}">{{  $borrowers ? $borrowers->count() : 0 }}</span></h4>
-                                            <a href="{{ route('borrowers') }}" class="text-decoration-underline">See details</a>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  0 }}">{{  0 }}</span></h4>
+                                            {{-- <a href="{{ route('borrowers') }}" class="text-decoration-underline">See details</a> --}}
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title bg-primary-subtle fs-3">
@@ -266,12 +266,12 @@
                                     </div>
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
-                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  App\Models\Application::totalAmountLoanedOut() }}">{{  App\Models\Application::totalAmountLoanedOut() }}</span> </h4>
+                                            <h4 class="mb-4 fs-22 fw-semibold ff-secondary"><span class="counter-value" data-target="{{  $this->total_open_loans_amount()  }}">{{  $this->total_open_loans_amount()  }}</span> </h4>
                                             <a href="#" class="text-decoration-underline">Outstanding loans</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                6
+                                                {{ $this->total_loans()  }}
                                             </span>
                                         </div>
                                     </div>
@@ -387,7 +387,7 @@
                         <div class="col-xl-6">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="mb-0 card-title flex-grow-1">Open Loans</h4>
+                                    <h4 class="mb-0 card-title flex-grow-1">Recent 5 Open Loans</h4>
                                     <div class="flex-shrink-0">
                                         {{-- <div class="dropdown card-header-dropdown">
                                             <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -410,7 +410,7 @@
                                     <div class="table-responsive table-card">
                                         <table class="table mb-0 align-middle table-hover table-centered table-nowrap">
                                             <tbody>
-                                                @forelse ($this->getOpenLoanRequests('auto'); as $loan)
+                                                @forelse ($this->getOpenLoanRequests('auto')->take(5) as $loan)
                                                 <tr>
                                                     <td>
                                                         <div class="d-flex align-items-center">
@@ -442,7 +442,7 @@
                                                     </td>
                                                 </tr>
                                                 @empty
-
+                                                <p>No Closed Loan</a>
                                                 @endforelse
                                             </tbody>
                                         </table>
@@ -482,7 +482,7 @@
                         <div class="col-xl-6">
                             <div class="card card-height-100">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="mb-0 card-title flex-grow-1">Closed Loans</h4>
+                                    <h4 class="mb-0 card-title flex-grow-1">Recent 5 Closed Loans</h4>
                                     <div class="flex-shrink-0">
                                         {{-- <div class="dropdown card-header-dropdown">
                                             <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -501,37 +501,39 @@
                                     <div class="table-responsive table-card">
                                         <table class="table mb-0 align-middle table-centered table-hover table-nowrap">
                                             <tbody>
-                                               @forelse ($this->closed_loans() as $loan)
-                                                {{-- <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0 me-2">
-                                                                <img src="assets/images/companies/img-1.png" alt="" class="p-2 avatar-sm" />
-                                                            </div>
-                                                            <div>
-                                                                <h5 class="my-1 fs-14 fw-medium">
-                                                                    <a href="apps-ecommerce-seller-details.html" class="text-reset">{{ $loan- }}</a>
-                                                                </h5>
-                                                                <span class="text-muted">Oliver Tyler</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-muted">Bags and Wallets</span>
-                                                    </td>
-                                                    <td>
-                                                        <p class="mb-0">8547</p>
-                                                        <span class="text-muted">Stock</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-muted">$541200</span>
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="mb-0 fs-14">32%<i class="align-middle ri-bar-chart-fill text-success fs-16 ms-2"></i></h5>
-                                                    </td>
-                                                </tr> --}}
+                                               @forelse ($this->getClosedLoanRequests('auto')->take(5) as $loan)
+                                               <tr>
+                                                   <td>
+                                                       <div class="d-flex align-items-center">
+                                                           {{-- <div class="p-1 rounded avatar-sm bg-light me-2">
+                                                               <img src="public/assets/images/products/img-4.png" alt="" class="img-fluid d-block" />
+                                                           </div> --}}
+                                                           <div>
+                                                               <h5 class="my-1 fs-14"><a href="apps-ecommerce-product-details.html" class="text-reset">{{ $loan->user->fname.' '. $loan->user->lname }}</a></h5>
+                                                               <span class="text-muted">{{ $loan->created_at->toFormattedDateString() }}</span>
+                                                           </div>
+                                                       </div>
+                                                   </td>
+                                                   <td>
+                                                       <h5 class="my-1 fs-14 fw-normal">K{{ number_format($loan->amount, 2, '.', ',') }}</h5>
+                                                       <span class="text-muted">{{ $loan->loan_product->name }} Loan</span>
+                                                   </td>
+                                                   <td>
+                                                       <h5 class="my-1 fs-14 fw-normal">{{ $loan->repayment_plan }} </h5>
+                                                       <span class="text-muted">Months</span>
+                                                   </td>
+                                                   <td>
+                                                       <h5 class="my-1 fs-14 fw-normal"><span class="badge bg-suceess-subtle text-suceess">Open</span></h5>
+                                                   </td>
+                                                   <td>
+                                                       <h5 class="my-1 fs-14 fw-normal">K{{
+                                                           number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id), 2, '.', ',')
+                                                       }}</h5>
+                                                       <span class="text-muted">Repayment</span>
+                                                   </td>
+                                               </tr>
                                                @empty
-
+                                               <p>No Closed Loan</a>
                                                @endforelse
                                             </tbody>
                                         </table><!-- end table -->
@@ -570,11 +572,11 @@
                     </div> <!-- end row-->
 
                     <div class="row">
-                        <div class="col-xl-4">
+                        {{-- <div class="col-xl-4">
                             <div class="card card-height-100">
                                 <div class="card-header align-items-center d-flex">
                                     <h4 class="mb-0 card-title flex-grow-1">Loans by Status</h4>
-                                    {{-- <div class="flex-shrink-0">
+                                    <div class="flex-shrink-0">
                                         <div class="dropdown card-header-dropdown">
                                             <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
@@ -585,19 +587,19 @@
                                                 <a class="dropdown-item" href="#">Import</a>
                                             </div>
                                         </div>
-                                    </div> --}}
-                                </div><!-- end card header -->
+                                    </div> 
+                                </div>
 
                                 <div class="card-body">
                                     <div id="store-visits-source" data-colors='["--vz-primary", "--vz-primary-rgb, 0.85", "--vz-primary-rgb, 0.70", "--vz-primary-rgb, 0.60", "--vz-primary-rgb, 0.45"]' class="apex-charts" dir="ltr"></div>
                                 </div>
-                            </div> <!-- .card-->
-                        </div> <!-- .col-->
+                            </div> 
+                        </div> --}}
 
-                        <div class="col-xl-8">
+                        <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="mb-0 card-title flex-grow-1">Recent Loan Requests</h4>
+                                    <h4 class="mb-0 card-title flex-grow-1">Recent 7 Loan Requests</h4>
                                     <div class="flex-shrink-0">
                                         <button type="button" class="btn btn-soft-info btn-sm">
                                             <i class="align-middle ri-file-list-3-line"></i> Generate Report
@@ -628,9 +630,9 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0 me-2">
+                                                            {{-- <div class="flex-shrink-0 me-2">
                                                                 <img src="assets/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                            </div>
+                                                            </div> --}}
                                                             <div class="flex-grow-1">
                                                                 {{ ucwords($loan->user->fname).' '.ucwords($loan->user->lname) }}
                                                             </div>

@@ -1,7 +1,6 @@
 
 <!doctype html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-bs-theme="light" data-body-image="img-1" data-preloader="enabled">
-<!-- Mirrored from themesbrand.com/velzon/html/galaxy/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Jul 2024 19:56:56 GMT -->
 <head>
 
     @php
@@ -60,7 +59,7 @@
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="index.html" class="logo logo-dark">
+                    <a href="{{ route('dashboard') }}" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="public/assets/images/logo-sm.png" alt="" height="22">
                         </span>
@@ -69,7 +68,7 @@
                         </span>
                     </a>
 
-                    <a href="index.html" class="logo logo-light">
+                    <a href="{{ route('dashboard') }}" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="public/assets/images/logo-sm.png" alt="" height="22">
                         </span>
@@ -102,8 +101,8 @@
                             </div>
 
                             <div class="bg-transparent dropdown-item text-wrap">
-                                <a href="index.html" class="btn btn-soft-primary btn-sm rounded-pill">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
-                                <a href="index.html" class="btn btn-soft-primary btn-sm rounded-pill">buttons <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="{{ route('dashboard') }}" class="btn btn-soft-primary btn-sm rounded-pill">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="{{ route('dashboard') }}" class="btn btn-soft-primary btn-sm rounded-pill">buttons <i class="mdi mdi-magnify ms-1"></i></a>
                             </div>
                             <!-- item-->
                             <div class="mt-2 dropdown-header">
@@ -598,7 +597,7 @@
             <!-- LOGO -->
             <div class="navbar-brand-box">
                 <!-- Dark Logo-->
-                <a href="index.html" class="logo logo-dark">
+                <a href="{{ route('dashboard') }}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="public/assets/images/logo-sm.png" alt="" height="22">
                     </span>
@@ -607,7 +606,7 @@
                     </span>
                 </a>
                 <!-- Light Logo-->
-                <a href="index.html" class="logo logo-light">
+                <a href="{{ route('dashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="public/assets/images/logo-sm.png" alt="" height="22">
                     </span>
