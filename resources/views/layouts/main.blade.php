@@ -718,16 +718,16 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarApexcharts2" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApexcharts2">
+                            <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCharts">
                                 <i class="ri-pie-chart-line"></i> <span data-key="t-charts">Accounting</span>
                             </a>
-                            <div class="collapse menu-dropdown" id="sidebarApexcharts2">
+                            <div class="collapse menu-dropdown" id="sidebarCharts">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="#sidebarApexcharts2" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApexcharts2" data-key="t-apexcharts">
+                                        <a href="#sidebarApexcharts" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApexcharts" data-key="t-apexcharts">
                                             Repayments
                                         </a>
-                                        <div class="collapse menu-dropdown" id="sidebarApexcharts23">
+                                        <div class="collapse menu-dropdown" id="sidebarApexcharts">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
                                                     <a href="{{ route('make-payment') }}" class="nav-link" data-key="t-line"> Make Repayment
@@ -960,19 +960,6 @@
                 || currentRoute === 'loan-wallet'
             ) {
                 const sidebarCharts = document.getElementById('sidebarApexcharts');
-                
-                // Collapse if the current route doesn't match any of the specified routes
-                sidebarCharts.classList.add('show');
-            } else {
-                // Otherwise, collapse it
-                sidebarCharts.classList.remove('show');
-            }
-
-            // Check the current route and expand/collapse accordingly
-            if (currentRoute === 'make-payment'
-                || currentRoute === 'loan-wallet'
-            ) {
-                const sidebarCharts = document.getElementById('sidebarApexcharts2');
                 
                 // Collapse if the current route doesn't match any of the specified routes
                 sidebarCharts.classList.add('show');
