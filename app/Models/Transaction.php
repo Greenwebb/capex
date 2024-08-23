@@ -15,6 +15,7 @@ class Transaction extends Model
         'transaction_fee',
         'profit_margin',
         'charge_amount',
+        'method',
         'application_id',
         'proccess_by',
         'installment_id',

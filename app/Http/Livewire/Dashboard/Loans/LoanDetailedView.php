@@ -44,6 +44,7 @@ class LoanDetailedView extends Component
     public function prefillLoanProductValues(){
         try {
             $this->lp = $this->get_loan_product($this->loan->loan_product_id);
+            dd($this->lp);
             $this->loan_interest_value = $this->lp->def_loan_interest / 100;
             $this->principal = $this->loan->amount;
         } catch (\Throwable $th) {

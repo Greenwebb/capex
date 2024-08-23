@@ -185,11 +185,11 @@ trait LoanTrait{
     public function getOpenLoanRequests($type){
         $userId = auth()->user()->id;
         if(auth()->user()->hasRole('admin')){
-            return Application::with('loan_product')->whereNotNull('user_id')->where('status', 1)->get();
+            return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 0)->where('status', 1)->get();
         }else{
             switch ($type) {
                 case 'spooling':
-                    return Application::with('loan_product')->whereNotNull('user_id')->where('complete', 1)
+                    return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 0)
                     ->where('status', 1)->get();
                     break;
                 case 'manual':
@@ -201,7 +201,41 @@ trait LoanTrait{
                         $query->where('is_active', 1);
                     })
                     ->where('status', 1)
-                    ->where('complete', 1)
+                    ->where('closed', 0)
+                    ->get();
+
+                    break;
+                case 'auto':
+                    # code...
+                    break;
+
+                default:
+                    # code...
+                break;
+            }
+        }
+    }
+
+    public function getClosedLoanRequests($type){
+        $userId = auth()->user()->id;
+        if(auth()->user()->hasRole('admin')){
+            return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 1)->where('status', 1)->get();
+        }else{
+            switch ($type) {
+                case 'spooling':
+                    return Application::with('loan_product')->whereNotNull('user_id')->where('closed', 1)
+                    ->where('status', 1)->get();
+                    break;
+                case 'manual':
+                    return Application::with('loan_product')->whereNotNull('user_id')->with(['manual_approvers' => function ($query) use ($userId) {
+                        $query->where('user_id', $userId);
+                        $query->where('is_active', 1);
+                    }])->whereHas('manual_approvers', function ($query) use ($userId) {
+                        $query->where('user_id', $userId);
+                        $query->where('is_active', 1);
+                    })
+                    ->where('status', 1)
+                    ->where('closed', 1)
                     ->get();
 
                     break;

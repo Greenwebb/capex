@@ -55,7 +55,7 @@
                                     @endforelse
                                 </select>
                             </div>
-                        
+
                             <div class="col-md-6">
                                 <label for="loanCategory" class="form-label">Loan Category
                                     <span><i class="text-danger ri-asterisk"></i></span>
@@ -66,7 +66,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <script>
                             document.addEventListener('DOMContentLoaded', function () {
                                 const selectedLoanType = document.getElementById('selectedLoanType');
@@ -237,7 +237,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="minimum_loan_principal_amount" id="minimum_loan_principal_amount" class="form-control  " placeholder="0.00" />
+                                    <input type="number" name="minimum_loan_principal_amount" id="minimum_loan_principal_amount" class="form-control  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -258,7 +258,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="default_loan_principal_amount" class="form-control  " placeholder="0.00" />
+                                    <input type="number" name="default_loan_principal_amount" class="form-control  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -270,7 +270,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="maximum_principal_amount" class="form-control  " placeholder="0.00" />
+                                    <input type="number" name="maximum_principal_amount" class="form-control  " placeholder="0.00" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -385,34 +385,22 @@
                                 <!--end::Col-->
                             </div>
                             <div class="row mb-6">
-                                <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Minimum Loan Interest</label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="minimum_loan_interest" class="form-control  " placeholder="0.00" />
+                                    <input type="number" name="minimum_loan_interest" class="form-control" placeholder="0.00" step="0.01" pattern="\d+(\.\d{1,2})?" />
                                 </div>
-                                <!--end::Col-->
                             </div>
                             <div class="row mb-6">
-                                <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Default Loan Interest</label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="default_loan_interest" class="form-control  " placeholder="0.00" />
+                                    <input type="number" name="default_loan_interest" class="form-control" placeholder="0.00" step="0.01" pattern="\d+(\.\d{1,2})?" />
                                 </div>
-                                <!--end::Col-->
                             </div>
                             <div class="row mb-6">
-                                <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Maximum Loan Interest</label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="maximum_loan_interest" class="form-control  " placeholder="0.00" />
+                                    <input type="number" name="maximum_loan_interest" class="form-control" placeholder="0.00" step="0.01" pattern="\d+(\.\d{1,2})?" />
                                 </div>
-                                <!--end::Col-->
                             </div>
 
                         </div>

@@ -176,23 +176,23 @@
                         <h5 class="modal-title" id="exampleModalLabel"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                     </div>
-                    <form  wire:submit.prevent="makepayment()" class="tablelist-form" autocomplete="off">
+                    <form wire:submit.prevent="makepayment()" class="tablelist-form" autocomplete="off">
                         <div class="modal-body">
                             <p class="fs-5 fw-bold">Payment Method</p>
                             <div class="form-group flex gap-3">
-                                <input type="radio" name="payment_method" id="checkbox1" class="radio-hidden">
+                                <input type="radio" wire:model.defer="payment_method" id="checkbox1" class="radio-hidden">
                                 <label for="checkbox1" class="checkbox"></label>
 
-                                <input type="radio" name="payment_method" id="checkbox2" class="radio-hidden">
+                                <input type="radio" wire:model.defer="payment_method" id="checkbox2" class="radio-hidden">
                                 <label for="checkbox2" class="checkbox"></label>
 
-                                <input type="radio" name="payment_method" id="checkbox3" class="radio-hidden">
+                                <input type="radio" wire:model.defer="payment_method" id="checkbox3" class="radio-hidden">
                                 <label for="checkbox3" class="checkbox"></label>
                             </div>
                             <br>
                             <p class="fs-5 fw-bold">Loan Application</p>
                             <div class="form-group">
-                                <select wire:ignore.self wire:model="loan_id" class="form-select uppercase form-control wide mb-3" id="exampleInputEmail7" placeholder="Find Customer" data-live-search="true">
+                                <select wire:model.defer="loan_id" class="form-select uppercase form-control wide mb-3" id="exampleInputEmail7" placeholder="Find Customer" data-live-search="true">
                                     <option value="">--select--</option>
                                     @forelse ($loans as $item)
                                     <option value="{{ $item->id }}">{{ $item->user->fname.' '.$item->user->lname.' | K'.App\Models\Loans::loan_balance($item->id).' - '.$item->product->name.' Loan'.' | Duration '.$item->repayment_plan}}</option>
@@ -204,7 +204,7 @@
                             <br>
                             <p class="fs-5 fw-bold">Amount</p>
                             <div class="form-group">
-                                <input wire:model.lazy="amount" type="text" class="form-control" required>
+                                <input wire:model.defer="amount" type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -248,23 +248,34 @@
     <!-- container-fluid -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var radios = document.querySelectorAll('input[type="radio"][name="payment_method"]');
-            radios.forEach(function(radio) {
-                radio.addEventListener('change', function() {
-                    radios.forEach(function(r) {
-                        var label = document.querySelector('label[for="' + r.id + '"]');
-                        if (r.checked) {
-                            label.style.borderColor = '#BD0DFF'; // Change border color if checked
-                            label.style.borderWidth = '4px'; // Optional: Adjust border width if needed
-                            label.style.borderStyle = 'solid'; // Ensure the border style is solid
-                        } else {
-                            label.style.borderColor = ''; // Reset border color if not checked
-                            label.style.borderWidth = ''; // Reset border width if needed
-                            label.style.borderStyle = ''; // Reset border style
-                        }
-                    });
+            var radio1 = document.getElementById('checkbox1');
+            var radio2 = document.getElementById('checkbox2');
+            var radio3 = document.getElementById('checkbox3');
+
+            function handleRadioChange() {
+                var radios = [radio1, radio2, radio3];
+                radios.forEach(function(radio) {
+                    var label = document.querySelector('label[for="' + radio.id + '"]');
+                    if (radio.checked) {
+                        label.style.borderColor = '#BD0DFF'; // Change border color if checked
+                        label.style.borderWidth = '4px'; // Adjust border width if needed
+                        label.style.borderStyle = 'solid'; // Ensure the border style is solid
+                    } else {
+                        label.style.borderColor = ''; // Reset border color if not checked
+                        label.style.borderWidth = ''; // Reset border width if needed
+                        label.style.borderStyle = ''; // Reset border style
+                    }
                 });
-            });
+            }
+
+            // Add event listeners for each radio button
+            radio1.addEventListener('change', handleRadioChange);
+            radio2.addEventListener('change', handleRadioChange);
+            radio3.addEventListener('change', handleRadioChange);
+
+            // Trigger the change event on page load if a radio is already selected
+            handleRadioChange();
         });
+
     </script>
 </div>
