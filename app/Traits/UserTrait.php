@@ -10,6 +10,7 @@ use App\Models\NextOfKing;
 use App\Models\References;
 use App\Models\RelatedParty;
 use App\Models\User;
+use App\Models\UserPhoto;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Collection;
@@ -127,7 +128,7 @@ trait UserTrait{
             }
         }
     }
-    
+
     public function createRelatedParties($data){
         RelatedParty::create([
             'email' => $data['rp_email'] ?? null,
@@ -268,6 +269,36 @@ trait UserTrait{
 
         // Return the API response
         return $response;
+    }
+
+    public function uploadUserPhotos($request = null, $user)
+    {
+        // Handle Primary Photo Upload
+        if ($request->hasFile('primary_image_path')) {
+            $primaryPhotoPath = $request->file('primary_image_path')->store('users', 'public');
+            UserPhoto::updateOrCreate(
+                ['name' => 'primary', 'user_id' => $user->id],
+                ['path' => $primaryPhotoPath]
+            );
+        }
+
+        // Handle Secondary Photo Upload
+        if ($request->hasFile('secondary_image_path')) {
+            $secondaryPhotoPath = $request->file('secondary_image_path')->store('users', 'public');
+            UserPhoto::updateOrCreate(
+                ['name' => 'secondary', 'user_id' => $user->id],
+                ['path' => $secondaryPhotoPath]
+            );
+        }
+
+        // Handle Tertiary Photo Upload
+        if ($request->hasFile('tertiary_image_path')) {
+            $tertiaryPhotoPath = $request->file('tertiary_image_path')->store('users', 'public');
+            UserPhoto::updateOrCreate(
+                ['name' => 'tertiary', 'user_id' => $user->id],
+                ['path' => $tertiaryPhotoPath]
+            );
+        }
     }
 }
 

@@ -38,6 +38,10 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
+    <!-- Include jQuery and jQuery UI CSS and JS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
     @livewireStyles
 </head>
@@ -904,6 +908,15 @@
         flatpickr("#dueDate", {
             dateFormat: "Y-m-d", // Laravel's standard format
         });
+        flatpickr("#customerDob", {
+            dateFormat: "Y-m-d", // Laravel's standard format
+        });
+        flatpickr("#nokDob", {
+            dateFormat: "Y-m-d", // Laravel's standard format
+        });
+        flatpickr("#dob", {
+            dateFormat: "Y-m-d", // Laravel's standard format
+        });
         let table = new DataTable('#customerTable', {
             order: [[0, 'desc']]
         });
@@ -925,7 +938,7 @@
             // Check the current route and expand/collapse accordingly
             if (currentRoute === 'borrowers' || currentRoute === 'guarantors' || currentRoute === 'refs') {
                 const sidebarCharts = document.getElementById('sidebarCharts1');
-                
+
                 // Collapse if the current route doesn't match any of the specified routes
                 sidebarCharts.classList.add('show');
             } else {
@@ -946,7 +959,7 @@
                 || currentRoute === 'loan-calculator'
             ) {
                 const sidebarCharts = document.getElementById('sidebarAdvanceUI');
-                
+
                 // Collapse if the current route doesn't match any of the specified routes
                 sidebarCharts.classList.add('show');
             } else {
@@ -959,7 +972,7 @@
                 || currentRoute === 'loan-wallet'
             ) {
                 const sidebarCharts = document.getElementById('sidebarApexcharts');
-                
+
                 // Collapse if the current route doesn't match any of the specified routes
                 sidebarCharts.classList.add('show');
             } else {
@@ -968,6 +981,68 @@
             }
         });
 
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#customerphone").on("input", function() {
+                let phoneValue = $(this).val().replace(/\D/g, ''); // Remove non-digits
+
+                if (phoneValue.length > 10) {
+                    phoneValue = phoneValue.slice(0, 10); // Limit to 10 digits
+                }
+
+                // Format the phone number
+                if (phoneValue.length > 3 && phoneValue.length <= 6) {
+                    phoneValue = phoneValue.slice(0, 3) + '-' + phoneValue.slice(3);
+                } else if (phoneValue.length > 6) {
+                    phoneValue = phoneValue.slice(0, 3) + '-' + phoneValue.slice(3, 6) + '-' + phoneValue.slice(6);
+                }
+
+                $(this).val(phoneValue);
+
+                if (phoneValue.replace(/\D/g, '').length < 10) {
+                    $(this).css("border-color", "red");
+                } else {
+                    $(this).css("border-color", "");
+                }
+            });
+
+            // Prevent non-numeric input
+            $("#customerphone").on("keypress", function(e) {
+                if (!/[0-9]/.test(String.fromCharCode(e.which))) {
+                    return false; // Block non-numeric input
+                }
+            });
+            $("#phone").on("input", function() {
+                let phoneValue = $(this).val().replace(/\D/g, ''); // Remove non-digits
+
+                if (phoneValue.length > 10) {
+                    phoneValue = phoneValue.slice(0, 10); // Limit to 10 digits
+                }
+
+                // Format the phone number
+                if (phoneValue.length > 3 && phoneValue.length <= 6) {
+                    phoneValue = phoneValue.slice(0, 3) + '-' + phoneValue.slice(3);
+                } else if (phoneValue.length > 6) {
+                    phoneValue = phoneValue.slice(0, 3) + '-' + phoneValue.slice(3, 6) + '-' + phoneValue.slice(6);
+                }
+
+                $(this).val(phoneValue);
+
+                if (phoneValue.replace(/\D/g, '').length < 10) {
+                    $(this).css("border-color", "red");
+                } else {
+                    $(this).css("border-color", "");
+                }
+            });
+
+            // Prevent non-numeric input
+            $("#phone").on("keypress", function(e) {
+                if (!/[0-9]/.test(String.fromCharCode(e.which))) {
+                    return false; // Block non-numeric input
+                }
+            });
+        });
     </script>
 </body>
 </html>

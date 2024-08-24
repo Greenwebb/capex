@@ -15,25 +15,25 @@
                             <div class="d-flex flex-center flex-column mb-5">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-100px symbol-circle mb-7">
-                                    @if($data->profile_photo_path == null)
-                                        @if($data->fname != null && $data->lname != null)
-                                            <span class="text-white">{{ $data->fname[0].' '.$data->lname[0] }}</span>
+                                    @if($user->profile_photo_path == null)
+                                        @if($user->fname != null && $user->lname != null)
+                                            <span class="text-white">{{ $user->fname[0].' '.$user->lname[0] }}</span>
                                         @else
-                                            <span>{{ $data->name[0] }}</span>
+                                            <span>{{ $user->name[0] }}</span>
                                         @endif
                                     @else
-                                        <img class="rounded-circle bg-primary" src="{{ 'public/'.Storage::url($data->profile_photo_path) }}" />
+                                        <img class="rounded-circle bg-primary" src="{{ 'public/'.Storage::url($user->profile_photo_path) }}" />
                                     @endif
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Name-->
                                 <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">
-                                    {{ $data->fname.' '.$data->lname }}
+                                    {{ $user->fname.' '.$user->lname }}
                                 </a>
                                 <!--end::Name-->
                                 <!--begin::Position-->
                                 <div class="fs-5 fw-semibold text-muted mb-6">
-                                    @foreach ($data->roles as $role)
+                                    @foreach ($user->roles as $role)
                                     @if($role->name == 'user')
                                     <p>Borrower</p>
                                     @else
@@ -43,7 +43,7 @@
                                 </div>
                                 <!--end::Position-->
                                 <!--begin::Info-->
-                                
+
                                 <!--end::Info-->
                             </div>
                             <!--end::Summary-->
@@ -54,26 +54,26 @@
                                 <div class="py-5 fs-6">
                                     <div class="badge badge-light-info d-inline">Premium user</div>
                                     <div class="fw-bold mt-5">Account ID</div>
-                                    <div class="text-gray-600">ID-{{ $data->id }}</div>
+                                    <div class="text-gray-600">ID-{{ $user->id }}</div>
                                     <div class="fw-bold mt-5">Email</div>
                                     <div class="text-gray-600">
-                                        <a href="#" class="text-gray-600 text-hover-primary">{{ $data->email }}</a>
+                                        <a href="#" class="text-gray-600 text-hover-primary">{{ $user->email }}</a>
                                     </div>
                                     <div class="fw-bold mt-5">Address</div>
                                     <div class="text-gray-600">
-                                        {{ $data->address ?? 'No Address' }}
+                                        {{ $user->address ?? 'No Address' }}
                                     </div>
                                 </div>
-                                <div class="py-5 fs-6"> 
+                                <div class="py-5 fs-6">
                                     <div class="fw-bold">Language</div>
                                     <div class="text-gray-600">English</div>
                                     <div class="fw-bold mt-5">Upcoming Repayment</div>
                                     <div class="text-gray-600">K 0</div>
                                     <div class="fw-bold mt-5">National ID</div>
-                                    <div class="text-gray-600">{{ $data->id_type ?? 'Not Set' }}</div>
-                                    <div class="text-gray-600">{{ $data->nrc_no ?? $data->nrc ?? 'Not Set' }}</div>
+                                    <div class="text-gray-600">{{ $user->id_type ?? 'Not Set' }}</div>
+                                    <div class="text-gray-600">{{ $user->nrc_no ?? $user->nrc ?? 'Not Set' }}</div>
                                     <div class="fw-bold mt-5">Registered On</div>
-                                    <div class="text-gray-600">{{ $data->created_at->diffForHumans() ?? 'Not Set' }}</div>
+                                    <div class="text-gray-600">{{ $user->created_at->diffForHumans() ?? 'Not Set' }}</div>
                                 </div>
                             </div>
                             <!--end::Details content-->

@@ -52,7 +52,16 @@ class User extends Authenticatable
         'ministry',
         'department',
         'opt_code',
-        'opt_verified'
+        'opt_verified',
+        'address2',
+        'empaddress',
+        'empemail',
+        'empphone',
+        'nokfname',
+        'noklname',
+        'nokemail',
+        'nokdob',
+        'nokgender',
     ];
 
     /**
@@ -190,5 +199,9 @@ class User extends Authenticatable
 
     public function loan_notifications(){
         return $this->hasMany(LoanNotification::class);
+    }
+
+    public function photos(){
+        return $this->hasMany(UserPhoto::class);
     }
 }

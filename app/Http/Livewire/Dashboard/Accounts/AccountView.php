@@ -11,14 +11,14 @@ use App\Classes\Exports\AccountDetailExportExport;
 
 class AccountView extends Component
 {
-    public $data, $key;
+    public $user, $key;
     public function mount(){
         $this->key = $_GET['key'];
     }
     public function render()
     {
-        $this->data = $this->searchAccount($this->key);
-        if ($this->data->hasRole('user')) {
+        $this->user = $this->searchAccount($this->key);
+        if ($this->user->hasRole('user')) {
             return view('livewire.dashboard.accounts.account-view')
             ->layout('layouts.main');
         }else{

@@ -46,9 +46,9 @@
                                                 <a href="{{ route('proxy-loan-create') }}" type="button" class="btn btn-soft-primary"><i class="align-middle ri-add-circle-line me-1"></i> Add New Loan</a>
                                             </div>
                                             <!--end col-->
-                                            <div class="col-auto">
+                                            {{-- <div class="col-auto">
                                                 <button type="button" class="btn btn-soft-primary btn-icon waves-effect waves-light layout-rightside-btn"><i class="ri-pulse-line"></i></button>
-                                            </div>
+                                            </div> --}}
                                             <!--end col-->
                                         </div>
                                         <!--end row-->
@@ -600,11 +600,11 @@
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
                                     <h4 class="mb-0 card-title flex-grow-1">Recent 7 Loan Requests</h4>
-                                    <div class="flex-shrink-0">
+                                    {{-- <div class="flex-shrink-0">
                                         <button type="button" class="btn btn-soft-info btn-sm">
                                             <i class="align-middle ri-file-list-3-line"></i> Generate Report
                                         </button>
-                                    </div>
+                                    </div> --}}
                                 </div><!-- end card header -->
 
                                 <div class="card-body">
@@ -626,7 +626,7 @@
                                                 @forelse($all_loan_requests as $loan)
                                                 <tr>
                                                     <td>
-                                                        <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2112</a>
+                                                        <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">{{ $loan->uuid }}</a>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex align-items-center">

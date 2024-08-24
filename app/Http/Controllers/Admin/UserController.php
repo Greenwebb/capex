@@ -54,64 +54,22 @@ class UserController extends Controller
     public function store(User $user, Request $request)
     {
         DB::beginTransaction();
-            // Validate phone and ID number
+        try {
             $request->validate([
                 'phone' => 'required|unique:users,phone',
                 'email' => 'required|unique:users,email',
                 'nrc_no' => 'required|unique:users,nrc_no',
-                // 'image_path' => 'nullable|image|max:2048' // Adjust the validation for the image file as needed
             ]);
-        try {
-            if ($request->file('image_path')) {
-                $url = Storage::put('public/users', $request->file('image_path'));
-            }
-
             $u = $user->create(array_merge($request->all(), [
                 'password' => bcrypt('@capex+2024'),
-                'active' => 1,
-                'profile_photo_path' => $url ?? ''
+                'active' => 1
             ]));
-
             $u->syncRoles($request->assigned_role);
+            $this->uploadUserPhotos($request, $u);
+            DB::commit();
+            Session::flash('success', 'User created successfully');
+            return redirect()->back();
 
-            // Onyl users with Emails
-            if($u->email != null){
-                $mail = [
-                    'name' => $u->fname.' '.$u->lname,
-                    'to' => $u->email,
-                    'from' => 'admin@capexfinancialservices.org',
-                    'phone' => $u->phone,
-                    'subject' => 'Your Capex Finance Account',
-                    'message' => 'Hello '.$u->fname.' '.$u->lname.' Your Capex Finance account is now ready, Click on login to goto your dashboard. Your password is @capex+2024  -  feel free to change your password.',
-                ];
-            }
-
-            try {
-                // Send Email to User with Email only about their New Account Created
-                if($u->email != null){
-                    $eMail = new BTFAccount($mail);
-                    Mail::to($u->email)->send($eMail);
-                }
-                if($request->assigned_role == 'user'){
-                    $url = '/apply-for-a-loan/ '.$u->id;
-                    Wallet::create([
-                        'user_id' => $u->id
-                    ]);
-                    $msg = '<a target="_blank" href="'.$url.'">Apply for Loan on Behalf</a>';
-                    Session::flash('success', "Borrower created successfully. ");
-                    Session::flash('borrower_id', $u->id);
-                }else{
-                    Session::flash('success', "User created successfully.");
-                }
-
-                DB::commit();
-                return back();
-            } catch (\Throwable $th) {
-                Session::flash('error', "Email not sent. Check your internet connection. You may contact '.$u->fname.' '.$u->lname,.' and provide them with their account login information. ".$th->getMessage());
-                // DB::rollback();
-                DB::commit();
-                return back();
-            }
         } catch (\Throwable $th) {
             DB::rollback();
             if($request->assigned_role == 'user'){
@@ -121,7 +79,7 @@ class UserController extends Controller
             }else{
                 Session::flash('error', 'Oops.. An with this email already exists. please try again.');
             }
-            return back();
+            return redirect()->back();
         }
 
     }
