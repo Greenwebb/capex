@@ -2,7 +2,7 @@
 <div class="page-content">
     <!-- start page title -->
     <div class="row">
-        <div class="col-12">
+        <div class="px-4 col-12">
             <div class="bg-transparent page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0">Borrower Information</h4>
 
@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="gap-2 p-3 rounded-lg col-md-12 row bg-light">
+        <div class="gap-2 p-3 rounded-lg col-md-12 row">
                 @if (!empty($user->photos))
                     @foreach ($user->photos as $photo )
                         <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="rounded-sm img-thumbnail col-3" />
@@ -40,19 +40,14 @@
                 <!--end col-->
                 <div class="col">
                     <div class="p-2">
-                        <h3 class="mb-1">{{ $user->fname.' '.$user->lname }}</h3>
-                        <p class="text-muted">
-                            @foreach ($user->roles as $role)
-                            {{ ucwords($role->name) }}
-                            @endforeach
-                        </p>
+                        <h3 class="mb-1"><b>{{ $user->fname.' '.$user->lname }}</b></h3>
                         <div class="gap-1 hstack text-muted">
                             <div class="me-2"><i class="align-bottom ri-map-pin-user-line me-1 fs-16 text-body"></i>{{ $user->address ?? 'No Address' }}</div>
                             @if ($user->occupation || $user->jobTitle)
                                 
                             @endif
                             <div>
-                                <i class="align-bottom ri-building-line me-1 fs-16 text-body"></i>{{ $user->jobTitle ?? $user->occupation  }}
+                                <i class="align-bottom ri-building-line me-1 fs-16 text-body"></i>{{ $user->jobTitle ?? $user->occupation ?? 'No Occupation'  }}
                             </div>
                         </div>
                     </div>
@@ -85,21 +80,24 @@
         <div class="row">
             <div class="col-lg-12">
                 <div>
-                    
                     <!-- Tab panes -->
                     <div class="pt-4 tab-content text-muted">
                         <div class="tab-pane active" id="overview-tab" role="tabpanel">
-                            <div class="row">
-                                <div class="col-xxl-3">
-                                    <div class="card">
+                            <div class="px-3">
+                                <div class="row">
+                                    <div class="card col-md-6">
                                         <div class="card-body">
-                                            <h5 class="mb-3 card-title">Basic & Personal Information </h5>
+                                            <h5 class="mb-3 card-title"><b>Basic & Personal Information</b></h5>
                                             <div class="px-8 table-responsive row">
                                                 <div class="table px-8 mb-0 table-borderless">
                                                     <div class="px-10 pt-2">
                                                         <p>
                                                             <th class="ps-0 text-warning fs-9" scope="row"><b>Full Name :</b></th>
                                                             <td class="text-muted">{{ $user->fname.' '.$user->lname }}</td>
+                                                        </p>
+                                                        <p>
+                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Gender :</b></th>
+                                                            <td class="uppercase text-muted">{{ $user->gender }}</td>
                                                         </p>
                                                         <p>
                                                             <th class="ps-0 text-warning fs-9" scope="row"><b>Mobile :</b></th>
@@ -115,37 +113,22 @@
                                                             </td>
                                                         </p>
                                                         <p>
-                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Joining Date</b></th>
-                                                            <td class="text-muted">24 Nov 2021</td>
+                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Joined Date</b></th>
+                                                            <td class="text-muted">{{ $user->created_at->toFormattedDateString() }}</td>
                                                         </p>
                                                     </div>
                                                 </div>
-                                            
-                                              
                                             </div>
                                         </div>
                                     </div>
 
 
-                                    <div class="card">
+                                    <div class="card col-md-6">
                                         <div class="card-body">
-                                            <div class="mb-4 d-flex align-items-center">
+                                            <div class="mb-2 d-flex align-items-center">
                                                 <div class="flex-grow-1">
-                                                    <h5 class="mb-0 card-title">Next of Kin</h5>
+                                                    <h5 class="mb-0 card-title"><b>Next of Kin</b></h5>
                                                 </div>
-                                                {{-- <div class="flex-shrink-0">
-                                                    <div class="dropdown">
-                                                        <a href="#" role="button" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="ri-more-2-fill fs-14"></i>
-                                                        </a>
-
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
-                                                            <li><a class="dropdown-item" href="#">View</a></li>
-                                                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                            <li><a class="dropdown-item" href="#">Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div> --}}
                                             </div>
                                             <div>
                                                 <div class="py-3 d-flex align-items-center">
@@ -197,11 +180,11 @@
                                     </div>
                                     <!--end card-->
 
-                                    <div class="card">
+                                    <div class="card col-md-12">
                                         <div class="card-body">
                                             <div class="mb-4 d-flex align-items-center">
                                                 <div class="flex-grow-1">
-                                                    <h5 class="mb-0 card-title">Employement Details</h5>
+                                                    <h5 class="mb-0 card-title"><b>Employement Details</b></h5>
                                                 </div>
                                             </div>
                                             <div class="mb-4 d-flex">

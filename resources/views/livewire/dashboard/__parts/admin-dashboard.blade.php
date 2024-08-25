@@ -387,23 +387,7 @@
                         <div class="col-xl-6">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="mb-0 card-title flex-grow-1">Recent 5 Open Loans</h4>
-                                    <div class="flex-shrink-0">
-                                        {{-- <div class="dropdown card-header-dropdown">
-                                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="fw-semibold text-uppercase fs-12">Sort by:
-                                                </span><span class="text-muted">Today<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Today</a>
-                                                <a class="dropdown-item" href="#">Yesterday</a>
-                                                <a class="dropdown-item" href="#">Last 7 Days</a>
-                                                <a class="dropdown-item" href="#">Last 30 Days</a>
-                                                <a class="dropdown-item" href="#">This Month</a>
-                                                <a class="dropdown-item" href="#">Last Month</a>
-                                            </div>
-                                        </div> --}}
-                                    </div>
+                                    <h4 class="mb-0 card-title flex-grow-1"><b>Recent 5 Open Loans</b></h4>
                                 </div><!-- end card header -->
 
                                 <div class="card-body">
@@ -414,9 +398,23 @@
                                                 <tr>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            {{-- <div class="p-1 rounded avatar-sm bg-light me-2">
-                                                                <img src="public/assets/images/products/img-4.png" alt="" class="img-fluid d-block" />
-                                                            </div> --}}
+                                                            <div class="p-1 rounded avatar-sm bg-light me-2">
+                                                                @if (!empty($loan->user->photos->toArray()))
+                                                                     @foreach ($loan->user->photos->take(1) as $photo )
+                                                                         <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="img-fluid d-block" />
+                                                                     @endforeach
+                                                                 @else
+                                                                     @if ($loan->user->gender !== null) 
+                                                                         @if ($loan->user->gender === 'Female')
+                                                                             <img src="public/assets/images/girl.png" alt="user-img" class="img-fluid d-block" />
+                                                                         @else
+                                                                             <img src="public/assets/images/boy.png" alt="user-img" class="img-fluid d-block" />
+                                                                         @endif
+                                                                     @else
+                                                                         <img src="public/assets/images/user.png" alt="user-img" class="img-fluid d-block" />
+                                                                     @endif
+                                                                 @endif
+                                                            </div>
                                                             <div>
                                                                 <h5 class="my-1 fs-14"><a href="apps-ecommerce-product-details.html" class="text-reset">{{ $loan->user->fname.' '. $loan->user->lname }}</a></h5>
                                                                 <span class="text-muted">{{ $loan->created_at->toFormattedDateString() }}</span>
@@ -442,39 +440,13 @@
                                                     </td>
                                                 </tr>
                                                 @empty
-                                                <p>No Closed Loan</a>
+                                                <div class="px-3 text-muted">
+                                                    <p>No Closed Loan</a>
+                                                </div>
                                                 @endforelse
                                             </tbody>
                                         </table>
                                     </div>
-
-                                    <div class="pt-2 mt-4 text-center align-items-center justify-content-between row text-sm-start">
-                                         {{-- <div class="col-sm">
-                                            <div class="text-muted">
-                                                Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
-                                            </div>
-                                        </div>
-                                       <div class="mt-3 col-sm-auto mt-sm-0">
-                                            <ul class="mb-0 pagination pagination-separated pagination-sm justify-content-center">
-                                                <li class="page-item disabled">
-                                                    <a href="#" class="page-link">←</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">1</a>
-                                                </li>
-                                                <li class="page-item active">
-                                                    <a href="#" class="page-link">2</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">3</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">→</a>
-                                                </li>
-                                            </ul>
-                                        </div> --}}
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -482,20 +454,8 @@
                         <div class="col-xl-6">
                             <div class="card card-height-100">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="mb-0 card-title flex-grow-1">Recent 5 Closed Loans</h4>
-                                    <div class="flex-shrink-0">
-                                        {{-- <div class="dropdown card-header-dropdown">
-                                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Download Report</a>
-                                                <a class="dropdown-item" href="#">Export</a>
-                                                <a class="dropdown-item" href="#">Import</a>
-                                            </div>
-                                        </div> --}}
-                                    </div>
-                                </div><!-- end card header -->
+                                    <h4 class="mb-0 card-title flex-grow-1"><b>Recent 5 Closed Loans</b></h4>
+                                </div>
 
                                 <div class="card-body">
                                     <div class="table-responsive table-card">
@@ -505,9 +465,23 @@
                                                <tr>
                                                    <td>
                                                        <div class="d-flex align-items-center">
-                                                           {{-- <div class="p-1 rounded avatar-sm bg-light me-2">
-                                                               <img src="public/assets/images/products/img-4.png" alt="" class="img-fluid d-block" />
-                                                           </div> --}}
+                                                           <div class="p-1 rounded avatar-sm bg-light me-2">
+                                                               @if (!empty($loan->user->photos->toArray()))
+                                                                    @foreach ($loan->user->photos->take(1) as $photo )
+                                                                        <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="img-fluid d-block" />
+                                                                    @endforeach
+                                                                @else
+                                                                    @if ($loan->user->gender !== null) 
+                                                                        @if ($loan->user->gender === 'Female')
+                                                                            <img src="public/assets/images/girl.png" alt="user-img" class="img-fluid d-block" />
+                                                                        @else
+                                                                            <img src="public/assets/images/boy.png" alt="user-img" class="img-fluid d-block" />
+                                                                        @endif
+                                                                    @else
+                                                                        <img src="public/assets/images/user.png" alt="user-img" class="img-fluid d-block" />
+                                                                    @endif
+                                                                @endif
+                                                           </div>
                                                            <div>
                                                                <h5 class="my-1 fs-14"><a href="apps-ecommerce-product-details.html" class="text-reset">{{ $loan->user->fname.' '. $loan->user->lname }}</a></h5>
                                                                <span class="text-muted">{{ $loan->created_at->toFormattedDateString() }}</span>
@@ -533,37 +507,12 @@
                                                    </td>
                                                </tr>
                                                @empty
-                                               <p>No Closed Loan</a>
+                                               <div class="px-3 text-muted">
+                                                   <p>No Closed Loan</a>
+                                               </div>
                                                @endforelse
                                             </tbody>
                                         </table><!-- end table -->
-                                    </div>
-
-                                    <div class="pt-2 mt-4 text-center align-items-center justify-content-between row text-sm-start">
-                                        {{-- <div class="col-sm">
-                                            <div class="text-muted">
-                                                Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
-                                            </div>
-                                        </div>
-                                        <div class="mt-3 col-sm-auto mt-sm-0">
-                                            <ul class="mb-0 pagination pagination-separated pagination-sm justify-content-center">
-                                                <li class="page-item disabled">
-                                                    <a href="#" class="page-link">←</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">1</a>
-                                                </li>
-                                                <li class="page-item active">
-                                                    <a href="#" class="page-link">2</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">3</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">→</a>
-                                                </li>
-                                            </ul>
-                                        </div> --}}
                                     </div>
 
                                 </div> <!-- .card-body-->
@@ -599,12 +548,12 @@
                         <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="mb-0 card-title flex-grow-1">Recent 7 Loan Requests</h4>
-                                    {{-- <div class="flex-shrink-0">
-                                        <button type="button" class="btn btn-soft-info btn-sm">
-                                            <i class="align-middle ri-file-list-3-line"></i> Generate Report
-                                        </button>
-                                    </div> --}}
+                                    <h4 class="mb-0 card-title flex-grow-1"><b>Recent 7 Loan Requests</b></h4>
+                                    <div class="flex-shrink-0">
+                                        <a href="{{ route('view-loan-requests') }}" class="btn btn-soft-info btn-sm">
+                                            <i class="align-middle ri-file-list-3-line"></i> View more
+                                        </a>
+                                    </div>
                                 </div><!-- end card header -->
 
                                 <div class="card-body">
@@ -614,11 +563,11 @@
                                                 <tr>
                                                     <th scope="col">Loan ID</th>
                                                     <th scope="col">Customer</th>
-                                                    <th scope="col">Loan Product</th>
+                                                    <th scope="col">Phone</th>
+                                                    <th scope="col">Occupation</th>
                                                     <th scope="col">Principal</th>
-                                                    <th scope="col">Guarantor</th>
                                                     <th scope="col">Status</th>
-                                                    <th scope="col">Score</th>
+                                                    <th scope="col">Sex</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -626,23 +575,37 @@
                                                 @forelse($all_loan_requests as $loan)
                                                 <tr>
                                                     <td>
-                                                        <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">{{ $loan->uuid }}</a>
+                                                        <a target="_blank" href="{{ route('detailed', ['id' => $loan->id]) }}" class="fw-medium link-primary">{{ $loan->uuid }}</a>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            {{-- <div class="flex-shrink-0 me-2">
-                                                                <img src="assets/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                            </div> --}}
+                                                            <div class="flex-shrink-0 me-2">
+                                                                @if (!empty($loan->user->photos->toArray()))
+                                                                    @foreach ($loan->user->photos->take(1) as $photo )
+                                                                        <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="avatar-xs rounded-circle" />
+                                                                    @endforeach
+                                                                @else
+                                                                    @if ($loan->user->gender !== null) 
+                                                                        @if ($loan->user->gender === 'Female')
+                                                                            <img src="public/assets/images/girl.png" alt="user-img" class="avatar-xs rounded-circle" />
+                                                                        @else
+                                                                            <img src="public/assets/images/boy.png" alt="user-img" class="avatar-xs rounded-circle" />
+                                                                        @endif
+                                                                    @else
+                                                                        <img src="public/assets/images/user.png" alt="user-img" class="avatar-xs rounded-circle" />
+                                                                    @endif
+                                                                @endif
+                                                            </div>
                                                             <div class="flex-grow-1">
-                                                                {{ ucwords($loan->user->fname).' '.ucwords($loan->user->lname) }}
+                                                                <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id]) }}">{{ ucwords($loan->user->fname).' '.ucwords($loan->user->lname) }}</a>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>Clothes</td>
+                                                    <td>{{  $loan->user->phone ?? 'No Phone' }}</td>
+                                                    <td>{{ $loan->user->occupation ?? 'No Occupation' }}</td>
                                                     <td>
-                                                        <span class="text-success">K{{ $loan->amount }}</span>
+                                                        <span class="text-lg text-info h5"><b>K{{ $loan->amount }}</b></span>
                                                     </td>
-                                                    <td>--</td>
                                                     <td>
                                                         @if($loan->status == 0)
                                                         <span class="badge bg-warning-subtle text-warning">Pending</span>
@@ -657,12 +620,12 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <h5 class="mb-0 fs-14 fw-medium">0.1<span class="text-muted fs-11 ms-1">(0/10)</span></h5>
+                                                        <h5 class="mb-0 fs-14 fw-medium"><span class="text-muted fs-11 ms-1">{{ $loan->user->gender }}</span></h5>
                                                     </td>
                                                 </tr>
                                                 @empty
                                                 <tr>
-                                                    <div>
+                                                    <div class="px-3 text-muted">
                                                         No Loans have been requested.
                                                     </div>
                                                 </tr>

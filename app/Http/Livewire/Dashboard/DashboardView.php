@@ -29,9 +29,8 @@ class DashboardView extends Component
         if ($user->hasRole('user')) {
             return view('livewire.dashboard.not-admin-view')->layout('layouts.bouncer');
         }else{
-            $this->all_loan_requests = Application::where(function ($query) {
-                $query->where('status', 2)->whereNotNull('user_id')->orWhere('status', 0);
-            })->orderBy('created_at', 'desc')->take(7)->get();
+            $this->all_loan_requests = Application::orWhere('status', 0)->orWhere('status', 2)
+            ->orderBy('created_at', 'desc')->take(7)->get();
             return view('livewire.dashboard.dashboard-view')->layout('layouts.main');
         }
     }
