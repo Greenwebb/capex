@@ -125,7 +125,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('view-all-loans', LoanViewAllView::class)->name('loans');
     Route::get('open-loans', ApprovedLoansView::class)->name('approved-loans');
     Route::get('due-loans', DueLoanView::class)->name('due-loans');
-    Route::get('new-loan-request', NewLoanView::class)->name('new-loan');
+    Route::get('new-loan-request', CreateLoanView::class)->name('new-loan');
     Route::get('client-loan-requests', LoanRequestView::class)->name('view-loan-requests');
     Route::get('pending-repayments', LoanRepaymentView::class)->name('repayments');
     Route::get('track-repayments/{id}', LoanTrackingView::class)->name('track-repayments');
@@ -136,7 +136,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('client-loan-history', LoanHistoryView::class)->name('view-loan-history');
     Route::get('loan-rates', LoanRatesView::class)->name('view-loan-rates');
     Route::get('repayment-calculator', LoanRepaymentCalculatorView::class)->name('view-repayment-calculator');
-    Route::get('edit-user/{id}', UserUpdateView::class)->name('edit-user');
+    Route::get('new-loanser/{id}', UserUpdateView::class)->name('edit-user');
 
 
     // ---- Borrowers
@@ -160,7 +160,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('three-months-late-loans', ThreeMonthLate::class)->name('three-month-late');
     Route::get('past-maturity-date', PastMaturityDateView::class)->name('past-maturity-date');
     Route::get('guarantors', GuarantorsView::class)->name('guarantors');
-    Route::get('references', ReferencesView::class)->name('refs');
+    Route::get('related-parties', ReferencesView::class)->name('refs');
     Route::get('missed-repayments', MissedRepaymentsView::class)->name('missed-repayments');
     Route::post('apply-for-loan', [LoanApplicationController::class, 'new_loan'])->name('apply-loan');
     Route::post('apply-proxy-loan', [LoanApplicationController::class, 'new_proxy_loan'])->name('proxy-apply-loan');

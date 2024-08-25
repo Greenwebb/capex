@@ -5,12 +5,12 @@
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+                <div class="bg-transparent page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0">Borrowers</h4>
 
                     <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                        <ol class="m-0 breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Borrowers</li>
                         </ol>
                     </div>
@@ -24,20 +24,20 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Add, Edit & Remove Loan Borrowers</h4>
+                        <h4 class="mb-0 card-title">Add, Edit & Remove Loan Borrowers</h4>
                     </div><!-- end card header -->
 
                     <div class="card-body">
                         <div class="listjs-table" id="customerList">
-                            <div class="row g-4 mb-3">
+                            <div class="mb-3 row g-4">
                                 <div class="col-sm-auto">
                                     <div>
                                         @can('create clientele')
-                                        <a href="" type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add Borrower</a>
+                                        <a href="" type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="align-bottom ri-add-line me-1"></i> Add Borrower</a>
                                         @endcan
                                         
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#export_borrowers_panel" class="btn btn-success px-3">Export</a>
-                                        {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#import_customers_panel" class="btn btn-warning px-3">Import</a> --}}
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#export_borrowers_panel" class="px-3 btn btn-success">Export</a>
+                                        {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#import_customers_panel" class="px-3 btn btn-warning">Import</a> --}}
                                         
                                         {{-- <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button> --}}
                                     </div>
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
 
-                            <div class="table-responsive table-card mt-3 mb-1">
+                            <div class="mt-3 mb-1 table-responsive table-card">
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>
@@ -77,7 +77,7 @@
                                             <td class="nrc">{{ $user->nrc_no ?? $user->nrc ?? 'No nrc no.' }}</td>
                                             <td class="date">{{ $user->created_at->diffForHumans() }}</td>
                                             <td>
-                                                <div class="d-flex gap-2">
+                                                <div class="gap-2 d-flex">
                                                     @can('view clientele')
                                                     <div class="show">
                                                         <a href="{{ route('client-account', ['key'=>$user->id]) }}" class="btn btn-sm btn-primary">Show</a>
@@ -99,8 +99,8 @@
                                             </td>
                                         </tr>
                                         @empty
-                                        <div class="intro-y col-span-12 md:col-span-6">
-                                            <div class="box text-center">
+                                        <div class="col-span-12 intro-y md:col-span-6">
+                                            <div class="text-center box">
                                                 <p>No User Found</p>
                                             </div>
                                         </div>
@@ -111,7 +111,7 @@
                                     <div class="text-center">
                                         <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
                                         <h5 class="mt-2">Sorry! No Result Found</h5>
-                                        <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any orders for you search.</p>
+                                        <p class="mb-0 text-muted">We've searched more than 150+ Orders We did not find any orders for you search.</p>
                                     </div>
                                 </div>
                             </div>
@@ -135,12 +135,12 @@
                     <div class="modal-body">
                         <div class="mt-2 text-center">
                             <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
-                            <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                            <div class="pt-2 mx-4 mt-4 fs-15 mx-sm-5">
                                 <h4>Are you Sure ?</h4>
-                                <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
+                                <p class="mx-4 mb-0 text-muted">Are you Sure You want to Remove this Record ?</p>
                             </div>
                         </div>
-                        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <div class="gap-2 mt-4 mb-2 d-flex justify-content-center">
                             <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
                         </div>

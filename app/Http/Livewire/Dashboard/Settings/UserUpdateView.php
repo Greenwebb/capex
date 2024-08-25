@@ -13,6 +13,7 @@ class UserUpdateView extends Component
     use AuthorizesRequests;
     public $user;
     public $user_role, $roles, $permissions, $current_role_name;
+    
     public function mount($id)
     {
         $this->user_role = Role::pluck('name')->toArray();

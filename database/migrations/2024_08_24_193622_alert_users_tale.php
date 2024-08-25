@@ -18,10 +18,13 @@ return new class extends Migration
             $table->string('empemail')->nullable();
             $table->string('empphone')->nullable();
             $table->string('empaddress')->nullable();
+
             $table->string('nokfname')->nullable();
-            $table->string('nokdob')->nullable();
             $table->string('noklname')->nullable();
+            $table->string('nokphone')->nullable();
             $table->string('nokemail')->nullable();
+            $table->string('nokaddress')->nullable();
+            $table->string('nokdob')->nullable();
             $table->string('nokgender')->nullable();
         });
     }

@@ -20,7 +20,17 @@ class RelatedParty extends Model
         'relation',
         'user_id'
     ];
+    
+    protected $appends = [
+        'customer'
+    ];
 
+    public function getCustomerAttribute()
+    {
+        $customer = User::where('id', $this->user_id)->first();
+        return $customer->fname.' '.$customer->lname;
+    }
+    
     public function user(){
         $this->belongsTo(User::class);
     }

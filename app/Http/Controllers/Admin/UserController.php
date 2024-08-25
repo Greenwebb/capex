@@ -109,36 +109,15 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try {
-            // Role::firstOrCreate(['name' => 'employee']);
-            //For demo purposes only. When creating user or inviting a user
-            // you should create a generated random password and email it to the user
-            if ($request->file('image_path')) {
-                $url = Storage::put('public/users', $request->file('image_path'));
-            }
-
             $user = User::find($request->user_edit_id);
-            // dd($user);
-            // $user->update(array_merge($request->all(), [
-            //     'profile_photo_path' => $url ?? ''
-            // ]));
             $data = array_merge($user->toArray(), $request->all(),[
                 'profile_photo_path' => $url ?? ''
             ]);
-
             $user->fill($data);
             $user->save();
             $user->syncRoles($request->assigned_role);
-
-
-            if($request->assigned_role == 'user'){
-                $url = '/apply-for-a-loan/ '.$user->id;
-                // $link = new HtmlString('<a target="_blank" href="' . $url . '">Create a loan for '.$u->fname.' '.$u->lname.'</a>');
-                $msg = '<a target="_blank" href="'.$url.'">Apply for Loan on Behalf</a>';
-                Session::flash('attention', "Borrower Updated successfully. ");
-                Session::flash('borrower_id', $user->id);
-            }else{
-                Session::flash('attention', "User Updated successfully.");
-            }
+            $this->uploadUserPhotos($request, $user);
+            Session::flash('attention', "User Updated successfully.");
             DB::commit();
             return back();
         } catch (\Throwable $th) {

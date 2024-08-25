@@ -24,7 +24,7 @@ class UpdateLoanView extends Component
 
     public function mount($id)
     {
-        $this->loan = Application::with('loan')->findOrFail($id);
+        $this->loan = Application::with('user.party', 'user.guarantors')->findOrFail($id);
         $this->user = User::findOrFail($this->loan->user_id);
         $this->can_edit = Transaction::hasTransaction($id);
         $this->loan_types = LoanType::all();

@@ -4,11 +4,11 @@
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+                <div class="bg-transparent page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0">Add Loan Information</h4>
 
                     <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
+                        <ol class="m-0 breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Loans</a></li>
                             <li class="breadcrumb-item active">Add Loan Information</li>
                         </ol>
@@ -24,7 +24,7 @@
             <div class="col-xxl-6">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Loan Information</h4>
+                        <h4 class="mb-0 text-warning card-title flex-grow-1">Loan Information</h4>
 
                     </div><!-- end card header -->
 
@@ -93,7 +93,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="fullnameInput" class="form-label">Principal Amount (K)
                                         <span data-bs-toggle="tooltip" data-bs-placement="top" title="Enter the total principal amount you need.">
                                             <i class="ri-information-line" style="cursor: pointer;"></i>
@@ -122,11 +122,12 @@
                                 </script>
 
 
-                                <div class="col-md-4 mb-4">
+                                <div class="col-md-6">
                                     <label for="inputState" class="form-label">Duration
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
-                                        </span> </label>
+                                        </span> 
+                                    </label>
                                     <select id="inputState" name="repayment_plan" class="form-select" data-choices data-choices-sorting="true" required>
                                         <option  value="1">1 Month</option>
                                         <option  value="2">2 Months</option>
@@ -143,7 +144,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="fullnameInput" class="form-label">Due Date
                                         <span data-bs-toggle="tooltip" data-bs-placement="top" title="Select the date when this loan is due for final repayments.">
                                             <i class="ri-information-line" style="cursor: pointer;"></i>
@@ -153,7 +154,6 @@
                                         </span> </label>
                                     <input type="text" name="due_date" class="form-control" id="dueDate" placeholder="YYYY-MM-DD" required>
                                 </div>
-
                                 
                                 <div class="col-md-6">
                                     <label for="inputState" class="form-label">Pick stage
@@ -173,7 +173,7 @@
                                 </div>
 
                                 <br>
-                                <h5 class="card-title mt-4 flex-grow-1">Related Party</h5>
+                                <h5 class="mt-4 text-warning card-title flex-grow-1">Related Party</h5>
                                 <hr>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related party's First Name</label>
@@ -195,7 +195,7 @@
                                     <input type="text" name="rp_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>                                
                                 
-                                <div class="col-md-4 mb-4">
+                                <div class="mb-4 col-md-4">
                                     <label for="inputState" class="form-label">Related party's Sex</label>
                                     <select id="inputState" name="rp_gender" class="form-select" data-choices data-choices-sorting="true">
                                         <option  value="">--select-</option>
@@ -210,7 +210,7 @@
                                 </div>
 
                                 <br>
-                                <h5 class="card-title mt-4 flex-grow-1">Guarantor</h5>
+                                <h5 class="mt-4 text-warning card-title flex-grow-1">Guarantor</h5>
                                 <hr>
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">First Name</label>
@@ -232,7 +232,7 @@
                                     <input type="text" name="g_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
                                 </div>                             
                                 
-                                <div class="col-md-4 mb-4">
+                                <div class="mb-4 col-md-4">
                                     <label for="inputState" class="form-label">Guarantor's Sex </label>
                                     <select id="inputState" name="g_gender" class="form-select" data-choices data-choices-sorting="true">
                                         <option  value="">--select-</option>
@@ -258,21 +258,21 @@
                                 </div>
 
                                 <br>
-                                <h5 class="card-title mt-5 flex-grow-1">Support Ducuments</h5>
+                                <h5 class="mt-5 text-warning card-title flex-grow-1">Support Ducuments</h5>
                                 <div class="card-body border-top p-9">
-                                    <div class="row mb-6">
+                                    <div class="mb-6 row">
                                         <label class="col-lg-4 col-form-label required fw-bold fs-6">NRC</label>
                                         <div class="col-lg-8 fv-row">
                                             <input type="file" name="nrc_file" class="form-control" id="nrcFile">
                                         </div>
                                     </div>
-                                    <div class="row mb-6">
+                                    <div class="mb-6 row">
                                         <label class="col-lg-4 col-form-label required fw-bold fs-6">Payslip</label>
                                         <div class="col-lg-8 fv-row">
                                             <input type="file" name="payslip_file" class="form-control" id="payslip_file" >
                                         </div>
                                     </div>
-                                    <div class="row mb-6">
+                                    <div class="mb-6 row">
                                         <label class="col-lg-4 col-form-label required fw-bold fs-6">TPIN</label>
                                         <div class="col-lg-8 fv-row">
                                             <input type="file" name="tpin_file" class="form-control" id="tpin_file" >

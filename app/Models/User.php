@@ -34,34 +34,37 @@ class User extends Authenticatable
         'phone',
         'phone2',
         'address',
-        'occupation',
+        'address2',
+        'email',
         'nrc',
         'nrc_no',
         'dob',
         'gender',
-        'loan_status',
-        'basic_pay',
-        'profile_photo_path',
-        'net_pay',
-        'id_type',
-        'email',
         'password',
-        'employer',
-        'employeeNo',
-        'jobTitle',
         'ministry',
         'department',
+        // ---------------- configs --------
+        'loan_status',
+        'id_type',
         'opt_code',
         'opt_verified',
-        'address2',
+        // ---------------- Employer ---------
+        'employer',
+        'employeeNo',
         'empaddress',
         'empemail',
         'empphone',
+        'occupation',
+        'basic_pay',
+        'net_pay',
+        // --------------- Next of Kin -------
         'nokfname',
         'noklname',
+        'nokphone',
         'nokemail',
         'nokdob',
-        'nokgender',
+        'nokaddress',
+        'nokgender'
     ];
 
     /**
@@ -203,5 +206,13 @@ class User extends Authenticatable
 
     public function photos(){
         return $this->hasMany(UserPhoto::class);
+    }
+
+    public function guarantors(){
+        return $this->hasMany(Guarantor::class);
+    }
+
+    public function party(){
+        return $this->hasMany(RelatedParty::class);
     }
 }

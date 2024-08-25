@@ -1,7 +1,7 @@
 <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl"> <!-- Add modal-xl for extra width -->
         <div class="modal-content">
-            <div class="modal-header bg-light p-3">
+            <div class="p-3 modal-header bg-light">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
@@ -12,15 +12,15 @@
                         <div class="row">
                             <!-- Primary Photo -->
                             <div class="col-4">
-                                <div class="border-2 border-dashed shadow-xs border-slate-200/60 dark:border-darkmode-400 rounded-md p-3">
+                                <div class="p-3 border-2 border-dashed rounded-md shadow-xs border-slate-200/60 dark:border-darkmode-400">
                                     <div id="primary-image-preview-container"></div>
-                                    <div class="mx-auto cursor-pointer relative">
+                                    <div class="relative mx-auto cursor-pointer">
                                         <button type="button" class="btn btn-square btn-primary" onclick="document.getElementById('primary_image').click();">+ Primary Photo</button>
-                                        <input type="file" id="primary_image" name="primary_image_path" class="w-full h-full top-0 left-0" onchange="previewImages(event, 'primary-image-preview-container')" style="display: none;">
+                                        <input type="file" id="primary_image" name="primary_image_path" class="top-0 left-0 w-full h-full" onchange="previewImages(event, 'primary-image-preview-container')" style="display: none;">
                                     </div>
                                     <small>
                                         @if ($errors->has('primary_image_path'))
-                                            <span class="text-danger text-left">{{ $errors->first('primary_image_path') }}</span>
+                                            <span class="text-left text-danger">{{ $errors->first('primary_image_path') }}</span>
                                         @endif
                                     </small>
                                 </div>
@@ -28,15 +28,15 @@
 
                             <!-- Secondary Photo -->
                             <div class="col-4">
-                                <div class="border-2 border-dashed shadow-xs border-slate-200/60 dark:border-darkmode-400 rounded-md p-3">
+                                <div class="p-3 border-2 border-dashed rounded-md shadow-xs border-slate-200/60 dark:border-darkmode-400">
                                     <div id="secondary-image-preview-container"></div>
-                                    <div class="mx-auto cursor-pointer relative">
+                                    <div class="relative mx-auto cursor-pointer">
                                         <button type="button" class="btn btn-square btn-primary" onclick="document.getElementById('secondary_image').click();">+ Secondary Photo</button>
-                                        <input type="file" id="secondary_image" name="secondary_image_path" class="w-full h-full top-0 left-0" onchange="previewImages(event, 'secondary-image-preview-container')" style="display: none;">
+                                        <input type="file" id="secondary_image" name="secondary_image_path" class="top-0 left-0 w-full h-full" onchange="previewImages(event, 'secondary-image-preview-container')" style="display: none;">
                                     </div>
                                     <small>
                                         @if ($errors->has('secondary_image_path'))
-                                            <span class="text-danger text-left">{{ $errors->first('secondary_image_path') }}</span>
+                                            <span class="text-left text-danger">{{ $errors->first('secondary_image_path') }}</span>
                                         @endif
                                     </small>
                                 </div>
@@ -44,15 +44,15 @@
 
                             <!-- Tertiary Photo -->
                             <div class="col-4">
-                                <div class="border-2 border-dashed shadow-xs border-slate-200/60 dark:border-darkmode-400 rounded-md p-3">
+                                <div class="p-3 border-2 border-dashed rounded-md shadow-xs border-slate-200/60 dark:border-darkmode-400">
                                     <div id="tertiary-image-preview-container"></div>
-                                    <div class="mx-auto cursor-pointer relative">
+                                    <div class="relative mx-auto cursor-pointer">
                                         <button type="button" class="btn btn-square btn-primary" onclick="document.getElementById('tertiary_image').click();">+ Tertiary Photo</button>
-                                        <input type="file" id="tertiary_image" name="tertiary_image_path" class="w-full h-full top-0 left-0" onchange="previewImages(event, 'tertiary-image-preview-container')" style="display: none;">
+                                        <input type="file" id="tertiary_image" name="tertiary_image_path" class="top-0 left-0 w-full h-full" onchange="previewImages(event, 'tertiary-image-preview-container')" style="display: none;">
                                     </div>
                                     <small>
                                         @if ($errors->has('tertiary_image_path'))
-                                            <span class="text-danger text-left">{{ $errors->first('tertiary_image_path') }}</span>
+                                            <span class="text-left text-danger">{{ $errors->first('tertiary_image_path') }}</span>
                                         @endif
                                     </small>
                                 </div>
@@ -87,23 +87,23 @@
                         <br>
                         <h4 class="text-warning">Basic Information</h4>
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="required fs-6 fw-semibold mb-2">Firstname</label>
-                                <input type="text" class="form-control form-control-sm" name="fname" required/>
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 required fs-6 fw-semibold">Firstname</label>
+                                <input type="text" class="form-control" name="fname" required/>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="required fs-6 fw-semibold mb-2">Lastname</label>
-                                <input type="text" class="form-control form-control-sm" name="lname" required/>
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 required fs-6 fw-semibold">Lastname</label>
+                                <input type="text" class="form-control" name="lname" required/>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="required fs-6 fw-semibold mb-2">Email</label>
-                                <input type="email" class="form-control form-control-sm" name="email" required/>
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 required fs-6 fw-semibold">Email</label>
+                                <input type="email" class="form-control" name="email" required/>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="fs-6 fw-semibold mb-2">Gender</label>
-                                <select name="gender" class="form-control form-control-sm" required>
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 fs-6 fw-semibold">Gender</label>
+                                <select name="gender" class="form-control" required>
                                     <option value="">--choose--</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -111,18 +111,18 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="fs-6 fw-semibold mb-2">National ID Type</label>
-                                <select name="id_type" class="form-control form-control-sm" required>
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 fs-6 fw-semibold">National ID Type</label>
+                                <select name="id_type" class="form-control" required>
                                     <option value="">--choose--</option>
                                     <option value="NRC">NRC</option>
                                     <option value="Passport">Passport</option>
                                     <option value="Driver's License">Driver's License</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="fs-6 fw-semibold mb-2">ID Number</label>
-                                <input type="text" class="form-control form-control-sm" name="nrc_no" id="nrc_no" required/>
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 fs-6 fw-semibold">ID Number</label>
+                                <input type="text" class="form-control" name="nrc_no" id="nrc_no" required/>
                                 <small id="id-number-error" class="text-danger d-none">ID Number is already taken.</small>
 
                             </div>
@@ -147,13 +147,13 @@
                             </script>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="required fs-6 fw-semibold mb-2">Address Line</label>
-                                <input type="text" class="form-control form-control-sm" name="occupation" />
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 required fs-6 fw-semibold">Address Line</label>
+                                <input type="text" class="form-control" name="address" />
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="required fs-6 fw-semibold mb-2">Phone</label>
-                                <input type="text" class="form-control form-control-sm" name="phone" id="customerphone" required/>
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 required fs-6 fw-semibold">Phone</label>
+                                <input type="text" class="form-control" name="phone" id="customerphone" required/>
                                 <small id="phone-error" class="text-danger d-none">Phone number is already taken.</small>
 
                             </div>
@@ -178,13 +178,13 @@
                             </script>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="required fs-6 fw-semibold mb-2">Date of Birth</label>
-                                <input type="text" class="form-control form-control-sm" id="customerDob" name="dob"/>
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 required fs-6 fw-semibold">Date of Birth</label>
+                                <input type="text" class="form-control" id="customerDob" name="dob"/>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="required fs-6 fw-semibold mb-2">Role</label>
-                                <select type="hidden" class="form-control form-control-sm" name="assigned_role" >
+                            <div class="mb-3 col-md-6">
+                                <label class="mb-2 required fs-6 fw-semibold">Role</label>
+                                <select type="hidden" class="form-control" name="assigned_role" >
                                     @foreach($roles as $role)
                                     <option selected value="{{ $role->id }}">{{ $role->name }}</option>
                                     @endforeach
@@ -194,58 +194,58 @@
                             <br>
                             <h4 class="text-warning">Occupational Information</h4>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="required fs-6 fw-semibold mb-2">Employer</label>
-                                    <input type="text" class="form-control form-control-sm" name="employer"/>
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 required fs-6 fw-semibold">Employer</label>
+                                    <input type="text" class="form-control" name="employer"/>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="fs-6 fw-semibold mb-2">Job Title</label>
-                                    <input type="text" class="form-control form-control-sm" name="empaddress"/>
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 fs-6 fw-semibold">Job Title</label>
+                                    <input type="text" class="form-control" name="occupation"/>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="required fs-6 fw-semibold mb-2">Employer Address</label>
-                                    <input type="email" class="form-control form-control-sm" name="empemail" />
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 required fs-6 fw-semibold">Employer Address</label>
+                                    <input type="email" class="form-control" name="empaddress" />
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="fs-6 fw-semibold mb-2">Employer Phone Number</label>
-                                    <input name="empphone" class="form-control form-control-sm">
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 fs-6 fw-semibold">Employer Phone Number</label>
+                                    <input type="text" id="empphone" name="empphone" class="form-control">
                                 </div>
                             </div><br>
                             <h4 class="text-warning">Next of Kin Information</h4>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="required fs-6 fw-semibold mb-2">First Name</label>
-                                    <input type="text" class="form-control form-control-sm" name="nokfname"/>
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 required fs-6 fw-semibold">First Name</label>
+                                    <input type="text" class="form-control" name="nokfname"/>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="required fs-6 fw-semibold mb-2">Last Name</label>
-                                    <input type="text" class="form-control form-control-sm" name="noklname"/>
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 required fs-6 fw-semibold">Last Name</label>
+                                    <input type="text" class="form-control" name="noklname"/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <!-- Date of Birth -->
-                                <div class="col-md-6 mb-3">
-                                    <label class="required fs-6 fw-semibold mb-2">Date of Birth</label>
-                                    <input type="text" class="form-control form-control-sm" id="nokDob" name="nokdob" placeholder="MM/DD/YYYY" />
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 required fs-6 fw-semibold">Date of Birth</label>
+                                    <input type="text" class="form-control" id="nokDob" name="nokdob" placeholder="MM/DD/YYYY" />
                                 </div>
                                 <!-- Phone Number -->
-                                <div class="col-md-6 mb-3">
-                                    <label class="required fs-6 fw-semibold mb-2">Phone Number</label>
-                                    <input type="text" class="form-control form-control-sm" id="phone" name="nokphone" placeholder="Enter 10-digit phone number" />
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 required fs-6 fw-semibold">Phone Number</label>
+                                    <input type="text" class="form-control" id="phone" name="nokphone" placeholder="Enter 10-digit phone number" />
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="required fs-6 fw-semibold mb-2">Email Address</label>
-                                    <input type="email" class="form-control form-control-sm" name="nokemail" />
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 required fs-6 fw-semibold">Email Address</label>
+                                    <input type="email" class="form-control" name="nokemail" />
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="fs-6 fw-semibold mb-2">Gender</label>
-                                    <select name="nokgender" class="form-control form-control-sm" >
+                                <div class="mb-3 col-md-6">
+                                    <label class="mb-2 fs-6 fw-semibold">Gender</label>
+                                    <select name="nokgender" class="form-control" >
                                         <option value="">--choose--</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -256,7 +256,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="hstack gap-2 justify-content-end">
+                    <div class="gap-2 hstack justify-content-end">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success" id="add-btn">Add Borrower</button>
                     </div>
@@ -264,5 +264,5 @@
             </form>
         </div>
     </div>
-    
+
 </div>
