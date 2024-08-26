@@ -52,7 +52,7 @@
                                 </div>
                             </div>
 
-                            <div class="mt-3 mb-1 table-responsive table-card">
+                            <div class="px-3 mt-3 mb-1 table-responsive table-card">
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>

@@ -46,12 +46,12 @@
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+                <div class="bg-transparent page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0">Repayments</h4>
 
                     <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                        <ol class="m-0 breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Repayments</li>
                         </ol>
                     </div>
@@ -65,15 +65,15 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Settle Open Loan Replayment</h4>
+                        <h4 class="mb-0 card-title">Settle Open Loan Replayment</h4>
                     </div><!-- end card header -->
 
                     <div class="card-body">
                         <div class="listjs-table" id="customerList">
-                            <div class="row g-4 mb-3">
+                            <div class="mb-3 row g-4">
                                 <div class="col-sm-auto">
                                     <div>
-                                        <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add Transaction </button>
+                                        <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="align-bottom ri-add-line me-1"></i> Add Transaction </button>
                                         {{-- <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button> --}}
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
 
-                            <div class="table-responsive table-card mt-3 mb-1">
+                            <div class="px-3 mt-3 mb-1 table-responsive table-card">
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>
@@ -132,8 +132,8 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <div class="intro-y col-span-12 md:col-span-6">
-                                                <div class="box text-center">
+                                            <div class="col-span-12 intro-y md:col-span-6">
+                                                <div class="text-center box">
                                                     <p>Nothing Found.</p>
                                                 </div>
                                             </div>
@@ -144,17 +144,17 @@
                                     <div class="text-center">
                                         <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
                                         <h5 class="mt-2">Sorry! No Result Found</h5>
-                                        <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any orders for you search.</p>
+                                        <p class="mb-0 text-muted">We've searched more than 150+ Orders We did not find any orders for you search.</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="d-flex justify-content-end">
-                                <div class="pagination-wrap hstack gap-2">
+                                <div class="gap-2 pagination-wrap hstack">
                                     <a class="page-item pagination-prev disabled" href="javascript:void(0);">
                                         Previous
                                     </a>
-                                    <ul class="pagination listjs-pagination mb-0"></ul>
+                                    <ul class="mb-0 pagination listjs-pagination"></ul>
                                     <a class="page-item pagination-next" href="javascript:void(0);">
                                         Next
                                     </a>
@@ -172,14 +172,14 @@
         <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header bg-light p-3">
+                    <div class="p-3 modal-header bg-light">
                         <h5 class="modal-title" id="exampleModalLabel"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                     </div>
                     <form wire:submit.prevent="makepayment()" class="tablelist-form" autocomplete="off">
                         <div class="modal-body">
                             <p class="fs-5 fw-bold">Payment Method</p>
-                            <div class="form-group flex gap-3">
+                            <div class="flex gap-3 form-group">
                                 <input type="radio" wire:model.defer="payment_method" id="checkbox1" class="radio-hidden">
                                 <label for="checkbox1" class="checkbox"></label>
 
@@ -192,7 +192,7 @@
                             <br>
                             <p class="fs-5 fw-bold">Loan Application</p>
                             <div class="form-group">
-                                <select wire:model.defer="loan_id" class="form-select uppercase form-control wide mb-3" id="exampleInputEmail7" placeholder="Find Customer" data-live-search="true">
+                                <select wire:model.defer="loan_id" class="mb-3 uppercase form-select form-control wide" id="exampleInputEmail7" placeholder="Find Customer" data-live-search="true">
                                     <option value="">--select--</option>
                                     @forelse ($loans as $item)
                                     <option value="{{ $item->id }}">{{ $item->user->fname.' '.$item->user->lname.' | K'.App\Models\Loans::loan_balance($item->id).' - '.$item->product->name.' Loan'.' | Duration '.$item->repayment_plan}}</option>
@@ -208,7 +208,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <div class="hstack gap-2 justify-content-end">
+                            <div class="gap-2 hstack justify-content-end">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-success" id="add-btn">Settle Repayment</button>
                                 <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
@@ -229,12 +229,12 @@
                     <div class="modal-body">
                         <div class="mt-2 text-center">
                             <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
-                            <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                            <div class="pt-2 mx-4 mt-4 fs-15 mx-sm-5">
                                 <h4>Are you Sure ?</h4>
-                                <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
+                                <p class="mx-4 mb-0 text-muted">Are you Sure You want to Remove this Record ?</p>
                             </div>
                         </div>
-                        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <div class="gap-2 mt-4 mb-2 d-flex justify-content-center">
                             <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
                         </div>

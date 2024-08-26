@@ -136,7 +136,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('client-loan-history', LoanHistoryView::class)->name('view-loan-history');
     Route::get('loan-rates', LoanRatesView::class)->name('view-loan-rates');
     Route::get('repayment-calculator', LoanRepaymentCalculatorView::class)->name('view-repayment-calculator');
-    Route::get('new-loanser/{id}', UserUpdateView::class)->name('edit-user');
+    Route::get('edit-user/{id}', UserUpdateView::class)->name('edit-user');
 
 
     // ---- Borrowers
