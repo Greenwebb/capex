@@ -92,16 +92,16 @@ class Application extends Model
     protected static function boot()
     {
         parent::boot();
-        
+
         static::addGlobalScope('withUser', function ($builder) {
             $builder->with('user')->whereNotNull('user_id');
         });
-    
+
         static::creating(function ($application) {
             $application->uuid = static::generateNumericUUID(5); // Generate 5-digit numeric UUID
         });
     }
-    
+
     protected static function generateNumericUUID($length = 5)
     {
         $digits = '0123456789';
@@ -111,7 +111,6 @@ class Application extends Model
         }
         return $uuid;
     }
-
 
     public function getDoneByAttribute(){
         return User::where('id', $this->processed_by)->first();

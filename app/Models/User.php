@@ -99,6 +99,26 @@ class User extends Authenticatable
         // 'create_token'
     ];
 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($application) {
+            $application->uuid = static::generateNumericUUID(5); // Generate 5-digit numeric UUID
+        });
+    }
+
+    protected static function generateNumericUUID($length = 5)
+    {
+        $digits = '0123456789';
+        $uuid = '';
+        for ($i = 0; $i < $length; $i++) {
+            $uuid .= $digits[rand(0, strlen($digits) - 1)];
+        }
+        return $uuid;
+    }
+
     public function getCreateTokenAttribute()
     {
         $token = $this->tokens()->create([

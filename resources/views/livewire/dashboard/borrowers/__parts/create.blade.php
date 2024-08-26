@@ -122,7 +122,7 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="mb-2 fs-6 fw-semibold">ID Number</label>
-                                <input type="text" class="form-control" name="nrc_no" id="nrc_no" required/>
+                                <input type="number" class="form-control" name="nrc_no" id="nrc_no" required/>
                                 <small id="id-number-error" class="text-danger d-none">ID Number is already taken.</small>
 
                             </div>

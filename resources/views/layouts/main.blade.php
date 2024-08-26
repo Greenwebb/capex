@@ -918,7 +918,7 @@
             dateFormat: "Y-m-d", // Laravel's standard format
         });
         let table = new DataTable('#customerTable', {
-            order: [[6, 'desc']]
+            order: [[0, 'desc']]
         });
         let table2 = new DataTable('#guarantorTable',{
             order: [[0, 'desc']]
@@ -936,9 +936,9 @@
             const currentRoute = document.body.getAttribute('data-route-name');
 
             // Check the current route and expand/collapse accordingly
-            if (currentRoute === 'borrowers' 
-                || currentRoute === 'guarantors' 
-                || currentRoute === 'refs' 
+            if (currentRoute === 'borrowers'
+                || currentRoute === 'guarantors'
+                || currentRoute === 'refs'
                 || currentRoute === 'edit-user'
                 || currentRoute === 'client-account'
                 ) {
@@ -964,6 +964,9 @@
                 || currentRoute === 'loan-calculator'
                 || currentRoute === 'new-loan'
                 || currentRoute === 'proxy-loan-create'
+                || currentRoute === 'loan-details'
+                || currentRoute === 'detailed'
+
             ) {
                 const sidebarCharts = document.getElementById('sidebarAdvanceUI');
 
@@ -1018,7 +1021,7 @@
                     return false; // Block non-numeric input
                 }
             });
-            
+
             $("#phone").on("input", function() {
                 let phoneValue = $(this).val().replace(/\D/g, ''); // Remove non-digits
 
@@ -1042,7 +1045,7 @@
                 }
             });
 
-            
+
             $("#empphone").on("keypress", function(e) {
                 if (!/[0-9]/.test(String.fromCharCode(e.which))) {
                     return false; // Block non-numeric input

@@ -24,7 +24,7 @@
                         <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="rounded-sm img-thumbnail col-3" />
                     @endforeach
                 @else
-                    @if ($user->gender) 
+                    @if ($user->gender)
                         @if ($user->gender == 'Female')
                             <img src="public/assets/images/girl.png" alt="user-img" class="rounded-sm img-thumbnail" />
                         @else
@@ -42,13 +42,15 @@
                     <div class="p-2">
                         <h3 class="mb-1"><b>{{ $user->fname.' '.$user->lname }}</b></h3>
                         <div class="gap-1 hstack text-muted">
-                            <div class="me-2"><i class="align-bottom ri-map-pin-user-line me-1 fs-16 text-body"></i>{{ $user->address ?? 'No Address' }}</div>
-                            @if ($user->occupation || $user->jobTitle)
-                                
-                            @endif
-                            <div>
-                                <i class="align-bottom ri-building-line me-1 fs-16 text-body"></i>{{ $user->jobTitle ?? $user->occupation ?? 'No Occupation'  }}
+                            <div class="me-2">
+                                <i class="align-bottom ri-card-line text-info fs-5 text-warning"></i><b>{{ $user->uuid  }}</b>
                             </div>
+                            <div class="me-2"><i class="align-bottom ri-map-pin-user-line me-1 fs-16 text-warning"></i>{{ $user->address ?? 'No Address' }}</div>
+                            @if ($user->occupation || $user->jobTitle)
+                            <div class="me-2">
+                                <i class="align-bottom ri-building-line me-1 fs-16 text-warning"></i>{{ $user->jobTitle ?? $user->occupation ?? 'No Occupation'  }}
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -76,7 +78,7 @@
         </div>
 
 
-        
+
         <div class="row">
             <div class="col-lg-12">
                 <div>
@@ -96,16 +98,20 @@
                                                             <td class="text-muted">{{ $user->fname.' '.$user->lname }}</td>
                                                         </p>
                                                         <p>
+                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Date of Birth :</b></th>
+                                                            <td class="uppercase text-muted">{{ $user->dob ?? 'Unknown' }}</td>
+                                                        </p>
+                                                        <p>
                                                             <th class="ps-0 text-warning fs-9" scope="row"><b>Gender :</b></th>
-                                                            <td class="uppercase text-muted">{{ $user->gender }}</td>
+                                                            <td class="uppercase text-muted">{{ $user->gender ?? 'Unknown' }}</td>
                                                         </p>
                                                         <p>
                                                             <th class="ps-0 text-warning fs-9" scope="row"><b>Mobile :</b></th>
-                                                            <td class="text-muted">{{ $user->phone }}</td>
+                                                            <td class="text-muted">{{ $user->phone ?? 'Unknown' }}</td>
                                                         </p>
                                                         <p>
                                                             <th class="ps-0 text-warning fs-9" scope="row"><b>E-mail :</b></th>
-                                                            <td class="text-muted">{{ $user->email }}</td>
+                                                            <td class="text-muted">{{ $user->email ?? 'Unknown' }}</td>
                                                         </p>
                                                         <p>
                                                             <th class="ps-0 text-warning fs-9" scope="row"><b>Location :</b></th>
@@ -138,7 +144,7 @@
                                                     <div class="flex-grow-1">
                                                         <div>
                                                             <h5 class="mb-1 fs-14">Fullnames</h5>
-                                                            <p class="mb-0 fs-13 text-muted">{{ $user->nokfname.' '.$user->noklname }}</p>
+                                                            <p class="mb-0 fs-13 text-muted">{{ $user->nokfname.' '.$user->noklname ?? 'Unknown' }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -273,7 +279,7 @@
                             </div>
                             <!--end row-->
                         </div>
-                        
+
                         <!--end tab-pane-->
                     </div>
                     <!--end tab-content-->

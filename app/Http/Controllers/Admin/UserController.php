@@ -53,7 +53,7 @@ class UserController extends Controller
 
     public function store(User $user, Request $request)
     {
-        // DB::beginTransaction();
+        DB::beginTransaction();
         try {
             $request->validate([
                 'phone' => 'required|unique:users,phone',
@@ -66,13 +66,12 @@ class UserController extends Controller
             ]));
             $u->syncRoles($request->assigned_role);
             $this->uploadUserPhotos($request, $u);
-            // DB::commit();
+            DB::commit();
             Session::flash('success', 'User created successfully');
             return redirect()->back();
 
         } catch (\Throwable $th) {
-            dd($th);
-            // DB::rollback();
+            DB::rollback();
             if($request->assigned_role == 'user'){
                 Session::flash('error', 'Oops.. There is a borrower account already using this email.');
             }elseif($request->assigned_role == 'employee'){

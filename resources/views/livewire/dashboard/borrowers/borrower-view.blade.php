@@ -35,10 +35,10 @@
                                         @can('create clientele')
                                         <a href="" type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="align-bottom ri-add-line me-1"></i> Add Borrower</a>
                                         @endcan
-                                        
+
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#export_borrowers_panel" class="px-3 btn btn-success">Export</a>
                                         {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#import_customers_panel" class="px-3 btn btn-warning">Import</a> --}}
-                                        
+
                                         {{-- <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button> --}}
                                     </div>
                                 </div>
@@ -56,11 +56,11 @@
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>
+                                            <th>ID</th>
                                             <th>Customer</th>
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Employer</th>
-                                            <th>Job Title</th>
                                             <th>NRC</th>
                                             <th>Joining Date</th>
                                             <th>Action</th>
@@ -69,11 +69,11 @@
                                     <tbody class="list form-check-all">
                                         @forelse($users as $user)
                                         <tr>
+                                            <td class="customer_name">{{ 1000 + $user->id }}</td>
                                             <td class="customer_name">{{ $user->fname.' '.$user->lname }}</td>
                                             <td class="email">{{ $user->email }}</td>
                                             <td class="email">{{ $user->phone ?? 'No phone' }}</td>
                                             <td class="phone">{{ $user->employer ?? 'No Employment' }}</td>
-                                            <td class="phone">{{ $user->jobTitle ?? 'No Job title' }}</td>
                                             <td class="nrc">{{ $user->nrc_no ?? $user->nrc ?? 'No nrc no.' }}</td>
                                             <td class="date">{{ $user->created_at->diffForHumans() }}</td>
                                             <td>
@@ -92,7 +92,7 @@
 
                                                     @can('delete clientele')
                                                     <div class="remove">
-                                                        <a wire:click="destroy({{ $user->id }})" onclick="confirm('Are you sure you want to permanently delete this account.') || event.stopImmediatePropagation();">Remove</a>
+                                                        <a class="btn btn-sm btn-danger" wire:click="destroy({{ $user->id }})" onclick="confirm('Are you sure you want to permanently delete this account.') || event.stopImmediatePropagation();">Remove</a>
                                                     </div>
                                                     @endcan
                                                 </div>
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
 
-                           
+
                     </div><!-- end card -->
                 </div>
                 <!-- end col -->
