@@ -27,7 +27,6 @@ use App\Http\Livewire\Dashboard\HRM\Staff;
 use App\Http\Livewire\Dashboard\Loans\ApprovedLoansView;
 use App\Http\Livewire\Dashboard\Loans\ClosedLoanView;
 use App\Http\Livewire\Dashboard\Loans\CreateLoanView;
-
 use App\Http\Livewire\Dashboard\Loans\EligibilityScoreView;
 use App\Http\Livewire\Dashboard\Loans\GuarantorsView;
 use App\Http\Livewire\Dashboard\Loans\LoanApplicationStandaloneView;

@@ -31,7 +31,7 @@ class CompanyAccountSeeder extends Seeder
             'branch_name' => '',
             'type' => 'bank',
             'account_number' => '123123123123123',
-            'account_name' => 'Mighty Finance Limited',
+            'account_name' => 'Finance Limited',
             'description' => 'ZANACO (Zambia National Commercial Bank)',
             'status' => 1
         ]);
@@ -41,7 +41,7 @@ class CompanyAccountSeeder extends Seeder
             'branch_name' => '',
             'type' => 'bank',
             'account_number' => '123123123123123',
-            'account_name' => 'Mighty Finance Limited',
+            'account_name' => 'Finance Limited',
             'description' => 'Stanbic Bank Zambia',
             'status' => 1
         ]);
@@ -51,7 +51,7 @@ class CompanyAccountSeeder extends Seeder
             'branch_name' => '',
             'type' => 'petty cash',
             'account_number' => '123123123123123',
-            'account_name' => 'Mighty Finance Limited',
+            'account_name' => 'Finance Limited',
             'description' => 'Petty Cash',
             'status' => 1
         ]);

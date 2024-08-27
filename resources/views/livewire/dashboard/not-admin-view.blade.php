@@ -4,7 +4,7 @@
             <div class="px-20 py-20 ">
                 <img src="https://media.istockphoto.com/id/1202316529/vector/crying-cartoon-cloud-character-in-flat-style.jpg?s=612x612&w=0&k=20&c=ZQGr-NgBLlHMVzwK7bqw0m6V8tH-wMEsYyg12Sb0l9c=" width="200" alt="">
                 <h1 class="text-danger font-bold">Oh looks like you came to the wrong place</h1>
-                <p>Try to sign out an visit https://app.mightyfinance,co.zm to apply for loan.
+                <p>Try to sign out an visit Capex to apply for loan.
                 <form method="POST" action="{{ route('logout') }}" class="menu-item">
                     @csrf
                     <button type="submit" class="menu-link px-5 btn btn-primary text-white" style="display: inline-flex; align-items: center;">

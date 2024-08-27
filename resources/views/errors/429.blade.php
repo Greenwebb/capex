@@ -1,4 +1,4 @@
-@extends('errors::btf')
+@extends('errors::log')
 
 @section('title', __('Too Many Requests'))
 @section('code', '429')

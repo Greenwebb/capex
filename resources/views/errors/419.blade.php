@@ -1,4 +1,4 @@
-@extends('errors::btf')
+@extends('errors::log')
 
 @section('title', __('Page Expired'))
 @section('code', '419')

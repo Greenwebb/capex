@@ -887,7 +887,7 @@
                             If you select YES below, the system will automatically add due payments on the schedule dates for loans added in this
                             loan product. This is useful if you expect to receive payments on time for the loans. For example, you may have direct deposit or payroll
                             system which automatically deducts payments form the borrower on the scheduled dates. This will save
-                            you time from having to manually add payments on MightyFin on the scheduled dates.
+                            you time from having to manually add payments on Capex System on the scheduled dates.
                         </small>
                     </div>
                     <!--end::Card title-->

@@ -131,7 +131,7 @@ trait CRBTrait{
                         <ws:getProduct104>
                             <!--Optional:-->
                             <!--Optional:-->
-                            <username>Ws_Mighty</username>
+                            <username>Ws_Capex</username>
                             <!--Optional:-->
                             <password>11dI`I5))e2%</password>
                             <!--Optional:-->

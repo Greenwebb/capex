@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Sign Up - Mighty Finance Solution</title>
+    <title>Capex Finance</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('public/images/m.jpg') }}">
     <link href="{{ asset('public/theme/css/style.css') }}" rel="stylesheet">
@@ -214,7 +214,7 @@
                                             type="submit" class="btn btn-block text-white text-lg"
                                             type="submit">Verify</button> --}}
                                         {{-- <p class="form-check-label font-w400">{!! __(
-                                            'By confirming your credential we are able to secure and confirm your account. Please check our Mightyfin :terms_of_service and :privacy_policy',
+                                            'By confirming your credential we are able to secure and confirm your account. Please check our :terms_of_service and :privacy_policy',
                                             [
                                                 'terms_of_service' =>
                                                     '<a target="_blank" href="' .

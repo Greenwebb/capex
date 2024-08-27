@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Sign Up - Mighty Finance Solution</title>
+    <title>Capex Finance Services</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('public/images/m.jpg') }}">
     <link href="{{ asset('public/theme/css/style.css') }}" rel="stylesheet">
@@ -191,7 +191,6 @@
                                                 @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                                                 <div  id="policy" class="form-check text-dark">
                                                     <input type="checkbox" name="terms" class="form-check-input" id="termsCheckbox" checked>
-                                                    <label class="form-check-label font-w400" for="termsCheckbox">By creating an account, you agree to Mighty Finance Solution
                                                         <a target="_blank" href="{{ route('terms') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a>
                                                         and
                                                         <a target="_blank" href="{{ route('pp') }}" class="underline text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>

@@ -6,13 +6,13 @@ trait SMSTrait{
 
     public function send_sms($data) {
         $message = $data['message'];
-        $username = 'gtzm-mightyfin';
-        $password = 'Mighty@2';
+        $username = '';
+        $password = '';
 
         $type = '0';
         $dlr = '1';
         $destination = $data['phone'];
-        $source = 'Mightyfin';
+        $source = '';
 
         // API endpoint
         $apiEndpoint = "http://rslr.connectbind.com:8080/bulksms/bulksms";
