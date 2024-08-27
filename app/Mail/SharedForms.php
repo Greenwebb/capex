@@ -43,7 +43,7 @@ class SharedForms extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email.preapproval-forms',
+            view: 'email.capex-forms',
         );
     }
 
@@ -55,8 +55,8 @@ class SharedForms extends Mailable
     public function attachments()
     {
         return [
-            public_path('forms/preapproval-mfs.docx'),
-            public_path('forms/letter-of-introduction-mfs.docx'),
+            public_path('forms/capex-capex.docx'),
+            public_path('forms/letter-of-introduction-capex.docx'),
         ];
     }
 }

@@ -638,30 +638,6 @@
                     </div> <!-- end row-->
 
                     <div class="row">
-                        {{-- <div class="col-xl-4">
-                            <div class="card card-height-100">
-                                <div class="card-header align-items-center d-flex">
-                                    <h4 class="mb-0 card-title flex-grow-1">Loans by Status</h4>
-                                    <div class="flex-shrink-0">
-                                        <div class="dropdown card-header-dropdown">
-                                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Download Report</a>
-                                                <a class="dropdown-item" href="#">Export</a>
-                                                <a class="dropdown-item" href="#">Import</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card-body">
-                                    <div id="store-visits-source" data-colors='["--vz-primary", "--vz-primary-rgb, 0.85", "--vz-primary-rgb, 0.70", "--vz-primary-rgb, 0.60", "--vz-primary-rgb, 0.45"]' class="apex-charts" dir="ltr"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-
                         <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
@@ -756,6 +732,8 @@
                         </div> <!-- .col-->
                     </div> <!-- end row-->
 
+                    {{-- Graphs --}}
+                    @include('livewire.dashboard.__parts.admin-dashboard-graph')
                 </div> <!-- end .h-100-->
 
             </div> <!-- end col -->

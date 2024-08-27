@@ -20,6 +20,33 @@ class DashboardView extends Component
     use EmailTrait, WalletTrait, LoanTrait, UserTrait;
     public $loan_requests, $loan_request, $all_loan_requests, $my_loan, $wallet, $borrowers;
     public $payment_method, $withdraw_amount, $mobile_number, $card_name, $bank_name, $card_number;
+    public $performingData = [];
+    public $nonPerformingData = [];
+
+    public function mount()
+    {
+        $this->loadData();
+    }
+
+    public function loadData()
+    {
+        // Query applications with transactions (Performing)
+        $this->performingData = Application::where('status', 1)->whereHas('transactions')
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('count', 'month')
+            ->toArray();
+        // dd($this->performingData);
+        // Query applications without transactions (Non-Performing)
+        $this->nonPerformingData = Application::where('status', 1)->doesntHave('transactions')
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('count', 'month')
+            ->toArray();
+        // dd($this->nonPerformingData);
+    }
 
     public function render()
     {
@@ -28,11 +55,36 @@ class DashboardView extends Component
         $this->wallet = $this->getWalletBalance($user);
         if ($user->hasRole('user')) {
             return view('livewire.dashboard.not-admin-view')->layout('layouts.bouncer');
-        }else{
+        } else {
             $this->all_loan_requests = Application::orWhere('status', 0)->orWhere('status', 2)
-            ->orderBy('created_at', 'desc')->take(7)->get();
-            return view('livewire.dashboard.dashboard-view')->layout('layouts.main');
+                ->orderBy('created_at', 'desc')->take(7)->get();
+
+            $chartData = $this->prepareChartData();
+
+            return view('livewire.dashboard.dashboard-view', [
+                'performingData' => $this->performingData ?? [0,0,0,0,0],
+                'nonPerformingData' => $this->nonPerformingData ?? [0,0,0,0,0],
+                'chartData' => $chartData,
+            ])->layout('layouts.main');
         }
+    }
+
+    private function prepareChartData()
+    {
+        $months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        $performing = [];
+        $nonPerforming = [];
+
+        foreach ($months as $month) {
+            $performing[] = $this->performingData[$month] ?? 0;
+            $nonPerforming[] = $this->nonPerformingData[$month] ?? 0;
+        }
+
+        return [
+            'performing' => $performing,
+            'nonPerforming' => $nonPerforming,
+            'months' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        ];
     }
 
     public function submitWithdrawRequest(){

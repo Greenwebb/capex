@@ -1,10 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-bs-theme="dark" data-body-image="img-1" data-preloader="disable">
+<!-- Mirrored from themesbrand.com/velzon/html/galaxy/pages-coming-soon.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Jul 2024 20:14:12 GMT -->
+<head>
+
+    <meta charset="utf-8" />
+    <title>Capex Financial Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="public/public/public/assets/images/favicon.ico">
+
+    <!-- Layout config Js -->
+    <script src="/public/assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="public/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="public/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="public/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+    <div class="auth-page-wrapper pt-5">
+        <!-- auth page bg -->
+        <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+            <div class="bg-overlay"></div>
+
+            <div class="shape">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1440 120">
+                    <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- auth page content -->
+        <div class="auth-page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center mt-sm-5 pt-4 mb-4">
+                            <div class="mb-sm-5 pb-sm-4 pb-5">
+                                <img src="public/public/public/assets/images/comingsoon.png" alt="" height="120" class="move-animation">
+                            </div>
+                            <div class="mb-5">
+                                <h1 class="display-2 coming-soon-text">Not Available</h1>
+                            </div>
+                            <div>
+                                {{-- <div class="row justify-content-center mt-5">
+                                    <div class="col-lg-8">
+                                        <div id="countdown" class="countdownlist"></div>
+                                    </div>
+                                </div> --}}
+
+                                <div class="mt-5">
+                                    <h4>Get notified when we launch</h4>
+                                    <p class="text-muted">Don't worry we will not spam you 😊</p>
+                                </div>
+
+                                <div class="input-group countdown-input-group mx-auto my-4">
+                                    <input type="email" class="form-control border-light shadow" placeholder="Enter your email address" aria-label="search result" aria-describedby="button-email">
+                                    <button class="btn btn-warning" type="button" id="button-email">Send<i class="ri-send-plane-2-fill align-bottom ms-2"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end auth page content -->
+        <!-- end Footer -->
+    </div>
+    <!-- end auth-page-wrapper -->
+
+    <!-- JAVASCRIPT -->
+    <script src="public/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="public/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="public/assets/libs/node-waves/waves.min.js"></script>
+    <script src="public/assets/libs/feather-icons/feather.min.js"></script>
+    <script src="public/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="public/assets/js/plugins.js"></script>
+
+    <!-- particles js -->
+    <script src="public/assets/libs/particles.js/particles.js"></script>
+    <!-- particles app js -->
+    <script src="public/assets/js/pages/particles.app.js"></script>
+
+    <!-- Countdown js -->
+    <script src="public/assets/js/pages/coming-soon.init.js"></script>
+
+</body>
+
+
+<!-- Mirrored from themesbrand.com/velzon/html/galaxy/pages-coming-soon.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Jul 2024 20:14:12 GMT -->
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- <!DOCTYPE html>
 <html lang="en">
 <!--begin::Head-->
 
 <head>
     <base href="" />
-    <title>MFS | Reset Password</title>
+    <title>Reset Password</title>
     <meta charset="utf-8" />
     <meta name="description"
         content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
@@ -17,30 +136,13 @@
     <meta property="og:url" content="https://keenthemes.com/Mightyfin" />
     <meta property="og:site_name" content="Greenwebb | Mightyfin" />
 
-    <link rel="shortcut icon" href="{{ asset('public/mfs/admin/assets/media/logos/favicon.ico') }}" />
-    <!--begin::Fonts(mandatory for all pages)-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-    <!--end::Fonts-->
-    <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{ asset('public/mfs/admin/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}"
-        rel="stylesheet" type="text/css" />
-    <link href="{{ asset('public/mfs/admin/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
-    <!--end::Vendor Stylesheets-->
-    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="{{ asset('public/mfs/admin/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('public/mfs/admin/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
+
     <script>
         if (window.top != window.self) {
             window.top.location.replace(window.self.location.href);
         }
     </script>
-
-    <link rel="stylesheet" href="{{ asset('public/mfs/admin/assets/css/wizard.min.css') }}">
-
-    {{-- Custom --}}
+    Custom
     <style>
         .sm-btn {
             margin-top: 2%;
@@ -75,7 +177,7 @@
                             <!--begin::Heading-->
                             <div class="text-center mb-10">
                                 <!--begin::Title-->
-                                <h1 class="text-dark fw-bolder mb-3">Forgot Password ?</h1>
+                                <h1 class="text-dark fw-bolder mb-3">Not Available</h1>
                                 <!--end::Title-->
                                 <!--begin::Link-->
                                 <div class="text-gray-500 fw-semibold fs-6">Enter your email to reset your password.
@@ -119,30 +221,8 @@
                 <!--begin::Content-->
                 <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
                     <!--begin::Logo-->
-                    <a href="index.html" class="mb-0 mb-lg-12">
-                        <img alt="Logo" src="{{ asset('/public/web/images/01-ft-logo.png') }}"
-                            class="h-60px h-lg-75px" />
-                    </a>
-                    <!--end::Logo-->
-                    <!--begin::Image-->
-                    <img style="width: 23dvh!important;"
-                        class="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-2 mb-lg-1" width="350px"
-                        src="{{ asset('public/mfs/admin/assets/media/misc/auth-screens.png') }}" alt="" />
-                    <!--end::Image-->
-                    <!--begin::Title-->
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7">
 
-                        "Access Point: Secure Login"</h1>
-                    <!--end::Title-->
-                    <!--begin::Text-->
-                    <div class="d-none d-lg-block text-white fs-base text-center">
-                        "Success in business comes when every <a href="#"
-                            class="opacity-75-hover text-warning fw-bold me-1">employee</a> is inspired to do their
-                        best, knowing that their efforts are valued and recognized. Remember, a company's greatest asset
-                        is not its products or services, but the people who work tirelessly to make it thrive." - <a
-                            href="#" class="opacity-75-hover text-warning fw-bold me-1">Richard Branson</a>
 
-                    </div>
                     <!--end::Text-->
                 </div>
                 <!--end::Content-->
@@ -151,22 +231,10 @@
         </div>
         <!--end::Authentication - Sign-in-->
     </div>
-    <!--end::Root-->
-    <!--end::Main-->
-    <!--begin::Javascript-->
-    <script>
-        var hostUrl = "assets/";
-    </script>
-    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src="{{ asset('public/mfs/admin/assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('public/mfs/admin/assets/js/scripts.bundle.js') }}"></script>
-    <!--end::Global Javascript Bundle-->
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('public/mfs/admin/assets/js/custom/authentication/reset-password/reset-password.js') }}">
-    </script>
-    <!--end::Custom Javascript-->
-    <!--end::Javascript-->
 </body>
 <!--end::Body-->
 
-</html>
+</html> --}}
+
+
+

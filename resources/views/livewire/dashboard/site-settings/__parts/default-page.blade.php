@@ -3,7 +3,7 @@
 
     <div class="container m-12 d-flex justify-content-center align-items-center">
         <div class="col-12 text-center">
-            <img width="300" src="{{ asset('public/icons/mfs/1.jpg')}}" alt="">
+            <img width="300" src="" alt="">
             
             <div class="my-4">
                 <span class="alert alert-default">

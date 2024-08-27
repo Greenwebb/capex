@@ -563,14 +563,14 @@
                         {{-- <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mdi mdi-wallet text-muted fs-16 me-1"></i> <span class="align-middle">Balance : <b>K0.0</b></span></a> --}}
                         <a class="dropdown-item" href="{{ route('sys-settings') }}"><span class="mt-1 badge bg-success-subtle text-success float-end">New</span><i class="align-middle mdi mdi-cog-outline text-muted fs-16 me-1"></i> <span class="align-middle">Settings</span></a>
                         {{-- <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="align-middle mdi mdi-lock text-muted fs-16 me-1"></i> <span class="align-middle">Lock screen</span></a> --}}
-                        
+
                         <form method="POST" action="{{ route('logout') }}" class="dropdown-item">
                             @csrf
                             <button type="submit" class="pl-4 btn btn-sm btn-light d-flex align-items-center w-100">
-                                <i class="mdi mdi-logout text-muted me-2 fs-5"></i> 
+                                <i class="mdi mdi-logout text-muted me-2 fs-5"></i>
                                 <span class="align-middle" data-key="t-logout">Logout</span>
                             </button>
-                        </form>                        
+                        </form>
                     </div>
                 </div>
             </div>
@@ -619,7 +619,7 @@
                 <!-- Light Logo-->
                 <a href="{{ route('dashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="public/assets/images/logo-sm.png" alt="" height="22">
+                        <img src="public/assets/images/logo-light.png" alt="" height="22">
                     </span>
                     <span class="logo-lg">
                         <img src="public/assets/images/logo-light.png" alt="" height="22">
@@ -644,7 +644,7 @@
                         </li> <!-- end Dashboard Menu -->
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('proxy-loan-create') }}" aria-expanded="false" aria-controls="sidebarApps">
-                                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Create Loan</span>
+                                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Create Loan Request</span>
                             </a>
                         </li>
 
@@ -844,6 +844,14 @@
     <!-- apexcharts -->
     <script src="public/assets/libs/apexcharts/apexcharts.min.js"></script>
 
+    <!-- apexcharts -->
+    <script src="public/assets/libs/apexcharts/apexcharts.min.js"></script>
+    {{-- <script src="../../../../cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.0/dayjs.min.js"></script> --}}
+  	{{-- <script src="../../../../cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.0/plugin/quarterOfYear.min.js"></script> --}}
+
+    <!-- apexcharts init -->
+    <script src="public/assets/js/pages/apexcharts-column.init.js"></script>
+
     <!-- Vector map-->
     <script src="public/assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
     <script src="public/assets/libs/jsvectormap/maps/world-merc.js"></script>
@@ -973,10 +981,9 @@
                 || currentRoute === 'proxy-loan-create'
                 || currentRoute === 'loan-details'
                 || currentRoute === 'detailed'
-
+                || currentRoute === 'dashboard'
             ) {
                 const sidebarCharts = document.getElementById('sidebarAdvanceUI');
-
                 // Collapse if the current route doesn't match any of the specified routes
                 sidebarCharts.classList.add('show');
             } else {
@@ -1086,5 +1093,6 @@
             });
         });
     </script>
+    @script
 </body>
 </html>
