@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Mail\BTFAccount;
+use App\Mail\YourAccount;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
@@ -48,7 +48,7 @@ class UserAuthenticationController extends Controller
             'subject' => 'Your Capex Finance User Account',
             'message' => 'Hello '.$user->fname.' '.$user->lname.' Your Capex Finance account is now ready, Click on login to goto your dashboard. Your password is @capex+2024  -  feel free to change your password.',
         ];
-        $eMail = new BTFAccount($mail);
+        $eMail = new YourAccount($mail);
         Mail::to($user->email)->send($eMail);
         return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
     }

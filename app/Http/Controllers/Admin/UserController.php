@@ -7,16 +7,11 @@ use App\Traits\EmailTrait;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Mail\BTFAccount;
-use App\Models\Wallet;
 use App\Traits\UserTrait;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
     use EmailTrait, UserTrait;

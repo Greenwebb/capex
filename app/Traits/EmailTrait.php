@@ -2,12 +2,10 @@
 
 namespace App\Traits;
 
-use App\Jobs\SendLoanRequestEmailJob;
 use App\Mail\LoanApplication;
 use App\Mail\LoanEquiry;
 use App\Models\Application;
 use App\Models\User;
-use App\Notifications\BTFLoanRequest;
 use App\Notifications\LoanRemainder;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -15,6 +13,7 @@ use App\Mail\ContactEmail;
 use App\Mail\SharedForms;
 use App\Notifications\LoanRequestAccepted;
 use App\Notifications\LoanRequestDeclined;
+use App\Notifications\NewLoanEmail;
 
 trait EmailTrait{
 
@@ -35,7 +34,7 @@ trait EmailTrait{
         $admin = User::first();
         $me = auth()->user();
         try {
-            Notification::send($admin, new BTFLoanRequest($data));
+            Notification::send($admin, new NewLoanEmail($data));
             return true;
         } catch (\Throwable $th) {
             dd($th);
