@@ -555,15 +555,22 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <h6 class="dropdown-header">Welcome {{ auth()->user()->fname }}!</h6>
-                        <a class="dropdown-item" href="{{ route('profile.show') }}"><i class="align-middle mdi mdi-account-circle text-muted fs-16 me-1"></i> <span class="align-middle">Profile</span></a>
+                        <a class="dropdown-item" href="{{ route('profile.show') }}"><i class="align-middle mdi mdi-account-circle text-muted fs-16 me-1"></i> <span class="align-middle">Company Profile</span></a>
                         {{-- <a class="dropdown-item" href="apps-chat.html"><i class="align-middle mdi mdi-message-text-outline text-muted fs-16 me-1"></i> <span class="align-middle">Messages</span></a>
                         <a class="dropdown-item" href="apps-tasks-kanban.html"><i class="align-middle mdi mdi-calendar-check-outline text-muted fs-16 me-1"></i> <span class="align-middle">Taskboard</span></a>
                         <a class="dropdown-item" href="pages-faqs.html"><i class="align-middle mdi mdi-lifebuoy text-muted fs-16 me-1"></i> <span class="align-middle">Help</span></a>--}}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mdi mdi-wallet text-muted fs-16 me-1"></i> <span class="align-middle">Balance : <b>K0.0</b></span></a>
-                        <a class="dropdown-item" href="pages-profile-settings.html"><span class="mt-1 badge bg-success-subtle text-success float-end">New</span><i class="align-middle mdi mdi-cog-outline text-muted fs-16 me-1"></i> <span class="align-middle">Settings</span></a>
-                        <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="align-middle mdi mdi-lock text-muted fs-16 me-1"></i> <span class="align-middle">Lock screen</span></a>
-                        <a class="dropdown-item" href="auth-logout-basic.html"><i class="align-middle mdi mdi-logout text-muted fs-16 me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                        {{-- <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mdi mdi-wallet text-muted fs-16 me-1"></i> <span class="align-middle">Balance : <b>K0.0</b></span></a> --}}
+                        <a class="dropdown-item" href="{{ route('sys-settings') }}"><span class="mt-1 badge bg-success-subtle text-success float-end">New</span><i class="align-middle mdi mdi-cog-outline text-muted fs-16 me-1"></i> <span class="align-middle">Settings</span></a>
+                        {{-- <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="align-middle mdi mdi-lock text-muted fs-16 me-1"></i> <span class="align-middle">Lock screen</span></a> --}}
+                        
+                        <form method="POST" action="{{ route('logout') }}" class="dropdown-item">
+                            @csrf
+                            <button type="submit" class="pl-4 btn btn-sm btn-light d-flex align-items-center w-100">
+                                <i class="mdi mdi-logout text-muted me-2 fs-5"></i> 
+                                <span class="align-middle" data-key="t-logout">Logout</span>
+                            </button>
+                        </form>                        
                     </div>
                 </div>
             </div>
@@ -739,9 +746,9 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="{{ route('loan-wallet') }}" class="nav-link" data-key="t-chartjs"> Main Wallet </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </li>

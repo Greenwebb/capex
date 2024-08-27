@@ -518,17 +518,17 @@
                                                             <div class="p-1 rounded avatar-sm bg-light me-2">
                                                                 @if (!empty($loan->user->photos->toArray()))
                                                                      @foreach ($loan->user->photos->take(1) as $photo )
-                                                                         <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="img-fluid d-block" />
+                                                                         <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="img-fluid rounded-cirrounded-circle" />
                                                                      @endforeach
                                                                  @else
                                                                      @if ($loan->user->gender !== null)
                                                                          @if ($loan->user->gender === 'Female')
-                                                                             <img src="public/assets/images/girl.png" alt="user-img" class="img-fluid d-block" />
+                                                                             <img src="public/assets/images/girl.png" alt="user-img" class="img-fluid rounded-cirrounded-circle" />
                                                                          @else
-                                                                             <img src="public/assets/images/boy.png" alt="user-img" class="img-fluid d-block" />
+                                                                             <img src="public/assets/images/boy.png" alt="user-img" class="img-fluid rounded-cirrounded-circle" />
                                                                          @endif
                                                                      @else
-                                                                         <img src="public/assets/images/user.png" alt="user-img" class="img-fluid d-block" />
+                                                                         <img src="public/assets/images/user.png" alt="user-img" class="img-fluid rounded-cirrounded-circle" />
                                                                      @endif
                                                                  @endif
                                                             </div>
@@ -585,17 +585,17 @@
                                                            <div class="p-1 rounded avatar-sm bg-light me-2">
                                                                @if (!empty($loan->user->photos->toArray()))
                                                                     @foreach ($loan->user->photos->take(1) as $photo )
-                                                                        <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="img-fluid d-block" />
+                                                                        <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="img-fluid rounded-circle" />
                                                                     @endforeach
                                                                 @else
                                                                     @if ($loan->user->gender !== null)
                                                                         @if ($loan->user->gender === 'Female')
-                                                                            <img src="public/assets/images/girl.png" alt="user-img" class="img-fluid d-block" />
+                                                                            <img src="public/assets/images/girl.png" alt="user-img" class="img-fluid rounded-circle" />
                                                                         @else
-                                                                            <img src="public/assets/images/boy.png" alt="user-img" class="img-fluid d-block" />
+                                                                            <img src="public/assets/images/boy.png" alt="user-img" class="img-fluid rounded-circle" />
                                                                         @endif
                                                                     @else
-                                                                        <img src="public/assets/images/user.png" alt="user-img" class="img-fluid d-block" />
+                                                                        <img src="public/assets/images/user.png" alt="user-img" class="img-fluid rounded-circle" />
                                                                     @endif
                                                                 @endif
                                                            </div>
