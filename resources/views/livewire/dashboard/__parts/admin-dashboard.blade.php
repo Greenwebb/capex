@@ -387,8 +387,8 @@
                                             <a href="{{ route('borrowers') }}" class="text-decoration-underline">See more</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
-                                            <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                {{ $borrowers->count() }}
+                                            <span class="rounded avatar-title bg-primary-subtle fs-3">
+                                                <i class="bx bx-user-circle text-primary"></i>
                                             </span>
                                         </div>
                                     </div>
