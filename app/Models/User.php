@@ -235,4 +235,8 @@ class User extends Authenticatable
     public function party(){
         return $this->hasMany(RelatedParty::class);
     }
+
+    public function assigned_loans(){
+        return $this->hasMany(LoanManualApprover::class);
+    }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Traits;
 
-use App\Mail\LoanApplication;
+
+use App\Notifications\LoanRequestNotification;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\DB;
 use App\Models\Application;
 use App\Models\ApplicationStage;
 use App\Models\LoanChildType;
@@ -17,15 +20,9 @@ use App\Models\LoanStatus;
 use App\Models\LoanType;
 use App\Models\Status;
 use App\Models\User;
-use App\Notifications\LoanRequestNotification;
 use Carbon\Carbon;
 use DateInterval;
 use DateTime;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
-
-use function PHPUnit\Framework\isEmpty;
 
 trait LoanTrait{
     use EmailTrait;
@@ -44,14 +41,58 @@ trait LoanTrait{
         return Application::where('closed', 1)->sum('amount');
     }
     public function total_pending_loans(){
-        return Application::orWhere('status', 2)->orWhere('status', 0)->count();
-    }
-    public function total_pending_loans_amount(){
-        return Application::orWhere('status', 2)->orWhere('status', 0)->sum('amount');
+        return Application::where('status', 0)->count();
     }
 
-    
-    
+    public function total_pending_loans_amount(){
+        return Application::where('status', 0)->sum('amount');
+    }
+    public function total_loans_arears(){
+        return Application::where('due_date', '<', now()) // Loans past due date
+                         ->where('status', 1) // Status is open
+                         ->sum('amount');
+    }
+    public function num_loans_arears(){
+        return Application::where('due_date', '<', now()) // Loans past due date
+                         ->where('status', 1) // Status is open
+                         ->count();
+    }
+
+    public function total_disbursed_to_date(){
+        return Application::where('status', 1) // Status is open
+                         ->sum('amount');
+    }
+    public function num_disbursed_to_date(){
+        return Application::where('status', 1) // Status is open
+                         ->count();
+    }
+
+    public function total_unresolved_to_date(){
+        return Application::where('status', 2)->sum('amount');
+    }
+    public function num_unresolved_to_date(){
+        return Application::where('status', 2)->count();
+    }
+
+    public function total_rejected_to_date(){
+        return Application::where('status', 3)->sum('amount');
+    }
+    public function num_rejected_to_date(){
+        return Application::where('status', 3)->count();
+    }
+
+    public function num_assigned_staff(){
+        return User::whereHas('assigned_loans')->count();
+    }
+
+    public function num_unassigned_staff() {
+        return User::whereDoesntHave('assigned_loans')->count() - 1;
+    }
+
+
+
+
+
     public function total_loan_officers(){
         return User::whereDoesntHave('roles', function($query) {
             $query->where('name', 'user');
@@ -332,12 +373,12 @@ trait LoanTrait{
         // }
     }
 
-    public function getLoanArears($type){
-        return Application::with('loan_product', 'loan')
-            ->where('complete', 1)
-            ->where('status', 1)
-            ->get();
+    public function getLoanArears($type) {
+        return Application::where('due_date', '<', now()) // Loans past due date
+                         ->where('status', 1) // Status is active (or whatever status 1 means)
+                         ->get();
     }
+
 
     public function getNoRepaymentLoan($type){
         return Application::with('loan_product', 'loan')
