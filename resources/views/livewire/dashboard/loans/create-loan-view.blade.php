@@ -187,7 +187,7 @@
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related party's Phone Number</label>
-                                    <input type="number" name="rp_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="number" name="rp_phone" class="form-control" id="phone" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
@@ -224,7 +224,7 @@
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Guarantor's Phone Number</label>
-                                    <input type="number" name="g_phone" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <input type="number" name="g_phone" class="form-control" id="empphone" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">

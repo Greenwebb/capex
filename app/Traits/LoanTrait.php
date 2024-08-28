@@ -518,7 +518,8 @@ trait LoanTrait{
                     ];
                     // Mail::to($data['email'])->send(new LoanApplication($mail));
                 }
-
+                
+                // dd(!empty($data['skip_to']));
                 if(!empty($data['skip_to'])){
                     $status = Status::where('id', $data['skip_to'])->first();
                     ApplicationStage::create([

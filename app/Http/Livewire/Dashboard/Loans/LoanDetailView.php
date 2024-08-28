@@ -187,7 +187,7 @@ class LoanDetailView extends Component
     // This method is the actual approval process - Recommended
     public function accept($id){
         // DB::beginTransaction();
-        
+
         try {
             $application_request = Application::find($id);
             $this->change_stage();
@@ -197,10 +197,8 @@ class LoanDetailView extends Component
                 // $this->isCompanyEnough($x->amount);
                 // dd($application_request);
                 // Do this - If this officer is the last approver
-                
-                if(strtolower($this->loan_stage) == 'disbursements'){
-                    $this->approve_final($application_request);
-                }else{
+                // dd(strtolower($this->loan_stage->stage));
+                if(strtolower($this->loan_stage->stage) == 'disbursements'){
                     $this->current->update([
                         'state' => 'current',
                         'status' => 'Current Loan',
@@ -210,6 +208,8 @@ class LoanDetailView extends Component
                         'position' => 4,
                     ]);
                     $this->approve_final($application_request);
+                }else{
+                    $this->approve_continue($id);
                 }
             }else{
                 $this->approve_continue($id);
@@ -276,7 +276,7 @@ class LoanDetailView extends Component
         $x->status = 1;
         $x->due_date = $futureDate;
         $x->save();
-        
+
         if($x->email != null){
             $mail = [
                 'user_id' => $x->user_id,
