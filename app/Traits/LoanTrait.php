@@ -90,9 +90,6 @@ trait LoanTrait{
     }
 
 
-
-
-
     public function total_loan_officers(){
         return User::whereDoesntHave('roles', function($query) {
             $query->where('name', 'user');
@@ -518,7 +515,7 @@ trait LoanTrait{
                     ];
                     // Mail::to($data['email'])->send(new LoanApplication($mail));
                 }
-                
+
                 // dd(!empty($data['skip_to']));
                 if(!empty($data['skip_to'])){
                     $status = Status::where('id', $data['skip_to'])->first();

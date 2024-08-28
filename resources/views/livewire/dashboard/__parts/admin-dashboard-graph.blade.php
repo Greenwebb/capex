@@ -1,4 +1,16 @@
 <div class="row">
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Loan Status Overview</h4>
+            </div>
+            <div class="card-body">
+                <div id="donut_chart_loans" class="apex-charts" dir="ltr"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header">
@@ -20,9 +32,62 @@
             </div>
         </div>
     </div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gradient Donut Chart Options
+    var options = {
+        chart: {
+            height: 350,
+            type: 'donut'
+        },
+        series: [
+            @json($closedLoansCount),
+            @json($rejectedLoansCount),
+            @json($pendingLoansCount),
+            @json($loansCount),
+            @json($unresolvedLoansAmount)
+        ],
+        labels: ['Closed Loans', 'Rejected Loans', 'Pending Loans', 'Open Loans', 'Unresolved Loans'],
+        colors: ['#FF4560', '#008FFB', '#FEB019', '#00E396', '#775DD0'],
+        fill: {
+            type: 'gradient',
+        },
+        legend: {
+            position: 'bottom'
+        },
+        dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+                return val.toFixed(2) + "%"
+            }
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    height: 300
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }],
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return val + " count";
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#donut_chart_loans"), options);
+    chart.render();
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     var chartElement = document.querySelector("#column_chart_performance");
 

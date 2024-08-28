@@ -20,9 +20,8 @@ class DashboardView extends Component
     use EmailTrait, WalletTrait, LoanTrait, UserTrait;
     public $loan_requests, $loan_request, $all_loan_requests, $my_loan, $wallet, $borrowers;
     public $payment_method, $withdraw_amount, $mobile_number, $card_name, $bank_name, $card_number;
-    public $performingData = [];
-    public $nonPerformingData = [];
-
+    public $performingData = [], $nonPerformingData = [];
+    public $closedLoansCount, $rejectedLoansCount, $pendingLoansCount, $loansCount, $unresolvedLoansAmount;
     public function mount()
     {
         $this->loadData();
@@ -46,6 +45,13 @@ class DashboardView extends Component
             ->pluck('count', 'month')
             ->toArray();
         // dd($this->nonPerformingData);
+
+
+        $this->closedLoansCount = $this->total_closed_loans();
+        $this->rejectedLoansCount = $this->num_rejected_to_date();
+        $this->pendingLoansCount = $this->total_pending_loans();
+        $this->loansCount = $this->total_loans();
+        $this->unresolvedLoansAmount = $this->num_unresolved_to_date();
     }
 
     public function render()
@@ -65,6 +71,11 @@ class DashboardView extends Component
                 'performingData' => $this->performingData ?? [0,0,0,0,0],
                 'nonPerformingData' => $this->nonPerformingData ?? [0,0,0,0,0],
                 'chartData' => $chartData,
+                'closedLoansCount' => $this->closedLoansCount,
+                'rejectedLoansCount' => $this->rejectedLoansCount,
+                'pendingLoansCount' => $this->pendingLoansCount,
+                'loansCount' => $this->loansCount,
+                'unresolvedLoansAmount' => $this->unresolvedLoansAmount,
             ])->layout('layouts.main');
         }
     }
