@@ -11,6 +11,17 @@
         </div>
     </div>
 
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Loan Status Bar Overview</h4>
+            </div>
+            <div class="card-body">
+                <div id="bar_chart_loans" class="apex-charts" dir="ltr"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header">
@@ -36,6 +47,77 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Vertical Bar Chart Options
+    var options = {
+        chart: {
+            height: 350,
+            type: 'bar',
+            toolbar: {
+                show: false
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '45%',
+                endingShape: 'rounded'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        series: [{
+            name: 'Loans',
+            data: [
+                @json($closedLoansCount),
+                @json($rejectedLoansCount),
+                @json($pendingLoansCount),
+                @json($loansCount),
+                @json($unresolvedLoansAmount)
+            ]
+        }],
+        colors: ['#FF4560', '#008FFB', '#FEB019', '#00E396', '#775DD0'],
+        xaxis: {
+            categories: ['Closed Loans', 'Rejected Loans', 'Pending Loans', 'Loans', 'Unresolved Loans'],
+            title: {
+                text: 'Loan Status'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Count'
+            }
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shade: 'light',
+                type: "vertical",
+                shadeIntensity: 0.25,
+                gradientToColors: undefined,
+                inverseColors: true,
+                opacityFrom: 0.85,
+                opacityTo: 0.85,
+                stops: [50, 0, 100, 100]
+            }
+        },
+        grid: {
+            borderColor: '#f1f1f1',
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return val + " count";
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#bar_chart_loans"), options);
+    chart.render();
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     // Gradient Donut Chart Options
     var options = {
