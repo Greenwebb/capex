@@ -3,19 +3,41 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title mb-0">Performance</h4>
+                <!-- Advanced Filter Options -->
+                <div class="filter-options">
+                    <select id="filter-series" class="form-control">
+                        <option value="all">Show All</option>
+                        <option value="performing">Performing</option>
+                        <option value="nonPerforming">Non-Performing</option>
+                    </select>
+                    <input type="color" id="color-performing" value="#d08820" title="Pick a color for Performing">
+                    <input type="color" id="color-nonPerforming" value="#02c8dc" title="Pick a color for Non-Performing">
+                    <button id="apply-color" class="btn btn-primary">Apply Colors</button>
+                </div>
             </div>
-
             <div class="card-body">
-                <div id="column_chart" data-colors='["red", "yellow", "brown"]' class="apex-charts" dir="ltr"></div>
+                <div id="column_chart_performance" class="apex-charts" dir="ltr"></div>
             </div>
         </div>
     </div>
 </div>
-
-{{-- @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var chartColumnColors = getChartColorsArray("column_chart");
+    var chartElement = document.querySelector("#column_chart_performance");
+
+    // Initial Colors
+    var chartColors = {
+        performing: document.getElementById('color-performing').value,
+        nonPerforming: document.getElementById('color-nonPerforming').value
+    };
+
+    // Initial Data
+    var seriesData = {
+        performing: @json($chartData['performing']),
+        nonPerforming: @json($chartData['nonPerforming'])
+    };
+
     var options = {
         chart: {
             height: 350,
@@ -41,12 +63,12 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         series: [{
             name: "Performing",
-            data: @json($chartData['performing'])
+            data: seriesData.performing
         }, {
             name: "Non-Performing",
-            data: @json($chartData['nonPerforming'])
+            data: seriesData.nonPerforming
         }],
-        colors: chartColumnColors,
+        colors: [chartColors.performing, chartColors.nonPerforming],
         xaxis: {
             categories: @json($chartData['months'])
         },
@@ -70,8 +92,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#column_chart"), options);
+    var chart = new ApexCharts(chartElement, options);
     chart.render();
+
+    // Event Listener for Filter
+    document.getElementById('filter-series').addEventListener('change', function() {
+        var selectedSeries = this.value;
+        if (selectedSeries === 'all') {
+            chart.updateSeries([{
+                name: "Performing",
+                data: seriesData.performing
+            }, {
+                name: "Non-Performing",
+                data: seriesData.nonPerforming
+            }]);
+        } else if (selectedSeries === 'performing') {
+            chart.updateSeries([{
+                name: "Performing",
+                data: seriesData.performing
+            }]);
+        } else if (selectedSeries === 'nonPerforming') {
+            chart.updateSeries([{
+                name: "Non-Performing",
+                data: seriesData.nonPerforming
+            }]);
+        }
+    });
+
+    // Event Listener for Color Customization
+    document.getElementById('apply-color').addEventListener('click', function() {
+        chartColors.performing = document.getElementById('color-performing').value;
+        chartColors.nonPerforming = document.getElementById('color-nonPerforming').value;
+
+        chart.updateOptions({
+            colors: [chartColors.performing, chartColors.nonPerforming]
+        });
+    });
 });
 </script>
-@endpush --}}
