@@ -26,6 +26,7 @@
                     <th class="px-4 py-2">User</th>
                     <th class="px-4 py-2">Amount</th>
                     <th class="px-4 py-2">Payment Method</th>
+                    <th class="px-4 py-2">Payment Method</th>
                     {{-- <th class="px-4 py-2">Status</th> --}}
                     <th class="px-4 py-2">Actions</th>
                 </tr>
@@ -37,6 +38,7 @@
                         <td class="px-4 py-2">{{ $this->getUserInfo($proof->user_id) }}</td>
                         <td class="px-4 py-2">{{ $proof->amount }}</td>
                         <td class="px-4 py-2">{{ $proof->method }}</td>
+                        <td class="px-4 py-2">{{ $proof->details ?? 'No Details Available'}}</td>
                         <td class="px-4 py-2">
                         {{-- @dd($proof->document_paths[0]) --}}
                          <span class="px-2 py-1 rounded-full text-light {{ $proof->status == 'accepted' ? 'bg-success' : 'bg-warning' }}">
