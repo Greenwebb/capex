@@ -14,7 +14,6 @@ use Spatie\Permission\Models\Role;
 use App\Models\User;
 use App\Traits\EmailTrait;
 use App\Traits\WalletTrait;
-use Maatwebsite\Excel\Facades\Excel;
 
 class PastMaturityDateView extends Component
 {

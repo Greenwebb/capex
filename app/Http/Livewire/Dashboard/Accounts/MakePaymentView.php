@@ -12,7 +12,6 @@ use App\Traits\WalletTrait;
 use App\Traits\LoanTrait;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 
 class MakePaymentView extends Component

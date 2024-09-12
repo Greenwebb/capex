@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Dashboard\Loans;
 
 use Livewire\Component;
-use Maatwebsite\Excel\Facades\Excel;
+
 use App\Classes\Exports\LoanExport;
 use App\Models\Application;
 use App\Models\User;

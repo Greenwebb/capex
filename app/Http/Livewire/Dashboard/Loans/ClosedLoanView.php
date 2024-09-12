@@ -7,7 +7,7 @@ use App\Models\Application;
 use App\Models\Loans;
 use App\Traits\LoanTrait;
 use Livewire\Component;
-use Maatwebsite\Excel\Facades\Excel;
+
 
 class ClosedLoanView extends Component
 {

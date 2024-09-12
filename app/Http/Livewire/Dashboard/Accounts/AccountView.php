@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Dashboard\Accounts;
 
-use Maatwebsite\Excel\Facades\Excel;
 use App\Models\BlackList;
 use App\Models\User;
 use Illuminate\Http\Client\Request;
@@ -36,7 +35,6 @@ class AccountView extends Component
     }
 
     // public function exportPDF(){
-    //     return Excel::download(new AccountDetailExportExport, 'invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     // }
 
     public function blockUser(){

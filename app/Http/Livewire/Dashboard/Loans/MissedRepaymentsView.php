@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 use App\Traits\LoanTrait;
-use Maatwebsite\Excel\Facades\Excel;
+
 
 class MissedRepaymentsView extends Component
 {

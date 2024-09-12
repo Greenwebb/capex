@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Dashboard\Borrowers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Application;
 use Livewire\Component;
 use Illuminate\Http\Client\Request;
@@ -55,7 +54,6 @@ class BorrowerView extends Component
     }
 
     public function borrowerPDFExport(){
-        return Excel::download(new BorrowerExport, 'Customers.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
     public function store(){

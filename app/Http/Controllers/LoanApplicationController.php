@@ -30,6 +30,112 @@ class LoanApplicationController extends Controller
         //
     }
 
+    public function websiteApply(Request $request)
+    {
+        // Validate the request
+        $validatedData = $request->toArray();
+
+        try {
+            // Upload common files
+            // $this->uploadCommonFiles($request);
+
+            // Prepare personal data
+            $personal = [
+                'fname' => $validatedData['fname'],
+                'lname' => $validatedData['lname'],
+                'phone' => $validatedData['mobile'],
+                'email' => $validatedData['email'],
+            ];
+
+            // Update user details
+            $user = $this->registerUser($personal);
+
+            // Prepare loan request data
+            $loanRequest = [
+                'loan_product_id' => $validatedData['loanType'],
+                'user_id' => $user->id,
+                'amount' => $validatedData['amount'],
+                'duration' => $validatedData['duration'],
+            ];
+
+            // Create or update temporal loan
+            $this->createQuickLoan($loanRequest);
+
+            // Return successful response
+            return response()->json([
+                'status' => 200,
+                'success' => true,
+                'message' => 'Application submitted successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            // Return a more descriptive error response
+            return response()->json([
+                'status' => 500,
+                'success' => false,
+                'message' => 'An error occurred during the application process',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function store(){
+        try {
+            $data = $request->toArray();
+            $this->uploadCommonFiles($request);
+            if(isset($data['phone'])){
+                $personal = [
+                    'dob' => $data['dob'],
+                    'nrc_no' => $data['nrc'],
+                    'id_type' => $data['id_type'],
+                    'phone' => $data['phone'],
+                    'employeeNo' => $data['employeeNo'],
+                    'jobTitle' => $data['jobTitle'],
+                    'ministry' => $data['ministry'],
+                    'department' => $data['department'],
+                    'borrower_id' => $data['borrower_id'],
+                    'gender'=> $data['gender'],
+                    'address'=> $data['address'],
+                ];
+                $this->updateUser($personal);
+            }
+
+            if (isset($data['amount']) && isset($data['duration']) && isset($data['loan_package'])) {
+                $this->createQuickLoan($data);
+            }
+
+
+            if (isset($data['nokfname'])) {
+                $this->updateKinUser($data);
+            }
+            if (isset($data['rp_fname'])) {
+                $this->createRelatedParties($data);
+            }
+            if (isset($data['g_lname']) && isset($data['g_fname'])) {
+                $this->createGuarantors($data);
+            }
+
+            if (isset($data['bankName'])) {
+                $bank = [
+                    'bankName'=> $data['bankName'],
+                    'branchName'=> $data['branchName'],
+                    'accountNames'=> $data['accountNames'],
+                    'accountNumber'=> $data['accountNumber'],
+                    'user_id' => auth()->user()->id,
+                ];
+                $this->createBankDetails($bank);
+            }
+
+            return response()->json([
+                "status" => 200,
+                "success" => true
+            ]);
+        } catch (\Throwable $th) {
+           dd($th);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

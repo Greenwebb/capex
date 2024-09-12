@@ -20,7 +20,7 @@
 
         <div class="row">
 
-            <div class="col-xxl-6">
+            <div class="col-xxl-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="mb-0 text-warning card-title flex-grow-1">Loan Information</h4>
@@ -37,7 +37,7 @@
                                             <i class="text-danger ri-asterisk"></i>
                                         </span>
                                     </label>
-                                    <select name="loan_type_id" id="loanType" class="form-select" required>
+                                    <select name="loan_type_id" id="loanType" class="form-select" wire:model="selectedLoanType" required>
                                         <option selected>Choose...</option>
                                         @forelse ($loan_types as $lt)
                                             <option value="{{ $lt->id }}">{{ $lt->name }}</option>
@@ -53,7 +53,7 @@
                                             <i class="text-danger ri-asterisk"></i>
                                         </span>
                                     </label>
-                                    <select name="loan_child_type_id" id="loanCategory" class="form-select" required>
+                                    <select name="loan_child_type_id" id="loanCategory" class="form-select" wire:model="selectedLoanCategory" required>
                                         <option selected>Choose...</option>
                                         @forelse ($loan_child_types as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -90,6 +90,7 @@
                                         @forelse ($borrowers as $b)
                                         <option value="{{ $b->id }}">{{ $b->fname.' '.$b->lname.' | '.$b->phone }}</option>
                                         @empty
+                                            <option> <a href="{{ route('borrowers') }}">No Customers</a></option>
                                         @endforelse
                                     </select>
                                 </div>

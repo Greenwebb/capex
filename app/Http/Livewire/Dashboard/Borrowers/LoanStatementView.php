@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Dashboard\Borrowers;
 
-use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Application;
 use App\Models\Transaction;
 use App\Models\User;

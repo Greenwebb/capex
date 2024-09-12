@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Dashboard\Loans;
 
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Classes\Exports\LoanExport;
 use App\Models\Application;
 use App\Models\LoanManualApprover;

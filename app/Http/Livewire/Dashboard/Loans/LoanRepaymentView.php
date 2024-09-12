@@ -6,7 +6,7 @@ use App\Classes\Exports\RepaymentExport;
 use App\Models\Loans;
 use App\Traits\LoanTrait;
 use Livewire\Component;
-use Maatwebsite\Excel\Facades\Excel;
+
 
 class LoanRepaymentView extends Component
 {
