@@ -212,6 +212,11 @@ trait UserTrait{
         }
     }
 
+    public function getUserInfo($id){
+        $user = User::where('id', $id)->first();
+        return $user->fname.' '.$user->lname;
+    }
+
     public function send_with_server($data) {
         $message = $data['message'];
         $username = '';

@@ -749,6 +749,10 @@
                                                     <a href="{{ route('make-payment') }}" class="nav-link" data-key="t-line"> Make Repayment
                                                     </a>
                                                 </li>
+                                                <li class="nav-item">
+                                                    <a href="{{ route('proofs') }}" class="nav-link" data-key="t-line"> Proof of Payments
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </li>

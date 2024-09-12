@@ -10,6 +10,7 @@ use App\Http\Controllers\LoanProductController;
 use App\Http\Livewire\Dashboard\Accounting\LoanStatementView;
 use App\Http\Livewire\Dashboard\Accounts\AccountView;
 use App\Http\Livewire\Dashboard\Accounts\MakePaymentView;
+use App\Http\Livewire\Dashboard\Accounts\ProofOfPaymentView;
 use App\Http\Livewire\Dashboard\Accounts\MyProfile;
 use App\Http\Livewire\Dashboard\Borrowers\BorrowerView;
 use App\Http\Livewire\Dashboard\Borrowers\LoanStatementView as BorrowersLoanStatementView;
@@ -171,6 +172,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('loan-statements', LoanStatementView::class)->name('loan-statements');
     Route::get('my-wallet-account', LoanWalletView::class)->name('loan-wallet');
     Route::get('transactions', MakePaymentView::class)->name('make-payment');
+    Route::get('proof-of-payments', ProofOfPaymentView::class)->name('proofs');
 
     // ----- settings
     Route::get('users', UserView::class)->name('users');
