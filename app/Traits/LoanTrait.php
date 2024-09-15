@@ -32,6 +32,7 @@ trait LoanTrait{
     public function total_loans(){
         return Application::where('status', 1)->count();
     }
+
     public function total_open_loans_amount(){
         return Application::where('status', 1)->sum('amount');
     }
@@ -105,6 +106,18 @@ trait LoanTrait{
         })->count() - 1;
     }
 
+    public function count_loans_by_product($id){
+        return Application::where('loan_product_id', $id)->count();
+    }
+
+    public function count_loans_by_category($id){
+        return Application::where('loan_type_id', $id)->count();
+    }
+
+    public function count_loans_by_sub_category($id){
+        return Application::where('loan_child_type_id', $id)->count();
+    }
+    
     public function closed_loans(){
         return $this->loan_requests = Loans::with('application')->where('closed', 1 )
         ->orderBy('id', 'desc')->get();
@@ -135,6 +148,14 @@ trait LoanTrait{
         return LoanType::where('id', $id)->first();
     }
 
+    public function get_all_loan_categories(){
+        return LoanType::get();
+    }
+
+    public function get_all_loan_child_categories(){
+        return LoanChildType::get();
+    }
+
     public function get_loan_category($id){
         return LoanChildType::where('id', $id)->first();
     }
@@ -155,6 +176,8 @@ trait LoanTrait{
         ])->first();
     }
 
+
+
     public function get_loan_statuses($id){
         return LoanStatus::with('status')->where('loan_product_id', $id)
                         ->get();
@@ -166,6 +189,14 @@ trait LoanTrait{
 
     public function get_loan_expenses($id){
         return LoanExpense::where('application_id', $id)->get();
+    }
+
+    // New -- ******** 
+    public function get_repayments(){
+        return Transaction::with('application.loan_product', 'user')->get();
+    }    
+    public function get_customer_repayments($id){
+        return Transaction::with('application.loan_product', 'user')->where('user_id', $id)->get();
     }
 
     public function getAllLoanRequests($type){

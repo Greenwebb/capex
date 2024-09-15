@@ -22,6 +22,10 @@ class Transaction extends Model
         'user_id'
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function installment(){
         return $this->belongsTo(LoanInstallment::class, 'installment_id');
     }

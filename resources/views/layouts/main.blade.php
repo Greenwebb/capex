@@ -56,14 +56,14 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
 
-        <header id="page-topbar" style="
-            background-color: rgba(224, 222, 222, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 10px rgba(88, 64, 36, 0.1);
-            border: 1px solid rgb(255, 255, 255);
-            color: white;
-            ">
+<header id="page-topbar" style="
+  background-color: rgba(5, 57, 86, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(5, 57, 86, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+">
     <div class="layout-width">
         <div class="navbar-header">
             <div class="d-flex">
@@ -88,11 +88,11 @@
                     </a>
                 </div>
 
-                <button type="button" class="px-3 btn btn-sm fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
-                    <span class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <button type="button" class="px-3 text-white btn btn-sm fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                    <span class="text-white  hamburger-icon">
+                        <span  class='bg-white'></span>
+                        <span class='bg-white'></span>
+                        <span class='bg-white'></span>
                     </span>
                 </button>
 
@@ -201,7 +201,7 @@
                     </div>
                 </div>
 
-                <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                {{-- <div class="dropdown topbar-head-dropdown ms-1 header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class='bx bx-category-alt fs-22'></i>
                     </button>
@@ -262,23 +262,23 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="ms-1 header-item d-none d-sm-flex">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
-                        <i class='bx bx-fullscreen fs-22'></i>
+                        <i class='text-white bx bx-fullscreen fs-22'></i>
                     </button>
                 </div>
 
                 <div class="ms-1 header-item d-none d-sm-flex">
-                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
-                        <i class='bx bx-moon fs-22'></i>
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-light rounded-circle light-dark-mode">
+                        <i class='text-light bx bx-moon fs-22'></i>
                     </button>
                 </div>
 
                 <div class="dropdown topbar-head-dropdown ms-1 header-item" id="notificationDropdown">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
-                        <i class='bx bx-bell fs-22'></i>
+                        <i class='text-white bx bx-bell fs-22'></i>
                         <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">0<span class="visually-hidden">unread messages</span></span>
                     </button>
                     <div class="p-0 dropdown-menu dropdown-menu-lg dropdown-menu-end" aria-labelledby="page-header-notifications-dropdown">
@@ -290,7 +290,7 @@
                                         <h6 class="m-0 text-white fs-16 fw-semibold"> Notifications </h6>
                                     </div>
                                     <div class="col-auto dropdown-tabs">
-                                        <span class="badge bg-light-subtle text-body fs-13"> 4 New</span>
+                                        {{-- <span class="badge bg-light-subtle text-body fs-13"> 4 New</span> --}}
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@
                                 <ul class="nav nav-tabs dropdown-tabs nav-tabs-custom" data-dropdown-tabs="true" id="notificationItemsTab" role="tablist">
                                     <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab" aria-selected="true">
-                                            All (4)
+                                            All
                                         </a>
                                     </li>
                                     <li class="nav-item waves-effect waves-light">

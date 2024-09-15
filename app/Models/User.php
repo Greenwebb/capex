@@ -164,6 +164,10 @@ class User extends Authenticatable
         return Application::where('complete', 1)->count();
     }
 
+    public function transactions(){
+        return $this->hasMany(Transactions::class);
+    }
+
     public function nextkin(){
         return $this->hasMany(NextOfKing::class);
     }
@@ -236,7 +240,6 @@ class User extends Authenticatable
     public function party(){
         return $this->hasMany(RelatedParty::class);
     }
-    
 
     public function assigned_loans(){
         return $this->hasMany(LoanManualApprover::class);

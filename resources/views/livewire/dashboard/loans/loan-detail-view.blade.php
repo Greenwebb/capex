@@ -5,7 +5,7 @@
             </div>
 
             <div class="step-arrow-nav mb-4">
-                <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+                <ul class="nav nav-pills custom-nav nav-justified rounded text-white" style="background-color: #053956; color:#fff" role="tablist">
                     
                     @if(true)
                     {{-- @dd($current) --}}
@@ -23,7 +23,7 @@
                                         $count ++;
                                     @endphp
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link {{ $current->position >= $count ? 'done' : '' }}" id="{{$step->stage}}-tab" data-bs-toggle="pill" data-bs-target="#{{$step->stage}}" type="button" role="tab" aria-controls="{{$step->stage}}" aria-selected="true">{{ $step->status->name }}</button>
+                                        <button class="nav-link text-white {{ $current->position >= $count ? 'done' : '' }}" id="{{$step->stage}}-tab" data-bs-toggle="pill" data-bs-target="#{{$step->stage}}" type="button" role="tab" aria-controls="{{$step->stage}}" aria-selected="true">{{ $step->status->name }}</button>
                                     </li>
                                 @empty
                                     {{-- <li class="nav-item" role="presentation">

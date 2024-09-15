@@ -21,9 +21,9 @@
 
             <div class="row g-6 g-xl-9 mb-6">
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary text-white" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">User Settings</div>
+                            <div class="fs-4 fw-bold text-white">User Settings</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     <li><a href="#" class="fs-6 text-muted fw-bold">User KYC settings</a></li> <!-- Change text color to blue -->
@@ -34,9 +34,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">Loan Settings</div>
+                            <div class="fs-4 fw-bold text-white">Loan Settings</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     <li><a href="{{ route('item-settings', ['confg' => 'loan','settings' => 'loan-parent-types']) }}" class="fs-6 text-info fw-bold hover:text-light">Loan Types</a></li>
@@ -57,9 +57,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">Manage Staff</div>
+                            <div class="fs-4 fw-bold text-white">Manage Staff</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     {{-- <li><a href="{{ route('item-settings', ['confg' => 'staff','settings' => 'departments']) }}" class="fs-6 text-info fw-bold">Departments</a></li> <!-- Change text color to blue --> --}}
@@ -76,9 +76,9 @@
                 </div>
                 <div class="col-12" style="border-top: 0.5px solid #00000017"></div>
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">Manage Branches</div>
+                            <div class="fs-4 fw-bold text-white">Manage Branches</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     <li><a href="#" class="fs-6 text-muted disabled fw-bold">Branches</a></li> <!-- Change text color to blue -->
@@ -89,9 +89,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">Borrowers</div>
+                            <div class="fs-4 fw-bold text-white">Borrowers</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     <li><a href="#" class="fs-6 text-muted disabled fw-bold">Download Statements/Schedules</a></li>
@@ -108,9 +108,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">Repayments</div>
+                            <div class="fs-4 fw-bold text-white">Repayments</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     <li><a href="#" class="fs-6 text-muted disabled fw-bold">Loan Repayment Methods</a></li>
@@ -122,9 +122,9 @@
                 </div>
                 <div class="col-12" style="border-top: 0.5px solid #00000017"></div>
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">Collateral</div>
+                            <div class="fs-4 fw-bold text-white">Collateral</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     <li><a href="#" class="fs-6 text-muted disabled fw-bold">Collecteral Types</a></li>
@@ -134,9 +134,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">Other Income</div>
+                            <div class="fs-4 fw-bold text-white">Other Income</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     <li><a href="#" class="fs-6 text-muted disabled fw-bold">Other Income</a></li>
@@ -146,9 +146,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">Bulk Updates</div>
+                            <div class="fs-4 fw-bold text-white">Bulk Updates</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     <li><a href="#" class="fs-6 text-muted disabled fw-bold">Upload Borrowers from CSV file</a></li>
@@ -163,9 +163,9 @@
                 </div>
                 <div class="col-12" style="border-top: 0.5px solid #00000017"></div>
                 <div class="col-md-6 col-xl-4">
-                    <div class="card border-hover-primary">
+                    <div class="card border-hover-primary" style="background-color:#053956;">
                         <div class="card-body p-9">
-                            <div class="fs-4 fw-bold text-dark">Asset Management</div>
+                            <div class="fs-4 fw-bold text-white">Asset Management</div>
                             <div class="d-flex flex-wrap mb-6 p-4">
                                 <ul class="list-unstyled">
                                     <li><a href="#" class="fs-6 text-muted disabled fw-bold">Asset Management Types</a></li>
