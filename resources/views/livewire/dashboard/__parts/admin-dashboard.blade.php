@@ -76,7 +76,7 @@
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
                                             <h4 class="mb-4 text-white fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{ $this->total_open_loans_amount() }}">{{ $this->total_open_loans_amount() }}</span> </h4>
-                                            <a href="{{ route('open-loans') }}" class="text-white text-decoration-underline">Currently Opened</a>
+                                            <a href="{{ route('approved-loans') }}" class="text-white text-decoration-underline">Currently Opened</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
