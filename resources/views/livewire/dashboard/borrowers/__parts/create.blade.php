@@ -87,11 +87,15 @@
                         <br>
                         <h4 class="text-warning">Basic Information</h4>
                         <div class="row">
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-4">
                                 <label class="mb-2 required fs-6 fw-semibold">Firstname</label>
                                 <input type="text" class="form-control" name="fname" required/>
                             </div>
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-4">
+                                <label class="mb-2 required fs-6 fw-semibold">Middlename</label>
+                                <input type="text" class="form-control" name="mname" required/>
+                            </div>
+                            <div class="mb-3 col-md-4">
                                 <label class="mb-2 required fs-6 fw-semibold">Lastname</label>
                                 <input type="text" class="form-control" name="lname" required/>
                             </div>
