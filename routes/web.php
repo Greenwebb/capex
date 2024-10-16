@@ -186,7 +186,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('settings', SettingsLanding::class)->name('settings');
     Route::post('/loan-products/update-status', [LoanProductController::class, 'updateLPStatus'])->name('loan-products.updateStatus');
 
-
     // ------ Role Permission
     Route::post('create-role', [RoleController::class, 'store'])->name('create-role');
     Route::post('update-role', [RoleController::class, 'update'])->name('update-role');
