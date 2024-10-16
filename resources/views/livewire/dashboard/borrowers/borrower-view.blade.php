@@ -71,7 +71,7 @@
                                         @forelse($users as $user)
                                         <tr>
                                             <td class="customer_name">{{ 1000 + $user->id }}</td>
-                                            <td class="customer_name">{{ $user->fname.' '.$user->lname }}</td>
+                                            <td class="customer_name">{{ $user->fname.' '.$user->mname.' '.$user->lname }}</td>
                                             <td class="email">{{ $user->email }}</td>
                                             <td class="email">{{ $user->phone ?? 'No phone' }}</td>
                                             <td class="email">{{ $user->usource ?? 'Other' }}</td>
