@@ -12,14 +12,13 @@
             <span class="text-muted mt-1 fw-semibold fs-7">Over {{ $institutions->count() }} Institutions</span>
         </h3>
         <div class="card-toolbar">
-            <a href="{{ route('system-create', ['page' => 'loan-institution']) }}" class="btn btn-sm btn-light-primary">
-            <i class="ki-duotone ki-plus fs-2"></i>New</a>
+            <a href="{{ route('system-create', ['page' => 'loan-institution']) }}" class="btn btn-primary">
+            Create New</a>
         </div>
     </div>
     <!--end::Header-->
     <!--begin::Body-->
     <div class="card-body py-3">
-        @include('livewire.dashboard.__parts.dash-alerts')
         <!--begin::Table container-->
         <div class="table-responsive">
             <!--begin::Table-->
@@ -28,7 +27,7 @@
                 <thead>
                     <tr class="fw-bold text-muted bg-light">
                         <th class="ps-4 min-w-205px rounded-start">Name</th>
-                        <th class="min-w-100px">Status</th>
+                        {{-- <th class="min-w-100px">Status</th> --}}
                         <th class="min-w-100px">Created on</th>
                         <th class="min-w-100px text-end rounded-end"></th>
                     </tr>
@@ -40,17 +39,15 @@
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
-                                <div class="symbol symbol-label bg-light-danger symbol-50px me-5">
-                                </div>
                                 <div class="d-flex justify-content-start flex-column">
                                     <a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $i->name }}</a>
                                     <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $i->name }}</span>
                                 </div>
                             </div>
                         </td>
-                        <td>
-                            <span class="badge badge-light-success fs-7 fw-bold">{{ $i->type }}</span>
-                        </td>
+                        {{-- <td>
+                            <span class="badge badge-light-success fs-7 fw-bold">{{ $i->status }}</span>
+                        </td> --}}
                         <td>
                             <div class="d-flex justify-content-start flex-column">
                                 <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">

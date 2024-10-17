@@ -189,7 +189,7 @@
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related party's Phone Number</label>
-                                    <input type="number" name="rp_phone" class="form-control" id="phone" placeholder="Enter your name">
+                                    <input type="text" name="rp_phone" class="form-control" id="phone2" maxlength="10" placeholder="Enter your phone number" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                                 </div>
 
                                 <div class="col-md-4">
