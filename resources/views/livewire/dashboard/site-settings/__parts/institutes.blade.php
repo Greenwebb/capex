@@ -23,7 +23,7 @@
         <div class="table-responsive">
             <!--begin::Table-->
             <table class="table align-middle gs-0 gy-4">
-                <!--begin::Table head-->
+                <!--;begin::Table head-->
                 <thead>
                     <tr class="fw-bold text-muted bg-light">
                         <th class="ps-4 min-w-205px rounded-start">Name</th>
@@ -31,7 +31,7 @@
                         <th class="min-w-100px">Created on</th>
                         <th class="min-w-100px text-end rounded-end"></th>
                     </tr>
-                </thead>
+                </thead>;
                 <!--end::Table head-->
                 <!--begin::Table body-->
                 <tbody>
@@ -69,7 +69,7 @@
                         </td>
                     </tr>
                     @empty
-                        
+
                     @endforelse
                 </tbody>
             </table>

@@ -208,11 +208,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <label class="mb-2 required fs-6 fw-semibold">Employer Address</label>
-                                    <input type="email" class="form-control" name="empaddress" />
+                                <div class="mb-3 col-md-4">
+                                    <label class="mb-2 required fs-6 fw-semibold">Employer Email Address</label>
+                                    <input type="email" class="form-control" name="empemail" />
+                                    <small></small>
                                 </div>
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-4">
+                                    <label class="mb-2 required fs-6 fw-semibold">Employer Physical Address</label>
+                                    <input type="text" class="form-control" name="empaddress" />
+                                    <small></small>
+                                </div>
+                                <div class="mb-3 col-md-4">
                                     <label class="mb-2 fs-6 fw-semibold">Employer Phone Number</label>
                                     <input type="text" id="empphone" name="empphone" class="form-control">
                                 </div>

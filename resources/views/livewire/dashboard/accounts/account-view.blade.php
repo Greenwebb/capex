@@ -22,8 +22,8 @@
             @if ($user->photos->isNotEmpty())
                 @foreach ($user->photos as $photo)
                     @php
-                        $photoPath = $photo->source === 'admin' 
-                            ? url('public/storage/' . $photo->path) 
+                        $photoPath = $photo->source === 'admin'
+                            ? url('public/storage/' . $photo->path)
                             : 'https://app.capexfinancialservices.org/' . $photo->path;
                     @endphp
                     <img src="{{ $photoPath }}" alt="user-img" class="rounded-sm img-thumbnail col-3" />
@@ -237,6 +237,19 @@
                                                     </a>
                                                     <p class="mb-0 text-muted">{{ $user->address2 }}</p>
                                                     <p class="mb-0 text-muted">{{ $user->phone }}</p>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0">
+                                                    <img src="assets/images/small/img-6.jpg" alt="" height="50" class="rounded" />
+                                                </div>
+                                                <div class="overflow-hidden flex-grow-1 ms-3">
+                                                    <a href="javascript:void(0);">
+                                                        <h6 class="text-truncate fs-14">Employer Address</h6>
+                                                    </a>
+                                                    <p class="mb-0 text-muted">{{ $user->empaddress }}</p>
+                                                    <p class="mb-0 text-muted">{{ $user->empemail }}</p>
                                                 </div>
                                             </div>
                                         </div>

@@ -189,7 +189,8 @@
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related party's Phone Number</label>
-                                    <input type="text" name="rp_phone" class="form-control" id="phone2" maxlength="10" placeholder="Enter your phone number" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
+                                    <input type="text" name="rp_phone" class="form-control" id="phone2" maxlength="10" placeholder="Enter your phone number"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                                 </div>
 
                                 <div class="col-md-4">
@@ -226,7 +227,7 @@
 
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Guarantor's Phone Number</label>
-                                    <input type="number" name="g_phone" class="form-control" id="empphone" placeholder="Enter your name">
+                                    <input type="number" name="g_phone" class="form-control" id="empphone2" placeholder="Enter your name" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                                 </div>
 
                                 <div class="col-md-4">
