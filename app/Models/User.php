@@ -108,6 +108,13 @@ class User extends Authenticatable
         static::creating(function ($application) {
             $application->uuid = static::generateNumericUUID(5); // Generate 5-digit numeric UUID
         });
+
+        static::created(function ($user) {
+            // Update all applications with the same email to have this user's user_id
+            Application::where('email', $user->email)->update([
+                'user_id' => $user->id,
+            ]);
+        });
     }
 
     protected static function generateNumericUUID($length = 5)
