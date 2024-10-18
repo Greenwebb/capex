@@ -3,15 +3,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Loan Packages</h4>                
+                    <h4 class="card-title">Loan Packages</h4>
                     <button data-toggle="modal" data-target="#newloanpackage" class="btn btn-square btn-primary">New Loan Package</button>
                 </div>
-                
-                <div class="card-body pb-0">
+
+                <div class="pb-0 card-body">
 
                     @if($state === 'table')
                     <div class="table-responsive">
-                        @include('livewire.dashboard.__parts.dash-alerts')
                         <table class="table table-bordered verticle-middle table-responsive-sm">
                             <thead>
                                 <tr>
@@ -52,15 +51,15 @@
                                     </td>
                                     <td class="text-end">
                                         <span class="d-flex justify-content-end">
-                                            <a href="javascript:void(0);" class="me-2 btn btn-primary shadow btn-xs sharp" data-toggle="tooltip"
+                                            <a href="javascript:void(0);" class="shadow me-2 btn btn-primary btn-xs sharp" data-toggle="tooltip"
                                                 data-placement="top" title="Edit"><i class="fas fa-pencil-alt"></i> </a>
-                                            <a href="javascript:void(0);" wire:click="destroy({{$item->id}})" class="btn btn-danger shadow btn-xs sharp" data-toggle="tooltip"
-                                                data-placement="top" title="btn-close"><i class="fas fa-times text-white"></i></a>
+                                            <a href="javascript:void(0);" wire:click="destroy({{$item->id}})" class="shadow btn btn-danger btn-xs sharp" data-toggle="tooltip"
+                                                data-placement="top" title="btn-close"><i class="text-white fas fa-times"></i></a>
                                         </span>
                                     </td>
                                 </tr>
                                 @empty
-                                    
+
                                 @endforelse
 
                             </tbody>
@@ -84,7 +83,7 @@
 
 .toggle {
   --toggle-height: 32px;
-  
+
   --toggle-bar-color: #707070;
   --toggle-active-color: #00bf23;
   --toggle-handle-color: #ffffff;
@@ -97,14 +96,14 @@
 .toggle__bar {
   display: flex;
   align-items: center;
-  
+
   height: 12px; /* default */
   min-height: var(--toggle-height);
   aspect-ratio: 1.75 / 1;
   border-radius: 25% / 50%;
-  
+
   background-color: var(--toggle-bar-color);
-  
+
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -112,28 +111,28 @@
 
 .toggle__handle {
   display:block;
-  
+
   height: inherit;
   min-height: var(--toggle-height);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   transform: scale(0.8);
-  
+
   background-color: var(--toggle-handle-color);
   box-shadow: 1px 1px 15px -2px rgba(0,0,0,0.75);
-  
+
   transition: all 0.1s ease-in-out;
 }
 
 .toggle > input[type="checkbox"]:checked + .toggle__bar {
-  background-color: 
+  background-color:
     var(--toggle-active-color);
 }
 
 .toggle > input[type="checkbox"]:checked + .toggle__bar > .toggle__handle {
-  box-shadow: 
+  box-shadow:
     -1px 1px 15px -2px rgba(0,0,0,0.75);
-  
+
   transform: translateX(74%) scale(0.8);
 }
 

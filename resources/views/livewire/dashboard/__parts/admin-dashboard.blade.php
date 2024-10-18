@@ -516,7 +516,7 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <div class="p-1 rounded avatar-sm bg-light me-2">
-                                                                @if (!empty($loan->user->photos->toArray()))
+                                                                @if (!empty($loan?->user?->photos?->toArray()))
                                                                      @foreach ($loan->user->photos->take(1) as $photo )
                                                                          <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="img-fluid rounded-cirrounded-circle" />
                                                                      @endforeach
@@ -583,7 +583,7 @@
                                                    <td>
                                                        <div class="d-flex align-items-center">
                                                            <div class="p-1 rounded avatar-sm bg-light me-2">
-                                                               @if (!empty($loan->user->photos->toArray()))
+                                                               @if (!empty($loan?->user?->photos?->toArray()))
                                                                     @foreach ($loan->user->photos->take(1) as $photo )
                                                                         <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="img-fluid rounded-circle" />
                                                                     @endforeach
@@ -673,7 +673,7 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-shrink-0 me-2">
-                                                                @if (!empty($loan->user->photos->toArray()))
+                                                                @if (!empty($loan?->user?->photos?->toArray()))
                                                                     @foreach ($loan->user->photos->take(1) as $photo )
                                                                         <img src="{{ url('public/storage/' . $photo->path) }}" alt="user-img" class="avatar-xs rounded-circle" />
                                                                     @endforeach

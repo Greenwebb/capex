@@ -11,7 +11,6 @@
 
                     @if(!empty($careers->toArray()))
                     <div class="table-responsive">
-                        @include('livewire.dashboard.__parts.dash-alerts')
                         <table wire:ignore.self id="example5" class="display" style="min-width: 845px">
                             <thead>
                                 <tr>

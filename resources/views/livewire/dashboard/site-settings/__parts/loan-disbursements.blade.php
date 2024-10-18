@@ -1,10 +1,10 @@
 <div>
     <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+        <div class="bg-transparent page-title-box d-sm-flex align-items-center justify-content-between">
             <h4 class="mb-sm-0">{{ ucwords(str_replace('-', ' ', $settings)) }}</h4>
 
             <div class="page-title-right">
-                <ol class="breadcrumb m-0">
+                <ol class="m-0 breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboards</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('sys-settings') }}">System Settings</a></li>
                     <li class="breadcrumb-item active">{{ ucwords(str_replace('-', ' ', $settings)) }}</li>
@@ -14,7 +14,6 @@
         </div>
     </div>
     
-    @include('livewire.dashboard.__parts.dash-alerts')
     <div class="card-toolbar">
         <a href="{{ route('system-create', ['page' => 'loan-disbursements']) }}" class="btn btn-primary">
         + Add New</a>
@@ -42,8 +41,8 @@
                             <div class="symbol symbol-label bg-light-danger symbol-50px me-5">
                             </div>
                             <div class="d-flex justify-content-start flex-column">
-                                <a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $d->name }}</a>
-                                <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $d->name }}</span>
+                                <a href="#" class="mb-1 text-dark fw-bold text-hover-primary fs-6">{{ $d->name }}</a>
+                                <span class="text-muted fw-semibold d-block fs-7">{{ $d->name }}</span>
                             </div>
                         </div>
                     </td>
@@ -56,7 +55,7 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-start flex-column">
-                            <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">
+                            <span class="mb-1 text-dark fw-bold text-hover-primary fs-6">
                                 {{ $d->created_at->toFormattedDateString() }}
                             </span>
                         </div>

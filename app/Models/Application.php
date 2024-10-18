@@ -13,6 +13,7 @@ class Application extends Model
 
     protected $fillable = [
 
+        'email',
         'loan_product_id',
         'repayment_plan',
         'amount',
@@ -57,18 +58,27 @@ class Application extends Model
         'confirmed_by'
     ];
 
-
-
     protected static function boot()
     {
         parent::boot();
 
+        // Add a global scope to always load the 'user' relationship when querying applications
         static::addGlobalScope('withUser', function ($builder) {
             $builder->with('user')->whereNotNull('user_id');
         });
 
+        // Automatically generate a numeric UUID and set the email on application creation
         static::creating(function ($application) {
-            $application->uuid = static::generateNumericUUID(5); // Generate 5-digit numeric UUID
+            // Generate 5-digit numeric UUID
+            $application->uuid = static::generateNumericUUID(5);
+
+            // Set the email based on the associated user's email
+            $user = User::find($application->user_id);
+
+            // If a user is found, set the email
+            if ($user) {
+                $application->email = $user->email;
+            }
         });
     }
 

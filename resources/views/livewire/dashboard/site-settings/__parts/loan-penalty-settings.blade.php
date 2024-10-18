@@ -4,12 +4,12 @@
     }
 </style>
 
-<div class="card mb-5 mb-xl-8">
+<div class="mb-5 card mb-xl-8">
     <!--begin::Header-->
-    <div class="card-header border-0 pt-5">
+    <div class="pt-5 border-0 card-header">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">Penalties</span>
-            <span class="text-muted mt-1 fw-semibold fs-7">Over {{ $penalties->count() }} penalty charges</span>
+            <span class="mb-1 card-label fw-bold fs-3">Penalties</span>
+            <span class="mt-1 text-muted fw-semibold fs-7">Over {{ $penalties->count() }} penalty charges</span>
         </h3>
         <div class="card-toolbar">
             <a href="{{ route('system-create', ['page' => 'loan-penalty-settings']) }}" class="btn btn-sm btn-light-primary">
@@ -18,8 +18,7 @@
     </div>
     <!--end::Header-->
     <!--begin::Body-->
-    <div class="card-body py-3">
-        @include('livewire.dashboard.__parts.dash-alerts')
+    <div class="py-3 card-body">
         <!--begin::Table container-->
         <div class="table-responsive">
             <!--begin::Table-->
@@ -43,8 +42,8 @@
                                 <div class="symbol symbol-label bg-light-danger symbol-50px me-5">
                                 </div>
                                 <div class="d-flex justify-content-start flex-column">
-                                    <a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $item->name }}</a>
-                                    <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $item->name }}</span>
+                                    <a href="#" class="mb-1 text-dark fw-bold text-hover-primary fs-6">{{ $item->name }}</a>
+                                    <span class="text-muted fw-semibold d-block fs-7">{{ $item->name }}</span>
                                 </div>
                             </div>
                         </td>
@@ -57,7 +56,7 @@
                         </td>
                         <td>
                             <div class="d-flex justify-content-start flex-column">
-                                <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">
+                                <span class="mb-1 text-dark fw-bold text-hover-primary fs-6">
                                     {{ $item->created_at->toFormattedDateString() }}
                                 </span>
                             </div>
@@ -76,7 +75,7 @@
                         </td>
                     </tr>
                     @empty
-                        
+
                     @endforelse
                 </tbody>
             </table>

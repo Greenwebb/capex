@@ -3,11 +3,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Contact Settings</h4>                
+                    <h4 class="card-title">Contact Settings</h4>
                     {{-- <button data-toggle="modal" data-target="#createUserModeling" class="btn btn-square btn-primary">New Borrower</button> --}}
                 </div>
 
-                <div class="card-body pb-0">
+                <div class="pb-0 card-body">
                     <form wire:submit.prevent="saveContacts()" novalidate enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
@@ -15,25 +15,24 @@
                                 <div class="card">
                                     <div class="card-body">
                                         
-                                        @include('livewire.dashboard.__parts.dash-alerts')
                                         <div class="form-validation">
                                                 <div class="row">
                                                     <div class="col-xl-6">
                                                         {{-- <div class="mb-2">
                                                             <div class="col-8">
-                                                                <div class="border-2 border-dashed shadow-sm border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
-                                                                    <div class="h-40 relative image-fit cursor-pointer zoom-in mx-auto">
+                                                                <div class="p-5 border-2 border-dashed rounded-md shadow-sm border-slate-200/60 dark:border-darkmode-400">
+                                                                    <div class="relative h-40 mx-auto cursor-pointer image-fit zoom-in">
                                                                         <img class="rounded-md" alt="Logo" id="preview-image-before-upload_create" src="{{ asset('dist/images/profile-10.jpg') }}">
                                                                     </div>
-                                                                    <div class="mx-auto cursor-pointer relative mt-5">
-                                                                    <button type="button" class="btn btn-primary w-full">Add Logo
-                                                                        <input wire:ignore.self type="file" id="prof_image_create" name="logo_file" class="w-full h-full top-0 left-0 absolute opacity-0"> 
+                                                                    <div class="relative mx-auto mt-5 cursor-pointer">
+                                                                    <button type="button" class="w-full btn btn-primary">Add Logo
+                                                                        <input wire:ignore.self type="file" id="prof_image_create" name="logo_file" class="absolute top-0 left-0 w-full h-full opacity-0">
                                                                     </button>
                                                                     </div>
                                                                 </div>
-                                                            </div>                                                        
+                                                            </div>
                                                         </div> --}}
-                                                        
+
                                                         <div class="mb-3 row">
                                                             <label class="col-lg-4 col-form-label" for="validationCustom01">Business Name
                                                                 <span class="text-danger">*</span>
@@ -184,7 +183,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div class="mb-3 row">
                                                             <label class="col-lg-4 col-form-label" for="validationCustom08">Customer Care Phone Number (+260)
                                                                 <span class="text-danger">*</span>
@@ -219,7 +218,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label" for="validationCustom08">Facebook Link 
+                                                            <label class="col-lg-4 col-form-label" for="validationCustom08">Facebook Link
                                                                 <span class="text-danger">*</span>
                                                             </label>
                                                             <div class="col-lg-6">
@@ -227,7 +226,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label" for="validationCustom08">Instagram Link 
+                                                            <label class="col-lg-4 col-form-label" for="validationCustom08">Instagram Link
                                                                 <span class="text-danger">*</span>
                                                             </label>
                                                             <div class="col-lg-6">
@@ -235,7 +234,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label" for="validationCustom08">Linkedin Link 
+                                                            <label class="col-lg-4 col-form-label" for="validationCustom08">Linkedin Link
                                                                 <span class="text-danger">*</span>
                                                             </label>
                                                             <div class="col-lg-6">
@@ -243,7 +242,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label" for="validationCustom08">Twitter Link 
+                                                            <label class="col-lg-4 col-form-label" for="validationCustom08">Twitter Link
                                                                 <span class="text-danger">*</span>
                                                             </label>
                                                             <div class="col-lg-6">
@@ -251,7 +250,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label" for="validationCustom04">Address 
+                                                            <label class="col-lg-4 col-form-label" for="validationCustom04">Address
                                                                 <span class="text-danger">*</span>
                                                             </label>
                                                             <div class="col-lg-6">
@@ -263,7 +262,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                         </div>
@@ -274,7 +273,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
                             <button type="submit" id="update-contact-toastr-success-bottom-left" class="btn btn-primary">Save changes</button>
-                        </div>  
+                        </div>
                     </form>
                 </div>
             </div>

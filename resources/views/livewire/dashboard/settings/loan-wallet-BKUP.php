@@ -1,11 +1,10 @@
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="px-10">
-        @include('livewire.dashboard.__parts.dash-alerts')
     </div>
     <div class="container-fluid">
         <div class="py-2">
             <button class="btn btn-primary btn-square"  data-bs-toggle="modal" data-bs-target="#loanWalletFundUpdate">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2 text-white" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-white bi bi-wallet2" viewBox="0 0 16 16">
                     <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
                 </svg>
                 Update Loan Wallet Funds
@@ -47,7 +46,7 @@
                     </select>
                   </div> --}}
                   <div class="card-body">
-                    <h4 class="card-title home-chart text-white">Your Balance</h4>
+                    <h4 class="text-white card-title home-chart">Your Balance</h4>
                     <div class="home-chart-height">
                       <div class="row">
                         <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -61,7 +60,7 @@
                   </div>
                 </div>
             </div>
-            <div class="row p-8">
+            <div class="p-8 row">
 
                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="wallet-widget card">
@@ -149,7 +148,7 @@
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content">
                 <div class="bg-primary card-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2 text-white" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-white bi bi-wallet2" viewBox="0 0 16 16">
                         <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
                     </svg>
                     &nbsp;
