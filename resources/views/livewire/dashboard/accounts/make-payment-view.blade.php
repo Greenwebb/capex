@@ -113,7 +113,7 @@
                                                 <td style=""></td>
                                                 <td >{{ $data->ref_no ?? $data->application_id }}</td>
                                                 <td >{{ $data->application->loan_product->name }} Loan</td>
-                                                <td >{{ $data->application->fname.' '.$data->application->lname }}</td>
+                                                <td >{{ $data->application->fname.' '.$data->application->mname.' '.$data->application->lname }}</td>
 
                                                 <td >K{{ App\Models\Application::payback($data->application->amount, $data->application->repayment_plan, $data->application->loan_product_id) }}</td>
                                                 <td style="color:green;font-weight:bold">K{{ $data->amount_settled }}</td>
@@ -195,7 +195,7 @@
                                 <select wire:model.defer="loan_id" class="mb-3 uppercase form-select form-control wide" id="exampleInputEmail7" placeholder="Find Customer" data-live-search="true">
                                     <option value="">--select--</option>
                                     @forelse ($loans as $item)
-                                    <option value="{{ $item->id }}">{{ $item->user->fname.' '.$item->user->lname.' | K'.App\Models\Loans::loan_balance($item->id).' - '.$item->product->name.' Loan'.' | Duration '.$item->repayment_plan}}</option>
+                                    <option value="{{ $item->id }}">{{ $item->user->fname.' '.$item->user->mname.' '.$item->user->lname.' | K'.App\Models\Loans::loan_balance($item->id).' - '.$item->product->name.' Loan'.' | Duration '.$item->repayment_plan}}</option>
                                     @empty
                                     <option>No Active Loans Found</option>
                                     @endforelse

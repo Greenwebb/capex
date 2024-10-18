@@ -116,6 +116,18 @@
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
+                                                    <label class="col-lg-4 col-form-label" for="validationCustom01">Middlename
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-12">
+
+                                                        <input type="text" class="form-control" value="{{ $user->mname }}" id="validationCustom01" name="mname"  placeholder="Enter a Middlename.." required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a middle name.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
                                                     <label class="col-lg-4 col-form-label" for="validationCustom01">Surname
                                                         <span class="text-danger">*</span>
                                                     </label>

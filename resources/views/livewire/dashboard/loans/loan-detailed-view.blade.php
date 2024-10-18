@@ -31,8 +31,8 @@
                                                     @if ($loan->user->photos->isNotEmpty())
                                                         @php
                                                             $photo = $loan->user->photos->first();
-                                                            $photoPath = $photo->source === 'admin' 
-                                                                ? url('public/storage/' . $photo->path) 
+                                                            $photoPath = $photo->source === 'admin'
+                                                                ? url('public/storage/' . $photo->path)
                                                                 : 'https://app.capexfinancialservices.org/' . $photo->path;
                                                         @endphp
                                                         <img src="{{ $photoPath }}" alt="{{ $loan->user->fname }}" class="rounded-circle avatar-lg" />
@@ -57,7 +57,7 @@
                                                     <div>
                                                         <i class="align-bottom ri-user-line me-1"></i>
                                                         <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id]) }}">
-                                                            {{ $loan->user->fname.' '.$loan->user->lname }}
+                                                            {{ $loan->user->fname.' '.$loan->user->mname.' '.$loan->user->lname }}
                                                         </a>
                                                     </div>
                                                     <div><i class="align-bottom ri-building-line me-1"></i> {{ $loan->user->occupation.' '.$loan->user->address }}</div>

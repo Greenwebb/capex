@@ -88,7 +88,7 @@
                                     <select id="inputState" name="borrower_id" class="form-select" required>
                                         <option selected>Choose...</option>
                                         @forelse ($borrowers as $b)
-                                        <option value="{{ $b->id }}">{{ $b->fname.' '.$b->lname.' | '.$b->phone }}</option>
+                                        <option value="{{ $b->id }}">{{ $b->fname.' '.$b->mname.' '.$b->lname.' | '.$b->phone }}</option>
                                         @empty
                                             <option> <a href="{{ route('borrowers') }}">No Customers</a></option>
                                         @endforelse
