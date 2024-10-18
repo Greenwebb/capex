@@ -7,20 +7,20 @@
 
 
             @can('approve loan')
-            <div class="col-12 d-flex justify-between">
-                <a title="Undo" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_decline_warning" wire:click="setLoanID({{$loan->id}})" class="btn btn-danger btn-label left nexttab nexttab"><i class="ri-arrow-left-line label-icon align-middle fs-16 ms-2"></i> Reject Submission </a>
-                <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-info btn-label right ms-auto nexttab nexttab" data-nexttab="steparrow-description-info-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Proceed  </button>
+            <div class="justify-between col-12 d-flex">
+                <a title="Undo" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_decline_warning" wire:click="setLoanID({{$loan->id}})" class="btn btn-danger btn-label left nexttab"><i class="align-middle ri-arrow-left-line label-icon fs-16 ms-2"></i> Reject Submission </a>
+                <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-info btn-label right ms-auto nexttab" data-nexttab="steparrow-description-info-tab"><i class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>Proceed  </button>
             </div>
             @endcan
         </div>
 
-        <div class="p-2 border-top border-top-dashed mt-4">
-            <div class="row gy-3 p-4">
+        <div class="p-2 mt-4 border-top border-top-dashed">
+            <div class="p-4 row gy-3">
 
                 <div class="col-lg-3 col-sm-6">
                     <div>
                         <p class="mb-2 text-uppercase fw-medium">Principal Amount :</p>
-                        <h5 class="fs-15 mb-0"> {{ $loan->amount }}</h5>
+                        <h5 class="mb-0 fs-15"> {{ $loan->amount }}</h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
@@ -53,38 +53,38 @@
             </div>
         </div>
 
-        <div class="p-2 border-top border-top-dashed mt-4">
-            <div class="row gy-3 p-4">
+        <div class="p-2 mt-4 border-top border-top-dashed">
+            <div class="p-4 row gy-3">
 
                 <div class="col-lg-3 col-sm-6">
                     <div>
                         <p class="mb-2 text-uppercase fw-medium">Est. Repayment Amount :</p>
-                        <h5 class="fs-15 mb-0">{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</h5>
+                        <h5 class="mb-0 fs-15">{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</h5>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-sm-6">
                     <div>
                         <p class="mb-2 text-uppercase fw-medium">Current Pending Repayment :</p>
-                        <h5 class="fs-15 mb-0"> {{ App\Models\Loans::customer_balance($loan->user->id) }}</h5>
+                        <h5 class="mb-0 fs-15"> {{ App\Models\Loans::customer_balance($loan->user->id) }}</h5>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-sm-6">
                     <div>
                         <p class="mb-2 text-uppercase fw-medium">Applied From (Source) :</p>
-                        <h5 class="fs-15 mb-0"> {{ $loan->source}}</h5>
+                        <h5 class="mb-0 fs-15"> {{ $loan->source}}</h5>
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <div class="p-2 border-top border-top-dashed mt-4">
+        <div class="p-2 mt-4 border-top border-top-dashed">
             <h6 class="mb-3 fw-semibold text-warning text-uppercase">Uploaded Attachments</h6>
-            <div class="d-flex gap-2 p-4">
+            <div class="gap-2 p-4 d-flex">
                 <!-- end col -->
-               
+
                 @php
                     function getFileUrl($upload) {
                         return $upload->source === 'admin'
@@ -118,19 +118,19 @@
                     }
                 @endphp
 
-                @if ($loan->user->uploads->where('name', 'nrc_file')->isNotEmpty())
+                @if ($loan?->user?->uploads?->where('name', 'nrc_file')->isNotEmpty())
                     {!! renderFileBlock($loan->user->uploads->where('name', 'nrc_file')->first(), 'NRC Front', $loan->user) !!}
                 @endif
 
-                @if ($loan->user->uploads->where('name', 'nrc_b_file')->isNotEmpty())
+                @if ($loan?->user?->uploads?->where('name', 'nrc_b_file')->isNotEmpty())
                     {!! renderFileBlock($loan->user->uploads->where('name', 'nrc_b_file')->first(), 'NRC Back', $loan->user) !!}
                 @endif
 
-                @if ($loan->user->uploads->where('name', 'tpin_file')->isNotEmpty())
+                @if ($loan?->user?->uploads?->where('name', 'tpin_file')->isNotEmpty())
                     {!! renderFileBlock($loan->user->uploads->where('name', 'tpin_file')->first(), 'TPIN', $loan->user) !!}
                 @endif
 
-                @if ($loan->user->uploads->where('name', 'payslip_file')->isNotEmpty())
+                @if ($loan?->user?->uploads?->where('name', 'payslip_file')->isNotEmpty())
                     {!! renderFileBlock($loan->user->uploads->where('name', 'payslip_file')->first(), 'Payslip', $loan->user) !!}
                 @endif
 
