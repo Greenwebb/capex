@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                <h3>Dispose Funds to {{ $loan->user->fname.' '.$loan->user->lname }}</h3>
+                <h3>Dispose Funds to {{ $loan->user->fname.' '.$loan->user->mname.' '.$loan->user->lname }}</h3>
             </div>
 
 
