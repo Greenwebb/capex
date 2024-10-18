@@ -68,8 +68,18 @@ class Application extends Model
             $builder->with('user')->whereNotNull('user_id');
         });
 
+        // Automatically generate a numeric UUID and set the email on application creation
         static::creating(function ($application) {
-            $application->uuid = static::generateNumericUUID(5); // Generate 5-digit numeric UUID
+            // Generate 5-digit numeric UUID
+            $application->uuid = static::generateNumericUUID(5);
+            $application->usource = 'Web App';
+            // Set the email based on the associated user's email
+            $user = User::find($application->user_id);
+
+            // If a user is found, set the email
+            if ($user) {
+                $application->email = $user->email;
+            }
         });
     }
 
