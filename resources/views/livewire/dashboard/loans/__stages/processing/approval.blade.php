@@ -9,7 +9,9 @@
             @can('approve loan')
             <div class="justify-between col-12 d-flex">
                 <a title="Undo" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_review_rollback" wire:click="setLoanID({{$loan->id}})" class="btn btn-warning btn-label left nexttab"><i class="align-middle ri-arrow-left-line label-icon fs-16 ms-2"></i> Rollback </a>
-                <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-success btn-label right ms-auto nexttab" data-nexttab="steparrow-description-info-tab"><i class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>Approve Application </button>
+                @can('disburse fund')
+                    <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-success btn-label right ms-auto nexttab" data-nexttab="steparrow-description-info-tab"><i class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>Approve Application </button>
+                @endcan
             </div>
             @endcan
         </div>

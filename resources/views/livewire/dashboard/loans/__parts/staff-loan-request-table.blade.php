@@ -56,6 +56,18 @@
                                             </i>
                                         </button>
                                     @endif
+
+                                    <div class="menu-item px-3">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#import_loans_panel" class="btn btn-primary">
+                                            <span class=" me-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                                                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
+                                                </svg>
+                                            </span>
+                                            Import XLS
+                                        </a>
+                                    </div>
                                     <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#exportModal"><i class="align-bottom ri-add-fill me-1"></i> Export XLS</button>
                                     @if (Route::currentRouteName() !== 'approved-loans')
                                         <a href="{{ route('proxy-loan-create') }}" class="btn btn-primary"><i class="align-bottom ri-add-fill me-1"></i> Add New Loan</a>
@@ -176,9 +188,13 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li><a href="{{ route('detailed',['id' => $loan->id]) }}" class="dropdown-item"><i class="align-bottom ri-eye-fill me-2 text-muted"></i> View</a></li>
+
                                                 @if (Route::currentRouteName() === 'view-loan-requests')
+                                                    @can('update loans')
                                                     <li><a href="{{ route('loan-details', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="align-bottom ri-exchange-funds-fill me-2 text-muted"></i> Asses Loans</a></li>
                                                     <li><a href="{{ route('edit-loan', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="align-bottom ri-pencil-fill me-2 text-muted"></i> Edit</a></li>
+                                                    @endcan
+
                                                 @endif
                                             </ul>
                                         </div>

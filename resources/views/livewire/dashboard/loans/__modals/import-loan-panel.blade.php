@@ -1,7 +1,7 @@
-<div class="modal fade" id="addmemberModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="import_loans_panel" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
-            
+
             <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
@@ -12,11 +12,11 @@
 
                                     <div class="d-flex position-absolute start-0 end-0 top-0 p-3">
                                         <div class="flex-grow-1">
-                                            <h5 class="modal-title text-white" id="createMemberLabel">Impport Loan Sheet</h5>
+                                            <h5 class="modal-title text-white" id="createMemberLabel">Import Loan Sheet</h5>
                                         </div>
                                         <div class="flex-shrink-0">
                                             <div class="d-flex gap-3 align-items-center">
-                                                
+
                                                 <button type="button" class="btn-close btn-close-white"  id="createMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                         </div>
@@ -26,7 +26,7 @@
                             <div class="text-center mb-4 mt-n5 pt-2">
                                 <div class="position-relative d-inline-block">
                                     <div class="position-absolute bottom-0 end-0">
-                                        
+
                                         <input class="form-control d-none" value="" id="member-image-input" type="file" accept="image/png, image/gif, image/jpeg">
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                                     <input type="file" id="file-input" name="file" accept=".xlsx" required class="hidden">
                                     <div class="file-label text-danger mt-1" id="file-label"></div>
                                 </div>
-    
+
                                 <button type="submit" class="mt-8 flex items-center gap-2 rounded bg-success py-2 px-3 font-medium text-white hover:bg-opacity-80">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">

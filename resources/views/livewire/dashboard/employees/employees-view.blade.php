@@ -43,7 +43,7 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th class="sort" data-sort="customer_name">Fullnames</th>
-                                            <th class="sort" data-sort="email">Email</th>   
+                                            <th class="sort" data-sort="email">Email</th>
                                             <th class="sort" data-sort="date">Phone</th>
                                             <th class="sort" data-sort="status">Created Date</th>
                                             <th class="sort" data-sort="action">Status</th>
@@ -92,7 +92,7 @@
                                 </div>
                             </div>
 
-                   
+
                         </div>
                     </div><!-- end card -->
                 </div>
@@ -135,7 +135,7 @@
                             <div class="row g-3 mb-7">
                                 <div class="col-md-12">
                                     <label class="mb-2 fs-6 fw-semibold">Defualt Password</label>
-                                    <input type="text" disabled class="form-control form-control-solid" placeholder="capex+2024" required />
+                                    <input type="text" disabled class="form-control form-control-solid" placeholder="@capex+2024" required />
                                 </div>
                             </div>
                             <br>

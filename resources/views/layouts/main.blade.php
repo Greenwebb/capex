@@ -648,21 +648,25 @@
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                             </a>
                         </li> <!-- end Dashboard Menu -->
+                        @can('create loans')
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('proxy-loan-create') }}" aria-expanded="false" aria-controls="sidebarApps">
                                 <i class="ri-apps-2-line"></i> <span data-key="t-apps">Create Loan Request</span>
                             </a>
                         </li>
+                        @endcan
 
+                        @can('view loans')
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('view-loan-requests') }}"  aria-expanded="false" aria-controls="sidebarLayouts">
                                 <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Loan Requests</span>
                                 {{-- <span class="badge badge-pill bg-danger" data-key="t-hot">2</span> --}}
                             </a>
                         </li>
+                        @endcan
 
                         <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Directories</span></li>
-
+                        @can('view clientele')
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarCharts1"  data-bs-toggle="collapse" role="button"  aria-expanded="true" aria-controls="sidebarCharts1">
                                 <i class="ri-pie-chart-line"></i> <span data-key="t-charts">Manage Borrowers</span>
@@ -684,6 +688,9 @@
                                 </ul>
                             </div>
                         </li>
+                        @endcan
+
+
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarAdvanceUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
                                 <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Loan Management</span>
@@ -720,9 +727,11 @@
                                     <li class="nav-item">
                                         <a href="{{ route('three-month-late') }}" class="nav-link" data-key="t-scrollSpy">3 Month Late Loans</a>
                                     </li>
+                                    @can('view loan calculator')
                                     <li class="nav-item">
                                         <a href="{{ route('loan-calculator') }}" class="nav-link" data-key="t-scrollSpy">Loan Calculator</a>
                                     </li>
+                                    @endcan
                                 </ul>
                             </div>
                         </li>

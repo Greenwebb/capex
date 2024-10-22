@@ -65,7 +65,8 @@ class LoanApplicationController extends Controller
             return response()->json([
                 'status' => 200,
                 'success' => true,
-                'message' => 'Application submitted successfully'
+                'message' => 'Application submitted successfully',
+                'user' => $user
             ]);
 
         } catch (\Exception $e) {
@@ -170,7 +171,7 @@ class LoanApplicationController extends Controller
         }
     }
 
-    
+
 
     public function updateFiles(Request $request)
     {
@@ -235,7 +236,7 @@ class LoanApplicationController extends Controller
             return redirect()->route('dashboard')->with('success', 'KYC Update failed');
         }
     }
-    
+
 
     public function new_proxy_loan(Request $request)
     {
@@ -355,7 +356,7 @@ class LoanApplicationController extends Controller
             return redirect()->back();
         }
     }
-    
+
 
 
     public function assign_manual(Request $request){
