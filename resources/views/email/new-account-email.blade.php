@@ -76,7 +76,7 @@ License: For each use you must have a valid license purchased only from above li
 
 												<!--end:Text-->
 												<!--begin:Action-->
-												<a href="https://aqdmin.capexfinancialservices.org//dashboard" target="_blank" style="background-color:#582e6b; border-radius:6px;display:inline-block; padding:11px 19px; color: #FFFFFF; font-size: 14px; font-weight:500;">Goto Dashboard</a>
+												<a href="https://admin.capexfinancialservices.org/dashboard" target="_blank" style="background-color:#582e6b; border-radius:6px;display:inline-block; padding:11px 19px; color: #FFFFFF; font-size: 14px; font-weight:500;">Goto Dashboard</a>
 												<!--begin:Action-->
 											</div>
 											<!--end:Email content-->
@@ -86,9 +86,8 @@ License: For each use you must have a valid license purchased only from above li
 									<tr>
 										<td align="center" valign="center" style="font-size: 13px; text-align:center; padding: 0 10px 10px 10px; font-weight: 500; color: #A1A5B7; font-family:Arial,Helvetica,sans-serif">
 											<p style="color:#181C32; font-size: 16px; font-weight: 600; margin-bottom:9px">It’s all about customers!</p>
-											<p style="margin-bottom:2px">Call our customer care number: +31 6 3344 55 56</p>
 											<p style="margin-bottom:4px">You may reach us at
-											<a href="https://devs.keenthemes.com" rel="noopener" target="_blank" style="font-weight: 600">capex@greenwebbtech.com/</a>.</p>
+											<a href="https://devs.keenthemes.com" rel="noopener" target="_blank" style="font-weight: 600">admin@capexfinancialservices.org</a>.</p>
 											<p>We serve Mon-Fri, 9AM-18AM</p>
 										</td>
 									</tr>

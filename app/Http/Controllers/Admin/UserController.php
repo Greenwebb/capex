@@ -61,6 +61,12 @@ class UserController extends Controller
             ]));
             $u->syncRoles($request->assigned_role);
             $this->uploadUserPhotos($request, $u);
+            $data = [
+                'name' => $u->fname . ' ' . $u->lname,
+                'message' => '🎉 Welcome to Capex Financial Services! 🚀 Your login credentials are ready! Your username is ' . $u->email . ' and your default password is @capex+2024. 💼 Time to unlock new opportunities! 🔓'
+            ];
+
+            $this->send_new_account_info($data, $u);
             DB::commit();
             Session::flash('success', 'User created successfully');
             return redirect()->back();

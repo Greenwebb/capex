@@ -72,7 +72,7 @@ class Application extends Model
         static::creating(function ($application) {
             // Generate 5-digit numeric UUID
             $application->uuid = static::generateNumericUUID(5);
-            $application->usource = 'Web App';
+            $application->source = 'Web App';
             // Set the email based on the associated user's email
             $user = User::find($application->user_id);
 

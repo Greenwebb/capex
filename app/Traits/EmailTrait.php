@@ -11,11 +11,30 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use App\Mail\ContactEmail;
 use App\Mail\SharedForms;
+use App\Mail\YourAccount;
 use App\Notifications\LoanRequestAccepted;
 use App\Notifications\LoanRequestDeclined;
 use App\Notifications\NewLoanEmail;
+use Illuminate\Support\Facades\Log;
 
 trait EmailTrait{
+
+    // This method sends a contact message from the "Contact Us" page
+    public function send_new_account_info($details, $user){
+        try {
+            // Create a new instance of YourAccount Mailable with details
+            $info = new YourAccount($details);
+
+            // Send the email
+            Mail::to($user->email)->send($info);
+
+            return true; // If email sent successfully
+        } catch (\Throwable $th) {
+            // Log the error for debugging
+            Log::error('Error sending new account info email: ' . $th->getMessage());
+            return false; // Return false if email fails to send
+        }
+    }
 
     // This email send a contact message from contact us page /////////////
     public function send_contact_email($details){
