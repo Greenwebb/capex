@@ -92,7 +92,7 @@
                                 <input type="text" class="form-control" name="fname" required/>
                             </div>
                             <div class="mb-3 col-md-4">
-                                <label class="mb-2 required fs-6 fw-semibold">Middlename</label>
+                                <label class="mb-2 fs-6 fw-semibold">Middlename</label>
                                 <input type="text" class="form-control" name="mname" required/>
                             </div>
                             <div class="mb-3 col-md-4">
