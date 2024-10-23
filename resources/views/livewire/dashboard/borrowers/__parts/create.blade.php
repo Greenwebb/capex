@@ -93,7 +93,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <label class="mb-2 fs-6 fw-semibold">Middlename</label>
-                                <input type="text" class="form-control" name="mname" required/>
+                                <input type="text" class="form-control" name="mname"/>
                             </div>
                             <div class="mb-3 col-md-4">
                                 <label class="mb-2 required fs-6 fw-semibold">Lastname</label>
