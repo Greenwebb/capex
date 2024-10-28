@@ -73,13 +73,8 @@ class UserController extends Controller
 
         } catch (\Throwable $th) {
             DB::rollback();
-            if($request->assigned_role == 'user'){
-                Session::flash('error', 'Oops.. There is a borrower account already using this email.');
-            }elseif($request->assigned_role == 'employee'){
-                Session::flash('error', 'Oops. There is an employee account already with this email.');
-            }else{
-                Session::flash('error', 'Oops.. An with this email already exists. please try again.');
-            }
+            Session::flash('error', 'Oops..'.$th->getMessage());
+
             return redirect()->back();
         }
 

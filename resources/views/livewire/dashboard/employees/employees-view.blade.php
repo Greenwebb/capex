@@ -135,7 +135,7 @@
                             <div class="row g-3 mb-7">
                                 <div class="col-md-12">
                                     <label class="mb-2 fs-6 fw-semibold">Defualt Password</label>
-                                    <input type="text" disabled class="form-control form-control-solid" placeholder="@capex+2024" required />
+                                    <input type="text" disabled class="form-control form-control-solid" placeholder="@capex+2024" />
                                 </div>
                             </div>
                             <br>
