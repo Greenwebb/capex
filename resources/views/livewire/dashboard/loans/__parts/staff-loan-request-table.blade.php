@@ -147,12 +147,14 @@
                                                     @can('review loan')
                                                         @if($loan->status == 0 || $loan->status == 3)
                                                             <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Review</button>
+                                                        @else
+                                                            <small style="font-size:10px" class="text-muted">Reviewing...</small>
                                                         @endif
                                                     @endcan
                                                 @endrole
                                             </td>
                                         @endif
-
+@
                                         @if($this->current_configs('loan-approval')->value == 'manual')
                                         <td>
                                             @role('admin')
@@ -190,8 +192,10 @@
                                                 <li><a href="{{ route('detailed',['id' => $loan->id]) }}" class="dropdown-item"><i class="align-bottom ri-eye-fill me-2 text-muted"></i> View</a></li>
 
                                                 @if (Route::currentRouteName() === 'view-loan-requests')
-                                                    @can('update loans')
+                                                    @can('review loan')
                                                     <li><a href="{{ route('loan-details', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="align-bottom ri-exchange-funds-fill me-2 text-muted"></i> Asses Loans</a></li>
+                                                    @endcan
+                                                    @can('update loans')
                                                     <li><a href="{{ route('edit-loan', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="align-bottom ri-pencil-fill me-2 text-muted"></i> Edit</a></li>
                                                     @endcan
 

@@ -227,7 +227,7 @@
                         <div class="modal-footer">
                             <div class="gap-2 hstack justify-content-end">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success" id="add-btn">Add Customer</button>
+                                <button type="submit" class="btn btn-success" id="add-btn">Add Staff</button>
                             </div>
                         </div>
                     </form>

@@ -26,7 +26,7 @@ class LoanRequestView extends Component
     public $users, $due_date;
     public $assignModal = false;
     public $title = 'Recent Loan Requests';
-    
+
     public function render()
     {
 
@@ -59,6 +59,11 @@ class LoanRequestView extends Component
         session()->flash('success', 'Loan successfully set under review!');
         sleep(3);
 
+    }
+
+    public function setLoanID($id)
+    {
+        $this->loan_id = $id;
     }
 
     public function closeModal()
