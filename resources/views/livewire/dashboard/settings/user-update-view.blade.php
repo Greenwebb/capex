@@ -117,11 +117,9 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="col-lg-4 col-form-label" for="validationCustom01">Middlename
-                                                        <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-lg-12">
-
-                                                        <input type="text" class="form-control" value="{{ $user->mname }}" id="validationCustom01" name="mname"  placeholder="Enter a Middlename.." required>
+                                                        <input type="text" class="form-control" value="{{ $user->mname }}" id="validationCustom01" name="mname"  placeholder="Enter a Middlename..">
                                                         <div class="invalid-feedback">
                                                             Please enter a middle name.
                                                         </div>
@@ -190,10 +188,9 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="col-lg-4 col-form-label" for="validationCustom06">Basic Pay
-                                                        <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-lg-12">
-                                                        <input type="text" name="basic_pay" value="{{ $user->basic_pay }}" class="form-control" id="validationCustom06" placeholder="21.60" required>
+                                                        <input type="text" name="basic_pay" value="{{ $user->basic_pay }}" class="form-control" id="validationCustom06" placeholder="21.60">
                                                         <div class="invalid-feedback">
                                                             Please enter a Basic Pay.
                                                         </div>
@@ -201,10 +198,9 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="col-lg-4 col-form-label" for="validationCustom06">Net Pay
-                                                        <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-lg-12">
-                                                        <input type="text" name="net_pay" value="{{ $user->net_pay }}" class="form-control" id="validationCustom06" placeholder="21.60" required>
+                                                        <input type="text" name="net_pay" value="{{ $user->net_pay }}" class="form-control" id="validationCustom06" placeholder="21.60" >
                                                         <div class="invalid-feedback">
                                                             Please enter a Basic Pay.
                                                         </div>
@@ -241,11 +237,10 @@
                                                 <input type="hidden" value="{{$user->id}}" name="user_edit_id" class="default-select wide form-control" placeholder="Borrower" id="validationCustom05">
 
                                                 <div class="mb-3">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom04">Address<span
-                                                            class="text-danger">*</span>
+                                                    <label class="col-lg-4 col-form-label" for="validationCustom04">Address
                                                     </label>
                                                     <div class="col-lg-12">
-                                                        <textarea name="address" class="form-control" value="{{ $user->address }}" id="validationCustom04"  rows="5" placeholder="Where does the person stay?" required>
+                                                        <textarea name="address" class="form-control" value="{{ $user->address }}" id="validationCustom04"  rows="5" placeholder="Where does the person stay?">
                                                             {{ $user->address }}
                                                         </textarea>
                                                         <div class="invalid-feedback">

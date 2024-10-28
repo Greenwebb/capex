@@ -328,27 +328,11 @@ class LoanApplicationController extends Controller
             ];
 
             $this->apply_update_loan($data, $form['loan_id``']);
-            // if($form['loan_status'] == 1){
-            //     // Update borrower wallet
-            //     $this->updateUserWallet($form['borrower_id'], $form['amount'], $form['old_amount']);
-
-            //     // Delete Withdrawal requests
-            //     WithdrawRequest::where('user_id', '=', $form['borrower_id'])->delete();
-
-            //     // Update due date
-            //     if($form['new_due_date'] !== null){
-            //         $this->remake_loan($form['loan_id'], $form['new_due_date']);
-            //     }
-            // }
 
             // Email going to the Administrator
             // $process = $this->send_loan_email($mail);
             DB::commit();
             Session::flash('success', $user->fname . ' ' . $user->lname ."'s Loan updated successfully");
-            // if (!$process) {
-            //     Session::flash('error', "Could not send email to Customer, Please inform them about their new loan");
-            // }
-
             return redirect()->route('view-loan-requests');
         } catch (\Throwable $th) {
             Session::flash('error',"Loan updated Failed");

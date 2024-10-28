@@ -132,7 +132,7 @@
                                         </span>
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
-                                        </span> 
+                                        </span>
                                     </label>
                                     <select id="inputState" name="skip_to" class="form-select" required>
                                         <option selected>Choose...</option>
@@ -164,8 +164,8 @@
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Related party's Email Address</label>
                                     <input type="text" value="{{ $loan->user->party->first() != null ? $loan->user->party->first()->email : '' }}" name="rp_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
-                                </div>                                
-                                
+                                </div>
+
                                 <div class="mb-4 col-md-4">
                                     <label for="inputState" class="form-label">Related party's Sex</label>
                                     <select id="inputState" name="rp_gender" class="form-select" data-choices data-choices-sorting="true">
@@ -201,8 +201,8 @@
                                 <div class="col-md-4">
                                     <label for="fullnameInput" class="form-label">Guarantor's Email Address</label>
                                     <input type="text" value="{{ $loan->user->guarantors->first() != null ? $loan->user->guarantors->first()->email : '' }}" name="g_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
-                                </div>                             
-                                
+                                </div>
+
                                 <div class="mb-4 col-md-4">
                                     <label for="inputState" class="form-label">Guarantor's Sex </label>
                                     <select id="inputState" name="g_gender" class="form-select" data-choices data-choices-sorting="true">
