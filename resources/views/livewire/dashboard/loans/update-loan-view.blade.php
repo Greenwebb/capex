@@ -21,7 +21,7 @@
 
         <div class="row">
 
-            <div class="col-xxl-6">
+            <div class="col-xxl-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="mb-0 text-warning card-title flex-grow-1">Loan Information</h4>
