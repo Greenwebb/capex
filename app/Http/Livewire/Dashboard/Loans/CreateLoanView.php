@@ -46,12 +46,12 @@ class CreateLoanView extends Component
     public function updatedSelectedLoanCategory($loanCategoryId)
     {
         $this->loan_products = LoanProduct::where('loan_child_type_id', $loanCategoryId)->where('status', 1)->get();
-        
-    }    
-    
+
+    }
+
     public function updatedSelectedLoanProduct($id)
     {
-        $this->loan_products_stages = LoanStatus::with('status')->where('loan_product_id', $id)->get();
+        $this->loan_products_stages = LoanStatus::with('status')->orWhere('stage', 'processing')->orWhere('stage', 'Processing')->where('loan_product_id', $id)->get();
 
         // dd($this->loan_products_stages);
     }

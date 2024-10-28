@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\LoanProduct;
 use App\Models\LoanType;
 use App\Models\LoanChildType;
+use App\Models\LoanStatus;
 use App\Models\Transaction;
 use App\Models\User;
 use Livewire\Component;
@@ -16,7 +17,7 @@ class UpdateLoanView extends Component
     public $user;
     public $can_edit;
     public $loan_types;
-    public $loan_child_types = [];
+    public $loan_child_types = [], $loan_products_stages = [];
     public $loan_products = [];
     public $selectedLoanType = null;
     public $selectedLoanCategory = null;
@@ -73,6 +74,13 @@ class UpdateLoanView extends Component
         } else {
             $this->loan_products = [];
         }
+    }
+
+    public function updatedSelectedLoanProduct($id)
+    {
+        $this->loan_products_stages = LoanStatus::with('status')
+        ->orWhere('stage', 'processing')
+        ->orWhere('stage', 'Processing')->where('loan_product_id', $id)->get();
     }
 
     public function render()
