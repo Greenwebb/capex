@@ -27,8 +27,6 @@
                     </div>
                     <div class="card-body">
                         <div class="row g-2">
-                            <div class="col-sm-4">
-                            </div>
                             <div class="col-sm-auto ms-auto">
                                 <div class="gap-1 mb-2 list-grid-nav hstack">
                                     @if(request()->route()->getName() == 'view-loan-requests')
@@ -154,7 +152,7 @@
                                                 @endrole
                                             </td>
                                         @endif
-@
+
                                         @if($this->current_configs('loan-approval')->value == 'manual')
                                         <td>
                                             @role('admin')
