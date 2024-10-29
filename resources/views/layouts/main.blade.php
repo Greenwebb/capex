@@ -693,7 +693,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarAdvanceUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
-                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Loan Management</span>
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Loan Book</span>
                             </a>
                             <div class="collapse menu-dropdown" id="sidebarAdvanceUI">
                                 <ul class="nav nav-sm flex-column">

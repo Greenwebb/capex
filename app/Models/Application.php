@@ -18,6 +18,7 @@ class Application extends Model
         'repayment_plan',
         'amount',
         'interest',
+        'interest_type',
         'payback_amount',
         'old_amount',
         'status',
@@ -51,7 +52,7 @@ class Application extends Model
         'related_party',
         'days_late',
         'loan_type_id', //loan_type
-        'loan_child_type_id' //loan_category
+        'loan_child_type_id'
     ];
     protected $appends = [
         'done_by',
