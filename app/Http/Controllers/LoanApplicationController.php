@@ -240,6 +240,7 @@ class LoanApplicationController extends Controller
 
     public function new_proxy_loan(Request $request)
     {
+        // dd($request);
         // DB::beginTransaction();
         try {
             $form = $request->toArray();

@@ -117,7 +117,7 @@ trait LoanTrait{
     public function count_loans_by_sub_category($id){
         return Application::where('loan_child_type_id', $id)->count();
     }
-    
+
     public function closed_loans(){
         return $this->loan_requests = Loans::with('application')->where('closed', 1 )
         ->orderBy('id', 'desc')->get();
@@ -191,10 +191,10 @@ trait LoanTrait{
         return LoanExpense::where('application_id', $id)->get();
     }
 
-    // New -- ******** 
+    // New -- ********
     public function get_repayments(){
         return Transaction::with('application.loan_product', 'user')->get();
-    }    
+    }
     public function get_customer_repayments($id){
         return Transaction::with('application.loan_product', 'user')->where('user_id', $id)->get();
     }
@@ -543,7 +543,7 @@ trait LoanTrait{
             ->where('complete', 0)
             ->orderBy('created_at', 'desc')
             ->first();
-            
+
         // If no active loan is found, create a new loan application
         if ($hasLoan == null) {
             return Application::create([
@@ -555,11 +555,11 @@ trait LoanTrait{
                 'user_id' => $data['user_id'],
             ]);
         }
-    
+
         // If an active loan exists, return the existing loan
         return $hasLoan;
     }
-    
+
 
     public function apply_loan($data)
     {

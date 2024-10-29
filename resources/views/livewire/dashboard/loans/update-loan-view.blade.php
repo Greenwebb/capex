@@ -30,7 +30,7 @@
 
                     <div class="card-body">
                         <div class="live-preview">
-                            <form action="{{ route("update-loan-details") }}" method="POST" enctype="multipart/form-data" class="row g-3">
+                            <form id="mainFormmm" action="{{ route("update-loan-details") }}" method="POST" enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 <div class="col-md-6">
                                     <label for="loanType" class="form-label">Loan Type
@@ -69,6 +69,8 @@
                                             <option value="{{ $lp->id }}" {{ $lp->id == $selectedLoanProduct ? 'selected' : '' }}>{{ $lp->name }}</option>
                                         @endforeach
                                     </select>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#update_interest_details" class="btn btn-sm btn-primary">Custom Interest</a>
+                               
                                 </div>
 
 
@@ -292,5 +294,6 @@
             </div> <!-- end col -->
         </div>
 
+        @include('livewire.dashboard.loans.__modals.update-interest')
     </div>
 </div>

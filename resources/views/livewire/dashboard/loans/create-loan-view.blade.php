@@ -29,7 +29,7 @@
 
                     <div class="card-body">
                         <div class="live-preview">
-                            <form action="{{ route("proxy-apply-loan") }}" method="POST" enctype="multipart/form-data" class="row g-3">
+                            <form id="mainFormmm" action="{{ route("proxy-apply-loan") }}" method="POST" enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 <div class="col-md-6">
                                     <label for="loanType" class="form-label">Loan Type
@@ -76,6 +76,7 @@
                                             <option>No loan packages available</option>
                                         @endforelse
                                     </select>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#update_interest_details" class="btn btn-sm btn-primary">Custom Interest</a>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputState" class="form-label">Customer
@@ -166,7 +167,7 @@
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
                                     <select id="inputState" name="skip_to" class="form-select" required>
-                                        <option selected>Choose...</option>
+                                        <option selected>Normal...</option>
                                         @forelse ($loan_products_stages as $ls)
                                         <option value="{{ $ls->status_id }}">{{ $ls->status->name }}</option>
                                         @empty
@@ -326,4 +327,5 @@
         </div>
 
     </div>
+    @include('livewire.dashboard.loans.__modals.update-interest')
 </div>

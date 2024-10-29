@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('applications', function (Blueprint $table) {
-        $table->string('interest_type')->nullable();
+        $table->string('interest_type')->default('Percentage');
         });
     }
 
