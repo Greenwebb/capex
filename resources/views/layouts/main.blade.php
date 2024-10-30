@@ -800,7 +800,7 @@
                         </li>
                         @endcan
 
-                        @can('system settings')
+                        {{-- @can('system settings') --}}
                             <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Settings</span></li>
 
                             @can('see the list of users')
@@ -824,14 +824,14 @@
                                 </div>
                             </li>
                             @endcan
-                            @can('system settings')
+                            {{-- @can('system settings') --}}
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('sys-settings') }}" aria-expanded="false" aria-controls="sidebarAuth">
                                     <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Manage Settings</span>
                                 </a>
                             </li>
                             @endcan
-                        @endcan
+                        {{-- @endcan --}}
                     </ul>
                 </div>
                 <!-- Sidebar -->
