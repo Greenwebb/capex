@@ -113,7 +113,7 @@
           <table role="presentation" style="padding:6%;width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:'Basier Circle', 'montserrat', 'Helvetica', 'Arial', sans-serif;font-size:1em;line-height:1.37em;color:#384049;">
             <!--  Logo headder -->
             <tr>
-              <td style="padding:30px 20px 20px 20px;text-align:center;font-size:1.5em;font-weight:bold; background-color: linear-gradient(to right, #792db8, #912d73);">
+              <td style="padding:30px 20px 20px 20px;text-align:center;font-size:1.5em;font-weight:bold; background-color: linear-gradient(to right, #3b2db8, #2d4b91);">
                 <a href="https://capexfinancialservices.org" style=" text-decoration:none;">
                   <img style="width:90px; height:60px" alt="Capex Finance" src="https://i0.wp.com/capexfinancialservices.org/wp-content/uploads/2023/07/CAPEX-logoCpx-1.png?resize=1536%2C283&ssl=1">
                 </a>
@@ -133,7 +133,7 @@
                     {{  $data['message2']  }}. 
                 </p>
                 <div style="width: 100%; text-align: center; display: flex; align-items: center; justify-content: center;">
-                    <a style="margin-left:15%; color: #fff; padding-left:6%; padding:5%;font-size:18px" target="_blank" href="https://admin.capexfinancialservices.org/" class="-btn -bg -txt">
+                    <a style="margin-left:15%; color: #fff; padding-left:6%; padding:5%;font-size:18px" target="_blank" href="https://app.capexfinancialservices.org/" class="-btn -bg -txt">
                         Continue to Loan Submission
                     </a>
                 </div>
@@ -159,7 +159,7 @@
                   </a> --}}
                 </p>
                 <p style="margin:0;font-size:.75rem;line-height:1.5em;text-align: center;">
-                  {{App\Models\ContactSetting::name()}}, {{App\Models\ContactSetting::address()}}, {{App\Models\ContactSetting::place()}}.
+                  {{-- {{App\Models\ContactSetting::name()}}, {{App\Models\ContactSetting::address()}}, {{App\Models\ContactSetting::place()}}. --}}
                   <br>
                   <a class="unsub" href="https://capexfinancialservices.org/" style="color:#9c8500;text-decoration:underline;">Unsubscribe</a>
                 </p>
