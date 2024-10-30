@@ -656,14 +656,14 @@
                         </li>
                         @endcan
 
-                        {{-- @can('view loans') --}}
+                        @can('view loans')
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('view-loan-requests') }}"  aria-expanded="false" aria-controls="sidebarLayouts">
                                 <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Loan Requests</span>
                                 {{-- <span class="badge badge-pill bg-danger" data-key="t-hot">2</span> --}}
                             </a>
                         </li>
-                        {{-- @endcan --}}
+                        @endcan
 
                         <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Directories</span></li>
                         @can('view clientele')
@@ -697,36 +697,56 @@
                             </a>
                             <div class="collapse menu-dropdown" id="sidebarAdvanceUI">
                                 <ul class="nav nav-sm flex-column">
+                                    @can('open loans')
                                     <li class="nav-item">
                                         <a href="{{ route('approved-loans') }}" class="nav-link" data-key="t-sweet-alerts">Open Loans</a>
                                     </li>
+                                    @endcan
+                                    @can('closed loans')
                                     <li class="nav-item">
                                         <a href="{{ route('closed-loans') }}" class="nav-link" data-key="t-nestable-list">Closed Loans</a>
                                     </li>
+                                    @endcan
+                                    @can('due loans')
                                     <li class="nav-item">
                                         <a href="{{ route('due-loans') }}" class="nav-link" data-key="t-scrollbar">Due Loans</a>
                                     </li>
+                                    @endcan
+                                    @can('missed repayments')
                                     <li class="nav-item">
                                         <a href="{{ route('missed-repayments') }}" class="nav-link" data-key="t-animation">Missed Repayments</a>
                                     </li>
+                                    @endcan
+                                    @can('arrears')
                                     <li class="nav-item">
                                         <a href="{{ route('loan-arrears') }}" class="nav-link" data-key="t-tour">Loans in Arrears</a>
                                     </li>
+                                    @endcan
+                                    @can('no repayments')
                                     <li class="nav-item">
                                         <a href="{{ route('no-repayments') }}" class="nav-link" data-key="t-swiper-slider">No Repayments</a>
                                     </li>
+                                    @endcan
+                                    @can('past maturity date')
                                     <li class="nav-item">
                                         <a href="{{ route('past-maturity-date') }}" class="nav-link" data-key="t-ratings">Past Maturity Date</a>
                                     </li>
+                                    @endcan
+                                    @can('principal outstanding')
                                     <li class="nav-item">
                                         <a href="{{ route('principal-outstanding') }}" class="nav-link" data-key="t-highlight">Principal Outstanding</a>
                                     </li>
+                                    @endcan
+                                    @can('late loans')
                                     <li class="nav-item">
                                         <a href="{{ route('one-month-late') }}" class="nav-link" data-key="t-scrollSpy">1 Month Late Loans</a>
                                     </li>
+                                    @endcan
+                                    @can('late loans')
                                     <li class="nav-item">
                                         <a href="{{ route('three-month-late') }}" class="nav-link" data-key="t-scrollSpy">3 Month Late Loans</a>
                                     </li>
+                                    @endcan
                                     @can('view loan calculator')
                                     <li class="nav-item">
                                         <a href="{{ route('loan-calculator') }}" class="nav-link" data-key="t-scrollSpy">Loan Calculator</a>
@@ -736,12 +756,15 @@
                             </div>
                         </li>
 
+                        @can('view employees')
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('employees') }}">
                                 <i class="ri-honour-line"></i> <span data-key="t-widgets">Employees</span>
                             </a>
                         </li>
+                        @endcan
 
+                        @can('view accounting')
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCharts">
                                 <i class="ri-pie-chart-line"></i> <span data-key="t-charts">Accounting</span>
@@ -750,18 +773,22 @@
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
                                         <a href="#sidebarApexcharts" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApexcharts" data-key="t-apexcharts">
-                                            Repayments
+                                            Transactions
                                         </a>
                                         <div class="collapse menu-dropdown" id="sidebarApexcharts">
                                             <ul class="nav nav-sm flex-column">
+                                                @can('make repayments')
                                                 <li class="nav-item">
                                                     <a href="{{ route('make-payment') }}" class="nav-link" data-key="t-line"> Make Repayment
                                                     </a>
                                                 </li>
+                                                @endcan
+                                                @can('make proof payment')
                                                 <li class="nav-item">
                                                     <a href="{{ route('proofs') }}" class="nav-link" data-key="t-line"> Proof of Payments
                                                     </a>
                                                 </li>
+                                                @endcan
                                             </ul>
                                         </div>
                                     </li>
@@ -771,33 +798,40 @@
                                 </ul>
                             </div>
                         </li>
+                        @endcan
 
-                        <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Settings</span></li>
+                        @can('system settings')
+                            <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Settings</span></li>
 
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                                <i class="ri-account-circle-line"></i> <span data-key="t-authentication">User Management</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="sidebarAuth">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('users') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
-                                            All Users
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('roles') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
-                                            User Roles & Permission
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{ route('sys-settings') }}" aria-expanded="false" aria-controls="sidebarAuth">
-                                <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Manage Settings</span>
-                            </a>
-                        </li>
+                            @can('see the list of users')
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                                    <i class="ri-account-circle-line"></i> <span data-key="t-authentication">User Management</span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarAuth">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('users') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
+                                                All Users
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('roles') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
+                                                User Roles & Permission
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            @endcan
+                            @can('system settings')
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('sys-settings') }}" aria-expanded="false" aria-controls="sidebarAuth">
+                                    <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Manage Settings</span>
+                                </a>
+                            </li>
+                            @endcan
+                        @endcan
                     </ul>
                 </div>
                 <!-- Sidebar -->

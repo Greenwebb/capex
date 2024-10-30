@@ -2,7 +2,11 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                <h3>Verify {{ $loan->user->fname.' '.$loan->user->mname.' '.$loan->user->lname }}'s Loan Request</h3>
+                <h3>Verify 
+                    <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id]) }}">
+                        {{ $loan->user->fname.' '.$loan->user->mname.' '.$loan->user->lname }}
+                    </a>
+                        's Loan Request</h3>
             </div>
 
 

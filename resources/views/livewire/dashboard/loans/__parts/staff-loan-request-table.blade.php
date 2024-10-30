@@ -142,9 +142,9 @@
                                         @if($this->current_configs('loan-approval')->value == 'spooling')
                                             <td class="text-success">
                                                 @role('admin')@else
-                                                    @can('review loan')
+                                                    @can('asses loans')
                                                         @if($loan->status == 0 || $loan->status == 3)
-                                                            <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Review</button>
+                                                            <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Asses Loan</button>
                                                         @else
                                                             <small style="font-size:10px" class="text-muted">Reviewing...</small>
                                                         @endif
@@ -172,9 +172,9 @@
                                                     @endif
                                                 @endif
                                             @else
-                                                @can('review loan')
+                                                @can('asses loans')
                                                     @if($loan->status == 0 || $loan->status == 3)
-                                                        <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Review</button>
+                                                        <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Asses Loan</button>
                                                     @endif
                                                 @endcan
                                             @endrole
@@ -190,7 +190,7 @@
                                                 <li><a href="{{ route('detailed',['id' => $loan->id]) }}" class="dropdown-item"><i class="align-bottom ri-eye-fill me-2 text-muted"></i> View</a></li>
 
                                                 @if (Route::currentRouteName() === 'view-loan-requests')
-                                                    @can('review loan')
+                                                    @can('asses loans')
                                                     <li><a href="{{ route('loan-details', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="align-bottom ri-exchange-funds-fill me-2 text-muted"></i> Asses Loans</a></li>
                                                     @endcan
                                                     @can('update loans')

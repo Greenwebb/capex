@@ -1,8 +1,11 @@
-?<div>
+<div>
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                <h3>Dispose Funds to {{ $loan->user->fname.' '.$loan->user->mname.' '.$loan->user->lname }}</h3>
+                <h3>Dispose Funds to 
+                    <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id]) }}">
+                        {{ $loan->user->fname.' '.$loan->user->mname.' '.$loan->user->lname }}</a>
+                    </h3>
             </div>
 
 

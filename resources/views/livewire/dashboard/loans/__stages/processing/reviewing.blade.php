@@ -2,7 +2,11 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                <h3>Review {{ $loan->user->fname.' '.$loan->user->mname.' '.$loan->user->lname }}'s Loan Request</h3>
+                <h3>Reviewing 
+                    <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id]) }}">
+                        {{ $loan->user->fname.' '.$loan->user->mname.' '.$loan->user->lname }}
+                    </a>
+                        's Loan Request</h3>
             </div>
 
 
@@ -12,7 +16,7 @@
                     <a title="Undo" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_decline_warning" wire:click="setLoanID({{$loan->id}})" class="btn btn-danger btn-label left nexttab"><i class="align-middle ri-arrow-left-line label-icon fs-16 ms-2"></i> Reject Submission </a>
                 @endcan
 
-                @can('verify loan')
+                @can('asses loans')
                     <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-info btn-label right ms-auto nexttab" data-nexttab="steparrow-description-info-tab"><i class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>Proceed</button>
                 @endcan
             </div>

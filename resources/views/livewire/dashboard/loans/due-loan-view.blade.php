@@ -96,7 +96,7 @@
                                     @if($this->current_configs('loan-approval')->value == 'spooling')
                                     <td class="text-success">
                                         @role('admin')@else
-                                            @can('review loan')
+                                            @can('assess loan')
                                                 @if($loan->status == 0 || $loan->status == 3)
                                                     <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Review</button>
                                                 @endif
@@ -124,7 +124,7 @@
                                                 @endif
                                             @endif
                                         @else
-                                            @can('review loan')
+                                            @can('asses loan')
                                                 @if($loan->status == 0 || $loan->status == 3)
                                                     <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Review</button>
                                                 @endif
@@ -139,8 +139,8 @@
                                                 <i class="ri-more-fill align-middle"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a href="{{ route('detailed',['id' => $loan->id]) }}" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                                <li><a href="{{ route('edit-loan', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+                                                {{-- <li><a href="{{ route('detailed',['id' => $loan->id]) }}" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
+                                                <li><a href="{{ route('edit-loan', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li> --}}
                                                 {{-- <li>
                                                     <a class="dropdown-item remove-item-btn">
                                                         <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
