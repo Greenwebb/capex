@@ -556,7 +556,7 @@ trait LoanTrait{
                 'user_id' => $data['user_id'],
             ]);
             $mail = [
-                'name' => "{$data['fname']} {$data['lname']}",
+                'name' => $data['fname'].' '.$data['lname'],
                 'to' => $data['email'],
                 'from' => 'info@capexfinancialservices.org',
                 'phone' => $data['phone'],
