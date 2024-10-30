@@ -555,9 +555,9 @@ trait LoanTrait{
                 'user_id' => $data['user_id'],
             ]);
         }
-
+        
         // If an active loan exists, return the existing loan
-        return $hasLoan;
+        return 'exists';
     }
 
 

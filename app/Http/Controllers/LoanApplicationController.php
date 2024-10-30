@@ -59,15 +59,25 @@ class LoanApplicationController extends Controller
             ];
 
             // Create or update temporal loan
-            $this->createQuickLoan($loanRequest);
+            $res = $this->createQuickLoan($loanRequest);
 
-            // Return successful response
-            return response()->json([
-                'status' => 200,
-                'success' => true,
-                'message' => 'Application submitted successfully',
-                'user' => $user
-            ]);
+            if ($res == 'exists') {
+                // Return successful response
+                return response()->json([
+                    'status' => 200,
+                    'success' => true,
+                    'message' => 'Application Already Exists',
+                    'user' => $user
+                ]);
+            } else {
+                // Return successful response
+                return response()->json([
+                    'status' => 200,
+                    'success' => true,
+                    'message' => 'Application submitted successfully',
+                    'user' => $user
+                ]);
+            }
 
         } catch (\Exception $e) {
             // Return a more descriptive error response
