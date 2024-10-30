@@ -1,4 +1,4 @@
-@extends('errors::log')
+{{-- @extends('errors::log') --}}
 
 @section('title', __('Forbidden'))
 @section('code', '403')
