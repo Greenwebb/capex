@@ -238,7 +238,7 @@
                                             <label class="fs-5 fw-bold form-label mb-2">Role Permissions</label>
                                             <div class="table-responsive">
                                                 <!-- Begin nested dropdown structure -->
-                                                <ul class="tree">
+                                                {{-- <ul class="tree">
                                                     @foreach($permissions as $g => $p)
                                                         <li class="text-gray-800">
                                                             <span class="toggle">
@@ -276,7 +276,7 @@
                                                             </ul>
                                                         </li>
                                                     @endforeach
-                                                </ul>
+                                                </ul> --}}
                                                 <!-- End nested dropdown structure -->
                                             </div>
                                         </div>

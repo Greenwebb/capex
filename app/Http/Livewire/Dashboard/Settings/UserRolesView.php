@@ -12,7 +12,7 @@ use Spatie\Permission\Models\Role;
 
 class UserRolesView extends Component
 {
-    use AuthorizesRequests, WithPagination;
+    use WithPagination;
     public $role, $user_roles, $name, $role_name, $role_id, $rolePermissions;
     public $permission = [];
     public $show, $style;
@@ -21,7 +21,8 @@ class UserRolesView extends Component
 
     public function render()
     {
-        $this->authorize('view system settings');
+    //     AuthorizesRequests,
+    //     $this->authorize('view system settings');
         $this->user_roles = Role::pluck('name')->toArray();
         $permissions = Permission::whereNotNull('group')->get()->groupBy('group');
 
