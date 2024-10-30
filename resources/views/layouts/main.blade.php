@@ -648,22 +648,22 @@
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                             </a>
                         </li> <!-- end Dashboard Menu -->
-                        @can('create loans')
+                        {{-- @can('create loans') --}}
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('proxy-loan-create') }}" aria-expanded="false" aria-controls="sidebarApps">
                                 <i class="ri-apps-2-line"></i> <span data-key="t-apps">Create Loan Request</span>
                             </a>
                         </li>
-                        @endcan
+                         {{-- @endcan --}}
 
-                        @can('view loans')
+                       {{-- @can('view loans') --}}
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('view-loan-requests') }}"  aria-expanded="false" aria-controls="sidebarLayouts">
                                 <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Loan Requests</span>
                                 {{-- <span class="badge badge-pill bg-danger" data-key="t-hot">2</span> --}}
                             </a>
                         </li>
-                        @endcan
+                        {{-- @endcan --}}
 
                         <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Directories</span></li>
                         @can('view clientele')
