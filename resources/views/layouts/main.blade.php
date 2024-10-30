@@ -800,38 +800,36 @@
                         </li>
                         @endcan
 
-                        {{-- @can('system settings') --}}
-                            <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Settings</span></li>
+                    
+                        <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Settings</span></li>
 
-                            {{-- @can('see the list of users') --}}
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                                    <i class="ri-account-circle-line"></i> <span data-key="t-authentication">User Management</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarAuth">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{{ route('users') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
-                                                All Users
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('roles') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
-                                                User Roles & Permission
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            {{-- @endcan --}}
-                            {{-- @can('system settings') --}}
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{ route('sys-settings') }}" aria-expanded="false" aria-controls="sidebarAuth">
-                                    <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Manage Settings</span>
-                                </a>
-                            </li>
-                            {{-- @endcan --}}
-                        {{-- @endcan --}}
+                        
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                                <i class="ri-account-circle-line"></i> <span data-key="t-authentication">User Management</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarAuth">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ route('users') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
+                                            All Users
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('roles') }}" class="nav-link" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin">
+                                            User Roles & Permission
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('sys-settings') }}" aria-expanded="false" aria-controls="sidebarAuth">
+                                <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Manage Settings</span>
+                            </a>
+                        </li>
+                        
                     </ul>
                 </div>
                 <!-- Sidebar -->
