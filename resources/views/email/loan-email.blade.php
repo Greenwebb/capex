@@ -99,7 +99,7 @@
 </head>
 
 
-<body style="margin: 0;word-spacing: normal; background-color: rgba(184, 163, 45, 0.5); background-image: url('https://i0.wp.com/defendernetwork.com/wp-content/uploads/2023/07/Untitled-119.jpg?fit=1200%2C800&ssl=1'); background-size: cover;">
+<body style="margin: 0;word-spacing: normal; background-color: rgba(57, 45, 184, 0.5); background-image: url('https://i0.wp.com/defendernetwork.com/wp-content/uploads/2023/07/Untitled-119.jpg?fit=1200%2C800&ssl=1'); background-size: cover;">
   
   <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color: #952db87e;">
     <table role="presentation" style="width:100%;border:none;border-spacing:0;">
@@ -141,7 +141,7 @@
               </td>
             </tr>
             <tr>
-              <td style="padding:30px;text-align:center;font-size: 0.75em;background-color:rgb(59, 46, 5) 17, 80);color:#384049;border: 1em solid #fff;">
+              <td style="padding:30px;text-align:center;font-size: 0.75em;background-color:rgb(15, 5, 59) 17, 80);color:#384049;border: 1em solid #fff;">
                 <p style="margin:0 0 0.75em 0;line-height: 0;">
                   <!--      LinkedIn logo            -->
                   {{-- <a href="{{App\Models\ContactSetting::linkedin()}}" style="display:block;text-decoration:none;margin: 0 5px;">

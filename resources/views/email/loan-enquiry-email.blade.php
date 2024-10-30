@@ -83,7 +83,7 @@
   }
   
   .-bg {
-    background: #ffee00;
+    background: #00b3ff;
   }
   
   .-txt {
@@ -144,7 +144,7 @@
               </td>
             </tr>
             <tr>
-              <td style="padding:30px;text-align:center;font-size: 0.75em;background-color:#ffeada;color:#384049;border: 1em solid #fff;">
+              <td style="padding:30px;text-align:center;font-size: 0.75em;background-color:#ffeada;color:#072b55;border: 1em solid #fff;">
                 <p style="margin:0 0 0.75em 0;line-height: 0;">
                   <!--      LinkedIn logo            -->
                   <a href="{{App\Models\ContactSetting::linkedin()}}" style="display:inline-block;text-decoration:none;margin: 0 5px;">
@@ -164,7 +164,7 @@
                 <p style="margin:0;font-size:.75rem;line-height:1.5em;text-align: center;">
                   {{App\Models\ContactSetting::name()}}, {{App\Models\ContactSetting::address()}}, {{App\Models\ContactSetting::place()}}.
                   <br>
-                  <a class="unsub" href="https://capexlms.greenwebbtech.com" style="color:#384049;text-decoration:underline;">Unsubscribe</a>
+                  <a class="unsub" href="https://capexlms.greenwebbtech.com" style="color:#0a1258;text-decoration:underline;">Unsubscribe</a>
                 </p>
               </td>
             </tr>

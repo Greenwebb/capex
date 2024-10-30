@@ -139,8 +139,8 @@
         color: #616161;
     }
     .btn {
-        background-color:#8a671c;
-        border:1px solid #f3b121;
+        background-color:#291c8a;
+        border:1px solid #21c9f3;
         border-radius:2px;
         color:#ffffff;
         display:inline-block;

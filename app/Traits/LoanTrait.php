@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-
+use App\Mail\LoanApplication;
 use App\Notifications\LoanRequestNotification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +24,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use DateInterval;
 use DateTime;
+use Illuminate\Support\Facades\Mail;
 
 trait LoanTrait{
     use EmailTrait;
@@ -554,6 +555,17 @@ trait LoanTrait{
                 'source' => 'Website',
                 'user_id' => $data['user_id'],
             ]);
+            $mail = [
+                'name' => "{$data['fname']} {$data['lname']}",
+                'to' => $data['email'],
+                'from' => 'info@capexfinancialservices.org',
+                'phone' => $data['phone'],
+                'payback' => 'Not Set',
+                'subject' => "Loan Application",
+                'message' => "Thank you for choosing us. Your loan request is submitted. Sign in with username {$data['email']} and password is '2124' to check the status. We value your trust and are committed to your satisfaction.",
+                'message2' => "Capex Finance"
+            ];
+            Mail::to($data['email'])->send(new LoanApplication($mail));
         }
         
         // If an active loan exists, return the existing loan
