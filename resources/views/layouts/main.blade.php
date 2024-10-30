@@ -803,7 +803,7 @@
                         {{-- @can('system settings') --}}
                             <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Settings</span></li>
 
-                            @can('see the list of users')
+                            {{-- @can('see the list of users') --}}
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
                                     <i class="ri-account-circle-line"></i> <span data-key="t-authentication">User Management</span>
@@ -823,7 +823,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            @endcan
+                            {{-- @endcan --}}
                             {{-- @can('system settings') --}}
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('sys-settings') }}" aria-expanded="false" aria-controls="sidebarAuth">
