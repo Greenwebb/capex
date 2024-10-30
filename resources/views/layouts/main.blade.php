@@ -830,7 +830,7 @@
                                     <i class="ri-settings-3-line"></i> <span data-key="t-authentication">Manage Settings</span>
                                 </a>
                             </li>
-                            @endcan
+                            {{-- @endcan --}}
                         {{-- @endcan --}}
                     </ul>
                 </div>
