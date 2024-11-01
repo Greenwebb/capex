@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                <h3>Verify 
+                <h3>Verify
                     <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id]) }}">
                         {{ $loan->user->fname.' '.$loan->user->mname.' '.$loan->user->lname }}
                     </a>
@@ -104,7 +104,7 @@
                 function renderFileBlock($upload, $label, $user) {
                     return '
                         <a target="_blank" href="' . getFileUrl($upload) . '" class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="public/' . Storage::url($upload->path) . '">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="p-2 border border-dashed rounded">
                                     <div class="d-flex align-items-center">
                                         <div class="flex-shrink-0 me-3">
@@ -141,6 +141,10 @@
 
             @if ($loan?->user?->uploads?->where('name', 'payslip_file')->isNotEmpty())
                 {!! renderFileBlock($loan->user->uploads->where('name', 'payslip_file')->first(), 'Payslip', $loan->user) !!}
+            @endif
+
+            @if ($loan->user->uploads->where('name', 'bankstatement')->isNotEmpty())
+                {!! renderFileBlock($loan->user->uploads->where('name', 'bankstatement')->first(), 'Bank Statement', $loan->user) !!}
             @endif
 
                 <!-- end col -->
