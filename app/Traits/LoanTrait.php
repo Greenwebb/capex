@@ -531,23 +531,21 @@ trait LoanTrait{
             ];
         }
     }
-
     public function createQuickLoan(array $data)
     {
-        // Check if the user already has an active loan (status 1 or 2) that is not closed or completed
+        // Check if the user already has an active loan
         $hasLoan = Application::where('user_id', $data['user_id'])
             ->where(function ($query) {
                 $query->where('status', 0)
                     ->orWhere('status', 2);
             })
             ->where('closed', 0)
-            ->where('complete', 0)
             ->orderBy('created_at', 'desc')
             ->first();
 
         // If no active loan is found, create a new loan application
         if ($hasLoan == null) {
-            return Application::create([
+            $application = Application::create([
                 'amount' => $data['amount'],
                 'repayment_plan' => $data['duration'],
                 'loan_product_id' => $data['loan_product_id'],
@@ -555,22 +553,29 @@ trait LoanTrait{
                 'source' => 'Website',
                 'user_id' => $data['user_id'],
             ]);
-            $mail = [
-                'name' => $data['fname'].' '.$data['lname'],
-                'to' => $data['email'],
-                'from' => 'info@capexfinancialservices.org',
-                'phone' => $data['phone'],
-                'payback' => 'Not Set',
-                'subject' => "Loan Application",
-                'message' => "Thank you for choosing us. Your loan request is submitted. Sign in with username {$data['email']} and password is '2124' to check the status. We value your trust and are committed to your satisfaction.",
-                'message2' => "Capex Finance"
-            ];
-            Mail::to($data['email'])->send(new LoanApplication($mail));
+
+            // Check if the email is present before attempting to send
+            if (!empty($data['email'])) {
+                $mail = [
+                    'name' => $data['fname'] . ' ' . $data['lname'],
+                    'to' => $data['email'],
+                    'from' => 'info@capexfinancialservices.org',
+                    'phone' => $data['phone'],
+                    'payback' => 'Not Set',
+                    'subject' => "Loan Application",
+                    'message' => "Thank you for choosing us. Your loan request is submitted. Sign in to the Capex Webapp with username {$data['email']} to check the status. We value your trust and are committed to your satisfaction.",
+                    'message2' => "Capex Financial Services"
+                ];
+                Mail::to($data['email'])->send(new LoanApplication($mail));
+            }
+
+            return $application;
         }
-        
+
         // If an active loan exists, return the existing loan
         return 'exists';
     }
+
 
 
     public function apply_loan($data)

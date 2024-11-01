@@ -9,7 +9,7 @@
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="min-width: 100%; background-color: rgba(245, 248, 250, 0.95);">
         <tr>
             <td align="center" style="padding: 40px 0;">
-                <table role="presentation" style="width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <table role="presentation" style="width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.015);">
                     <!-- Logo Section -->
                     <tr>
                         <td style="padding: 30px 0; text-align: center;">

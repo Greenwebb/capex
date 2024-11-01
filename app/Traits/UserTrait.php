@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Mail\CapexWebappAccount;
 use App\Models\Application;
 use App\Models\ApplicationStage;
 use App\Models\BankDetails;
@@ -14,56 +15,37 @@ use App\Models\UserPhoto;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 
 trait UserTrait{
     public function registerUser($input){
-        $password = '2124';
+        try {
+            $password = '2124';
 
-        if($input['email'] !== null){
-            $check = User::where('email', $input['email'])->exists();
+            if ($input['email'] !== null) {
+                $check = User::where('email', $input['email'])->exists();
 
-            if(!$check){
-                try {
-                    $user = User::create([
-                        'fname' => $input['fname'],
-                        'lname' => $input['lname'],
-                        'phone' => $input['phone'],
-                        'email' => $input['email'],
-                        'password' => Hash::make($password),
-                        'terms' => 'accepted'
-                    ]);
-                    $user->assignRole('user');
-                    return $user;
-                } catch (\Throwable $th) {
-                    return 0;
+                if (!$check) {
+                        $user = User::create([
+                            'fname' => $input['fname'],
+                            'lname' => $input['lname'],
+                            'phone' => $input['phone'],
+                            'email' => $input['email'],
+                            'password' => Hash::make($password),
+                            'terms' => 'accepted'
+                        ]);
+                        $user->assignRole('user');
+                        Mail::to($user->email)->send(new CapexWebappAccount($user, $password));
+                        return $user;
+                } else {
+                    // User already exists
+                    return User::where('email', $input['email'])->first();
                 }
-            }else{
-                // User already exists
-                return User::where('email', $input['email'])->first();
             }
+        } catch (\Throwable $th) {
+            dd($th);
+            // return 0;
         }
-        // else{
-        //     try {
-        //         $user = User::create([
-        //             'fname' => $input['fname'],
-        //             'mname' => $input['mname'],
-        //             'phone2' => $input['phone2'],
-        //             'lname' => $input['lname'],
-        //             'password' => Hash::make($password),
-        //             'terms' => 'accepted'
-        //         ]);
-        //         $user->assignRole('user');
-
-        //         // Get my applications
-        //         Wallet::create([
-        //             'email' => $user->email ?? '',
-        //             'user_id' => $user->id
-        //         ]);
-        //         return $user;
-        //     } catch (\Throwable $th) {
-        //         return 0;
-        //     }
-        // }
     }
 
     public function isKYCComplete(){

@@ -36,8 +36,7 @@ class LoanApplicationController extends Controller
         $validatedData = $request->toArray();
 
         try {
-            // Upload common files
-            // $this->uploadCommonFiles($request);
+            // dd($validatedData);
 
             // Prepare personal data
             $personal = [
@@ -56,6 +55,7 @@ class LoanApplicationController extends Controller
                 'user_id' => $user->id,
                 'amount' => $validatedData['amount'],
                 'duration' => $validatedData['duration'],
+                'email' => $validatedData['email'],
             ];
 
             // Create or update temporal loan
@@ -80,18 +80,19 @@ class LoanApplicationController extends Controller
             }
 
         } catch (\Exception $e) {
+            dd($e);
             // Return a more descriptive error response
-            return response()->json([
-                'status' => 500,
-                'success' => false,
-                'message' => 'An error occurred during the application process',
-                'error' => $e->getMessage()
-            ], 500);
+            // return response()->json([
+            //     'status' => 500,
+            //     'success' => false,
+            //     'message' => 'An error occurred during the application process',
+            //     'error' => $e->getMessage()
+            // ], 500);
         }
     }
 
 
-    public function store(){
+    public function store(Request $request){
         try {
             $data = $request->toArray();
             $this->uploadCommonFiles($request);
