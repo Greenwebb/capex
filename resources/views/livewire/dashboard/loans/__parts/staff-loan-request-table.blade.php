@@ -85,6 +85,7 @@
                                     <th>Loan No.</th>
                                     <th>Loan Type.</th>
                                     <th>Principal</th>
+                                    <th>Intrst</th>
                                     <th>Borrower</th>
                                     <th>Date</th>
                                     <th>Source</th>
@@ -113,11 +114,21 @@
                                     <td>{{ $loan->uuid }}</td>
                                     <td>{{ $loan->loan_product->name }}</td>
                                     <td>K {{ number_format($loan->amount, 2, '.', ',') }}</td>
+                                    <td>@if ($loan->interest_type == 'Fixed')
+                                        K
+                                        @endif {{ number_format($loan->interest, 2, '.', ',') }} 
+                                        @if ($loan->interest_type == 'Percentage')
+                                        %
+                                        @else
+                                        %
+                                        @endif
+                                    </td>
                                     <td>
-                                        <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id])}}">
-                                            {{ $loan->user->fname.' '. $loan->user->mname .' '. $loan->user->lname }}
+                                        <a target="_blank" href="{{ route('client-account', ['key' => $loan->user->id]) }}">
+                                            {{ \Illuminate\Support\Str::limit($loan->user->fname . ' ' . $loan->user->mname . ' ' . $loan->user->lname, 25) }}
                                         </a>
                                     </td>
+                                    
                                     <td>{{ $loan->created_at->toFormattedDateString() }}</td>
                                     {{-- <td>
                                         K {{

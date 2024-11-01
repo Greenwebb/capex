@@ -995,7 +995,7 @@
             order: [[0, 'desc']]
         });
         let table4 = new DataTable('#loanReqTable',{
-            order: [[5, 'desc']]
+            order: [[6, 'desc']]
         });
 
 

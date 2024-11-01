@@ -216,8 +216,10 @@ class Application extends Model
         ->where('status', 1)->where('complete', 1)->first();
     }
 
-    // !important
+    //important
     public static function payback($principal, $duration, $product_id = null){
+
+        
         $product = LoanProduct::where('id', $product_id)->with([
             'disbursed_by.disbursed_by',
             'interest_methods.interest_method',
@@ -232,6 +234,8 @@ class Application extends Model
         $interest = ($principal * $rate * $duration);
         $payback = $principal + $interest;
         return number_format($payback, 2, '.', '');
+
+
     }
 
 
