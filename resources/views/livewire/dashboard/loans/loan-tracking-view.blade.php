@@ -5,7 +5,7 @@
             <h1>Loan Repayment Tracker</h1>
             <h3>{{ $loan->application->type}} Loan</h3>
             <p>{{ $loan->application->fname.' '.$loan->application->lname}}
-            | Total Collectable K {{ App\Models\Application::payback($loan->application->amount, $loan->application->repayment_plan, $loan->loan_product_id, $loan)}}
+            | Total Collectable K {{ App\Models\Application::payback($loan->application->amount, $loan->application->repayment_plan, $loan->application->loan_product_id, $loan->application)}}
                 
                 @if($loan->closed == 1)
                     <span class="badge badge-xxl light badge-info">

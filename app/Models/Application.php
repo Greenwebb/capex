@@ -220,24 +220,29 @@ class Application extends Model
 
     //important
     public static function payback($principal, $duration, $product_id = null, $loan = null){
-        $instance = new self();
-        $data = $instance->calculateAmortizationSchedule($principal, $duration, $loan->loan_product_id, $loan);
 
-        // dd($data);
-        // $product = LoanProduct::where('id', $product_id)->with([
-        //     'disbursed_by.disbursed_by',
-        //     'interest_methods.interest_method',
-        //     'interest_types.interest_type',
-        //     'loan_accounts.account_payment',
-        //     'loan_status.status',
-        //     'loan_decimal_places',
-        //     'service_fees.service_charge'
-        // ])->first();
+        if($principal){
+            $instance = new self();
+            $data = $instance->calculateAmortizationSchedule($principal, $duration, $loan->loan_product_id, $loan);
+    
+            // dd($data);
+            // $product = LoanProduct::where('id', $product_id)->with([
+            //     'disbursed_by.disbursed_by',
+            //     'interest_methods.interest_method',
+            //     'interest_types.interest_type',
+            //     'loan_accounts.account_payment',
+            //     'loan_status.status',
+            //     'loan_decimal_places',
+            //     'service_fees.service_charge'
+            // ])->first();
+    
+            // $rate = (float)$product->def_loan_interest / 100;
+            // $interest = ($principal * $rate * $duration);
+            // $payback = $principal + $interest;
+            return number_format($instance->getAveragePayment($data), 2, '.', '');
+        }
 
-        // $rate = (float)$product->def_loan_interest / 100;
-        // $interest = ($principal * $rate * $duration);
-        // $payback = $principal + $interest;
-        return number_format($instance->getAveragePayment($data), 2, '.', '');
+        return 0;
     }
     public static function getAveragePayment($amortizationSchedule)
     {

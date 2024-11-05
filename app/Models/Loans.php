@@ -103,7 +103,7 @@ class Loans extends Model
             $loan = Application::where('id', $application_id)->first();
             if($loan !== null && $loan->status == 1){
                 $paid = Transaction::where('application_id', $application_id)->sum('amount_settled');
-                $payback = Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id);
+                $payback = Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan);
     
                 return (float)$payback - (float)$paid;
             }else{
@@ -121,8 +121,7 @@ class Loans extends Model
             $query->where('closed', 0);
         }])->get()->toArray();
 
-        $hasNoApplication = Application::where('user_id', $user_id)
-                    ->without('loan')->get()->toArray();
+        $hasNoApplication = Application::where('user_id', $user_id)->without('loan')->get()->toArray();
 
         if(empty($hasNoOpen) && empty($hasNoApplication)){
             return true;

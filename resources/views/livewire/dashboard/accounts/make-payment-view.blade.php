@@ -117,7 +117,7 @@
                                                 <td >{{ $data->application->loan_product->name }} Loan</td>
                                                 <td >{{ $data->application->fname.' '.$data->application->mname.' '.$data->application->lname }}</td>
 
-                                                <td >K{{ App\Models\Application::payback($data->application->amount, $data->application->repayment_plan, $data->application->loan_product_id, $loan) }}</td>
+                                                <td >K{{ App\Models\Application::payback($data->application->amount, $data->application->repayment_plan, $data->application->loan_product_id, $data->application) }}</td>
                                                 <td style="color:green;font-weight:bold">K{{ $data->amount_settled }}</td>
                                                 <td >K {{ App\Models\Loans::loan_balance( $data->application->id) }}</td>
                                                 <td >{{ $data->proccess_by ?? '' }}</td>
