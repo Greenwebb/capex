@@ -191,8 +191,11 @@
                         </div>
                     </div> <!-- end col-->
                 </div> <!-- end row-->                 --}}
-
+    
+                <!-- end row-->
+                    
                 <div class="row">
+                    @if (!$loan->interest)
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
@@ -234,9 +237,24 @@
                                 <div class="progress-bar rounded-0" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
-                    </div><!-- end col -->
-                </div> <!-- end row-->
-
+                    </div>
+                    @else
+                    <div class="col-lg-6">
+                        <div class="card bg-info">
+                            <div class="card-body">
+                                <h5 class="fs-15 fw-semibold">{{ $loan->interest }} {{ $loan->interest_type == 'Percentage' ? '%' : 'ZMW - Fixed' }}</h5>                                        
+                                <span class="align-middle text-text fs-12 me-2">{{ $loan->repayment_plan }}</sapan> {{ $loan_product->loan_duration_period }}
+                                <p class="text-white">Custom Loan Interest </p>
+                            </div>
+                            <div class="progress animated-progress rounded-bottom rounded-0" style="height: 6px;">
+                                <div class="progress-bar bg-success rounded-0" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-info rounded-0" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar rounded-0" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif<!-- end col -->
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="row">
@@ -280,9 +298,15 @@
                                                         <div class="flex-grow-1">
                                                             <label class="mb-0 form-check-label ps-2" for="task_two">Interest type</label>
                                                         </div>
-                                                        <div class="flex-shrink-0 ms-2">
-                                                            <p class="mb-0 text-muted fs-12">{{ $loan_product->interest_types->first()->interest_type['name']  }}</p>
-                                                        </div>
+                                                        @if ($loan->interest)
+                                                            <div class="flex-shrink-0 ms-2">
+                                                                <p class="mb-0 text-muted fs-12">{{ $loan->interest_type.' (customized)'  }}</p>
+                                                            </div>
+                                                        @else
+                                                            <div class="flex-shrink-0 ms-2">
+                                                                <p class="mb-0 text-muted fs-12">{{ $loan_product->interest_types->first()->interest_type['name']  }}</p>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </li>
                                                 <li class="list-group-item ps-0">
@@ -290,9 +314,15 @@
                                                         <div class="flex-grow-1">
                                                             <label class="mb-0 form-check-label ps-2" for="task_four">Interest</label>
                                                         </div>
-                                                        <div class="flex-shrink-0 ms-2">
-                                                            <p class="mb-0 text-muted fs-12">{{ $loan_product->def_loan_interest }} {{ $loan_product->interest_types->first()->interest_type['name'] == 'Percentage' ? '%' : 'ZMW' }} {{ $loan_product->loan_interest_period }}</p>
-                                                        </div>
+                                                        @if ($loan->interest)
+                                                            <div class="flex-shrink-0 ms-2">
+                                                                <p class="mb-0 text-muted fs-12">{{ $loan->interest }} {{ $loan->interest_type == 'Percentage' ? '%' : 'ZMW - Fixed' }} {{ $loan_product->loan_interest_period }}</p>
+                                                            </div>
+                                                        @else
+                                                            <div class="flex-shrink-0 ms-2">
+                                                                <p class="mb-0 text-muted fs-12">{{ $loan_product->def_loan_interest }} {{ $loan_product->interest_types->first()->interest_type['name'] == 'Percentage' ? '%' : 'ZMW' }} {{ $loan_product->loan_interest_period }}</p>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </li>
                                             </ul><!-- end ul -->
