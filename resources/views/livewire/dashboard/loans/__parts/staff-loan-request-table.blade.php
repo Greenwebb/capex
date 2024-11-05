@@ -114,13 +114,29 @@
                                     <td>{{ $loan->uuid }}</td>
                                     <td>{{ $loan->loan_product->name }}</td>
                                     <td>K {{ number_format($loan->amount, 2, '.', ',') }}</td>
-                                    <td>@if ($loan->interest_type == 'Fixed')
-                                        K
-                                        @endif {{ number_format($loan->interest, 2, '.', ',') }} 
-                                        @if ($loan->interest_type == 'Percentage')
-                                        %
+                                    <td>
+                                        @if ($loan->interest)
+
+                                            @if ($loan->interest_type == 'Fixed')
+                                            K
+                                            @endif
+                                            {{ number_format($loan->interest, 2, '.', ',') }}
+                                            @if ($loan->interest_type == 'Percentage')
+                                            %
+                                            @else
+                                            %
+                                            @endif
                                         @else
-                                        %
+                                            @if ($loan->loan_product->interest_methods == 'Fixed')
+                                            K
+                                            @endif
+                                            {{ $loan->loan_product->def_loan_interest }}
+
+                                            @if ($loan->interest_type == 'Percentage')
+                                            %
+                                            @else
+                                            %
+                                            @endif
                                         @endif
                                     </td>
                                     <td>
@@ -128,7 +144,7 @@
                                             {{ \Illuminate\Support\Str::limit($loan->user->fname . ' ' . $loan->user->mname . ' ' . $loan->user->lname, 25) }}
                                         </a>
                                     </td>
-                                    
+
                                     <td>{{ $loan->created_at->toFormattedDateString() }}</td>
                                     {{-- <td>
                                         K {{
