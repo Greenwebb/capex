@@ -4,11 +4,11 @@
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+                <div class="bg-transparent page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0">No Repayment</h4>
 
                     <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
+                        <ol class="m-0 breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
                             <li class="breadcrumb-item active">No Repayment</li>
                         </ol>
@@ -27,10 +27,10 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">No Repayments</h5>
+                        <h5 class="mb-0 card-title">No Repayments</h5>
                     </div>
                     <div class="card-body">
-                        <table id="fixed-header" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+                        <table id="fixed-header" class="table align-middle table-bordered dt-responsive nowrap table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Loan #.</th>
@@ -54,7 +54,7 @@
                                     <td style="text-align:center;">{{ $loan->type }} Loan</td>
                                     <td style="text-align:center;">{{ $loan->repayment_plan }} Month(s)</td>
                                     <td style="text-align:center;">K{{ $loan->amount }}</td>
-                                    <td style="text-align:center;">K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id) }}</td>
+                                    <td style="text-align:center;">K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) }}</td>
                                     <td style="text-align:center;">
                                         <span class="badge badge-xl light badge-info">
                                             K{{ App\Models\Application::paybackInstallment($loan->amount, $loan->repayment_plan, $loan->loan_product_id) }}
@@ -73,8 +73,8 @@
                                 </tr>
                                 @endif
                             @empty
-                            <div class="intro-y col-span-12 md:col-span-6">
-                                <div class="box text-center">
+                            <div class="col-span-12 intro-y md:col-span-6">
+                                <div class="text-center box">
                                     <p>Nothing Found.</p>
                                 </div>
                             </div>

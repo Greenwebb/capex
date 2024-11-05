@@ -65,7 +65,7 @@
                 {{ App\Models\Application::interest_amount($loan->amount, $loan->repayment_plan)}}
             </td>
             <td style="text:align:center;" class="mx-auto text-primary">
-                {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan)}}
+                {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan)}}
             </td>
             <td style="text:align:center;">{{ App\Models\Loans::loan_settled($loan->id) ?? 0 }}</td>
             <td style="text:align:center;">  
@@ -116,7 +116,7 @@
             </td>
             <td  class="actions-btns d-flex">
                 {{-- @can('view loan details') --}}
-                <div class="btn sharp  tp-btn ms-auto">
+                <div class="btn sharp tp-btn ms-auto">
                     <a href="{{ route('loan-details',['id' => $loan->id]) }}">  
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                             <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
@@ -126,7 +126,7 @@
                 </div>
                 &nbsp;
                 <div class="btn sharp tp-btn ms-auto">
-                    <a target="_blank" title="View Loan Statement" href="{{ route('loan-statement', ['id'=>$loan->id]) }}" class="btn btn-primary shadow btn-xs sharp me-1">
+                    <a target="_blank" title="View Loan Statement" href="{{ route('loan-statement', ['id'=>$loan->id]) }}" class="shadow btn btn-primary btn-xs sharp me-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-ruled" viewBox="0 0 16 16">
                             <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5v2zM3 12v-2h2v2H3zm0 1h2v2H4a1 1 0 0 1-1-1v-1zm3 2v-2h7v1a1 1 0 0 1-1 1H6zm7-3H6v-2h7v2z"/>
                         </svg>
@@ -186,8 +186,8 @@
             </td>	
         </tr>
         @empty
-        <div class="intro-y col-span-12 md:col-span-6">
-            <div class="box text-center">
+        <div class="col-span-12 intro-y md:col-span-6">
+            <div class="text-center box">
                 <p>Nothing Found.</p>
             </div>
         </div>

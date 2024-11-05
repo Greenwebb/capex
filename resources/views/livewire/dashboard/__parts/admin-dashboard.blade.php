@@ -551,7 +551,7 @@
                                                     </td>
                                                     <td>
                                                         <h5 class="my-1 fs-14 fw-normal">K{{
-                                                            number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id), 2, '.', ',')
+                                                            number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan), 2, '.', ',')
                                                         }}</h5>
                                                         <span class="text-muted">Repayment</span>
                                                     </td>
@@ -618,7 +618,7 @@
                                                    </td>
                                                    <td>
                                                        <h5 class="my-1 fs-14 fw-normal">K{{
-                                                           number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id), 2, '.', ',')
+                                                           number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan), 2, '.', ',')
                                                        }}</h5>
                                                        <span class="text-muted">Repayment</span>
                                                    </td>

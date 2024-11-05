@@ -9,14 +9,17 @@ use Illuminate\Support\File;
 trait CalculatorTrait{
 
     use LoanTrait;
-    public function calculateAmortizationSchedule($loanAmount, $loanTermYears, $loanProductId) {
+
+
+    public function calculateAmortizationSchedule($loanAmount, $loanTermYears, $loanProductId, $loan = null) {
 
         try {
             $info = $this->get_LoanProductDetails($loanProductId);
-
+            
             switch ($info->interest_methods->first()->interest_method->name) {
+
                 case 'Flat Rate':
-                    return $this->flatRateAmortization($loanAmount, $loanTermYears, $info);
+                    return $this->flatRateAmortization($loanAmount, $loanTermYears, $info, $loan);
                     break;
 
                 default:
@@ -28,9 +31,17 @@ trait CalculatorTrait{
         }
     }
 
-    function flatRateAmortization($principal, $termMonths, $info) {
+    function flatRateAmortization($principal, $termMonths, $info, $loan = null) {
             $schedule = [];
-            $monthlyInterestRate = $info->def_loan_interest / 100 / 12;
+
+            if($loan->interest){
+                $monthlyInterestRate = $loan->interest / 100 / 12;
+            }else{
+                $monthlyInterestRate = $info->def_loan_interest / 100 / 12;
+            }
+
+
+            
             $monthlyPayment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$termMonths));
 
             $remainingBalance = $principal;

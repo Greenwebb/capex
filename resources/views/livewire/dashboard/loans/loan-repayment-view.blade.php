@@ -5,8 +5,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bold fs-3 mb-1">Pending Repayments</span>
-                            <span class="text-muted mt-1 fw-semibold fs-7">Over {{$loan_requests->count()}} Missed Repayments</span>
+                            <span class="mb-1 card-label fw-bold fs-3">Pending Repayments</span>
+                            <span class="mt-1 text-muted fw-semibold fs-7">Over {{$loan_requests->count()}} Missed Repayments</span>
                         </h3>
                         <div>
                             @can('view all loan requests')
@@ -18,7 +18,7 @@
                             @endcan
                         </div>
                     </div>
-                    <div class="card-body pb-0" style="padding-bottom: 30%">
+                    <div class="pb-0 card-body" style="padding-bottom: 30%">
                         <div id="pm_table_print_view" class="table-responsive patient">
                             <div wire:ignore class="actions-btns col-xl-12">
                                 <div class="alert alert-dark alert-dismissible fade show">
@@ -31,10 +31,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div wire:ignore  class="actions-btns row py-2">
+                            <div wire:ignore  class="py-2 actions-btns row">
                                 @can('accept and reject loan requests')
                                 {{-- <div class="col-xl-3 center">
-                                    <select multiple wire:model.lazy="type" class="default-select form-control wide mt-3" aria-placeholder="Loan" placeholder="Loan Types">
+                                    <select multiple wire:model.lazy="type" class="mt-3 default-select form-control wide" aria-placeholder="Loan" placeholder="Loan Types">
                                         <option value="Personal">Personal</option>
                                         <option value="Education">Education</option>
                                         <option value="Asset Financing">Asset Financing</option>
@@ -45,7 +45,7 @@
                                 </div> --}}
                                 @endcan
                             </div>
-                            <table wire:ignore.self wire:poll.1000000ms id="example3" class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                            <table wire:ignore.self wire:poll.1000000ms id="example3" class="table align-middle table-row-bordered table-row-gray-100 gs-0 gy-3">
                                 <thead>
                                     <tr class="fw-bold text-muted">
                                         <th>Loan #.</th>
@@ -68,7 +68,7 @@
                                             <td style="text-align:center;">{{ $loan->fname.' '. $loan->lname }}</td>
                                             <td style="text-align:center;">{{ $loan->type }} Loan</td>
                                             <td style="text-align:center;">K{{ $loan->amount }}</td>
-                                            <td style="text-align:center;">K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan) }}</td>
+                                            <td style="text-align:center;">K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) }}</td>
                                             <td style="text-align:center;">
                                                 <span class="badge badge-xl light badge-info">
                                                     K{{ App\Models\Loans::loan_balance($loan->id) }} 
@@ -101,8 +101,8 @@
                                         </tr>
                                         @endif
                                     @empty
-                                    <div class="intro-y col-span-12 md:col-span-6">
-                                        <div class="box text-center">
+                                    <div class="col-span-12 intro-y md:col-span-6">
+                                        <div class="text-center box">
                                             <p>Nothing Found.</p>
                                         </div>
                                     </div>

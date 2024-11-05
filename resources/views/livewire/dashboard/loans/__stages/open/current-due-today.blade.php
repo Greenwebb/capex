@@ -16,25 +16,25 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <div class="card shadow loan-card">
-                <div class="card-body p-4">
+            <div class="shadow card loan-card">
+                <div class="p-4 card-body">
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <h1 class="card-title h3 mb-3">Currently Active & Open</h1>
-                            <h2 class="display-4 mb-3 loan-amount">K {{ number_format($loan->amount, 2, '.', ',') }}</h2>
+                            <h1 class="mb-3 card-title h3">Currently Active & Open</h1>
+                            <h2 class="mb-3 display-4 loan-amount">K {{ number_format($loan->amount, 2, '.', ',') }}</h2>
 
                             <br>
-                            <p class="card-title h3 mb-3">Pending Repayment Amount</p>
-                            <h5 class="display-4 mb-3 text-info loan-amount">K {{ number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id), 2, '.', ',') }}</h5>
+                            <p class="mb-3 card-title h3">Pending Repayment Amount</p>
+                            <h5 class="mb-3 display-4 text-info loan-amount">K {{ number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan), 2, '.', ',') }}</h5>
                             <div class="d-flex align-items-center">
                                 <span class="badge bg-success status-badge me-3">Active</span>
-                                <p class="text-muted mb-0">
+                                <p class="mb-0 text-muted">
                                     <i class="bi bi-info-circle me-2"></i>
                                     Loan status: Open
                                 </p>
                             </div>
                         </div>
-                        <div class="col-md-4 mt-4 mt-md-0">
+                        <div class="mt-4 col-md-4 mt-md-0">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="auto">
                                 <circle cx="100" cy="100" r="80" fill="#e0e7ff"/>
                                 <path d="M100 20v160M20 100h160" stroke="#3b82f6" stroke-width="12" stroke-linecap="round"/>

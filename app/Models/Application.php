@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\CalculatorTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 class Application extends Model
 {
     use HasFactory;
+    use CalculatorTrait;
 
     protected $fillable = [
 
@@ -217,25 +219,31 @@ class Application extends Model
     }
 
     //important
-    public static function payback($principal, $duration, $product_id = null){
+    public static function payback($principal, $duration, $product_id = null, $loan = null){
+        $instance = new self();
+        $data = $instance->calculateAmortizationSchedule($principal, $duration, $loan->loan_product_id, $loan);
 
-        
-        $product = LoanProduct::where('id', $product_id)->with([
-            'disbursed_by.disbursed_by',
-            'interest_methods.interest_method',
-            'interest_types.interest_type',
-            'loan_accounts.account_payment',
-            'loan_status.status',
-            'loan_decimal_places',
-            'service_fees.service_charge'
-            ])->first();
+        // dd($data);
+        // $product = LoanProduct::where('id', $product_id)->with([
+        //     'disbursed_by.disbursed_by',
+        //     'interest_methods.interest_method',
+        //     'interest_types.interest_type',
+        //     'loan_accounts.account_payment',
+        //     'loan_status.status',
+        //     'loan_decimal_places',
+        //     'service_fees.service_charge'
+        // ])->first();
 
-        $rate = (float)$product->def_loan_interest / 100;
-        $interest = ($principal * $rate * $duration);
-        $payback = $principal + $interest;
-        return number_format($payback, 2, '.', '');
-
-
+        // $rate = (float)$product->def_loan_interest / 100;
+        // $interest = ($principal * $rate * $duration);
+        // $payback = $principal + $interest;
+        return number_format($instance->getAveragePayment($data), 2, '.', '');
+    }
+    public static function getAveragePayment($amortizationSchedule)
+    {
+        $payments = array_column($amortizationSchedule, 'payment');
+        $averagePayment = array_sum($payments) ;
+        return $averagePayment;
     }
 
 
@@ -245,8 +253,6 @@ class Application extends Model
         return number_format($finalPayback, 2, '.', '');
     }
 
-
-    // !important
     public static function paybackInstallment($principal, $duration, $product_id = null){
         $product = LoanProduct::where('id', $product_id)->with([
             'disbursed_by.disbursed_by',

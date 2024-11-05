@@ -1,11 +1,11 @@
 <div class="content-body">
     <div class="container-fluid">
-        <div class="bg-white p-3" style="border-radius: 16px;
+        <div class="p-3 bg-white" style="border-radius: 16px;
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
             <h1>Loan Repayment Tracker</h1>
             <h3>{{ $loan->application->type}} Loan</h3>
             <p>{{ $loan->application->fname.' '.$loan->application->lname}}
-            | Total Collectable K {{ App\Models\Application::payback($loan->application->amount, $loan->application->repayment_plan)}}
+            | Total Collectable K {{ App\Models\Application::payback($loan->application->amount, $loan->application->repayment_plan, $loan->loan_product_id, $loan)}}
                 
                 @if($loan->closed == 1)
                     <span class="badge badge-xxl light badge-info">
@@ -23,8 +23,8 @@
         <div style="
             border-radius: 16px;
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-            " class=" bg-white mt-2 col-xl-12 col-lg-12 col-sm-12 col-xs-12">
-            <div class="history-tl-container bg-white">
+            " class="mt-2 bg-white col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="bg-white history-tl-container">
               <ul class="tl">
                 @forelse ($loan->loan_installments as $key => $installment)
                     <li class="tl-item" ng-repeat="item in retailer_history">

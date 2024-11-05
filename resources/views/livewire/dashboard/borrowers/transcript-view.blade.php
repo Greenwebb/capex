@@ -34,13 +34,13 @@
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" class="container-xxl ">
 
-            <div class="card mb-5 mb-xl-8 container-xxl">
+            <div class="mb-5 card mb-xl-8 container-xxl">
 
                 <div class="card-body pt-15">
 
-                    <div class="d-flex flex-center flex-column mb-5">
+                    <div class="mb-5 d-flex flex-center flex-column">
                         <div class="flex flex-center flex-column">
-                            <div class="symbol symbol-100px symbol-circle mb-7 bg-primary p-4">
+                            <div class="p-4 symbol symbol-100px symbol-circle mb-7 bg-primary">
                                 @if($data->profile_photo_path == null)
                                     @if($data->fname != null && $data->lname != null)
                                         <span class="text-white">{{ $data->fname[0].' '.$data->lname[0] }}</span>
@@ -52,11 +52,11 @@
                                 @endif
                             </div>
 
-                            <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">
+                            <a href="#" class="mb-1 text-gray-800 fs-3 text-hover-primary fw-bold">
                                 {{ $data->fname.' '.$data->lname }}
                             </a>
 
-                            {{-- <div class="fs-5 fw-semibold text-muted mb-6">
+                            {{-- <div class="mb-6 fs-5 fw-semibold text-muted">
                                 @foreach ($data->roles as $role)
                                     @if($role->name == 'user')
                                     <span>Borrower</span>
@@ -66,16 +66,16 @@
                                 @endforeach
                             </div> --}}
                         </div>
-                        <div class="d-flex flex-wrap gap">
+                        <div class="flex-wrap d-flex gap">
                             @include('livewire.dashboard.borrowers.__parts.stats')
-                            {{-- <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
-                                <div class="fs-4 fw-bold text-gray-700">
+                            {{-- <div class="px-3 py-3 mb-3 border border-gray-300 border-dashed rounded">
+                                <div class="text-gray-700 fs-4 fw-bold">
                                     <span class="w-50px">K {{ App\Models\Loans::loan_balance($data->loans->first()->id) }}</span>
                                 </div>
-                                <small class="fw-semibold text-xs text-muted">Pending Repayment</small>
+                                <small class="text-xs fw-semibold text-muted">Pending Repayment</small>
                             </div>
-                            <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
-                                <div class="fs-4 fw-bold text-gray-700">
+                            <div class="px-3 py-3 mb-3 border border-gray-300 border-dashed rounded">
+                                <div class="text-gray-700 fs-4 fw-bold">
                                     <span class="w-50px">K {{ App\Models\Loans::customer_total_paid($data->id) }}</span>
                                 </div>
                                 <div class="fw-semibold text-muted">Settled Repayment Amount</div>
@@ -85,7 +85,7 @@
 
 
                     <div id="kt_customer_view_details" class="collapse show">
-                        <div class="details-container py-5 fs-6">
+                        <div class="py-5 details-container fs-6">
                             <div class="details-column">
                                 <div class="details-item">
                                     <div class="fw-bold">Account ID</div>
@@ -132,18 +132,18 @@
                     </div>
                     <br>
                     {{-- Loan History --}}
-                    <div class="d-flex flex-stack fs-4 py-3">
+                    <div class="py-3 d-flex flex-stack fs-4">
                         <div class="fw-bold rotate collapsible" data-bs-toggle="collapse" href="#kt_customer_view_details" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">Loan History
-                            <span class="ms-2 rotate-180">
+                            <span class="rotate-180 ms-2">
                                 <i class="ki-duotone ki-down fs-3"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="separator separator-dashed my-3"></div>
+                    <div class="my-3 separator separator-dashed"></div>
                     <div id="kt_customer_view_details" class="collapse show">
 
-                        <table id="kt_customer_view_statement_table_1" class="table align-middle table-row-dashed fs-6 text-gray-600 fw-semibold gy-4">
-                            <thead class="border-bottom border-gray-200">
+                        <table id="kt_customer_view_statement_table_1" class="table text-gray-600 align-middle table-row-dashed fs-6 fw-semibold gy-4">
+                            <thead class="border-gray-200 border-bottom">
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                     <th class="w-100px">Date</th>
                                     <th class="w-100px">Loan</th>
@@ -162,9 +162,9 @@
                                         <a href="#" class="text-gray-600 text-hover-primary">{{ $loan->loan_product->name }}</a>
                                     </td>
                                     <td> <b>{{ $loan->amount }}</b> </td>
-                                    <td class="text-danger text-xs">
+                                    <td class="text-xs text-danger">
                                         {{
-                                            number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id), 2, '.', ',')
+                                            number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan), 2, '.', ',')
                                         }}
                                     </td>
                                     <td>
@@ -191,18 +191,18 @@
 
                     <br>
                     {{-- Repayment History --}}
-                    <div class="d-flex flex-stack fs-4 py-3">
+                    <div class="py-3 d-flex flex-stack fs-4">
                         <div class="fw-bold rotate collapsible" data-bs-toggle="collapse" href="#kt_customer_view_details" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">Repayments History
-                            <span class="ms-2 rotate-180">
+                            <span class="rotate-180 ms-2">
                                 <i class="ki-duotone ki-down fs-3"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="separator separator-dashed my-3"></div>
+                    <div class="my-3 separator separator-dashed"></div>
                     <div id="kt_customer_view_details" class="collapse show">
                         <!--begin::Table-->
                         <table class="table align-middle table-row-dashed gy-5" id="kt_table_customers_payment">
-                            <thead class="border-bottom border-gray-200">
+                            <thead class="border-gray-200 border-bottom">
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                     <th class="w-100px">Date</th>
                                     <th class="w-100px">Loan</th>
@@ -212,18 +212,18 @@
                                     <th class="w-100px">Status</th>
                                 </tr>
                             </thead>
-                            <tbody class="fs-6 fw-semibold text-gray-600">
+                            <tbody class="text-gray-600 fs-6 fw-semibold">
                                 @forelse (App\Models\Transaction::customer_transactions($data->id) as $item)
                                 <tr>
                                     <td>{{ $item->created_at->toFormattedDateString() }}</td>
                                     <td>
-                                        <a href="#" class="text-gray-600 text-hover-primary mb-1">{{ $item->application->loan_product->name }}</a>
+                                        <a href="#" class="mb-1 text-gray-600 text-hover-primary">{{ $item->application->loan_product->name }}</a>
                                     </td>
                                     <td><b>K {{ $item->application->amount }}</b></td>
                                     <td >
                                         <a href="#" class="bg-active-light-primary">
                                         K {{
-                                            number_format(App\Models\Application::payback($item->application->amount, $item->application->repayment_plan, $item->application->loan_product_id), 2, '.', ',')
+                                            number_format(App\Models\Application::payback($item->application->amount, $item->application->repayment_plan, $item->application->loan_product_id, $loan), 2, '.', ',')
                                         }}
                                         </a>
                                     </td>
@@ -248,17 +248,17 @@
                     </div>
                     <br>
                     {{-- Loan History --}}
-                    <div class="d-flex flex-stack fs-4 py-3">
+                    <div class="py-3 d-flex flex-stack fs-4">
                         <div class="fw-bold rotate collapsible" data-bs-toggle="collapse" href="#kt_customer_view_details" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
                             Next of Kin
-                            <span class="ms-2 rotate-180">
+                            <span class="rotate-180 ms-2">
                                 <i class="ki-duotone ki-down fs-3"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="separator separator-dashed my-3"></div>
+                    <div class="my-3 separator separator-dashed"></div>
                     <div id="kt_customer_view_details" class="collapse show">
-                        <table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="kt_table_customers_logs">
+                        <table class="table text-gray-600 align-middle table-row-dashed fw-semibold fs-6 gy-5" id="kt_table_customers_logs">
                             <tbody>
                                 @forelse (App\Models\NextOfKing::customer_nok($data->id) as $refs)
                                 <tr>

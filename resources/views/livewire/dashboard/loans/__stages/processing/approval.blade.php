@@ -64,7 +64,7 @@
                 <div class="col-lg-3 col-sm-6">
                     <div>
                         <p class="mb-2 text-uppercase fw-medium">Est. Repayment Amount :</p>
-                        <h5 class="mb-0 fs-15">{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id) }}</h5>
+                        <h5 class="mb-0 fs-15">{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan_product->id, $loan) }}</h5>
                     </div>
                 </div>
 
