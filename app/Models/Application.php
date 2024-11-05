@@ -224,7 +224,7 @@ class Application extends Model
         if($principal){
             $instance = new self();
             $data = $instance->calculateAmortizationSchedule($principal, $duration, $loan->loan_product_id, $loan);
-    
+
             // dd($data);
             // $product = LoanProduct::where('id', $product_id)->with([
             //     'disbursed_by.disbursed_by',
@@ -235,7 +235,7 @@ class Application extends Model
             //     'loan_decimal_places',
             //     'service_fees.service_charge'
             // ])->first();
-    
+
             // $rate = (float)$product->def_loan_interest / 100;
             // $interest = ($principal * $rate * $duration);
             // $payback = $principal + $interest;
@@ -247,7 +247,10 @@ class Application extends Model
     public static function getAveragePayment($amortizationSchedule)
     {
         $payments = array_column($amortizationSchedule, 'payment');
-        $averagePayment = array_sum($payments) ;
+
+        // dd($payments);
+        $averagePayment = array_sum($payments);
+        // dd($averagePayment);
         return $averagePayment;
     }
 

@@ -22,7 +22,7 @@ class LoanProductController extends Controller
     public function getLoanCategories($loanTypeId)
     {
         $loanCategories = LoanChildType::where('loan_type_id', $loanTypeId)->get();
-    
+
         return response()->json($loanCategories);
     }
 
@@ -39,7 +39,7 @@ class LoanProductController extends Controller
         }
     }
 
-    
+
     public function create_loan_product(Request $request)
     {
         // dd($request);
@@ -71,7 +71,7 @@ class LoanProductController extends Controller
                 'def_num_of_repayments' => $request->input('default_num_of_repayments'),
                 'max_num_of_repayments' => $request->input('maximum_num_of_repayments')
             ]);
-    
+
             // Interest Types
             $a = LoanInterestType::create([
                 'interest_type_id' => $request->input('loan_interest_type'),
@@ -91,7 +91,7 @@ class LoanProductController extends Controller
                 'value' => $request->input('loan_decimal_place'),
                 'loan_product_id' => $loan_product->id
             ]);
-            
+
 
             // Disbursed By
             foreach ($request->input('loan_disbursed_by') as $value) {
@@ -100,7 +100,7 @@ class LoanProductController extends Controller
                     'loan_product_id' => $loan_product->id
                 ]);
             }
-            
+
             // Repayment Cycles
             foreach ($request->input('loan_repayment_cycle') as $value) {
                 LoanRepaymentCycle::create([
@@ -183,7 +183,6 @@ class LoanProductController extends Controller
                     'crb_product_id' => $value
                 ]);
             }
-
             // Disbursed By
             foreach ($request->input('loan_disbursed_by', []) as $value) {
                 LoanDisbursedBy::updateOrCreate(
@@ -192,11 +191,15 @@ class LoanProductController extends Controller
                 );
             }
 
-            // Interest Methods;
+            // Update Interest Method
             LoanInterestMethod::updateOrCreate(
-                ['loan_product_id' => $request->input('loan_product_id')],
-                ['interest_method_id' => $request->input('loan_interest_method'), 'loan_product_id' => $request->input('loan_product_id')]
+                ['loan_product_id' => $request->input('loan_product_id')], // Search criteria
+                [
+                    'interest_method_id' => (int)$request->input('loan_interest_method'), // Ensure integer ID
+                    'loan_product_id' => $request->input('loan_product_id')
+                ]
             );
+
 
             // Interest Types
             LoanInterestType::updateOrCreate(
@@ -248,6 +251,7 @@ class LoanProductController extends Controller
             return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-types']);
 
         } catch (\Throwable $th) {
+            dd($th);
             Session::flash('error', "Failed. " . $th->getMessage());
             return redirect()->route('item-settings', ['confg' => 'loan', 'settings' => 'loan-types']);
         }
@@ -260,7 +264,7 @@ class LoanProductController extends Controller
             // dd($data);
             // Processing
             foreach (($data['processing']) as $key => $value) {
-                
+
                 LoanStatus::create(
                     [
                         'loan_product_id' => $data['loan_id'],
@@ -281,7 +285,7 @@ class LoanProductController extends Controller
                     ]
                 );
             }
-    
+
             // Defaulted
             foreach (($data['defaulted']) as $key => $value) {
                 LoanStatus::create(
@@ -293,7 +297,7 @@ class LoanProductController extends Controller
                     ]
                 );
             }
-    
+
             // Denied
             foreach (($data['denied']) as $key => $value) {
                 LoanStatus::create(
@@ -305,7 +309,7 @@ class LoanProductController extends Controller
                     ]
                 );
             }
-    
+
             // Not Taken Up
             foreach (($data['not_taken_up']) as $key => $value) {
                 LoanStatus::create(
@@ -317,7 +321,7 @@ class LoanProductController extends Controller
                     ]
                 );
             }
-            
+
             Session::flash('success', "Loan statuses created successfully.");
             return redirect()->route('item-settings', ['confg' => 'loan','settings' => 'loan-types']);
         } catch (\Throwable $th) {

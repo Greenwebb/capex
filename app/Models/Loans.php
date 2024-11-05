@@ -81,7 +81,6 @@ class Loans extends Model
 
     // customer repayment balance
     public static function customer_balance($user_id){
-
         $loans = Application::with('loan')
             ->where('status', 1)
             ->where('complete', 1)
@@ -94,7 +93,6 @@ class Loans extends Model
             $payback += Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id);
             $amount_paid += Transaction::where('application_id', $loan->id)->first()->amount_settled;
         }
-
         return $payback - $amount_paid;
     }
 

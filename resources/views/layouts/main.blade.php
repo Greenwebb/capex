@@ -89,7 +89,7 @@
                 </div>
 
                 <button type="button" class="px-3 text-white btn btn-sm fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
-                    <span class="text-white  hamburger-icon">
+                    <span class="text-white hamburger-icon">
                         <span  class='bg-white'></span>
                         <span class='bg-white'></span>
                         <span class='bg-white'></span>
@@ -302,7 +302,7 @@
                                             All
                                         </a>
                                     </li>
-                                    <li class="nav-item waves-effect waves-light">
+                                    {{-- <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link" data-bs-toggle="tab" href="#messages-tab" role="tab" aria-selected="false">
                                             Messages
                                         </a>
@@ -311,7 +311,7 @@
                                         <a class="nav-link" data-bs-toggle="tab" href="#alerts-tab" role="tab" aria-selected="false">
                                             Alerts
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
 
@@ -420,8 +420,8 @@
                                     </div> --}}
 
                                     <div class="my-3 text-center view-all">
-                                        <button type="button" class="btn btn-soft-success waves-effect waves-light">View
-                                            All Notifications <i class="align-middle ri-arrow-right-line"></i></button>
+                                        <a href="{{ route('notifications') }}" type="button" class="btn btn-soft-success waves-effect waves-light">View
+                                            All Notifications <i class="align-middle ri-arrow-right-line"></i></a>
                                     </div>
                                 </div>
 
@@ -431,7 +431,7 @@
                                 <div data-simplebar style="max-height: 300px;" class="pe-2">
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="public/assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            {{-- <img src="public/assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic"> --}}
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">James Lemire</h6>
@@ -454,7 +454,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="public/assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            {{-- <img src="public/assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic"> --}}
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
@@ -478,7 +478,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="public/assets/images/users/avatar-6.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            {{-- <img src="public/assets/images/users/avatar-6.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic"> --}}
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6>
@@ -502,7 +502,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="public/assets/images/users/avatar-8.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            {{-- <img src="public/assets/images/users/avatar-8.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic"> --}}
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>

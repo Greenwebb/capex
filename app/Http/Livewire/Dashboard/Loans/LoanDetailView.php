@@ -79,7 +79,7 @@ class LoanDetailView extends Component
                 'release_date' => Carbon::now()->format('d-m-Y'),  // Formatting date as Day-Month-Year
             ];
             // dd($data);
-            $this->amortization_table = $this->calculateEqualInstallment($data);
+            // $this->amortization_table = $this->calculateEqualInstallment($data);
 
             // dd($this->amortization_table);
         } catch (\Throwable $th) {
