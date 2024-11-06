@@ -18,7 +18,7 @@ trait CalculatorTrait{
             $info = $this->get_LoanProductDetails($loanProductId);
 
             // dd($info->interest_methods->first()->interest_method->name);
-            switch ($info->interest_methods->first()->interest_method->name) {
+            switch ($info->interest_methods?->first()->interest_method->name) {
 
                 case 'Flat Rate':
                         return $this->flatRateAmortization($loanAmount, $loanTermYears, $info, $loan);

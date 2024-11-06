@@ -589,22 +589,19 @@ trait LoanTrait{
 
             if ($existingApplications->isEmpty()) {
                 $application = Application::create($data);
-                if ($data['email']) {
-                    $mail = [
-                        'name' => "{$data['fname']} {$data['lname']}",
-                        'to' => $data['email'],
-                        'from' => 'admin@capexfinancialservices.org',
-                        'phone' => $data['phone'],
-                        'payback' => Application::payback($data['amount'], $data['repayment_plan']),
-                        'subject' => "{$data['type']} Loan Application",
-                        'message' => "Thank you for choosing us. Your loan request is submitted. Sign in with username {$data['email']} and password is 'capex+you' to check the status. We value your trust and are committed to your satisfaction.",
-                        'message2' => "Capex Finance"
-                    ];
-                    // Mail::to($data['email'])->send(new LoanApplication($mail));
-                }
 
-                // dd(!empty($data['skip_to']));
-                if(!empty($data['skip_to'])){
+                if($data['skip_to'] == 'Normal...'){
+                    ApplicationStage::create([
+                        'application_id' => $application->id,
+                        'loan_status_id' => 1,
+                        'state' => 'current',
+                        'status' => 'processing' ?? 'verification', // Using the status retrieved from the query
+                        'stage' => 'processing',
+                        'prev_status' => 'current',
+                        'curr_status' => '',
+                        'position' => 1
+                    ]);
+                }else{
                     $status = Status::where('id', $data['skip_to'])->first();
                     ApplicationStage::create([
                         'application_id' => $application->id,
@@ -616,30 +613,26 @@ trait LoanTrait{
                         'curr_status' => '',
                         'position' => 1
                     ]);
-                }else{
-                    $status = DB::table('loan_statuses')
-                    ->join('statuses', 'loan_statuses.status_id', '=', 'statuses.id')
-                    ->select('loan_statuses.*', 'statuses.stage')
-                    ->where('loan_statuses.loan_product_id', $data['loan_product_id'])
-                    ->orderBy('loan_statuses.id', 'asc')
-                    ->first();
-                    ApplicationStage::create([
-                        'application_id' => $application->id,
-                        'loan_status_id' => 1,
-                        'state' => 'current',
-                        'status' => $status->stage ?? 'verification', // Using the status retrieved from the query
-                        'stage' => 'processing',
-                        'prev_status' => 'current',
-                        'curr_status' => '',
-                        'position' => 1
-                    ]);
+                }
+
+                if ($data['email']) {
+                    $mail = [
+                        'name' => "{$data['fname']} {$data['lname']}",
+                        'to' => $data['email'],
+                        'from' => 'admin@capexfinancialservices.org',
+                        'phone' => $data['phone'],
+                        'payback' => Application::payback($data['amount'], $data['repayment_plan'], $data['loan_product_id'], $data),
+                        'subject' => "{$data['type']} Loan Application",
+                        'message' => "Thank you for choosing us. Your loan request is submitted. Sign in with username {$data['email']} and password is 'capex+you' to check the status. We value your trust and are committed to your satisfaction.",
+                        'message2' => "Capex Finance"
+                    ];
+                    Mail::to($data['email'])->send(new LoanApplication($mail));
                 }
                 return $application->id;
             }
             return 'exists';
         } catch (\Throwable $th) {
-            report($th);
-            // return 'error';
+            dd($th);
         }
     }
 

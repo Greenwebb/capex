@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\ApplicationStage;
 use App\Models\Loans;
 use App\Models\User;
 use App\Models\Wallet;
@@ -18,6 +19,30 @@ use Illuminate\Support\Str;
 class LoanRequestController extends Controller
 {
     use CRBTrait, EmailTrait, WalletTrait, LoanTrait;
+
+    public function initStage(Request $request){
+        try {
+            if ($request->input('loan_id')) {
+                ApplicationStage::create([
+                    'application_id' => (int)$request->input('loan_id'),
+                    'loan_status_id' => 1,
+                    'state' => 'current',
+                    'status' => 'processing',
+                    'stage' => 'processing',
+                    'prev_status' => 'current',
+                    'curr_status' => '',
+                    'position' => 1
+                ]);
+
+                return response()->json(['success' => true, 'message' => 'Application initialized successfully.'], 200);
+            }
+
+            return response()->json(['success' => false, 'error' => 'No ID provided'], 400);
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false, 'error' => 'An error occurred', 'message' => $th->getMessage()], 500);
+        }
+
+    }
 
     public function getLoan($id){
         $data = $this->get_loan_details($id);

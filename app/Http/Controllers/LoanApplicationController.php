@@ -117,13 +117,14 @@ class LoanApplicationController extends Controller
                 $this->createQuickLoan($data);
             }
 
-
             if (isset($data['nokfname'])) {
                 $this->updateKinUser($data);
             }
+
             if (isset($data['rp_fname'])) {
                 $this->createRelatedParties($data);
             }
+
             if (isset($data['g_lname']) && isset($data['g_fname'])) {
                 $this->createGuarantors($data);
             }

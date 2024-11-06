@@ -1,12 +1,12 @@
 <div class="page-content">
     <div class="w-full">
-            <div class="text-center p-2 d-flex justify-content-center">
+            <div class="p-2 text-center d-flex justify-content-center">
                 <h4>Application Loan Assement</h4>
             </div>
 
-            <div class="step-arrow-nav mb-4">
-                <ul class="nav nav-pills custom-nav nav-justified rounded text-white" style="background-color: #053956; color:#fff" role="tablist">
-                    
+            <div class="mb-4 step-arrow-nav">
+                <ul class="text-white rounded nav nav-pills custom-nav nav-justified" style="background-color: #053956; color:#fff" role="tablist">
+
                     @if(true)
                     {{-- @dd($current) --}}
                     @if($loan_product->loan_status !== null || $loan_product !== null)
@@ -48,14 +48,16 @@
                             @default
                             @break
                         @endswitch
+                    @else
                     @endif
+
                     @endif
                 </ul>
             </div>
 
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="steparrow-gen-info" role="tabpanel" aria-labelledby="steparrow-gen-info-tab">
-                    
+
                     @if(true)
                         {{-- @if($loan->complete == 1) --}}
                         @switch(strtolower($current->stage))
@@ -114,10 +116,10 @@
                             <div class="modal fade show" id="kt_modal_decline_warning" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered mw-650px">
                                     <div class="modal-content">
-                                        <div class="modal-body py-2">
-                                            <div class="settings mb-2">
+                                        <div class="py-2 modal-body">
+                                            <div class="mb-2 settings">
                                                 <div class="text-danger">
-                                                    <h1 class="text-info fw-bold font-bold">No Loan Products or Loan Product has no statuses </h1>
+                                                    <h1 class="font-bold text-info fw-bold">No Loan Products or Loan Product has no statuses </h1>
                                                     <p>Note: This loan is current active and is pending for repayment has collection.</p>
                                                 </div>
                                             </div>
@@ -133,7 +135,9 @@
             </div>
     </div>
 
-    
+   @if (!strtolower($current?->status))
+   @include('livewire.dashboard.loans.__parts.init-stage')
+   @endif
 
     @include('livewire.dashboard.loans.__modals.rollback-warning')
     @include('livewire.dashboard.loans.__modals.review-warning')
