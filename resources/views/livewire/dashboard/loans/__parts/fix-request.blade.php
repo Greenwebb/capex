@@ -2,7 +2,7 @@
     <div class="button-container">
         <span id="loanId" style="display:none;">{{ $loan->id }}</span>
         <button id="initializeButton" class="button">
-            <span class="button-text">Fix Open Application</span>
+            <span class="button-text">Reset Request</span>
             <div class="button-loader">
                 <svg class="spinner" viewBox="0 0 50 50">
                     <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
