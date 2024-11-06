@@ -20,6 +20,39 @@ class LoanRequestController extends Controller
 {
     use CRBTrait, EmailTrait, WalletTrait, LoanTrait;
 
+    public function resetRequest(Request $request){
+        try {
+            if ($request->input('loan_id')) {
+                $application = Application::where('id', $request->input('loan_id'))->first();
+                $application->update([
+                    'status' => 2,
+                    'closed' => 0
+                ]);
+                ApplicationStage::updateOrCreate(
+                    [
+                        'application_id' => (int)$request->input('loan_id')
+                    ],
+                    [
+                        'loan_status_id' => 1,
+                        'state' => 'current',
+                        'status' => 'processing',
+                        'stage' => 'processing',
+                        'prev_status' => 'current',
+                        'curr_status' => '',
+                        'position' => 1
+                    ]
+                );
+
+
+                return response()->json(['success' => true, 'message' => 'Application initialized successfully.'], 200);
+            }
+
+            return response()->json(['success' => false, 'error' => 'No ID provided'], 400);
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false, 'error' => 'An error occurred', 'message' => $th->getMessage()], 500);
+        }
+
+    }
     public function initStage(Request $request){
         try {
             if ($request->input('loan_id')) {

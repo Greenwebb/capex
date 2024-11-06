@@ -44,6 +44,7 @@ Route::post('apply-loan', [LoanApplicationController::class, 'websiteApply']);
 Route::post('apply-for-loan', [LoanApplicationController::class, 'new_loan']);
 Route::get('get-my-loans/{id}', [LoanRequestController::class, 'getMyLoans']);
 Route::post('initialize-application', [LoanRequestController::class, 'initStage']);
+Route::post('fix-application', [LoanRequestController::class, 'resetRequest']);
 
 Route::get('get-my-loan-balance/{loan_id}', [LoanRequestController::class, 'loanBalance']);
 Route::get('get-my-balance/{user_id}', [LoanRequestController::class, 'customerBalance']);
