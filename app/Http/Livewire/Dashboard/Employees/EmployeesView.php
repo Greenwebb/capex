@@ -33,7 +33,7 @@ class EmployeesView extends Component
         $this->authorize('view employees');
         $this->user_role = Role::pluck('name')->toArray();
         $this->permissions = Permission::get();
-        $roles = Role::orderBy('id','desc')->paginate(5);
+        $roles = Role::orderBy('id','desc')->get();
 
 
         $users = User::orderBy('id','desc')->get();

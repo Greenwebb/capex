@@ -730,7 +730,7 @@ trait LoanTrait{
                 ->where('applications.complete', '=', 1)
                 ->where('applications.user_id', '=', auth()->user()->id)
                 ->where('loan_installments.next_dates', '<', now())
-                ->whereNotNull('applications.type')
+                ->whereNotNull('applications.loan_product_id')
                 ->select('loans.id','users.fname', 'users.lname', 'applications.*', 'loan_installments.next_dates')
                 ->get();
         }else{
@@ -741,7 +741,7 @@ trait LoanTrait{
                 ->where('applications.status', '=', 1)
                 ->where('applications.complete', '=', 1)
                 ->where('loan_installments.next_dates', '<', now())
-                ->whereNotNull('applications.type')
+                ->whereNotNull('applications.loan_product_id')
                 ->select('loans.id','users.fname', 'users.lname', 'applications.*', 'loan_installments.next_dates')
                 ->get();
         }

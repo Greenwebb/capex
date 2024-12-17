@@ -27,7 +27,7 @@ class UserRolesView extends Component
         $permissions = Permission::whereNotNull('group')->get()->groupBy('group');
 
         // dd($this->permissions);
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = Role::orderBy('id','DESC')->get();
 
         return view('livewire.dashboard.settings.user-roles-view', [
             'roles' => $roles,

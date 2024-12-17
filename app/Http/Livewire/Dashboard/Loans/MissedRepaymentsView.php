@@ -26,11 +26,11 @@ class MissedRepaymentsView extends Component
         // $this->authorize('view loan relatives');
         $this->user_role = Role::pluck('name')->toArray();
         $this->permissions = Permission::get();
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        $users = User::latest()->paginate(7);
+        $roles = Role::orderBy('id','DESC')->get();
+        $users = User::latest()->get();
         $this->mssd_repays = $this->missed_repayments();
 
-        
+
         if (auth()->user()->hasRole('user')) {
             return view('livewire.dashboard.loans.missed-repayments-view',[
                 'users' => $users,
@@ -42,8 +42,8 @@ class MissedRepaymentsView extends Component
                 'roles' => $roles
             ])->layout('layouts.main');
         }
-    }    
-    
+    }
+
     public function exportMRLoans(){
         return Excel::download(new MissedRepaymentExport, 'Missed Repayment Loans.xlsx');
     }

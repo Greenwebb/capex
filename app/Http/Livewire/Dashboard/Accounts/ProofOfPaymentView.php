@@ -22,7 +22,7 @@ class ProofOfPaymentView extends Component
             $proof = PaymentProof::findOrFail($proofId);
             $proof->status = 'accepted'; // Assuming you have a 'status' column
             $proof->save();
-    
+
             Transaction::create([
                 'application_id' => $proof->loan_id,
                 'amount_settled' => $proof->amount,
@@ -33,7 +33,7 @@ class ProofOfPaymentView extends Component
                 'method' => $proof->method,
                 'user_id' => $proof->user_id,
             ]);
-    
+
             session()->flash('message', 'Payment proof accepted successfully.');
         } catch (\Throwable $th) {
            dd($th);
@@ -54,7 +54,7 @@ class ProofOfPaymentView extends Component
 
     public function render()
     {
-        $paymentProofs = PaymentProof::latest()->paginate(10);
+        $paymentProofs = PaymentProof::latest()->get();
         return view('livewire.dashboard.accounts.proof-of-payment-view', [
             'paymentProofs' => $paymentProofs,
         ])

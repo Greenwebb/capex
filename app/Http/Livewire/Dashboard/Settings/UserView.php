@@ -29,8 +29,8 @@ class UserView extends Component
         // $this->authorize('view system settings');
         $this->user_role = Role::pluck('name')->toArray();
         $this->permissions = Permission::get();
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        $users = User::latest()->paginate(7);
+        $roles = Role::orderBy('id','DESC')->get();
+        $users = User::latest()->get();
         return view('livewire.dashboard.settings.user-view',[
             'users' => $users,
             'roles' => $roles
@@ -119,7 +119,7 @@ class UserView extends Component
     }
 
     public function destory($id){
-        $user = User::find($id); 
+        $user = User::find($id);
         if ($user) {
             try {
                 $user->delete();

@@ -18,7 +18,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::paginate(8);
+        $roles = Role::get();
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -50,7 +50,7 @@ class RoleController extends Controller
                 'guard_name' => 'web'
             ]);
             $role->syncPermissions($request->toArray()['permission']);
-        
+
             Session::flash('attention', "New role created successfully.");
             return redirect()->route('roles');
         } catch (\Throwable $th) {
@@ -99,15 +99,15 @@ class RoleController extends Controller
         try {
             $data = $request->all();
             $role = Role::find($data['role_id']);
-    
+
             // dd($data['role_id']);
             $request->validate([
                 'name' => 'required',
             ]);
-    
+
             $role->update(['name' => $data['name']]);
             $role->syncPermissions($data['permission']);
-    
+
             // Assuming the update was successful
             return response()->json(['message' => 'Role updated successfully'], 200);
         } catch (\Exception $e) {
