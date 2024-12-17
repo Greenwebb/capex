@@ -6,6 +6,7 @@ use App\Models\LoanProduct;
 use App\Models\UserFile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\File;
 trait CalculatorTrait{
 

@@ -43,35 +43,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Livewire Assets URL
-    |--------------------------------------------------------------------------
-    |
-    | This value sets the path to Livewire JavaScript assets, for cases where
-    | your app's domain root is not the correct path. By default, Livewire
-    | will load its JavaScript assets from the app's "relative root".
-    |
-    | Examples: "/assets", "myurl.com/app".
-    |
-    */
-
-    'asset_url' => 'public',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Livewire App URL
-    |--------------------------------------------------------------------------
-    |
-    | This value should be used if livewire assets are served from CDN.
-    | Livewire will communicate with an app through this url.
-    |
-    | Examples: "https://my-app.com", "myurl.com/app".
-    |
-    */
-
-    'app_url' => env('APP_URL', 'http://localhost/loanman'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Livewire Endpoint Middleware Group
     |--------------------------------------------------------------------------
     |

@@ -34,7 +34,7 @@ class MakePaymentView extends Component
             // Update Borrower Balance
             $borrower_loan = Application::where('id', $this->loan_id)->first();
             $balance = Loans::loan_balance($borrower_loan->id);
-          
+
             if($this->amount <= $balance){
                 // Insert in company wallet
                 $this->repayLoanWalletFunds($this->amount);

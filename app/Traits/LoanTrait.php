@@ -245,7 +245,7 @@ trait LoanTrait{
                               ->with('loan_product')
                               ->whereNotNull('user_id')
                               ->orderByDesc('id')
-                              ->paginate($perPage);
+                              ->get();
         } else {
             switch ($type) {
                 case 'spooling':
@@ -255,7 +255,7 @@ trait LoanTrait{
                                       ->with('loan_product')
                                       ->whereNotNull('user_id')
                                       ->orderByDesc('id')
-                                      ->paginate($perPage);
+                                      ->get();
 
                 case 'manual':
                     // Paginated results for manual approvals
@@ -272,7 +272,7 @@ trait LoanTrait{
                                       ->orWhere('status', 0)
                                       ->whereNotNull('user_id')
                                       ->orderByDesc('id')
-                                      ->paginate($perPage);
+                                      ->get();
 
                 case 'auto':
                     // Example pagination for 'auto' case (You'll need to define the actual conditions)
@@ -280,12 +280,12 @@ trait LoanTrait{
                                       ->with('loan_product')
                                       ->whereNotNull('user_id')
                                       ->orderByDesc('id')
-                                      ->paginate($perPage);
+                                      ->get();
 
                 default:
                     // Handle default case if needed or return empty paginated result
                     return Application::where('id', null) // No results by default
-                                      ->paginate($perPage);
+                                      ->get();
             }
         }
     }
