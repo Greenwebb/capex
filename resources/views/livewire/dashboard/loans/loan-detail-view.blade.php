@@ -86,9 +86,6 @@
                                     @case('current loan')
                                         @include('livewire.dashboard.loans.__stages.open.current-loan')
                                     @break
-                                    @default
-                                        @include('livewire.dashboard.loans.__stages.open.current-due-today')
-                                    @break
                                 @endswitch
                             @break
 

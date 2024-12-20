@@ -27,8 +27,8 @@
                         <div class="col-12">
                             <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                                 <div class="flex-grow-1">
-                                    <h4 class="mb-1 fs-16">Good Morning, {{ auth()->user()->fname.' '.auth()->user()->lname }}!</h4>
-                                    <p class="mb-0 text-muted">Here's what's happening with your reports today.</p>
+                                    <h4 class="mb-1 fs-16">Welcome {{ auth()->user()->fname.' '.auth()->user()->lname }}!</h4>
+                                    <p class="mb-0 text-muted">Overview.</p>
                                 </div>
                                 <div class="mt-3 mt-lg-0">
                                     <form action="javascript:void(0);">

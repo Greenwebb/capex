@@ -2,7 +2,7 @@
     <div class="button-container">
         <span id="loanId" style="display:none;">{{ $loan->id }}</span>
         <button id="initializeButton" class="button">
-            <span class="button-text">Initialize Application</span>
+            <span class="button-text">Reset Loan Request</span>
             <div class="button-loader">
                 <svg class="spinner" viewBox="0 0 50 50">
                     <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: center;
     height: 50vh;
-    background-color: #f0f0f0;
+    background-color: #d72222;
     font-family: 'Inter', Arial, sans-serif;
     padding: 20px;
 }
