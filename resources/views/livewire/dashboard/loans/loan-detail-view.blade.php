@@ -83,12 +83,15 @@
 
                             @case('open')
 
-                                @dd($loan->status )
-                                @switch(strtolower($current->status))
-                                    @case('current loan')
-                                        @include('livewire.dashboard.loans.__stages.open.current-loan')
-                                    @break
-                                @endswitch
+                                @if($loan->status == 0 )
+                                @include('livewire.dashboard.loans.__parts.fix-request')
+                                @else
+                                    @switch(strtolower($current->status))
+                                        @case('current loan')
+                                            @include('livewire.dashboard.loans.__stages.open.current-loan')
+                                        @break
+                                    @endswitch
+                                @endif
                             @break
 
                             @case('denied')
