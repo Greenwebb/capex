@@ -207,6 +207,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     // ------- Loan Continue Completion
     Route::post('continue-loan', [LoanApplicationController::class, 'continue_loan'])->name('continue-loan');
+    Route::post('change-password', [UserController::class, 'changePassword'])->name('change-password');
+
 
 });
 

@@ -1,7 +1,53 @@
 <div style="width: 100%" class="w-full">
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 9999; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+    </style>
     <div>
+        <div>
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
         <div class="row">
             <div class="col-xxl-6 col-xl-6 col-lg-6">
+
                 <div class="">
                     <div  class="col-xxl-12">
                         <div class="d-flex align-items-center">
@@ -98,15 +144,7 @@
             </div>
         </div>
     </div>
-    {{-- <x-slot name="actions">
-        <x-jet-action-message class="mr-3" on="saved">
-            {{ __('Updating...') }}
-        </x-jet-action-message>
-        <br>
-        <x-jet-button wire:loading.attr="disabled" type="submit"  class="btn  btn-square btn-primary" wire:target="photo">
-            {{ __('Save Changes') }}
-        </x-jet-button>
-    </x-slot> --}}
+
     <div id="myModal" class="modal col-6">
         <!-- Modal Content -->
         <div class="modal-content" style="padding: 4%">
@@ -138,6 +176,41 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+
+
+    <div style="width: 100%" class="w-full">
+        <!-- Button to Open Modal -->
+        <button class="btn btn-xs btn-danger text-white" id="openPasswordModalBtn">Change Password</button>
+
+        <!-- Password Update Modal -->
+        <div id="passwordModal" class="modal col-6">
+            <div class="modal-content" style="padding: 4%">
+                <span style="float: right" class="modal-close" onclick="closePasswordModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                </span>
+                <form action="{{ route('change-password') }}" method="POST" class="row g-3">
+                    @csrf
+                    <div class="col-12">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" name="current_password" class="form-control" required />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">New Password</label>
+                        <input type="password" name="new_password" class="form-control" required />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" name="new_password_confirmation" class="form-control" required />
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-xs btn-bg waves-effect">Update Password</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -183,6 +256,23 @@
             }
         }
     </script>
+    <script>
+        var passwordModal = document.getElementById('passwordModal');
+        var openPasswordModalBtn = document.getElementById('openPasswordModalBtn');
 
+        openPasswordModalBtn.onclick = function () {
+            passwordModal.style.display = 'block';
+        };
+
+        function closePasswordModal() {
+            passwordModal.style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            if (event.target === passwordModal) {
+                closePasswordModal();
+            }
+        };
+    </script>
 
 </div>

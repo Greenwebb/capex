@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Traits\UserTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
 class UserController extends Controller
 {
     use EmailTrait, UserTrait;
@@ -187,9 +190,41 @@ class UserController extends Controller
             $user->phone = $input['phone'];
             $user->address = $input['address'];
             $user->save();
+
             return redirect()->back()->with('success', 'Profile photo updated successfully.');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'An error occurred while updating the profile photo. '.$th->getMessage());
         }
+    }
+
+    public function changePassword(Request $request)
+    {
+        // Validate the incoming request
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed', // Ensure new password is at least 8 characters and confirmed
+        ]);
+
+        if ($validator->fails()) {
+            // Flash the error messages to the session
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Check if the current password is correct
+        if (!Hash::check($request->input('current_password'), $user->password)) {
+            // Flash an error message to the session
+            return redirect()->back()->with('error', 'Current password is incorrect.')->withInput();
+        }
+
+        // Update the user's password
+        $user->forceFill([
+            'password' => Hash::make($request->input('new_password')),
+        ])->save();
+
+        // Flash a success message to the session
+        return redirect()->back()->with('success', 'Password updated successfully.');
     }
 }
