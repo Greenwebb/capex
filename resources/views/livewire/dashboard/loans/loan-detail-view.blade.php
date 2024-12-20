@@ -83,7 +83,7 @@
 
                             @case('open')
 
-                                @dd(strtolower($current->status))
+                                @dd($loan->status )
                                 @switch(strtolower($current->status))
                                     @case('current loan')
                                         @include('livewire.dashboard.loans.__stages.open.current-loan')
