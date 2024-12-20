@@ -17,6 +17,4 @@
             </div>
         </div>
     </div>
-
-   @include('livewire.dashboard.loans.__parts.fix-request')
 </div>

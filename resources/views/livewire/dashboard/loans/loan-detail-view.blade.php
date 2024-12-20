@@ -82,6 +82,8 @@
                             @break
 
                             @case('open')
+
+                                @dd(strtolower($current->stage))
                                 @switch(strtolower($current->status))
                                     @case('current loan')
                                         @include('livewire.dashboard.loans.__stages.open.current-loan')
@@ -133,7 +135,7 @@
     </div>
 
    @if (!strtolower($current?->status))
-   @include('livewire.dashboard.loans.__parts.init-stage')
+        @include('livewire.dashboard.loans.__parts.init-stage')
    @endif
 
     @include('livewire.dashboard.loans.__modals.rollback-warning')
