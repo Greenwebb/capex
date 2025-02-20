@@ -171,6 +171,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'An error occurred while updating the profile photo.');
         }
     }
+    
     public function updateProfile(Request $request)
     {
         try {

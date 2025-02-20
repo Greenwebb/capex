@@ -29,6 +29,8 @@ return [
 
     'view_path' => resource_path('views/livewire'),
 
+    'asset_url' => env('APP_URL').'/public',
+
     /*
     |--------------------------------------------------------------------------
     | Layout

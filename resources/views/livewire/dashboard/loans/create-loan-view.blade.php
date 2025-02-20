@@ -97,7 +97,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="fullnameInput" class="form-label">Principal Amount (K)
+                                    <label for="principalAmount" class="form-label">Principal Amount (K)
                                         <span data-bs-toggle="tooltip" data-bs-placement="top" title="Enter the total principal amount you need.">
                                             <i class="ri-information-line" style="cursor: pointer;"></i>
                                         </span>
@@ -105,10 +105,10 @@
                                             <i class="text-danger ri-asterisk"></i>
                                         </span>
                                     </label>
-                                    <input type="number" name="amount" class="form-control" placeholder="Principal Amount" required>
+                                    <input type="number" id="principalAmount" name="amount" class="form-control" placeholder="Principal Amount" required>
                                 </div>
                                 <script>
-                                    document.getElementById('fullnameInput').addEventListener('input', function(e) {
+                                    document.getElementById('principalAmount').addEventListener('input', function(e) {
                                         let value = e.target.value;
                                         // Remove any non-digit characters
                                         value = value.replace(/\D/g, '');
@@ -179,29 +179,29 @@
                                 <h5 class="mt-4 text-warning card-title flex-grow-1">Related Party</h5>
                                 <hr>
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Related party's First Name</label>
-                                    <input type="text" name="rp_fname" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <label for="relatedPartyFNInput" class="form-label">Related party's First Name</label>
+                                    <input type="text" name="rp_fname" class="form-control" id="relatedPartyFNInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Related party's Last Name</label>
-                                    <input type="text" name="rp_lname" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <label for="relatedPartyLNInput" class="form-label">Related party's Last Name</label>
+                                    <input type="text" name="rp_lname" class="form-control" id="relatedPartyLNInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Related party's Phone Number</label>
+                                    <label for="phone2" class="form-label">Related party's Phone Number</label>
                                     <input type="text" name="rp_phone" class="form-control" id="phone2" maxlength="10" placeholder="Enter your phone number"
                                     oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Related party's Email Address</label>
-                                    <input type="text" name="rp_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <label for="relatedPartyAdrssInput" class="form-label">Related party's Email Address</label>
+                                    <input type="text" name="rp_email" class="form-control" id="relatedPartyAdrssInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="mb-4 col-md-4">
-                                    <label for="inputState" class="form-label">Related party's Sex</label>
-                                    <select id="inputState" name="rp_gender" class="form-select" data-choices data-choices-sorting="true">
+                                    <label for="relatedPartySexInput" class="form-label">Related party's Sex</label>
+                                    <select id="relatedPartySexInput" name="rp_gender" class="form-select" data-choices data-choices-sorting="true">
                                         <option  value="">--select-</option>
                                         <option  value="Male">Male</option>
                                         <option  value="Female">Female</option>
@@ -209,31 +209,31 @@
                                 </div>
 
                                 <div class="col-md-4 ">
-                                    <label for="fullnameInput" class="form-label">Related party's Relationship</label>
-                                    <input type="text" name="rp_relation" class="form-control" id="fullnameInput" placeholder="Enter your Relationship">
+                                    <label for="relatedPartyRelInput" class="form-label">Related party's Relationship</label>
+                                    <input type="text" name="rp_relation" class="form-control" id="relatedPartyRelInput" placeholder="Enter your Relationship">
                                 </div>
 
                                 <br>
                                 <h5 class="mt-4 text-warning card-title flex-grow-1">Guarantor</h5>
                                 <hr>
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">First Name</label>
-                                    <input type="text" name="g_fname" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <label for="relatedPartyGFNInput" class="form-label">First Name</label>
+                                    <input type="text" name="g_fname" class="form-control" id="relatedPartyGFNInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Last Name</label>
-                                    <input type="text" name="g_lname" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <label for="relatedPartyGLNInput" class="form-label">Last Name</label>
+                                    <input type="text" name="g_lname" class="form-control" id="relatedPartyGLNInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Guarantor's Phone Number</label>
+                                    <label for="empphone2" class="form-label">Guarantor's Phone Number</label>
                                     <input type="number" name="g_phone" class="form-control" id="empphone2" placeholder="Enter your name" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="fullnameInput" class="form-label">Guarantor's Email Address</label>
-                                    <input type="text" name="g_email" class="form-control" id="fullnameInput" placeholder="Enter your name">
+                                    <label for="GAdrssInput" class="form-label">Guarantor's Email Address</label>
+                                    <input type="text" name="g_email" class="form-control" id="GAdrssInput" placeholder="Enter your name">
                                 </div>
 
                                 <div class="mb-4 col-md-4">
