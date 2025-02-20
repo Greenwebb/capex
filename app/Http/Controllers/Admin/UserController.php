@@ -60,7 +60,9 @@ class UserController extends Controller
             ]);
             $u = $user->create(array_merge($request->all(), [
                 'password' => bcrypt('@capex+2024'),
-                'active' => 1
+                'active' => 1,
+                'created_by' => auth()?->user()?->id,
+                'usource' => 'System'
             ]));
             $u->syncRoles($request->assigned_role);
             $this->uploadUserPhotos($request, $u);

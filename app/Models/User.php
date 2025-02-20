@@ -65,6 +65,7 @@ class User extends Authenticatable
         'nokdob',
         'nokaddress',
         'nokgender',
+        'created_by',
         'usource'
     ];
 
@@ -172,12 +173,17 @@ class User extends Authenticatable
     }
 
     public function transactions(){
-        return $this->hasMany(Transactions::class);
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function creator(){
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function nextkin(){
         return $this->hasMany(NextOfKing::class);
     }
+
     public function loanpackages(){
         return $this->hasMany(LoanPackage::class);
     }

@@ -23,6 +23,14 @@
 
     <!-- jsvectormap css -->
     <link href="public/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Air Datepicker  -->
+    <style>
+        .air-datepicker {
+            z-index: 999999 !important; /* Set a very high z-index */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.4.0/air-datepicker.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.4.0/air-datepicker.min.js"></script>
 
     <!--Swiper slider css-->
     <link href="public/assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
@@ -886,6 +894,73 @@
 
     <!-- JAVASCRIPT -->
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            new AirDatepicker('.smoothDatePicker', {
+                autoClose: true,
+                dateFormat: 'yyyy-MM-dd',
+                position: 'bottom left',
+                minDate: new Date(), // Prevent past dates
+                locale: {
+                    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    today: 'Today',
+                    clear: 'Clear',
+                    dateFormat: 'yyyy-MM-dd',
+                    timeFormat: 'hh:mm aa',
+                    firstDay: 0 // Sunday as the first day of the week
+                },
+                onSelect: function({ date }) {
+                    console.log('Selected date:', date);
+                }
+            });
+            
+            new AirDatepicker('.smoothDatePicker2', {
+                autoClose: true,
+                dateFormat: 'yyyy-MM-dd',
+                position: 'bottom left',
+                locale: {
+                    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    today: 'Today',
+                    clear: 'Clear',
+                    dateFormat: 'yyyy-MM-dd',
+                    timeFormat: 'hh:mm aa',
+                    firstDay: 0 // Sunday as the first day of the week
+                },
+                onSelect: function({ date }) {
+                    console.log('Selected date:', date);
+                }
+            });
+            
+            new AirDatepicker('.smoothDatePicker3', {
+                autoClose: true,
+                dateFormat: 'yyyy-MM-dd',
+                position: 'bottom left',
+                locale: {
+                    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    today: 'Today',
+                    clear: 'Clear',
+                    dateFormat: 'yyyy-MM-dd',
+                    timeFormat: 'hh:mm aa',
+                    firstDay: 0 // Sunday as the first day of the week
+                },
+                onSelect: function({ date }) {
+                    console.log('Selected date:', date);
+                }
+            });
+        });
+    </script>
     @livewireScripts
     <script src="public/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="public/assets/libs/simplebar/simplebar.min.js"></script>
@@ -923,7 +998,6 @@
     <script src="public/assets/js/pages/form-masks.init.js"></script>
     <!-- form wizard init -->
     <script src="public/assets/js/pages/form-wizard.init.js"></script>
-
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
@@ -979,9 +1053,9 @@
         flatpickr("#customerDob", {
             dateFormat: "Y-m-d", // Laravel's standard format
         });
-        flatpickr("#nokDob", {
-            dateFormat: "Y-m-d", // Laravel's standard format
-        });
+        // flatpickr("#nokDob", {
+        //     dateFormat: "Y-m-d", // Laravel's standard format
+        // });
         flatpickr("#dob", {
             dateFormat: "Y-m-d", // Laravel's standard format
         });

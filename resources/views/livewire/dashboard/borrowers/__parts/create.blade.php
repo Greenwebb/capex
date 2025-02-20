@@ -92,8 +92,8 @@
                                     <input type="text" class="form-control" name="fname" required/>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label class="mb-2 required fs-6 fw-semibold">Middlename</label>
-                                    <input type="text" class="form-control" name="mname" required/>
+                                    <label class="mb-2 required fs-6 fw-semibold">Middlename (optional)</label>
+                                    <input type="text" class="form-control" name="mname"/>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="mb-2 required fs-6 fw-semibold">Lastname</label>
@@ -183,8 +183,8 @@
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label class="mb-2 required fs-6 fw-semibold">Date of Birth</label>
-                                <input type="text" class="form-control" id="customerDob" name="dob"/>
+                                <label for="sdp" class="mb-2 required fs-6 fw-semibold">Date of Birth</label>
+                                <input autocomplete="off" type="text" class="form-control smoothDatePicker2" id="sdp" name="dob"/>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="mb-2 required fs-6 fw-semibold">Role</label>
@@ -238,8 +238,8 @@
                             <div class="row">
                                 <!-- Date of Birth -->
                                 <div class="mb-3 col-md-6">
-                                    <label class="mb-2 required fs-6 fw-semibold">Date of Birth</label>
-                                    <input type="text" class="form-control" id="nokDob" name="nokdob" placeholder="MM/DD/YYYY" />
+                                    <label for="nok_dob" class="mb-2 required fs-6 fw-semibold">Date of Birth</label>
+                                    <input autocomplete="off" type="text" class="form-control smoothDatePicker3" id="nok_dob" name="nokdob" placeholder="MM/DD/YYYY" />
                                 </div>
                                 <!-- Phone Number -->
                                 <div class="mb-3 col-md-6">
@@ -274,5 +274,6 @@
             </form>
         </div>
     </div>
+
 
 </div>
