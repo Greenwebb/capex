@@ -419,7 +419,7 @@
                             </div>
                             <div class="mb-6 row">
                                 <!--begin::Label-->
-                                <label class="col-lg-4 col-form-label fw-bold fs-6">Defualt Loan Interest</label>
+                                <label class="col-lg-4 col-form-label fw-bold fs-6">Default Loan Interest</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
