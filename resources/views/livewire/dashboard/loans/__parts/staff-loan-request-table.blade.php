@@ -55,7 +55,7 @@
                                         </button>
                                     @endif
 
-                                    <div class="menu-item px-3">
+                                    <div class="px-3 menu-item">
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#import_loans_panel" class="btn btn-primary">
                                             <span class=" me-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
@@ -169,13 +169,14 @@
                                         @if($this->current_configs('loan-approval')->value == 'spooling')
                                             <td class="text-success">
                                                 @role('admin')@else
-                                                    @can('asses loans')
+                                                    {{-- Fix Feature --}}
+                                                    {{-- @can('asses loans')
                                                         @if($loan->status == 0 || $loan->status == 3)
                                                             <button wire:click="setLoanID({{ $loan->id }})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_warning" class="btn btn-sm btn-success">Asses Loan</button>
                                                         @else
                                                             <small style="font-size:10px" class="text-muted">Reviewing...</small>
                                                         @endif
-                                                    @endcan
+                                                    @endcan --}}
                                                 @endrole
                                             </td>
                                         @endif
@@ -217,12 +218,12 @@
                                                 <li><a href="{{ route('detailed',['id' => $loan->id]) }}" class="dropdown-item"><i class="align-bottom ri-eye-fill me-2 text-muted"></i> View</a></li>
 
                                                 @if (Route::currentRouteName() === 'view-loan-requests')
-                                                    @can('asses loans')
+                                                    {{-- @can('asses loans') --}}
                                                     <li><a href="{{ route('loan-details', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="align-bottom ri-exchange-funds-fill me-2 text-muted"></i> Asses Loans</a></li>
-                                                    @endcan
-                                                    @can('update loans')
+                                                    {{-- @endcan --}}
+                                                    {{-- @can('update loans') --}}
                                                     <li><a href="{{ route('edit-loan', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="align-bottom ri-pencil-fill me-2 text-muted"></i> Edit</a></li>
-                                                    @endcan
+                                                    {{-- @endcan --}}
 
                                                 @endif
                                             </ul>

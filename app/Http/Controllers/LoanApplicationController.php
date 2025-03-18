@@ -269,18 +269,7 @@ class LoanApplicationController extends Controller
             ]);
             $this->createRelatedParties($form);
             $this->createGuarantors($form);
-            $applicationId = $this->apply_loan($data);
-            $mail = [
-                'application_id' => $applicationId,
-                'name' => "{$user->fname} {$user->lname}",
-                'loan_type' => $form['type'],
-                'phone' => $user->phone,
-                'duration' => $form['repayment_plan'],
-                'amount' => $form['amount'],
-                'type' => 'loan-application',
-                'msg' => "You have a new {$form['type']} loan application request from {$user->fname} {$user->lname}, please visit the site to view more details",
-            ];
-
+            $this->apply_loan($data);
             // $emailSent = $this->send_loan_email($mail);
             // DB::commit();
             Session::flash('success', "Loan created successfully");

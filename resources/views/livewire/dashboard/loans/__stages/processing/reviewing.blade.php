@@ -9,17 +9,17 @@
             </div>
 
 
-            @can('approve loan')
+            {{-- @can('approve loan') --}}
             <div class="justify-between col-12 d-flex">
-                @can('decline a loan')
+                {{-- @can('decline a loan') --}}
                     <a title="Undo" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_decline_warning" wire:click="setLoanID({{$loan->id}})" class="btn btn-danger btn-label left nexttab"><i class="align-middle ri-arrow-left-line label-icon fs-16 ms-2"></i> Reject Submission </a>
-                @endcan
+                {{-- @endcan --}}
 
-                @can('asses loans')
+                {{-- @can('asses loans') --}}
                     <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-info btn-label right ms-auto nexttab" data-nexttab="steparrow-description-info-tab"><i class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>Proceed</button>
-                @endcan
+                {{-- @endcan --}}
             </div>
-            @endcan
+            {{-- @endcan --}}
         </div>
 
         <div class="p-2 mt-4 border-top border-top-dashed">

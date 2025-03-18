@@ -24,6 +24,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use DateInterval;
 use DateTime;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 trait LoanTrait{
@@ -587,10 +588,11 @@ trait LoanTrait{
                 ->orderBy('created_at', 'desc')
                 ->get();
 
+            // dd($existingApplications->isEmpty());
             if ($existingApplications->isEmpty()) {
                 $application = Application::create($data);
 
-                if($data['skip_to'] == 'Normal...'){
+                if($data['skip_to'] == 'default'){
                     ApplicationStage::create([
                         'application_id' => $application->id,
                         'loan_status_id' => 1,
@@ -615,24 +617,30 @@ trait LoanTrait{
                     ]);
                 }
 
-                if ($data['email']) {
+                if (!empty($data['email'])) {
                     $mail = [
                         'name' => "{$data['fname']} {$data['lname']}",
                         'to' => $data['email'],
                         'from' => 'admin@capexfinancialservices.org',
                         'phone' => $data['phone'],
-                        'payback' => Application::payback($data['amount'], $data['repayment_plan'], $data['loan_product_id'], $data),
-                        'subject' => "{$data['type']} Loan Application",
+                        // Uncomment below if necessary:
+                        'payback' => Application::payback($data['amount'], $data['repayment_plan'], $data['loan_product_id'], null),
+                        'subject' => "Your Loan Application",
                         'message' => "Thank you for choosing us. Your loan request is submitted. Sign in with username {$data['email']} and password is 'capex+you' to check the status. We value your trust and are committed to your satisfaction.",
                         'message2' => "Capex Finance"
                     ];
+
+                    // Debug without stopping execution
+                    // dd('Loan Application Mail Data:', $mail);
+
+                    // Send email
                     Mail::to($data['email'])->send(new LoanApplication($mail));
                 }
                 return $application->id;
             }
             return 'exists';
         } catch (\Throwable $th) {
-            dd($th);
+            return ;
         }
     }
 

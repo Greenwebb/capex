@@ -111,7 +111,7 @@
                                         <span style="color: red;">Amount must be between {{ $minAmount }} and {{ $maxAmount }}</span>
                                     @endif
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label for="inputState" class="form-label">Duration
                                         <span>
@@ -156,7 +156,7 @@
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
                                     <select id="inputState" name="skip_to" class="form-select" required>
-                                        <option selected>Normal...</option>
+                                        <option selected value="default">Default</option>
                                         @forelse ($loan_products_stages as $ls)
                                         <option value="{{ $ls->status_id }}">{{ $ls->status->name }}</option>
                                         @empty

@@ -1,4 +1,4 @@
-<div>
+{{-- <div> --}}
     <div class="card">
         <div class="card-header">
             <div class="card-title">
@@ -12,13 +12,13 @@
 
             @can('approve loan')
             <div class="justify-between col-12 d-flex">
-                @can('decline a loan')
+                {{-- @can('decline a loan') --}}
                     <a title="Undo" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_review_rollback" wire:click="setLoanID({{$loan->id}})" class="btn btn-danger btn-label left nexttab"><i class="align-middle ri-arrow-left-line label-icon fs-16 ms-2"></i> Reject Submission </a>
-                @endcan
+                {{-- @endcan --}}
 
-                @can('verify loan')
+                {{-- @can('verify loan') --}}
                     <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-info btn-label right ms-auto nexttab" data-nexttab="steparrow-description-info-tab"><i class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>Verify Application </button>
-                @endcan
+                {{-- @endcan --}}
             </div>
             @endcan
         </div>

@@ -223,22 +223,12 @@ class Application extends Model
 
         if($principal){
             $instance = new self();
-            $data = $instance->calculateAmortizationSchedule($principal, $duration, $loan->loan_product_id, $loan);
+            if ($loan) {
+                $data = $instance->calculateAmortizationSchedule($principal, $duration, $loan->loan_product_id, $loan);
+            } else {
+                $data = $instance->calculateAmortizationSchedule($principal, $duration, $product_id, $loan);
+            }
 
-            // dd($data);
-            // $product = LoanProduct::where('id', $product_id)->with([
-            //     'disbursed_by.disbursed_by',
-            //     'interest_methods.interest_method',
-            //     'interest_types.interest_type',
-            //     'loan_accounts.account_payment',
-            //     'loan_status.status',
-            //     'loan_decimal_places',
-            //     'service_fees.service_charge'
-            // ])->first();
-
-            // $rate = (float)$product->def_loan_interest / 100;
-            // $interest = ($principal * $rate * $duration);
-            // $payback = $principal + $interest;
             return number_format($instance->getAveragePayment($data), 2, '.', '');
         }
 
