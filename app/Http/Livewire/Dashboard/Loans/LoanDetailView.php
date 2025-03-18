@@ -190,33 +190,39 @@ class LoanDetailView extends Component
 
         try {
             $application_request = Application::find($id);
-            $this->change_stage();
-            if($this->final_approver($id)['status']){
-                // Make the loan when disbursed
-                // $this->make_loan($x, $this->due_date);
-                // $this->isCompanyEnough($x->amount);
-                // dd($application_request);
-                // Do this - If this officer is the last approver
-                // dd(strtolower($this->loan_stage->stage));
-                if(strtolower($this->loan_stage->stage) == 'disbursements'){
-                    $this->current->update([
-                        'state' => 'current',
-                        'status' => 'Current Loan',
-                        'stage' => 'open',
-                        'prev_status' => 'complete',
-                        'curr_status' => 'bg-white',
-                        'position' => 4,
-                    ]);
-                    $this->approve_final($application_request);
+            // dd($this->change_stage());
+            if ($this->change_stage()) {
+                if($this->final_approver($id)['status']){
+                    // Make the loan when disbursed
+                    // $this->make_loan($x, $this->due_date);
+                    // $this->isCompanyEnough($x->amount);
+                    // dd($application_request);
+                    // Do this - If this officer is the last approver
+                    // dd(strtolower($this->loan_stage->stage));
+                    if(strtolower($this->loan_stage->stage) == 'disbursements'){
+                        $this->current->update([
+                            'state' => 'current',
+                            'status' => 'Current Loan',
+                            'stage' => 'open',
+                            'prev_status' => 'complete',
+                            'curr_status' => 'bg-white',
+                            'position' => 4,
+                        ]);
+                        $this->approve_final($application_request);
+                    }else{
+                        $this->approve_continue($id);
+                    }
                 }else{
                     $this->approve_continue($id);
                 }
-            }else{
-                $this->approve_continue($id);
+                Redirect::route('loan-details',['id' => $this->loan_id]);
+            } else {
+                $this->approve_final($application_request);
+                Redirect::route('loan-details',['id' => $this->loan_id]);
             }
-            Redirect::route('loan-details',['id' => $this->loan_id]);
         } catch (\Throwable $th) {
             // DB::rollback();
+            dd($th);
             session()->flash('error', 'Oops something failed here, please contact the Administrator.'.$th);
         }
     }
@@ -231,16 +237,22 @@ class LoanDetailView extends Component
             ->take(1)
             ->first();
 
-            $this->current->update([
-                'state' => 'current',
-                'status' => $next_status->status->name,
-                'stage' => $next_status->stage,
-                'prev_status' => 'complete',
-                'curr_status' => 'bg-white',
-                'position' => $this->current->position + 1,
-            ]);
+            if($next_status){
+                $this->current->update([
+                    'state' => 'current',
+                    'status' => $next_status->status->name,
+                    'stage' => $next_status->stage,
+                    'prev_status' => 'complete',
+                    'curr_status' => 'bg-white',
+                    'position' => $this->current->position + 1,
+                ]);
+                return true;
+            }else{
+                return false;
+            }
+            
         } catch (\Throwable $th) {
-            dd($th);
+            return false;
         }
     }
 
@@ -287,7 +299,7 @@ class LoanDetailView extends Component
                 'email' => $x->email,
                 'duration' => $x->repayment_plan,
                 'amount' => $x->amount,
-                'payback' => Application::payback($x->amount, $x->repayment_plan, $x->loan_product_id),
+                'payback' => Application::payback($x->amount, $x->repayment_plan, $x->loan_product_id, null),
                 'type' => 'loan-application',
                 'msg' => 'Your '.$x->type.' loan application request has been successfully accepted'
             ];
@@ -295,7 +307,7 @@ class LoanDetailView extends Component
         }
         $this->deposit($x->amount, $x);
         DB::commit();
-        session()->flash('success', 'Successfully transfered '.$x->amount.' to '.$x->fname.' '.$x->lname);
+        session()->flash('success', 'Successfully disbursed an amount of  '.$x->amount.' to '.$x->fname.' '.$x->lname);
     }
 
 

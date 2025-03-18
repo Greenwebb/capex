@@ -20,15 +20,18 @@ class LoanRequestController extends Controller
 {
     use CRBTrait, EmailTrait, WalletTrait, LoanTrait;
 
-    public function resetRequest(Request $request){
+    public function resetRequest(Request $request)
+    {
+
         try {
+            $request->input('loan_id');
             if ($request->input('loan_id')) {
                 $application = Application::where('id', $request->input('loan_id'))->first();
                 $application->update([
                     'status' => 2,
                     'closed' => 0
                 ]);
-                ApplicationStage::updateOrCreate(
+                $stg = ApplicationStage::updateOrCreate(
                     [
                         'application_id' => (int)$request->input('loan_id')
                     ],
@@ -42,18 +45,17 @@ class LoanRequestController extends Controller
                         'position' => 1
                     ]
                 );
-
-
                 return response()->json(['success' => true, 'message' => 'Application initialized successfully.'], 200);
             }
 
             return response()->json(['success' => false, 'error' => 'No ID provided'], 400);
         } catch (\Throwable $th) {
-            return response()->json(['success' => false, 'error' => 'An error occurred', 'message' => $th->getMessage()], 500);
+            dd($th);
+            // return response()->json(['success' => false, 'error' => 'An error occurred', 'message' => $th->getMessage()], 500);
         }
-
     }
-    public function initStage(Request $request){
+    public function initStage(Request $request)
+    {
         try {
             if ($request->input('loan_id')) {
                 ApplicationStage::create([
@@ -67,31 +69,33 @@ class LoanRequestController extends Controller
                     'position' => 1
                 ]);
 
-                return response()->json(['success' => true, 'message' => 'Application initialized successfully.'], 200);
+                return response()->json(['success' => true, 'message' => 'Application stages initialized successfully.'], 200);
             }
 
             return response()->json(['success' => false, 'error' => 'No ID provided'], 400);
         } catch (\Throwable $th) {
             return response()->json(['success' => false, 'error' => 'An error occurred', 'message' => $th->getMessage()], 500);
         }
-
     }
 
-    public function getLoan($id){
+    public function getLoan($id)
+    {
         $data = $this->get_loan_details($id);
         return response()->json(['data' => $data]);
     }
 
-    public function getMyLoans($user_id){
+    public function getMyLoans($user_id)
+    {
         $data = Application::with('loan')
-        ->where('user_id', $user_id)
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->where('user_id', $user_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json(['data' => $data]);
     }
 
-    public function makeWithdrawalRequest(Request $request){
+    public function makeWithdrawalRequest(Request $request)
+    {
         try {
             $uuid = Str::orderedUuid();
             WithdrawRequest::create([
@@ -113,48 +117,58 @@ class LoanRequestController extends Controller
         }
     }
 
-    public function getWithdrawalRequests($id){
+    public function getWithdrawalRequests($id)
+    {
         $requests = $this->getWithdrawRequests();
         return response()->json(['data' => $requests]);
     }
 
-    public function getWallets($id){
+    public function getWallets($id)
+    {
         $wallet = $this->getUserWallet($id);
         return response()->json(['amount' => $wallet]);
     }
 
-    public function loanBalance($id){
+    public function loanBalance($id)
+    {
 
         $requests = Loans::loan_balance($id);
         return response()->json([$requests]);
     }
 
-    public function customerBalance($user_id){
+    public function customerBalance($user_id)
+    {
         return Loans::customer_balance($user_id);
     }
 
-    public function interestAmount($duration, $amount){
+    public function interestAmount($duration, $amount)
+    {
         return Application::interest_amount($amount, $duration);
     }
 
-    public function loanMonthlyInstallments($duration, $amount){
+    public function loanMonthlyInstallments($duration, $amount)
+    {
         return Application::monthly_installment($amount, $duration);
     }
 
-    public function interestRate($duration){
+    public function interestRate($duration)
+    {
         // return (Application::interest_rate($duration) * 100).'%';
     }
 
-    public function totalCollectable($duration, $amount){
+    public function totalCollectable($duration, $amount)
+    {
         return Application::payback($amount, $duration);
     }
 
-    public function createLoan(Request $request){
+    public function createLoan(Request $request)
+    {
         $data = $request->all();
         return $this->apply_loan($data);
     }
 
-    public function checkCRB($user_id){
+    public function checkCRB($user_id)
+    {
         $code = '104';
         $user = User::where('id', $user_id)->first();
         $requests = $this->soapApiCRBRequest($code, $user);

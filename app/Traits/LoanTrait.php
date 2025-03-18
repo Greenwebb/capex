@@ -813,20 +813,22 @@ trait LoanTrait{
         // Leave current approver
         $update = $approvers->where('priority', $userPriority)->first();
         // dd($update);
-        $update->complete = 1; //optional - remove
-        $update->is_passed = 1;
-        $update->is_active = 0;
-        $update->is_processing = 0;
-        $update->save();
-
-        // Elevate to the next priority
-        $update = $approvers->where('priority', $userPriority + 1)->first();
-        if($update){
-
+        if ($update) {
             $update->complete = 1; //optional - remove
-            $update->is_active = 1;
-            $update->is_processing = 1;
+            $update->is_passed = 1;
+            $update->is_active = 0;
+            $update->is_processing = 0;
             $update->save();
+    
+            // Elevate to the next priority
+            $update = $approvers->where('priority', $userPriority + 1)->first();
+            if($update){
+    
+                $update->complete = 1; //optional - remove
+                $update->is_active = 1;
+                $update->is_processing = 1;
+                $update->save();
+            }
         }
     }
     public function final_upvote($application_id){

@@ -18,6 +18,8 @@
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link done" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="true">Loan Request Submitted</button>
                                 </li>
+
+
                                 @forelse ($loan_product->loan_status->where('stage', 'processing') as $key => $step)
                                     @php
                                         $count ++;

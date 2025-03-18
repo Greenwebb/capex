@@ -80,5 +80,3 @@ Route::post('make-withdrawal-request', [LoanRequestController::class, 'makeWithd
 // Admin Settings
 Route::get('/get-approvers-users', [SettingController::class, '__get_approvers']);
 Route::post('/set-auto-approvers', [SettingController::class, '__set_approvers']);
-
-

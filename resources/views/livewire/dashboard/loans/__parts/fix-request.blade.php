@@ -2,7 +2,7 @@
     <div class="button-container">
         <span id="loanId" style="display:none;">{{ $loan->id }}</span>
         <button id="initializeButton" class="button">
-            <span class="button-text">Reset Request</span>
+            <span class="button-text">Continue to current loan information</span>
             <div class="button-loader">
                 <svg class="spinner" viewBox="0 0 50 50">
                     <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
@@ -36,7 +36,7 @@
 .button {
     font-size: 1.2rem;
     padding: 12px 32px;
-    background-color: #ff3737;
+    background-color: #03134c;
     color: white;
     border: none;
     border-radius: 8px;
@@ -51,7 +51,7 @@
 }
 
 .button:not(:disabled):hover {
-    background-color: #d80808;
+    background-color: #d88108;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
