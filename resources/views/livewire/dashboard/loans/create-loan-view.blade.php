@@ -24,9 +24,7 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="mb-0 text-warning card-title flex-grow-1">Loan Information</h4>
-
-                    </div><!-- end card header -->
-
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <form id="mainFormmm" action="{{ route("proxy-apply-loan") }}" method="POST" enctype="multipart/form-data" class="row g-3">
@@ -105,26 +103,15 @@
                                             <i class="text-danger ri-asterisk"></i>
                                         </span>
                                     </label>
-                                    <input type="number" id="principalAmount" name="amount" class="form-control" placeholder="Principal Amount" required>
+                                    <input type="number" id="principalAmount" wire:model="principalAmount"
+                                    min="{{ $minAmount }}" max="{{ $maxAmount }}"
+                                    placeholder="Enter an amount between {{ $minAmount }} and {{ $maxAmount }}" name="amount" class="form-control" placeholder="Principal Amount" required>
+
+                                    @if ($principalAmount && ($principalAmount < $minAmount || $principalAmount > $maxAmount))
+                                        <span style="color: red;">Amount must be between {{ $minAmount }} and {{ $maxAmount }}</span>
+                                    @endif
                                 </div>
-                                <script>
-                                    document.getElementById('principalAmount').addEventListener('input', function(e) {
-                                        let value = e.target.value;
-                                        // Remove any non-digit characters
-                                        value = value.replace(/\D/g, '');
-
-                                        // Format the number as money
-                                        value = new Intl.NumberFormat('en-US', {
-                                            minimumFractionDigits: 0,
-                                            maximumFractionDigits: 0
-                                        }).format(value);
-
-                                        // Update the input value
-                                        e.target.value = value.replace('K', '').trim();
-                                    });
-                                </script>
-
-
+                                
                                 <div class="col-md-6">
                                     <label for="inputState" class="form-label">Duration
                                         <span>

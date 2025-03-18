@@ -10,6 +10,7 @@ use App\Models\LoanStatus;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\User;
 use App\Traits\LoanTrait;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class CreateLoanView extends Component
@@ -19,16 +20,17 @@ class CreateLoanView extends Component
     public $users, $user_basic_pay, $user_net_pay;
     public $loan_products = [], $loan_products_stages = [], $loan_types, $loan_child_types = [], $borrowers;
     public $selectedLoanType = null, $selectedLoanCategory = null, $selectedLoanProduct = null;
+    public $principalAmount, $minAmount, $maxAmount;
 
     public function mount()
     {
         $this->loan_types = LoanType::all();
         $this->borrowers = User::role('user')
-        ->whereDoesntHave('loans')
-        ->orWhereHas('loans', function($query) {
-            $query->where('closed', 1);
-        })
-        ->get();
+            ->whereDoesntHave('loans')
+            ->orWhereHas('loans', function ($query) {
+                $query->where('closed', 1);
+            })
+            ->get();
     }
 
     public function render()
@@ -46,13 +48,32 @@ class CreateLoanView extends Component
     public function updatedSelectedLoanCategory($loanCategoryId)
     {
         $this->loan_products = LoanProduct::where('loan_child_type_id', $loanCategoryId)->where('status', 1)->get();
-
     }
 
     public function updatedSelectedLoanProduct($id)
     {
         $this->loan_products_stages = LoanStatus::with('status')->orWhere('stage', 'processing')->orWhere('stage', 'Processing')->where('loan_product_id', $id)->get();
 
-        // dd($this->loan_products_stages);
+        // Fetch loan package data
+        $response = Http::get("https://app.capexfinancialservices.org/api/get-loan-package-item/{$id}");
+
+        if ($response->successful()) {
+            $data = $response->json();
+
+            if (!empty($data['amounts'])) {
+                $this->minAmount = min($data['amounts']);
+                $this->maxAmount = max($data['amounts']);
+            } else {
+                $this->minAmount = null;
+                $this->maxAmount = null;
+            }
+            // Reset principalAmount if it's out of range
+            if (!is_null($this->principalAmount) && ($this->principalAmount < $this->minAmount || $this->principalAmount > $this->maxAmount)) {
+                $this->principalAmount = null;
+            }
+        } else {
+            $this->minAmount = null;
+            $this->maxAmount = null;
+        }
     }
 }
