@@ -78,7 +78,6 @@ class LoanApplicationController extends Controller
                     'user' => $user
                 ]);
             }
-
         } catch (\Exception $e) {
             dd($e);
             // Return a more descriptive error response
@@ -92,11 +91,12 @@ class LoanApplicationController extends Controller
     }
 
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         try {
             $data = $request->toArray();
             $this->uploadCommonFiles($request);
-            if(isset($data['phone'])){
+            if (isset($data['phone'])) {
                 $personal = [
                     'dob' => $data['dob'],
                     'nrc_no' => $data['nrc'],
@@ -107,8 +107,8 @@ class LoanApplicationController extends Controller
                     'ministry' => $data['ministry'],
                     'department' => $data['department'],
                     'borrower_id' => $data['borrower_id'],
-                    'gender'=> $data['gender'],
-                    'address'=> $data['address'],
+                    'gender' => $data['gender'],
+                    'address' => $data['address'],
                 ];
                 $this->updateUser($personal);
             }
@@ -131,10 +131,10 @@ class LoanApplicationController extends Controller
 
             if (isset($data['bankName'])) {
                 $bank = [
-                    'bankName'=> $data['bankName'],
-                    'branchName'=> $data['branchName'],
-                    'accountNames'=> $data['accountNames'],
-                    'accountNumber'=> $data['accountNumber'],
+                    'bankName' => $data['bankName'],
+                    'branchName' => $data['branchName'],
+                    'accountNames' => $data['accountNames'],
+                    'accountNumber' => $data['accountNumber'],
                     'user_id' => auth()->user()->id,
                 ];
                 $this->createBankDetails($bank);
@@ -145,7 +145,7 @@ class LoanApplicationController extends Controller
                 "success" => true
             ]);
         } catch (\Throwable $th) {
-           dd($th);
+            dd($th);
         }
     }
 
@@ -161,10 +161,10 @@ class LoanApplicationController extends Controller
         // $application = Application::where('email', $email)
         //                             ->where('status', 0)
         //                             ->where('can_change', 0)->get()->first();
-        if(!empty($application)){
+        if (!empty($application)) {
             $data = 1;
             return response()->json($data, 200);
-        }else{
+        } else {
             $data = 0;
             return response()->json($data, 200);
         }
@@ -173,7 +173,7 @@ class LoanApplicationController extends Controller
     public function updateExistingLoan(Request $req)
     {
         $email = $req->toArray()['email'];
-        try{
+        try {
             Application::where('email', $email)->update(['can_change' => 1]);
             $data = 1;
             return response()->json($data, 200);
@@ -189,21 +189,21 @@ class LoanApplicationController extends Controller
     {
         // DB::beginTransaction();
         try {
-            $user = Application::where('user_id',auth()->user()->id)->where('status', 0)->where('complete', 0)->first();
+            $user = Application::where('user_id', auth()->user()->id)->where('status', 0)->where('complete', 0)->first();
 
-            if($request->file('nrc_file') !== null){
+            if ($request->file('nrc_file') !== null) {
                 $nrc_file = $request->file('nrc_file')->store('nrc_file', 'public');
                 $user->nrc_file = $nrc_file;
                 $user->save();
             }
 
-            if($request->file('tpin_file') !== null){
+            if ($request->file('tpin_file') !== null) {
                 $tpin_file = $request->file('tpin_file')->store('tpin_file', 'public');
                 $user->tpin_file = $tpin_file;
                 $user->save();
             }
 
-            if($request->file('payslip_file') !== null){
+            if ($request->file('payslip_file') !== null) {
                 $payslip_file = $request->file('payslip_file')->store('payslip_file', 'public');
                 $user->payslip_file = $payslip_file;
                 $user->save();
@@ -218,10 +218,10 @@ class LoanApplicationController extends Controller
             // DB::rollback();
             return redirect()->to('/user/profile');
         }
-
     }
 
-    public function updateKYCFiles(Request $request){
+    public function updateKYCFiles(Request $request)
+    {
         try {
             // First Upload the files
             $this->uploadCommonFiles($request);
@@ -265,6 +265,7 @@ class LoanApplicationController extends Controller
                 'email' => $user->email ?? '',
                 'phone' => $user->phone,
                 'gender' => $user->gender,
+                'source' => 'System',
                 'processed_by' => auth()->id(),
             ]);
             $this->createRelatedParties($form);
@@ -296,15 +297,15 @@ class LoanApplicationController extends Controller
             $user = User::where('id', $form['borrower_id'])->first();
 
             $data = [
-                'user_id'=> $form['borrower_id'],
-                'lname'=> $user->lname,
-                'fname'=> $user->fname,
-                'email'=> $user->email ?? '',
-                'amount'=> $form['amount'],
-                'phone'=> $user->phone,
-                'gender'=> $user->gender,
-                'loan_product_id'=> $form['loan_product_id'],
-                'repayment_plan'=> $form['repayment_plan'],
+                'user_id' => $form['borrower_id'],
+                'lname' => $user->lname,
+                'fname' => $user->fname,
+                'email' => $user->email ?? '',
+                'amount' => $form['amount'],
+                'phone' => $user->phone,
+                'gender' => $user->gender,
+                'loan_product_id' => $form['loan_product_id'],
+                'repayment_plan' => $form['repayment_plan'],
 
                 // 'glname'=> $form['glname'],
                 // 'gfname'=> $form['gfname'],
@@ -326,7 +327,7 @@ class LoanApplicationController extends Controller
                 // 'payslip_file' => $form['payslip_file'] ?? $payslip_file,
                 // 'nrc_file' => $form['nrc_file'] ?? $nrc_file,
                 // 'complete' => $form['complete'],
-                'processed_by'=> auth()->user()->id
+                'processed_by' => auth()->user()->id
             ];
 
             $this->apply_update_loan($data, $form['loan_id``']);
@@ -334,10 +335,10 @@ class LoanApplicationController extends Controller
             // Email going to the Administrator
             // $process = $this->send_loan_email($mail);
             DB::commit();
-            Session::flash('success', $user->fname . ' ' . $user->lname ."'s Loan updated successfully");
+            Session::flash('success', $user->fname . ' ' . $user->lname . "'s Loan updated successfully");
             return redirect()->route('view-loan-requests');
         } catch (\Throwable $th) {
-            Session::flash('error',"Loan updated Failed");
+            Session::flash('error', "Loan updated Failed");
             DB::rollback();
             return redirect()->back();
         }
@@ -345,7 +346,8 @@ class LoanApplicationController extends Controller
 
 
 
-    public function assign_manual(Request $request){
+    public function assign_manual(Request $request)
+    {
         try {
             $set = $this->set_manual_loan_approvers($request->toArray());
             Session::flash('success', "Loan successfully assigned.");
@@ -360,7 +362,7 @@ class LoanApplicationController extends Controller
 
         foreach ($loanIds as $id) {
             // Assuming 'Application' is the model representing your loans table
-            $loan = Application::where('id',$id)->first();
+            $loan = Application::where('id', $id)->first();
 
             if ($loan) {
                 $loan->status = 2;
@@ -385,7 +387,7 @@ class LoanApplicationController extends Controller
 
         foreach ($loanIds as $id) {
             // Assuming 'Application' is the model representing your loans table
-            $loan = Application::where('id',$id)->first();
+            $loan = Application::where('id', $id)->first();
 
             if ($loan) {
                 $loan->delete();
@@ -396,5 +398,4 @@ class LoanApplicationController extends Controller
             "success" => true
         ]);
     }
-
 }

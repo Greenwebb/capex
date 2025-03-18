@@ -169,7 +169,7 @@ document.getElementById("initializeButton").addEventListener("click", async func
     statusMessage.className = "status-message loading-pulse";
 
     try {
-        const response = await fetch('{{ env('APP_URL') }}/api/initialize-application', {
+        const response = await fetch('{{ env('APP_URL') }}/api/fix-application', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
