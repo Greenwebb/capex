@@ -43,11 +43,11 @@
                         {{-- @dd($proof->document_paths[0]) --}}
                          <span class="px-2 py-1 rounded-full text-light {{ $proof->status == 'accepted' ? 'bg-success' : 'bg-warning' }}">
                                 {{ ucfirst($proof->status) }}
-                            </span> 
+                            </span>
                         </td>
                         <td class="px-4 py-2 space-x-4">
                             <a href="{{ 'https://app.capexfinancialservices.org/storage/app/public/' . $proof->document_paths[0] }}" target="_blank" class="px-4 py-1 text-white rounded bg-info">Proof</a>
-                        
+
                             <button wire:click="acceptProof({{ $proof->id }})" class="px-4 py-1 text-white rounded bg-success">Accept</button>
                         </td>
                     </tr>
@@ -57,7 +57,7 @@
     </div>
 
     <!-- Pagination Links -->
-    <div class="mt-4">
+    {{-- <div class="mt-4">
         {{ $paymentProofs->links() }}
-    </div>
+    </div> --}}
 </div>

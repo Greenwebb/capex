@@ -772,7 +772,7 @@
                         </li>
                         @endcan
 
-                        @can('view accounting')
+                        {{-- @can('view accounting') --}}
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCharts">
                                 <i class="ri-pie-chart-line"></i> <span data-key="t-charts">Accounting</span>
@@ -785,18 +785,18 @@
                                         </a>
                                         <div class="collapse menu-dropdown" id="sidebarApexcharts">
                                             <ul class="nav nav-sm flex-column">
-                                                @can('make repayments')
+                                                {{-- @can('make repayments') --}}
                                                 <li class="nav-item">
                                                     <a href="{{ route('make-payment') }}" class="nav-link" data-key="t-line"> Make Repayment
                                                     </a>
                                                 </li>
-                                                @endcan
-                                                @can('make proof payment')
+                                                {{-- @endcan --}}
+                                                {{-- @can('make proof payment') --}}
                                                 <li class="nav-item">
                                                     <a href="{{ route('proofs') }}" class="nav-link" data-key="t-line"> Proof of Payments
                                                     </a>
                                                 </li>
-                                                @endcan
+                                                {{-- @endcan --}}
                                             </ul>
                                         </div>
                                     </li>
@@ -806,7 +806,7 @@
                                 </ul>
                             </div>
                         </li>
-                        @endcan
+                        {{-- @endcan --}}
 
                         {{-- @can('system settings') --}}
                             <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Settings</span></li>
@@ -917,7 +917,7 @@
                     console.log('Selected date:', date);
                 }
             });
-            
+
             new AirDatepicker('.smoothDatePicker2', {
                 autoClose: true,
                 dateFormat: 'yyyy-MM-dd',
@@ -938,7 +938,7 @@
                     console.log('Selected date:', date);
                 }
             });
-            
+
             new AirDatepicker('.smoothDatePicker3', {
                 autoClose: true,
                 dateFormat: 'yyyy-MM-dd',
