@@ -189,7 +189,6 @@
                                                             @else
                                                                 <div class="badge bg-danger fs-12">Rejected</div>
                                                             @endif
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -197,7 +196,6 @@
 
                                             <div class="pt-3 mt-4 border-top border-top-dashed">
                                                 <div class="row gy-3">
-
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium">Est. Repayment Amount :</p>
@@ -224,73 +222,6 @@
                                             <div class="p-2 mt-4 border-top border-top-dashed">
                                                 <h6 class="mb-3 fw-semibold text-warning text-uppercase">Uploaded Attachments</h6>
                                                 <div class="gap-2 p-4 d-flex">
-                                                    <!-- end col -->
-                                                    {{-- @if ($loan->user->uploads->where('name', 'nrc_file')->isNotEmpty())
-                                                    <a target="_blank" href="{{ 'https://admin.capexfinancialservices.org/public/'.Storage::url($loan->user->uploads->where('name', 'nrc_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
-                                                    <div class="col-md-3">
-                                                        <div class="p-2 border border-dashed rounded">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-shrink-0 me-3">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="rounded avatar-title bg-light text-primary fs-24">
-                                                                            <i class="ri-file-ppt-2-line"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="overflow-hidden flex-grow-1">
-                                                                    <h5 class="mb-1 fs-13"><a href="#" class="text-body text-truncate d-block">{{ $loan->user->fname.' '.$loan->user->lname }}'s NRC</a></h5>
-                                                                    <div>{{ $loan->user->uploads->where('name', 'nrc_file')->first()->created_at->toFormattedDateString() }}</div>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    </a>
-                                                    @endif
-
-                                                    @if ($loan->user->uploads->where('name', 'tpin_file')->isNotEmpty())
-                                                    <a target="_blank" href="{{ 'https://admin.capexfinancialservices.org/public/'.Storage::url($loan->user->uploads->where('name', 'tpin_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
-                                                    <div class="col-md-3">
-                                                        <div class="p-2 border border-dashed rounded">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-shrink-0 me-3">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="rounded avatar-title bg-light text-primary fs-24">
-                                                                            <i class="ri-file-ppt-2-line"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="overflow-hidden flex-grow-1">
-                                                                    <h5 class="mb-1 fs-13"><a href="#" class="text-body text-truncate d-block">{{ $loan->user->fname.' '.$loan->user->lname }}'s TPIN</a></h5>
-                                                                    <div>{{ $loan->user->uploads->where('name', 'tpin_file')->first()->created_at->toFormattedDateString() }}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    </a>
-                                                    @endif
-                                                    @if ($loan->user->uploads->where('name', 'payslip_file')->isNotEmpty())
-                                                    <a target="_blank" href="{{ 'https://admin.capexfinancialservices.org/public/'.Storage::url($loan->user->uploads->where('name', 'payslip_file')->first()->path) }}"  class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="{{ 'public/'.Storage::url($loan->user->uploads[0]->path) }}">
-                                                    <div class="col-md-3">
-                                                        <div class="p-2 border border-dashed rounded">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-shrink-0 me-3">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="rounded avatar-title bg-light text-primary fs-24">
-                                                                            <i class="ri-file-ppt-2-line"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="overflow-hidden flex-grow-1">
-                                                                    <h5 class="mb-1 fs-13"><a href="#" class="text-body text-truncate d-block">{{ $loan->user->fname.' '.$loan->user->lname }}'s Payslip </a></h5>
-                                                                    <div>{{ $loan->user->uploads->where('name', 'payslip_file')->first()->created_at->toFormattedDateString() }}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    </a>
-                                                    @endif --}}
-
                                                     @php
                                                         function getFileUrl($upload) {
                                                             return $upload->source === 'admin'

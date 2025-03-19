@@ -65,7 +65,7 @@
                             </ul><!-- end ul -->
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6">
                         <div data-simplebar style="max-height: 257px;">
                             <ul class="px-3 border-dashed list-group list-group-flush">
@@ -191,11 +191,10 @@
                         </div>
                     </div> <!-- end col-->
                 </div> <!-- end row-->                 --}}
-    
                 <!-- end row-->
-                    
-                <div class="row">
-                    @if (!$loan->interest)
+
+            <div class="row">
+                    @if (!$loan->is_custom_interest)
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
@@ -213,7 +212,7 @@
                     <div class="col-lg-4">
                         <div class="card bg-warning">
                             <div class="card-body">
-                                <h5 class="fs-15 fw-semibold">{{ $loan_product->def_loan_interest }} {{ $loan_product->interest_types->first()->interest_type['name'] == 'Percentage' ? '%' : 'ZMW' }}</h5>                                        
+                                <h5 class="fs-15 fw-semibold">{{ $loan_product->def_loan_interest }} {{ $loan_product->interest_types->first()->interest_type['name'] == 'Percentage' ? '%' : 'ZMW' }}</h5>
                                 <span class="align-middle text-info fs-12 me-2">{{ $loan_product->def_loan_duration }}</sapan> {{ $loan_product->loan_duration_period }}
                                 <p class="text-white">Default Loan Interest </p>
                             </div>
@@ -242,7 +241,7 @@
                     <div class="col-lg-6">
                         <div class="card bg-info">
                             <div class="card-body">
-                                <h5 class="fs-15 fw-semibold">{{ $loan->interest }} {{ $loan->interest_type == 'Percentage' ? '%' : 'ZMW - Fixed' }}</h5>                                        
+                                <h5 class="fs-15 fw-semibold">{{ $loan->interest }} {{ $loan->interest_type == 'Percentage' ? '%' : 'ZMW - Fixed' }}</h5>
                                 <span class="align-middle text-text fs-12 me-2">{{ $loan->repayment_plan }}</sapan> {{ $loan_product->loan_duration_period }}
                                 <p class="text-white">Custom Loan Interest </p>
                             </div>
@@ -330,7 +329,7 @@
                                     </div><!-- end card body -->
                                 </div><!-- end card -->
                             </div><!-- end col -->
-                            
+
                         </div> <!-- end row-->
                     </div> <!-- end col-xl-7-->
 
@@ -361,7 +360,7 @@
 
                                         <div data-simplebar style="max-height: 257px;">
                                             <ul class="px-3 border-dashed list-group list-group-flush">
-                                                
+
                                                 <li class="list-group-item ps-0">
                                                     <div class="d-flex align-items-start">
                                                         <div class="flex-grow-1">
@@ -382,15 +381,15 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                
+
                                             </ul><!-- end ul -->
                                         </div>
                                     </div><!-- end card body -->
                                 </div><!-- end card -->
                             </div><!-- end col -->
-                            
+
                         </div> <!-- end row-->
-                    </div> 
+                    </div>
                 </div>
                 <!-- end row-->
 
