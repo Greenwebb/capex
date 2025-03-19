@@ -20,7 +20,7 @@
         <!-- end page title -->
 
         <div class="alert alert-danger" role="alert">
-            Outstanding principal balance for Open loans.        
+            Outstanding principal balance for Open loans.
         </div>
 
         <div class="row">
@@ -48,7 +48,7 @@
                                 @forelse($loan_requests as $loan)
                                     @if($loan->type != null)
                                     <tr>
-                                        <td style="text-align:center;">#{{ $loan->id }}</td>
+                                        <td style="text-align:center;">#{{ $loan->loan_number }}</td>
                                         <td style="text-align:center;">{{ $loan->fname.' '. $loan->lname }}</td>
                                         <td style="text-align:center;">{{ $loan->type }} Loan</td>
                                         <td style="text-align:center;">{{ $loan->repayment_plan }} Month(s)</td>
@@ -56,7 +56,7 @@
                                         <td style="text-align:center;">K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) }}</td>
                                         <td style="text-align:center;">
                                             <span class="badge badge-xl light badge-info">
-                                                K{{ App\Models\Application::paybackInstallment($loan->amount, $loan->repayment_plan, $loan->loan_product_id) }} 
+                                                K{{ App\Models\Application::paybackInstallment($loan->amount, $loan->repayment_plan, $loan->loan_product_id) }}
                                             </span>
                                         </td>
                                         <td style="">

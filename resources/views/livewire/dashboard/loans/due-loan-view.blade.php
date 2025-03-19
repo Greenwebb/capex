@@ -20,7 +20,7 @@
         <!-- end page title -->
 
         {{-- <div class="alert alert-danger" role="alert">
-            
+
         </div> --}}
 
         <div class="row">
@@ -64,7 +64,7 @@
                                             <input onclick="showBulkOps()" class="form-check-input fs-15" type="checkbox" name="items[]" value="{{ $loan->id }}">
                                         </div>
                                     </th>
-                                    <td>{{ $loan->created_at.''.$loan->id }}</td>
+                                    <td>{{ $loan->loan_number }}</td>
                                     <td>{{ $loan->loan_product->name }}</td>
                                     <td>K  {{ number_format($loan->amount, 2, '.', ',') }}</td>
                                     <td>
@@ -80,7 +80,7 @@
                                         Upto {{ $loan->repayment_plan }} Months
                                     </td>
                                     <td>K {{  number_format(App\Models\Loans::loan_balance( $loan->id)) }}</td>
-                                    
+
                                     <td>
                                         @if($loan->status == 0)
                                             <span class="badge bg-warning-subtle text-warning">Pending</span>
@@ -92,7 +92,7 @@
                                             <span class="badge bg-danger-subtle text-danger">Denied</span>
                                         @endif
                                     </td>
-                                    
+
                                     @if($this->current_configs('loan-approval')->value == 'spooling')
                                     <td class="text-success">
                                         @role('admin')@else
@@ -150,11 +150,11 @@
                                         </div>
                                     </td>
 
-                                </tr>                                    
+                                </tr>
                                 @empty
-                                    
+
                                 @endforelse
-                                
+
                             </tbody>
                         </table>
                     </div>

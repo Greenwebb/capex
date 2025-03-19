@@ -1,7 +1,9 @@
 <div class="page-content">
     <div class="w-full">
-            <div class="p-2 text-center d-flex justify-content-center">
-                <h4>Application Loan Assement</h4>
+            <div class="p-2 text-center justify-content-center">
+                <h4>Application Loan Assessment</h4>
+
+                <h3 class="mb-3 fw-semibold text-uppercase">Loan #: {{ $loan->loan_number }}</h3>
             </div>
 
             <div class="mb-4 step-arrow-nav">

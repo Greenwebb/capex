@@ -111,7 +111,7 @@
                                             <input onclick="showBulkOps()" class="form-check-input fs-15" type="checkbox" name="items[]" value="{{ $loan->id }}">
                                         </div>
                                     </th>
-                                    <td>{{ $loan->uuid }}</td>
+                                    <td>{{ $loan->loan_number }}</td>
                                     <td>{{ $loan->loan_product->name }}</td>
                                     <td>K {{ number_format($loan->amount, 2, '.', ',') }}</td>
                                     <td>

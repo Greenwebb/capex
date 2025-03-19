@@ -61,8 +61,6 @@ class Application extends Model
         'confirmed_by'
     ];
 
-
-
     protected static function boot()
     {
         parent::boot();
@@ -93,6 +91,11 @@ class Application extends Model
             $uuid .= $digits[rand(0, strlen($digits) - 1)];
         }
         return $uuid;
+    }
+
+    public function getLoanNumberAttribute()
+    {
+        return str_pad($this->id, 6, '0', STR_PAD_LEFT);
     }
 
     public function getDoneByAttribute(){

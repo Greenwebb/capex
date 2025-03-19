@@ -46,25 +46,25 @@
                             <tbody>
                                 @forelse($loan_requests as $loan)
                                     <tr>
-                                        <td style="">#{{ $loan->id }}</td>
+                                        <td style="">#{{ $loan->loan_number }}</td>
                                         <td style="">{{ $loan->fname.' '. $loan->lname }}</td>
                                         <td style="">{{ $loan->type }} Loan</td>
                                         <td style="">K{{ $loan->amount }}</td>
                                         <td style="">K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) }}</td>
                                         <td style="">K{{ App\Models\Loans::loan_settled($loan->id) }}</td>
-                                        
+
                                         <td style="">
-                                            @php 
+                                            @php
                                                 $date_str = $loan->date_paid;
                                                 $date = DateTime::createFromFormat('Y-m-d H:i:s', $date_str);
                                                 echo $date->format('F j, Y, g:i a');
                                             @endphp
                                         </td>
                                         <td class="actions-btns d-flex">
-                                            <a  href="{{ route('loan-details',['id' => $loan->id]) }}">  
-                                                Details                                               
+                                            <a  href="{{ route('loan-details',['id' => $loan->id]) }}">
+                                                Details
                                             </a>
-                                        </td>	
+                                        </td>
                                     </tr>
                                 @empty
                                 <div class="col-span-12 intro-y md:col-span-6">

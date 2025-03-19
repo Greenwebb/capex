@@ -141,6 +141,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="text-muted">
+                                            <h3 class="mb-3 fw-semibold text-uppercase">Loan #: {{ $loan->loan_number }}</h3>
+                                            <br>
                                             <h6 class="mb-3 fw-semibold text-uppercase">Summary Notes</h6>
                                             <p>{{ $loan->desc ?? 'No Description' }}. {{ $loan->note }}</p>
 

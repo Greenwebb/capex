@@ -49,7 +49,7 @@
                                 @forelse($loan_requests as $loan)
                                 @if($loan->type != null)
                                 <tr>
-                                    <td style="text-align:center;">#{{ $loan->id }}</td>
+                                    <td style="text-align:center;">#{{ $loan->loan_number }}</td>
                                     <td style="text-align:center;">{{ $loan->fname.' '. $loan->lname }}</td>
                                     <td style="text-align:center;">{{ $loan->type }} Loan</td>
                                     <td style="text-align:center;">{{ $loan->repayment_plan }} Month(s)</td>
