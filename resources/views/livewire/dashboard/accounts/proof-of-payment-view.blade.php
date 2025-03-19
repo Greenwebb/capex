@@ -49,15 +49,19 @@
                             <a href="{{ 'https://app.capexfinancialservices.org/storage/app/public/' . $proof->document_paths[0] }}" target="_blank" class="px-4 py-1 text-white rounded bg-info">Proof</a>
 
                             <button wire:click="acceptProof({{ $proof->id }})" class="px-4 py-1 text-white rounded bg-success">Accept</button>
+
+                            <button wire:click="declineProof({{ $proof->id }})" class="px-4 py-1 text-white rounded bg-warning">Decline</button>
+                            <button wire:click="removeProof({{ $proof->id }})" class="px-4 py-1 text-white rounded bg-danger">Delete</button>
+
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-
+    <br>
     <!-- Pagination Links -->
-    {{-- <div class="mt-4">
+    <div class="mt-4">
         {{ $paymentProofs->links() }}
-    </div> --}}
+    </div>
 </div>

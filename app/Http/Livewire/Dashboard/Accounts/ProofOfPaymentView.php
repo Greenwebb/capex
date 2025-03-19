@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Traits\UserTrait;
+use Illuminate\Support\Facades\Storage;
 
 class ProofOfPaymentView extends Component
 {
@@ -20,7 +21,7 @@ class ProofOfPaymentView extends Component
     {
         try {
             $proof = PaymentProof::findOrFail($proofId);
-            $proof->status = 'accepted'; // Assuming you have a 'status' column
+            $proof->status = 'accepted';
             $proof->save();
 
             Transaction::create([
@@ -40,7 +41,41 @@ class ProofOfPaymentView extends Component
         }
     }
 
-    // Open modal to view the proof details
+    // Decline proof of payment
+    public function declineProof($proofId)
+    {
+        try {
+            $proof = PaymentProof::findOrFail($proofId);
+            $proof->status = 'declined';
+            $proof->save();
+
+            session()->flash('message', 'Payment proof declined successfully.');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Failed to decline payment proof.');
+        }
+    }
+
+    // Delete proof of payment
+    public function removeProof($proofId)
+    {
+        try {
+            $proof = PaymentProof::findOrFail($proofId);
+
+            // Delete associated files from storage
+            if (!empty($proof->document_paths)) {
+                foreach ($proof->document_paths as $path) {
+                    Storage::delete('public/' . $path);
+                }
+            }
+
+            $proof->delete();
+
+            session()->flash('message', 'Payment proof deleted successfully.');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Failed to delete payment proof.');
+        }
+    }
+
     public function viewProof($proofId)
     {
         $this->selectedPaymentProof = PaymentProof::findOrFail($proofId);
@@ -54,15 +89,10 @@ class ProofOfPaymentView extends Component
 
     public function render()
     {
-        $paymentProofs = PaymentProof::latest()->get();
+        $paymentProofs = PaymentProof::latest()->paginate(10);
         return view('livewire.dashboard.accounts.proof-of-payment-view', [
             'paymentProofs' => $paymentProofs,
         ])
         ->layout('layouts.main');
     }
-
-    // public function getUserInfo($id){
-    //     $user = User::where('id', $id)->first();
-    //     return $user->fname.' '.$user->lname;
-    // }
 }
