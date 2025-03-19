@@ -116,7 +116,6 @@
                                     <td>K {{ number_format($loan->amount, 2, '.', ',') }}</td>
                                     <td>
                                         @if ($loan->interest)
-
                                             @if ($loan->interest_type == 'Fixed')
                                             K
                                             @endif
@@ -144,16 +143,8 @@
                                             {{ \Illuminate\Support\Str::limit($loan->user->fname . ' ' . $loan->user->mname . ' ' . $loan->user->lname, 25) }}
                                         </a>
                                     </td>
-
                                     <td>{{ $loan->created_at->toFormattedDateString() }}</td>
-                                    {{-- <td>
-                                        K {{
-                                            number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id), 2, '.', ',')
-                                        }}
-                                        Upto {{ $loan->repayment_plan }} Months
-                                    </td>--}}
                                     <td>{{  $loan->source }}</td>
-
                                     <td>
                                         @if($loan->status == 0)
                                             <span class="badge bg-warning-subtle text-warning">Pending</span>
@@ -238,9 +229,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-    <!-- container-fluid -->
 
 
     @include('livewire.dashboard.loans.__modals.assign-loan')
