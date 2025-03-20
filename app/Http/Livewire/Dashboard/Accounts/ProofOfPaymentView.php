@@ -13,10 +13,11 @@ class ProofOfPaymentView extends Component
 {
     use WithPagination, UserTrait;
 
+    protected $paginationTheme = 'bootstrap'; // Ensure pagination styling works with Bootstrap
     public $selectedPaymentProof;
     public $showModal = false;
 
-    // Accept proof of payment (simple status update)
+    // Accept Payment Proof
     public function acceptProof($proofId)
     {
         try {
@@ -29,19 +30,19 @@ class ProofOfPaymentView extends Component
                 'amount_settled' => $proof->amount,
                 'transaction_fee' => 0,
                 'profit_margin' => 0,
-                'proccess_by' => $proof->user->fname.' '.$proof->user->lname,
+                'proccess_by' => $proof->user->fname . ' ' . $proof->user->lname,
                 'charge_amount' => 0,
                 'method' => $proof->method,
                 'user_id' => $proof->user_id,
             ]);
 
-            session()->flash('message', 'Payment proof accepted successfully.');
+            $this->dispatchBrowserEvent('notify', ['type' => 'success', 'message' => 'Payment proof accepted successfully.']);
         } catch (\Throwable $th) {
-            session()->flash('error', 'Payment proof acceptance failed.');
+            $this->dispatchBrowserEvent('notify', ['type' => 'error', 'message' => 'Payment proof acceptance failed.']);
         }
     }
 
-    // Decline proof of payment
+    // Decline Payment Proof
     public function declineProof($proofId)
     {
         try {
@@ -49,42 +50,32 @@ class ProofOfPaymentView extends Component
             $proof->status = 'declined';
             $proof->save();
 
-            session()->flash('message', 'Payment proof declined successfully.');
+            $this->dispatchBrowserEvent('notify', ['type' => 'warning', 'message' => 'Payment proof declined successfully.']);
         } catch (\Throwable $th) {
-            session()->flash('error', 'Failed to decline payment proof.');
+            $this->dispatchBrowserEvent('notify', ['type' => 'error', 'message' => 'Failed to decline payment proof.']);
         }
     }
 
-    // Delete proof of payment
+    // Delete Payment Proof
     public function removeProof($proofId)
     {
         try {
             $proof = PaymentProof::findOrFail($proofId);
 
-            // Delete associated files from storage
             if (!empty($proof->document_paths)) {
                 foreach ($proof->document_paths as $path) {
-                    Storage::delete('public/' . $path);
+                    if (Storage::exists('public/' . $path)) {
+                        Storage::delete('public/' . $path);
+                    }
                 }
             }
 
             $proof->delete();
 
-            session()->flash('message', 'Payment proof deleted successfully.');
+            $this->dispatchBrowserEvent('notify', ['type' => 'success', 'message' => 'Payment proof deleted successfully.']);
         } catch (\Throwable $th) {
-            session()->flash('error', 'Failed to delete payment proof.');
+            $this->dispatchBrowserEvent('notify', ['type' => 'error', 'message' => 'Failed to delete payment proof.']);
         }
-    }
-
-    public function viewProof($proofId)
-    {
-        $this->selectedPaymentProof = PaymentProof::findOrFail($proofId);
-        $this->showModal = true;
-    }
-
-    public function closeModal()
-    {
-        $this->showModal = false;
     }
 
     public function render()
@@ -92,7 +83,6 @@ class ProofOfPaymentView extends Component
         $paymentProofs = PaymentProof::latest()->paginate(10);
         return view('livewire.dashboard.accounts.proof-of-payment-view', [
             'paymentProofs' => $paymentProofs,
-        ])
-        ->layout('layouts.main');
+        ])->layout('layouts.main');
     }
 }
