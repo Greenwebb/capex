@@ -255,8 +255,6 @@
                                                         }
                                                     @endphp
 
-@dd($loan->user->uploads);
-
                                                     @if ($loan->user->uploads->where('name', 'nrc_file')->isNotEmpty())
                                                         {!! renderFileBlock($loan->user->uploads->where('name', 'nrc_file')->first(), 'NRC Front', $loan->user) !!}
                                                     @endif
