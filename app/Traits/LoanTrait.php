@@ -468,7 +468,6 @@ trait LoanTrait{
         return Application::with('loan')
         ->where('email', auth()->user()->email)
         ->orWhere('user_id', auth()->user()->id)
-        ->orderBy('created_at', 'desc') // Add this line to order by 'created_at' column in descending order
         ->first();
     }
 
@@ -819,11 +818,11 @@ trait LoanTrait{
             $update->is_active = 0;
             $update->is_processing = 0;
             $update->save();
-    
+
             // Elevate to the next priority
             $update = $approvers->where('priority', $userPriority + 1)->first();
             if($update){
-    
+
                 $update->complete = 1; //optional - remove
                 $update->is_active = 1;
                 $update->is_processing = 1;

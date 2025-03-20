@@ -24,7 +24,7 @@ class LoanDetailView extends Component
     use CalculatorTrait, EmailTrait, WalletTrait, LoanTrait, CRBTrait, AuthorizesRequests;
     public $loan, $user, $loan_id, $msg, $due_date, $reason, $loan_product;
     public $loan_stage, $denied_status, $picked_status, $current, $principal_amt, $code, $crb, $crb_results;
-    public $amortizationSchedule,$amo_principal, $amo_duration;
+    public $amortizationSchedule, $amo_principal, $amo_duration;
     public $employee_name, $employee_number;
     public $deductions = [];
     public $debt_ratio, $gross_pay, $basic_pay, $net_pay, $result_amount;
@@ -32,7 +32,8 @@ class LoanDetailView extends Component
     public $lp, $loan_interest_value, $principal, $amortization_table;
     public $loan_interest_method, $interest_methods, $loan_ai;
 
-    public function mount($id){
+    public function mount($id)
+    {
         $this->loan_id = $id;
     }
 
@@ -42,10 +43,11 @@ class LoanDetailView extends Component
         $this->change_status();
         $this->init_data();
         return view('livewire.dashboard.loans.loan-detail-view')
-        ->layout('layouts.main');
+            ->layout('layouts.main');
     }
 
-    public function init_data(){
+    public function init_data()
+    {
         //Data fetch
         $this->loan = $this->get_loan_details($this->loan_id);
         $this->loan_notifications = $this->loan_notifications($this->loan->id);
@@ -58,17 +60,19 @@ class LoanDetailView extends Component
         $this->interest_methods = InterestMethod::get();
     }
 
-    public function prefillLoanProductValues(){
+    public function prefillLoanProductValues()
+    {
         try {
             $this->lp = $this->get_loan_product($this->loan->loan_product_id);
-            $this->loan_interest_value =$this->lp->def_loan_interest / 100;
+            $this->loan_interest_value = $this->lp->def_loan_interest / 100;
             $this->principal = $this->loan->amount;
         } catch (\Throwable $th) {
             dd($th);
         }
     }
 
-    public function getAmoritizationTable(){
+    public function getAmoritizationTable()
+    {
         try {
             $data = [
                 'loan_duration_period' => 'month',
@@ -89,11 +93,11 @@ class LoanDetailView extends Component
 
     public function CheckCRB()
     {
-        if($this->code){
-            if($this->code === 's'){
+        if ($this->code) {
+            if ($this->code === 's') {
                 // $response = $this->soapApiCRBDemoRequest($this->code, $this->loan->user);
                 // $response = $this->soapApiCRBDemoRequest($this->code, $this->loan->user);
-            }else{
+            } else {
                 $response = $this->soapApiCRBRequest($this->code, $this->loan->user);
             }
             $parser = xml_parser_create();
@@ -108,7 +112,8 @@ class LoanDetailView extends Component
         }
     }
 
-    public function acceptSuggestionBtn(){
+    public function acceptSuggestionBtn()
+    {
         try {
             $switch = $this->loan;
             $switch->old_amount = $switch->amount;
@@ -119,16 +124,19 @@ class LoanDetailView extends Component
         }
     }
 
-    public function setLoanID($id){
+    public function setLoanID($id)
+    {
         $this->loan_id = $id;
     }
 
-    public function confirm($id, $msg){
+    public function confirm($id, $msg)
+    {
         $this->loan_id = $id;
         $this->msg = $msg;
     }
 
-    public function clear(){
+    public function clear()
+    {
         $this->loan_id = '';
         $this->msg = '';
     }
@@ -139,12 +147,13 @@ class LoanDetailView extends Component
         Application::where('id', $this->loan_id)->update(['status' => 2]);
         LoanManualApprover::where('user_id', auth()->id())->update(['is_processing' => 1]);
         // Redirect to other page here
-        Redirect::route('loan-details',['id' => $this->loan_id]);
+        Redirect::route('loan-details', ['id' => $this->loan_id]);
         session()->flash('success', 'Loan successfully set under review!');
         sleep(3);
     }
 
-    public function rollbackLoan(){
+    public function rollbackLoan()
+    {
         try {
             switch (strtolower($this->current->status)) {
                 case 'approval':
@@ -176,8 +185,7 @@ class LoanDetailView extends Component
             // Flash success message
             session()->flash('success', 'Loan successfully rolled back!');
             // Redirect back with success message
-            return redirect()->route('loan-details',$this->loan_id);
-
+            return redirect()->route('loan-details', $this->loan_id);
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -185,21 +193,22 @@ class LoanDetailView extends Component
 
 
     // This method is the actual approval process - Recommended
-    public function accept($id){
+    public function accept($id)
+    {
         // DB::beginTransaction();
 
         try {
             $application_request = Application::find($id);
             // dd($this->change_stage());
             if ($this->change_stage()) {
-                if($this->final_approver($id)['status']){
+                if ($this->final_approver($id)['status']) {
                     // Make the loan when disbursed
                     // $this->make_loan($x, $this->due_date);
                     // $this->isCompanyEnough($x->amount);
                     // dd($application_request);
                     // Do this - If this officer is the last approver
                     // dd(strtolower($this->loan_stage->stage));
-                    if(strtolower($this->loan_stage->stage) == 'disbursements'){
+                    if (strtolower($this->loan_stage->stage) == 'disbursements') {
                         $this->current->update([
                             'state' => 'current',
                             'status' => 'Current Loan',
@@ -209,35 +218,36 @@ class LoanDetailView extends Component
                             'position' => 4,
                         ]);
                         $this->approve_final($application_request);
-                    }else{
+                        Redirect::route('detailed', ['id' => $this->loan_id]);
+                    } else {
                         $this->approve_continue($id);
                     }
-                }else{
+                } else {
                     $this->approve_continue($id);
                 }
-                Redirect::route('loan-details',['id' => $this->loan_id]);
+                Redirect::route('loan-details', ['id' => $this->loan_id]);
             } else {
                 $this->approve_final($application_request);
-                Redirect::route('loan-details',['id' => $this->loan_id]);
+                Redirect::route('detailed', ['id' => $this->loan_id]);
             }
         } catch (\Throwable $th) {
-            // DB::rollback();
-            dd($th);
-            session()->flash('error', 'Oops something failed here, please contact the Administrator.'.$th);
+            DB::rollback();
+            session()->flash('error', 'Oops something failed here, please contact the Administrator.' . $th);
         }
     }
 
     // Only when step is accepted
-    public function change_stage(){
+    public function change_stage()
+    {
         try {
             $next_status = LoanStatus::with('status')
-            ->where('loan_product_id', $this->loan_product->id)
-            ->orderBy('id', 'asc')
-            ->skip($this->current->position) // $this->current is 0-indexed, no need to subtract 1
-            ->take(1)
-            ->first();
+                ->where('loan_product_id', $this->loan_product->id)
+                ->orderBy('id', 'asc')
+                ->skip($this->current->position) // $this->current is 0-indexed, no need to subtract 1
+                ->take(1)
+                ->first();
 
-            if($next_status){
+            if ($next_status) {
                 $this->current->update([
                     'state' => 'current',
                     'status' => $next_status->status->name,
@@ -247,41 +257,43 @@ class LoanDetailView extends Component
                     'position' => $this->current->position + 1,
                 ]);
                 return true;
-            }else{
+            } else {
                 return false;
             }
-            
         } catch (\Throwable $th) {
             return false;
         }
     }
 
-    public function change_status(){
+    public function change_status()
+    {
         try {
 
             $application = Application::find($this->loan_id);
             // dd($this->current->stage);
             if ($this->current->stage == 'open') {
                 $application->status = 1;
-            } elseif($this->current->stage == 'denied') {
+            } elseif ($this->current->stage == 'denied') {
                 $application->status = 3;
-
-            } elseif($this->current->stage == 'defaulted') {
+            } elseif ($this->current->stage == 'defaulted') {
                 $application->status = 4;
-            }elseif($this->current->stage == 'Not Taken Up') {
+            } elseif ($this->current->stage == 'Not Taken Up') {
                 $application->status = 5;
-            }else{}
+            } else {
+            }
             $application->save();
         } catch (\Throwable $th) {
-            dd('Cant Change Status: '.$th->getMessage());
+            dd('Cant Change Status: ' . $th->getMessage());
         }
     }
 
-    public function approve_continue($id){
+    public function approve_continue($id)
+    {
         $this->upvote($id);
     }
 
-    public function approve_final($x){
+    public function approve_final($x)
+    {
         $this->upvote($x->id);
         $currentDate = Carbon::now();
         $futureDate = $currentDate->addMonths((int)$x->repayment_plan);
@@ -289,29 +301,30 @@ class LoanDetailView extends Component
         $x->due_date = $futureDate;
         $x->save();
 
-        if($x->email != null){
+        if ($x->email != null) {
             $mail = [
                 'user_id' => $x->user_id,
                 'application_id' => $x->id,
-                'name' => $x->fname.' '.$x->lname,
+                'name' => $x->user->fname . ' ' . $x->user->lname,
                 'loan_type' => $x->type,
-                'phone' => $x->phone,
+                'phone' => $x->user->phone,
                 'email' => $x->email,
                 'duration' => $x->repayment_plan,
                 'amount' => $x->amount,
                 'payback' => Application::payback($x->amount, $x->repayment_plan, $x->loan_product_id, null),
                 'type' => 'loan-application',
-                'msg' => 'Your '.$x->type.' loan application request has been successfully accepted'
+                'msg' => 'Your ' . $x->type . ' loan application request has been successfully accepted'
             ];
             $this->send_loan_accepted_notification($mail);
         }
         $this->deposit($x->amount, $x);
         DB::commit();
-        session()->flash('success', 'Successfully disbursed an amount of  '.$x->amount.' to '.$x->fname.' '.$x->lname);
+        session()->flash('success', "Successfully disbursed K{$x->amount} to {$x->user->fname} {$x->user->lname} 🎉");
     }
 
 
-    public function stall($id){
+    public function stall($id)
+    {
         try {
             $x = Application::find($id);
             $x->status = 2;
@@ -320,7 +333,7 @@ class LoanDetailView extends Component
             $mail = [
                 'user_id' => '',
                 'application_id' => $x->id,
-                'name' => $x->fname.' '.$x->lname,
+                'name' => $x->fname . ' ' . $x->lname,
                 'loan_type' => $x->type,
                 'phone' => $x->phone,
                 'email' => $x->email,
@@ -328,7 +341,7 @@ class LoanDetailView extends Component
                 'amount' => $x->amount,
                 'payback' => Application::payback($x->amount, $x->repayment_plan),
                 'type' => 'loan-application',
-                'msg' => 'Your '.$x->type.' loan application is under review'
+                'msg' => 'Your ' . $x->type . ' loan application is under review'
             ];
             $this->send_loan_feedback_email($mail);
             $this->render();
@@ -339,7 +352,8 @@ class LoanDetailView extends Component
     }
 
 
-    public function reverse($id){
+    public function reverse($id)
+    {
         try {
             $x = Application::find($id);
             $x->status = 2;
@@ -347,18 +361,18 @@ class LoanDetailView extends Component
 
             // Make a Denied Stage status page as active
             LoanStatus::where('loan_product_id', $this->loan_product->id)
-            ->orderBy('id')
-            ->update(['state' => 'pending']);
+                ->orderBy('id')
+                ->update(['state' => 'pending']);
             LoanStatus::where('loan_product_id', $this->loan_product->id)
-            ->where('status_id', $this->picked_status)
-            ->orderBy('id')
-            ->first()
-            ->update(['state' => 'current']);
+                ->where('status_id', $this->picked_status)
+                ->orderBy('id')
+                ->first()
+                ->update(['state' => 'current']);
 
             $mail = [
                 'user_id' => '',
                 'application_id' => $x->id,
-                'name' => $x->fname.' '.$x->lname,
+                'name' => $x->fname . ' ' . $x->lname,
                 'loan_type' => $x->type,
                 'phone' => $x->phone,
                 'email' => $x->email,
@@ -366,7 +380,7 @@ class LoanDetailView extends Component
                 'amount' => $x->amount,
                 'payback' => Application::payback($x->amount, $x->repayment_plan),
                 'type' => 'loan-application',
-                'msg' => 'Your '.$x->type.' has been taken up and is currently under review, please wait withing the next 48 hours.'
+                'msg' => 'Your ' . $x->type . ' has been taken up and is currently under review, please wait withing the next 48 hours.'
             ];
             $this->withdraw($x->amount, $x);
             $this->send_loan_feedback_email($mail);
@@ -376,7 +390,8 @@ class LoanDetailView extends Component
         }
     }
 
-    public function rejectOnly(){
+    public function rejectOnly()
+    {
 
         try {
             $x = Application::find($this->loan_id);
@@ -394,7 +409,7 @@ class LoanDetailView extends Component
             $mail = [
                 'user_id' => $x->user_id,
                 'application_id' => $x->id,
-                'name' => $x->fname.' '.$x->lname,
+                'name' => $x->fname . ' ' . $x->lname,
                 'estimate' => 500,
                 'loan_type' => $x->type,
                 'phone' => $x->phone,
@@ -403,20 +418,16 @@ class LoanDetailView extends Component
                 'amount' => $x->amount,
                 'payback' => Application::payback($x->amount, $x->repayment_plan),
                 'type' => 'loan-application',
-                'msg' => 'Your '.$x->type.' loan application request. After careful consideration, we regret to inform you that your loan request has been declined. REASON: '.$this->reason
+                'msg' => 'Your ' . $x->type . ' loan application request. After careful consideration, we regret to inform you that your loan request has been declined. REASON: ' . $this->reason
             ];
 
             $this->send_loan_declined_notification($mail);
-            Redirect::route('loan-details',['id' => $this->loan_id]);
+            Redirect::route('loan-details', ['id' => $this->loan_id]);
             session()->flash('success', 'Loan has been rejected');
-
         } catch (\Throwable $th) {
             session()->flash('error', 'Oops something failed here, please contact the Administrator.');
         }
     }
 
-    public function reprocess(){
-
-    }
-
+    public function reprocess() {}
 }

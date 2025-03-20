@@ -36,7 +36,7 @@ class ProofOfPaymentView extends Component
 
             session()->flash('message', 'Payment proof accepted successfully.');
         } catch (\Throwable $th) {
-           dd($th);
+            session()->flash('error', 'Payment proof acceptance failed.');
         }
     }
 

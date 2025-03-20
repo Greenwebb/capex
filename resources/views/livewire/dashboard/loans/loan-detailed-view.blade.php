@@ -255,6 +255,8 @@
                                                         }
                                                     @endphp
 
+                                                    {{-- @dd($loan->user->uploads); --}}
+
                                                     @if ($loan->user->uploads->where('name', 'nrc_file')->isNotEmpty())
                                                         {!! renderFileBlock($loan->user->uploads->where('name', 'nrc_file')->first(), 'NRC Front', $loan->user) !!}
                                                     @endif
@@ -274,7 +276,6 @@
                                                     @if ($loan->user->uploads->where('name', 'bankstatement')->isNotEmpty())
                                                         {!! renderFileBlock($loan->user->uploads->where('name', 'bankstatement')->first(), 'Bank Statement', $loan->user) !!}
                                                     @endif
-
                                                     <!-- end col -->
                                                 </div>
                                                 <!-- end row -->

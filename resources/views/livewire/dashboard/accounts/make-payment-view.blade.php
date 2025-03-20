@@ -71,7 +71,7 @@
                     <div class="card-body">
                         <div class="listjs-table" id="customerList">
                             <div class="mb-3 row g-4">
-                                @can('make payments')
+                                @can('make repayments')
                                 <div class="col-sm-auto">
                                     <div>
                                         <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="align-bottom ri-add-line me-1"></i> Add Transaction </button>
@@ -90,6 +90,7 @@
                             </div>
 
                             <div class="px-3 mt-3 mb-1 table-responsive table-card">
+                                
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>

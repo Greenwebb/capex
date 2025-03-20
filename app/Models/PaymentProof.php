@@ -24,5 +24,7 @@ class PaymentProof extends Model
     // Cast the 'document_paths' field to an array since it's stored as JSON in the database
     protected $casts = [
         'document_paths' => 'array',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 }
