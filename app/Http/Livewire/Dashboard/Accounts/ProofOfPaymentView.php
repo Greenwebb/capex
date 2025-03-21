@@ -8,14 +8,13 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Traits\UserTrait;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class ProofOfPaymentView extends Component
 {
     use WithPagination, UserTrait;
 
-    protected $paginationTheme = 'bootstrap'; // Ensure pagination styling works with Bootstrap
-    public $selectedPaymentProof;
-    public $showModal = false;
+    protected $paginationTheme = 'bootstrap';
 
     // Accept Payment Proof
     public function acceptProof($proofId)
@@ -36,9 +35,9 @@ class ProofOfPaymentView extends Component
                 'user_id' => $proof->user_id,
             ]);
 
-            $this->dispatchBrowserEvent('notify', ['type' => 'success', 'message' => 'Payment proof accepted successfully.']);
+            session()->flash('success', 'Payment proof accepted successfully.');
         } catch (\Throwable $th) {
-            $this->dispatchBrowserEvent('notify', ['type' => 'error', 'message' => 'Payment proof acceptance failed.']);
+            session()->flash('error', 'Payment proof acceptance failed.');
         }
     }
 
@@ -50,10 +49,11 @@ class ProofOfPaymentView extends Component
             $proof->status = 'declined';
             $proof->save();
 
-            $this->dispatchBrowserEvent('notify', ['type' => 'warning', 'message' => 'Payment proof declined successfully.']);
+            session()->flash('warning', 'Payment proof declined successfully.');
         } catch (\Throwable $th) {
-            $this->dispatchBrowserEvent('notify', ['type' => 'error', 'message' => 'Failed to decline payment proof.']);
+            session()->flash('error', 'Failed to decline payment proof.');
         }
+        return redirect()->back();
     }
 
     // Delete Payment Proof
@@ -72,9 +72,9 @@ class ProofOfPaymentView extends Component
 
             $proof->delete();
 
-            $this->dispatchBrowserEvent('notify', ['type' => 'success', 'message' => 'Payment proof deleted successfully.']);
+            session()->flash('success', 'Payment proof deleted successfully.');
         } catch (\Throwable $th) {
-            $this->dispatchBrowserEvent('notify', ['type' => 'error', 'message' => 'Failed to delete payment proof.']);
+            session()->flash('error', 'Failed to delete payment proof.');
         }
     }
 

@@ -193,22 +193,24 @@ class LoanDetailView extends Component
 
 
     // This method is the actual approval process - Recommended
-    public function accept($id)
+    public function accept($id, $type = null)
     {
+        // dd(strtolower($type));
         // DB::beginTransaction();
 
         try {
             $application_request = Application::find($id);
             // dd($this->change_stage());
             if ($this->change_stage()) {
+                // dd($this->final_approver($id)['status']);
                 if ($this->final_approver($id)['status']) {
                     // Make the loan when disbursed
                     // $this->make_loan($x, $this->due_date);
                     // $this->isCompanyEnough($x->amount);
                     // dd($application_request);
                     // Do this - If this officer is the last approver
-                    // dd(strtolower($this->loan_stage->stage));
-                    if (strtolower($this->loan_stage->stage) == 'disbursements') {
+                    // dd(strtolower($type));
+                    if (strtolower($type) == 'disburse') {
                         $this->current->update([
                             'state' => 'current',
                             'status' => 'Current Loan',
@@ -221,7 +223,9 @@ class LoanDetailView extends Component
                         Redirect::route('detailed', ['id' => $this->loan_id]);
                     } else {
                         $this->approve_continue($id);
+                        Redirect::route('loan-details', ['id' => $this->loan_id]);
                     }
+
                 } else {
                     $this->approve_continue($id);
                 }
@@ -246,7 +250,7 @@ class LoanDetailView extends Component
                 ->skip($this->current->position) // $this->current is 0-indexed, no need to subtract 1
                 ->take(1)
                 ->first();
-
+            // dd($next_status);
             if ($next_status) {
                 $this->current->update([
                     'state' => 'current',
@@ -294,32 +298,22 @@ class LoanDetailView extends Component
 
     public function approve_final($x)
     {
-        $this->upvote($x->id);
-        $currentDate = Carbon::now();
-        $futureDate = $currentDate->addMonths((int)$x->repayment_plan);
-        $x->status = 1;
-        $x->due_date = $futureDate;
-        $x->save();
+        try {
+            //Add next repayment dates
+            $currentDate = Carbon::now();
+            $futureDate = $currentDate->addMonths((int)$x->repayment_plan);
 
-        if ($x->email != null) {
-            $mail = [
-                'user_id' => $x->user_id,
-                'application_id' => $x->id,
-                'name' => $x->user->fname . ' ' . $x->user->lname,
-                'loan_type' => $x->type,
-                'phone' => $x->user->phone,
-                'email' => $x->email,
-                'duration' => $x->repayment_plan,
-                'amount' => $x->amount,
-                'payback' => Application::payback($x->amount, $x->repayment_plan, $x->loan_product_id, null),
-                'type' => 'loan-application',
-                'msg' => 'Your ' . $x->type . ' loan application request has been successfully accepted'
-            ];
-            $this->send_loan_accepted_notification($mail);
+
+            //convert loan to open status = 1
+            $x->status = 1;
+            $x->due_date = $futureDate;
+            $x->save();
+
+            // dd($x);
+            session()->flash('success', "Successfully disbursed K{$x->amount} to {$x->user->fname} {$x->user->lname} 🎉");
+        } catch (\Throwable $th) {
+            dd($th);
         }
-        $this->deposit($x->amount, $x);
-        DB::commit();
-        session()->flash('success', "Successfully disbursed K{$x->amount} to {$x->user->fname} {$x->user->lname} 🎉");
     }
 
 

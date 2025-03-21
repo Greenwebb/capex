@@ -90,7 +90,7 @@
                             </div>
 
                             <div class="px-3 mt-3 mb-1 table-responsive table-card">
-                                
+
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>
@@ -116,8 +116,7 @@
                                                 <td style=""></td>
                                                 <td >{{ $data->ref_no ?? $data->application_id }}</td>
                                                 <td >{{ $data->application->loan_product->name }} Loan</td>
-                                                <td >{{ $data->application->fname.' '.$data->application->mname.' '.$data->application->lname }}</td>
-
+                                                <td >{{ $data->application->user->fname.' '.$data->application->user->mname.' '.$data->application->user->lname }}</td>
                                                 <td >K{{ App\Models\Application::payback($data->application->amount, $data->application->repayment_plan, $data->application->loan_product_id, $data->application) }}</td>
                                                 <td style="color:green;font-weight:bold">K{{ $data->amount_settled }}</td>
                                                 <td >K {{ App\Models\Loans::loan_balance( $data->application->id) }}</td>

@@ -1,6 +1,11 @@
 <div>
     <div class="page-content">
         <div class="container-fluid">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
             <!-- Page Title -->
             <div class="row">
@@ -17,8 +22,39 @@
                 </div>
             </div>
 
-            <!-- Flash Message Notifications -->
-            <div id="flash-message" class="alert d-none"></div>
+            <!-- Flash Messages using SweetAlert -->
+            @if(session()->has('success'))
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: "{{ session('success') }}",
+                        confirmButtonColor: '#3085d6',
+                    });
+                </script>
+            @endif
+
+            @if(session()->has('error'))
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "{{ session('error') }}",
+                        confirmButtonColor: '#d33',
+                    });
+                </script>
+            @endif
+
+            @if(session()->has('warning'))
+                <script>
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: "{{ session('warning') }}",
+                        confirmButtonColor: '#ffc107',
+                    });
+                </script>
+            @endif
 
             <!-- Proof of Payments Table -->
             <div class="table-responsive">
@@ -39,7 +75,7 @@
                             <tr style="border-bottom: 1px solid #ddd;">
                                 <td class="px-4 py-2">{{ $proof->id }}</td>
                                 <td class="px-4 py-2">{{ $this->getUserInfo($proof->user_id) }}</td>
-                                <td class="px-4 py-2">${{ number_format($proof->amount, 2) }}</td>
+                                <td class="px-4 py-2">K{{ number_format($proof->amount, 2) }}</td>
                                 <td class="px-4 py-2">{{ $proof->method }}</td>
                                 <td class="px-4 py-2">{{ $proof->details ?? 'No Details Available' }}</td>
                                 <td class="px-4 py-2">
@@ -50,19 +86,19 @@
                                     </span>
                                 </td>
                                 <td class="px-4 py-2 space-x-2">
-                                    <a href="{{ asset('storage/' . ($proof->document_paths[0] ?? 'default.pdf')) }}" target="_blank"
+                                    <a href="{{ 'https://app.capexfinancialservices.org/storage/' . ($proof->document_paths[0] ?? 'default.pdf') }}" target="_blank"
                                         class="px-4 py-1 text-white rounded" style="background: #17a2b8;">
                                         View Proof
                                     </a>
-                                    <button onclick="confirmAction('Accept', {{ $proof->id }})"
+                                    <button wire:click="acceptProof({{ $proof->id }})"
                                         class="px-4 py-1 text-white rounded" style="background: #28a745;">
                                         Accept
                                     </button>
-                                    <button onclick="confirmAction('Decline', {{ $proof->id }})"
+                                    <button wire:click="declineProof({{ $proof->id }})"
                                         class="px-4 py-1 text-white rounded" style="background: #ffc107;">
                                         Decline
                                     </button>
-                                    <button onclick="confirmAction('Delete', {{ $proof->id }})"
+                                    <button wire:click="removeProof({{ $proof->id }})"
                                         class="px-4 py-1 text-white rounded" style="background: #dc3545;">
                                         Delete
                                     </button>
@@ -79,40 +115,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Include SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        function confirmAction(action, proofId) {
-            let actionText = action.toLowerCase();
-            let actionColor = action === 'Accept' ? '#28a745' : (action === 'Decline' ? '#ffc107' : '#dc3545');
-            let actionFunction = action === 'Accept' ? 'acceptProof' : (action === 'Decline' ? 'declineProof' : 'removeProof');
-
-            Swal.fire({
-                title: `Are you sure?`,
-                text: `You are about to ${actionText} this proof of payment.`,
-                icon: action === 'Delete' ? 'warning' : 'info',
-                showCancelButton: true,
-                confirmButtonColor: actionColor,
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: `Yes, ${actionText} it!`
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.emit(actionFunction, proofId);
-                }
-            });
-        }
-
-        window.addEventListener('notify', event => {
-            Swal.fire({
-                position: 'top-end',
-                icon: event.detail.type,
-                title: event.detail.message,
-                showConfirmButton: false,
-                timer: 3000
-            });
-        });
-    </script>
-
 </div>
