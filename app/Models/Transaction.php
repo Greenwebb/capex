@@ -19,6 +19,7 @@ class Transaction extends Model
         'application_id',
         'proccess_by',
         'installment_id',
+        'proof_id',
         'user_id'
     ];
 

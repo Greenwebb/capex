@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire\Dashboard\Accounts;
 
+use App\Models\Application;
+use App\Models\Loans;
 use App\Models\PaymentProof;
 use App\Models\Transaction;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Traits\UserTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 
@@ -34,6 +37,16 @@ class ProofOfPaymentView extends Component
                 'method' => $proof->method,
                 'user_id' => $proof->user_id,
             ]);
+            // Close loan if the balance is 0
+            $borrower_loan = Application::where('id', $proof->loan_id)->first();
+            if(Loans::loan_balance($proof->loan_id) < 1){
+                $borrower_loan->closed = 1;
+                $borrower_loan->date_paid = Carbon::now();
+                $borrower_loan->save();
+            }else{
+                $borrower_loan->closed = 0;
+                $borrower_loan->save();
+            }
 
             session()->flash('success', 'Payment proof accepted successfully.');
         } catch (\Throwable $th) {
@@ -61,7 +74,6 @@ class ProofOfPaymentView extends Component
     {
         try {
             $proof = PaymentProof::findOrFail($proofId);
-
             if (!empty($proof->document_paths)) {
                 foreach ($proof->document_paths as $path) {
                     if (Storage::exists('public/' . $path)) {
@@ -71,7 +83,19 @@ class ProofOfPaymentView extends Component
             }
 
             $proof->delete();
+            Transaction::where('proof_id', $proofId)->delete();
 
+            // Close loan if the balance is 0
+            $borrower_loan = Application::where('id', $proof->loan_id)->first();
+
+            if(Loans::loan_balance($proof->loan_id) < 1){
+                $borrower_loan->closed = 1;
+                $borrower_loan->date_paid = Carbon::now();
+                $borrower_loan->save();
+            }else{
+                $borrower_loan->closed = 0;
+                $borrower_loan->save();
+            }
             session()->flash('success', 'Payment proof deleted successfully.');
         } catch (\Throwable $th) {
             session()->flash('error', 'Failed to delete payment proof.');
