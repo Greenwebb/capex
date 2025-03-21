@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\UserAuthenticationController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\OTPController;
 use App\Http\Controllers\LoanApplicationController;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -80,3 +81,20 @@ Route::post('make-withdrawal-request', [LoanRequestController::class, 'makeWithd
 // Admin Settings
 Route::get('/get-approvers-users', [SettingController::class, '__get_approvers']);
 Route::post('/set-auto-approvers', [SettingController::class, '__set_approvers']);
+
+
+//payback
+Route::get('/payback', function (Request $request) {
+    $principal = $request->query('principal');
+    $duration = $request->query('duration');
+    $product_id = $request->query('product_id');
+    $loan = null; // Modify this part if you need to fetch the loan object based on request data
+
+    if (!$principal || !$duration) {
+        return response()->json(['error' => 'Missing required parameters'], 400);
+    }
+
+    $paybackAmount = Application::payback($principal, $duration, $product_id, $loan);
+
+    return response()->json(['payback' => $paybackAmount]);
+});

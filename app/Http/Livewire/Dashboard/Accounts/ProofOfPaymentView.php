@@ -27,8 +27,10 @@ class ProofOfPaymentView extends Component
             $proof->status = 'accepted';
             $proof->save();
 
+            // dd((int)$proof->amount);
             Transaction::create([
                 'application_id' => $proof->loan_id,
+                'proof_id' => $proofId,
                 'amount_settled' => $proof->amount,
                 'transaction_fee' => 0,
                 'profit_margin' => 0,
@@ -37,13 +39,15 @@ class ProofOfPaymentView extends Component
                 'method' => $proof->method,
                 'user_id' => $proof->user_id,
             ]);
+
+            dd(Loans::loan_balance($proof->loan_id));
             // Close loan if the balance is 0
             $borrower_loan = Application::where('id', $proof->loan_id)->first();
-            if(Loans::loan_balance($proof->loan_id) < 1){
+            if (Loans::loan_balance($proof->loan_id) < 1) {
                 $borrower_loan->closed = 1;
                 $borrower_loan->date_paid = Carbon::now();
                 $borrower_loan->save();
-            }else{
+            } else {
                 $borrower_loan->closed = 0;
                 $borrower_loan->save();
             }
@@ -88,11 +92,11 @@ class ProofOfPaymentView extends Component
             // Close loan if the balance is 0
             $borrower_loan = Application::where('id', $proof->loan_id)->first();
 
-            if(Loans::loan_balance($proof->loan_id) < 1){
+            if (Loans::loan_balance($proof->loan_id) < 1) {
                 $borrower_loan->closed = 1;
                 $borrower_loan->date_paid = Carbon::now();
                 $borrower_loan->save();
-            }else{
+            } else {
                 $borrower_loan->closed = 0;
                 $borrower_loan->save();
             }
