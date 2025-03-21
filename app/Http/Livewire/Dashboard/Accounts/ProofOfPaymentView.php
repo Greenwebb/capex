@@ -39,8 +39,6 @@ class ProofOfPaymentView extends Component
                 'method' => $proof->method,
                 'user_id' => $proof->user_id,
             ]);
-
-            dd(Loans::loan_balance($proof->loan_id));
             // Close loan if the balance is 0
             $borrower_loan = Application::where('id', $proof->loan_id)->first();
             if (Loans::loan_balance($proof->loan_id) < 1) {
