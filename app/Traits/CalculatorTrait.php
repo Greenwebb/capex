@@ -13,6 +13,7 @@ trait CalculatorTrait{
     use LoanTrait;
 
 
+    //Returns value
     public function calculateAmortizationSchedule($loanAmount, $loanTermYears, $loanProductId, $loan = null) {
 
         try {
@@ -42,6 +43,43 @@ trait CalculatorTrait{
                         break;
                 default:
                     # code...
+                    break;
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+
+    //Returns table
+    public function calculateAmortizationScheduleTable($loanAmount, $loanTermYears, $loanProductId, $loan = null) {
+
+        try {
+            $info = $this->get_LoanProductDetails($loanProductId);
+
+            // dd($info->interest_methods->first()->interest_method->name);
+            switch ($info->interest_methods?->first()->interest_method->name) {
+
+                case 'Flat Rate':
+                        return $this->flatRateAmortization($loanAmount, $loanTermYears, $info, $loan);
+                    break;
+
+                    case 'Reducing Balance - Equal Principal':
+                        return $this->calculateReducingBalanceEqualPrincipal($loanAmount, $loanTermYears, $info, $loan);
+                    break;
+
+                    case 'Reducing Balance - Equal Installments':
+                        return $this->calculateReducingBalanceEqualInstallmentTable($loanAmount, $loanTermYears, $info, $loan);
+                    break;
+
+                    case 'Interest-Only':
+                        return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
+                        break;
+
+                    case 'Compound Interest':
+                        return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
+                        break;
+                default:
+                    return $this->calculateReducingBalanceEqualInstallmentTable($loanAmount, $loanTermYears, $info, $loan);
                     break;
             }
         } catch (\Throwable $th) {
@@ -130,6 +168,52 @@ trait CalculatorTrait{
 
 
     public function calculateReducingBalanceEqualInstallment($principal, $termMonths, $info, $loan = null)
+    {
+        try {
+            // Determine the annual interest rate based on loan-specific interest or a default
+            $annualInterestRate = $loan && $loan->interest ? $loan->interest / 100 : $info->def_loan_interest / 100;
+            $monthlyInterestRate = $annualInterestRate / 12;
+
+            // Initialize amortization table
+            $schedule = [];
+
+            // Initialize loan balance
+            $loan_balance = $principal;
+
+            // Calculate monthly installment using reducing balance method
+            $monthly_installment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$termMonths));
+
+            // Loop through each installment to calculate details
+            for ($i = 0; $i < $termMonths; $i++) {
+                // Calculate interest for the current installment
+                $interest = $loan_balance * $monthlyInterestRate;
+
+                // Calculate principal for the current installment
+                $principal_payment = $monthly_installment - $interest;
+
+                // Update loan balance
+                $loan_balance -= $principal_payment;
+
+                // Add current installment's data to the schedule
+                $schedule[] = [
+                    'month' => $i + 1,
+                    'payment' => $monthly_installment,
+                    'principal' => number_format($principal_payment, 2),
+                    'interest' => number_format($interest, 2),
+                    'balance' => number_format(max($loan_balance, 0), 2), // Ensure non-negative balance
+                ];
+            }
+
+            // Return the amortization schedule
+            return $schedule;
+
+        } catch (\Throwable $th) {
+            // Handle exceptions
+            // dd($th);
+        }
+    }
+
+    public function calculateReducingBalanceEqualInstallmentTable($principal, $termMonths, $info, $loan = null)
     {
         try {
             // Determine the annual interest rate based on loan-specific interest or a default
@@ -427,6 +511,9 @@ trait CalculatorTrait{
             'loan_institutes.institutions'
         ])->first();
     }
+
+    public function loanStatement($id){
+        return;
+
+    }
 }
-
-

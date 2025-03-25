@@ -72,7 +72,9 @@
                                                     @if($loan->status == 0)
                                                     <div class="badge rounded-pill bg-warning fs-12">Pending  Application</div>
                                                     @elseif($loan->status == 1)
-                                                    <div class="badge rounded-pill bg-info fs-12">Open  Application</div>
+                                                    {{-- $principal, $duration, $product_id = null, $loan = null --}}
+                                                    <div class="badge rounded-pill bg-info fs-12">Open Application </div>
+
                                                     @elseif($loan->status == 2)
                                                     <div class="badge rounded-pill bg-success fs-12">Processing  Application</div>
                                                     @elseif($loan->status == 3)
@@ -103,25 +105,25 @@
 
                             <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active fw-semibold" data-bs-toggle="tab" href="#project-overview" role="tab">
+                                    <a class="nav-link active fw-semibold" data-bs-toggle="tab" href="#loan-overview" role="tab">
                                         Overview
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-documents" role="tab">
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#loan-repayment-schedule" role="tab">
                                         Repayments
                                     </a>
-                                </li> --}}
+                                </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-activities" role="tab">
+                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#loan-product-info" role="tab">
                                         Loan Product Information
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-team" role="tab">
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#loan-balance-statement" role="tab">
                                         Statement
                                     </a>
-                                </li> --}}
+                                </li>
                             </ul>
                         </div>
                         <!-- end card body -->
@@ -135,20 +137,18 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="tab-content text-muted">
-                    <div class="tab-pane fade show active" id="project-overview" role="tabpanel">
+
+                    <div class="tab-pane fade show active" id="loan-overview" role="tabpanel">
                         <div class="row">
                             <div class="col-xl-12 col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="text-muted">
                                             <h3 class="mb-3 fw-semibold text-uppercase">Loan #: {{ $loan->loan_number }}</h3>
+                                            <h1>(Paying Back: K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) }})</h1>
                                             <br>
                                             <h6 class="mb-3 fw-semibold text-uppercase">Summary Notes</h6>
                                             <p>{{ $loan->desc ?? 'No Description' }}. {{ $loan->note }}</p>
-
-                                            {{-- <ul class="gap-2 ps-4 vstack">
-                                                <li>kjkjk</li>
-                                            </ul> --}}
 
                                             <div>
                                                 <button type="button" class="p-0 btn btn-link link-primary">{{ $loan->loan_type->name }}</button>
@@ -283,24 +283,21 @@
                                     <!-- end card body -->
                                 </div>
                                 <!-- end card -->
-
-
-                                <!-- end card -->
                             </div>
-                            <!-- ene col -->
-
                             <!-- end col -->
                         </div>
-                        <!-- end row -->
-
                     </div>
+
+
+
+                     @include('livewire.dashboard.loans.__parts.more-loan-info')
+                     @include('livewire.dashboard.loans.__parts.loan-statement')
+                     @include('livewire.dashboard.loans.__parts.loan-repayment-schedule')
                     <!-- end tab pane -->
                 </div>
             </div>
             <!-- end col -->
         </div>
-
-        @include('livewire.dashboard.loans.__parts.more-loan-info')
         <!-- end row -->
     </div>
     <!-- container-fluid -->

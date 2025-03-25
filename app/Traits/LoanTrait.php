@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\DB;
 use App\Models\Application;
 use App\Models\ApplicationStage;
+use App\Models\BalanceStatement;
 use App\Models\LoanChildType;
 use App\Models\LoanExpense;
 use App\Models\LoanInstallment;
@@ -914,5 +915,47 @@ trait LoanTrait
     public function loan_notifications($id)
     {
         return LoanNotification::where('application_id', $id)->get();
+    }
+
+    public function sheet_disburse_entry($loan, $amount, $method){
+        BalanceStatement::create([
+            'loan_id' => $loan->id,
+            'payment_date' => Carbon::now(),
+            'description' => "Loan Repayment - Installment",
+            'debit' => null,
+            'credit' => $amount,
+            'principal_paid' => null,
+            'interest_paid' => null,
+            'balance_after_payment' => $loan->amount - $amount,
+            'payment_method' => $method, // Can be dynamic
+        ]);
+    }
+
+    public function shee_penalty_entry($loan, $amount, $method){
+        BalanceStatement::create([
+            'loan_id' => $loan->id,
+            'payment_date' => Carbon::now(),
+            'description' => "Loan Repayment - Installment",
+            'debit' => $amount,
+            'credit' => null,
+            'principal_paid' => null,
+            'interest_paid' => null,
+            'balance_after_payment' => $loan->amount - $amount,
+            'payment_method' => $method, // Can be dynamic
+        ]);
+    }
+
+    public function sheet_installment_entry($loan, $amount, $method){
+        BalanceStatement::create([
+            'loan_id' => $loan->id,
+            'payment_date' => Carbon::now(),
+            'description' => "Loan Repayment - Installment",
+            'debit' => $amount,
+            'credit' => null,
+            'principal_paid' => null,
+            'interest_paid' => null,
+            'balance_after_payment' => $loan->amount - $amount,
+            'payment_method' => $method, // Can be dynamic
+        ]);
     }
 }

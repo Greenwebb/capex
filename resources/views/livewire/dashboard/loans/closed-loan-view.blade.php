@@ -47,7 +47,7 @@
                                 @forelse($loan_requests as $loan)
                                     <tr>
                                         <td style="">#{{ $loan->loan_number }}</td>
-                                        <td style="">{{ $loan->fname.' '. $loan->lname }}</td>
+                                        <td style="">{{ $loan->user->fname.' '. $loan->user->lname }}</td>
                                         <td style="">{{ $loan->type }} Loan</td>
                                         <td style="">K{{ $loan->amount }}</td>
                                         <td style="">K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) }}</td>

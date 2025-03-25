@@ -26,11 +26,11 @@ class CreateLoanView extends Component
     {
         $this->loan_types = LoanType::all();
         $this->borrowers = User::role('user')
-            ->whereDoesntHave('loans')
-            ->orWhereHas('loans', function ($query) {
-                $query->where('closed', 1);
-            })
-            ->get();
+        ->whereDoesntHave('loans', function ($query) {
+            $query->where('closed', 0); //no open loan
+        })
+        ->get();
+
     }
 
     public function render()

@@ -1,4 +1,4 @@
-<div class="col-xl-12 col-lg-12">
+<div class="tab-pane fade" id="loan-product-info" role="tabpanel">
     <div class="card">
         <div class="card-body">
             <h5 class="mb-4 card-title text-warning">{{ $loan_product->name }} Product Information</h5>

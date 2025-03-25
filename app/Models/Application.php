@@ -234,9 +234,44 @@ class Application extends Model
 
             return number_format($instance->getAveragePayment($data), 2, '.', '');
         }
-
         return 0;
     }
+
+    public static function paybackSchedule($principal, $duration, $product_id = null, $loan = null){
+
+    }
+
+    public static function paybackStatement($loan_id){
+        try {
+            $instance = new self();
+            // Generate amortization schedule
+            $schedule = $instance->loanStatement($loan_id);
+            // Initialize statement entries
+            $statement = [];
+            foreach ($schedule as $i => $entry) {
+
+                // Store each month's transaction in the statement
+                $statement[] = (object) [
+                    'payment_date' => $entry['created_at'],
+                    'description' => "Loan Repayment - Installment ",
+                    'debit' => $entry['debit'], // No new loan charges
+                    'credit' => $entry['credit'], // Total installment paid
+                    'principal_paid' => 0,
+                    'interest_paid' => 0,
+                    'balance_after_payment' => $entry['balance'],
+                    'payment_method' => "Bank Transfer", // Example, can be dynamic
+                ];
+            }
+
+            return $statement;
+
+        } catch (\Throwable $th) {
+            // Handle errors
+            return [];
+        }
+    }
+
+
     public static function getAveragePayment($amortizationSchedule)
     {
         $payments = array_column($amortizationSchedule, 'payment');

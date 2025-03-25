@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard\Loans;
 
+use App\Models\Application;
 use App\Traits\EmailTrait;
 use App\Traits\LoanTrait;
 use App\Traits\WalletTrait;
@@ -20,11 +21,12 @@ class LoanDetailedView extends Component
     public $loan_stage, $denied_status, $picked_status, $current;
     public $amortizationSchedule, $amortization_table;
     public $loan_interest_value, $principal, $lp;
-    public $exp_date, $exp_name, $exp_amount, $exp_type, $exp_details, $current_expenses;
+    public $exp_date, $exp_name, $exp_amount, $exp_type, $exp_details, $current_expenses, $balance_statement;
 
     public function mount($id){
         $this->loan_id = $id;
     }
+    
     public function render()
     {
         $this->authorize('processes loans');
@@ -67,6 +69,11 @@ class LoanDetailedView extends Component
         } catch (\Throwable $th) {
             $this->amortization_table = [];
         }
+    }
+
+    public function getLoanStatementTable()
+    {
+        $this->balance_statement = Application::paybackStatement($this->loan->amount, $this->loan->repayment_plan, $this->loan->loan_product_id, null);
     }
 
     public function createExpense(){
