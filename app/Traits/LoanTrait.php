@@ -719,6 +719,7 @@ trait LoanTrait
         $this->make_loan($x, $new_due_date);
     }
 
+    //delete
     public function make_loan($x, $due_date)
     {
         try {
@@ -921,7 +922,7 @@ trait LoanTrait
         BalanceStatement::create([
             'loan_id' => $loan->id,
             'payment_date' => Carbon::now(),
-            'description' => "Loan Repayment - Installment",
+            'description' => "Loan Disbursed to Customer",
             'debit' => null,
             'credit' => $amount,
             'principal_paid' => null,
@@ -931,11 +932,11 @@ trait LoanTrait
         ]);
     }
 
-    public function shee_penalty_entry($loan, $amount, $method){
+    public function sheet_penalty_entry($loan, $amount, $method){
         BalanceStatement::create([
             'loan_id' => $loan->id,
             'payment_date' => Carbon::now(),
-            'description' => "Loan Repayment - Installment",
+            'description' => "Penalty charge",
             'debit' => $amount,
             'credit' => null,
             'principal_paid' => null,

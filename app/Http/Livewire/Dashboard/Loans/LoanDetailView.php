@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Dashboard\Loans;
 use App\Models\Application;
 use App\Models\ApplicationStage;
 use App\Models\InterestMethod;
+use App\Models\LoanInstallment;
 use App\Models\LoanManualApprover;
 use App\Models\LoanStatus;
 use App\Models\Status;
@@ -295,23 +296,40 @@ class LoanDetailView extends Component
     {
         $this->upvote($id);
     }
-
     public function approve_final($x)
     {
         try {
-            //Add next repayment dates
             $currentDate = Carbon::now();
-            $futureDate = $currentDate->addMonths((int)$x->repayment_plan);
-
-
-            //convert loan to open status = 1
+            
+            // Generate all installment dates
+            $installmentModel = new LoanInstallment();
+            $installments = $installmentModel->generateInstallmentDates($x);
+            
+            // Save the first installment
+            $firstInstallment = $installments[0];
+            LoanInstallment::create([
+                'loan_id' => $x->id,
+                'application_id' => $x->application_id,
+                'next_dates' => $firstInstallment['due_date'],
+                'amount' => $firstInstallment['amount'],
+                'type' => 'auto'
+            ]);
+            
+            // Set final due date as last installment date
+            $lastInstallment = end($installments);
+            $futureDate = Carbon::parse($lastInstallment['due_date']);
+            
+            // Convert loan to open status = 1
             $x->status = 1;
             $x->due_date = $futureDate;
             $x->save();
-
-            // dd($x);
+            
+            // Enter statement entry
+            $this->sheet_disburse_entry($x, $x->amount, 'cash');
+            
             session()->flash('success', "Successfully disbursed K{$x->amount} to {$x->user->fname} {$x->user->lname} 🎉");
         } catch (\Throwable $th) {
+            session()->flash('error', "Error processing loan: " . $th->getMessage());
             dd($th);
         }
     }

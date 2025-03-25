@@ -19,16 +19,13 @@ return new class extends Migration
             $table->unsignedBigInteger('txn_id')->nullable();
             $table->date('payment_date');
             $table->string('description');
-            $table->decimal('debit', 15, 2)->default(0);
-            $table->decimal('credit', 15, 2)->default(0);
-            $table->decimal('principal_paid', 15, 2)->default(0);
-            $table->decimal('interest_paid', 15, 2)->default(0);
-            $table->decimal('balance_after_payment', 15, 2);
-            $table->string('payment_method');
+            $table->decimal('debit', 15, 2)->nullable();
+            $table->decimal('credit', 15, 2)->nullable();
+            $table->decimal('principal_paid', 15, 2)->nullable();
+            $table->decimal('interest_paid', 15, 2)->nullable();
+            $table->decimal('balance_after_payment', 15, 2)->nullable();
+            $table->string('payment_method')->nullable();
             $table->timestamps();
-
-            $table->foreign('loan_id')->references('id')->on('loans')->onDelete('cascade');
-            $table->foreign('txn_id')->references('id')->on('transactions')->onDelete('cascade');
         });
     }
 

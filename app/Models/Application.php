@@ -60,7 +60,9 @@ class Application extends Model
         'done_by',
         'confirmed_by'
     ];
-
+    protected $casts = [
+        'due_date' => 'datetime', // Automatically converts to Carbon
+    ];
     protected static function boot()
     {
         parent::boot();
@@ -227,9 +229,24 @@ class Application extends Model
         if($principal){
             $instance = new self();
             if ($loan) {
-                $data = $instance->calculateAmortizationSchedule($principal, $duration, $loan->loan_product_id, $loan);
+                $data = $instance->calculateAmortizationScheduleTotalRepayment($principal, $duration, $loan->loan_product_id, $loan);
             } else {
-                $data = $instance->calculateAmortizationSchedule($principal, $duration, $product_id, $loan);
+                $data = $instance->calculateAmortizationScheduleTotalRepayment($principal, $duration, $product_id, $loan);
+            }
+            // dd($data['total_repayment']);
+            return $data['total_repayment'];
+        }
+        return 0;
+    }
+
+    public static function paybackSchedule($principal, $duration, $product_id = null, $loan = null){
+
+        if($principal){
+            $instance = new self();
+            if ($loan) {
+                $data = $instance->calculateAmortizationScheduleTable($principal, $duration, $loan->loan_product_id, $loan);
+            } else {
+                $data = $instance->calculateAmortizationScheduleTable($principal, $duration, $product_id, $loan);
             }
 
             return number_format($instance->getAveragePayment($data), 2, '.', '');
@@ -237,15 +254,12 @@ class Application extends Model
         return 0;
     }
 
-    public static function paybackSchedule($principal, $duration, $product_id = null, $loan = null){
-
-    }
-
     public static function paybackStatement($loan_id){
         try {
             $instance = new self();
             // Generate amortization schedule
             $schedule = $instance->loanStatement($loan_id);
+            // dd($schedule);
             // Initialize statement entries
             $statement = [];
             foreach ($schedule as $i => $entry) {

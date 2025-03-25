@@ -1,0 +1,11 @@
+array:9 [▼ // app\Models\Application.php:236
+  "principal" => 4000
+  "total_interest" => 93.69
+  "total_repayment" => 4093.69
+  "monthly_payment" => 1364.56
+  "schedule" => array:3 [▶]
+  "interest_rate" => 14
+  "interest_type" => "percentage"
+  "term" => 3
+  "period_type" => "month"
+]

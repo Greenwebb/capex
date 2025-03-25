@@ -39,6 +39,7 @@ class LoanDetailedView extends Component
         $this->current_expenses = $this->get_loan_expenses($this->loan_id);
         $this->current = ApplicationStage::where('application_id', $this->loan->id)->first();
         $this->getAmoritizationTable();
+        $this->getLoanStatementTable();
         return view('livewire.dashboard.loans.loan-detailed-view')
         ->layout('layouts.main');
     }
@@ -73,7 +74,7 @@ class LoanDetailedView extends Component
 
     public function getLoanStatementTable()
     {
-        $this->balance_statement = Application::paybackStatement($this->loan->amount, $this->loan->repayment_plan, $this->loan->loan_product_id, null);
+        $this->balance_statement = Application::paybackStatement($this->loan->id);
     }
 
     public function createExpense(){

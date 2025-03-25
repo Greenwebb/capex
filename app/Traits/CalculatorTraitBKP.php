@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\File;
-trait CalculatorTrait{
+trait CalculatorTraitBKP{
 
     use LoanTrait;
 
@@ -168,32 +168,49 @@ trait CalculatorTrait{
     }
 
 
-    public function calculateReducingBalanceEqualInstallment($principal, $termMonths, $product, $loan = null)
+    public function calculateReducingBalanceEqualInstallment($principal, $termMonths, $info, $loan = null)
     {
         try {
-            // Calculate total interest (interest × principal × term)
-            $totalInterest = $product->def_loan_interest * $principal * $termMonths;
-            
-            // Total repayment = principal + total interest
-            $totalRepayment = $principal + $totalInterest;
-            
-            // Return the complete repayment information
-            return [
-                'principal' => round($principal, 2),
-                'total_interest' => round($totalInterest, 2),
-                'total_repayment' => round($totalRepayment, 2),
-                'monthly_payment' => round($totalRepayment / $termMonths, 2),
-                'interest_rate' => $product->def_loan_interest,
-                'term' => $termMonths
-            ];
-    
+            // Determine the annual interest rate based on loan-specific interest or a default
+            $annualInterestRate = $loan && $loan->interest ? $loan->interest / 100 : $info->def_loan_interest / 100;
+            $monthlyInterestRate = $annualInterestRate / 12;
+
+            // Initialize amortization table
+            $schedule = [];
+
+            // Initialize loan balance
+            $loan_balance = $principal;
+
+            // Calculate monthly installment using reducing balance method
+            $monthly_installment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$termMonths));
+
+            // Loop through each installment to calculate details
+            for ($i = 0; $i < $termMonths; $i++) {
+                // Calculate interest for the current installment
+                $interest = $loan_balance * $monthlyInterestRate;
+
+                // Calculate principal for the current installment
+                $principal_payment = $monthly_installment - $interest;
+
+                // Update loan balance
+                $loan_balance -= $principal_payment;
+
+                // Add current installment's data to the schedule
+                $schedule[] = [
+                    'month' => $i + 1,
+                    'payment' => $monthly_installment,
+                    'principal' => number_format($principal_payment, 2),
+                    'interest' => number_format($interest, 2),
+                    'balance' => number_format(max($loan_balance, 0), 2), // Ensure non-negative balance
+                ];
+            }
+
+            // Return the amortization schedule
+            return $schedule;
+
         } catch (\Throwable $th) {
             // Handle exceptions
-            return [
-                'error' => true,
-                'message' => 'Calculation failed: ' . $th->getMessage(),
-                'trace' => $th->getTraceAsString()
-            ];
+            // dd($th);
         }
     }
 

@@ -169,6 +169,27 @@
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium">Duration :</p>
                                                             <div class="fs-12">{{ $loan->repayment_plan }} Months</div>
+                                                            @if ($loan->status == 1)
+                                                            <div class="fs-4">Up to <b>
+                                                                @php
+                                                                    try {
+                                                                        // Assuming $loan->due_date = '2026-01-21 08:10:53'
+                                                                        $dueDate = new DateTime($loan?->due_date);
+                                                                        echo $dueDate->format('M d, Y h:i A'); // Output: "Jan 21, 2026 08:10 AM"
+                                                                    } catch (Exception $e) {
+                                                                        echo "N/A"; // Handle the error gracefully
+                                                                    }
+                                                                @endphp
+                                                            </b></div>
+                                                            
+                                                                @php
+                                                                    $dueDate = new DateTime($loan?->due_date);
+                                                                    $today = new DateTime('now');
+                                                                    $daysLeft = $today?->diff($dueDate)?->days;
+                                                                @endphp
+
+                                                                Days left: <strong>{{ $daysLeft }}</strong>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
