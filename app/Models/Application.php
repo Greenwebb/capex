@@ -238,7 +238,7 @@ class Application extends Model
             } else {
                 $data = $instance->calculateAmortizationScheduleTotalRepayment($principal, $duration, $product_id, $loan);
             }
-            dd($data);
+            // dd($data);
             return $data['total_repayment'];
         }
         return 0;
