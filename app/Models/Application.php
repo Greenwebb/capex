@@ -301,7 +301,7 @@ class Application extends Model
         return $averagePayment;
     }
 
-    
+
     public static function loanBalance($application_id)
     {
         try {
@@ -319,14 +319,14 @@ class Application extends Model
         }
     }
 
-    
+
     public static function loanPaidSofar($application_id)
     {
         try {
             $loan = Application::where('id', $application_id)->first();
             if ($loan !== null && $loan->status == 1) {
                 $paid = (string) Transaction::where('application_id', $application_id)->sum('amount_settled');
-                return (float)$paid; 
+                return (float)$paid;
             } else {
                 return 0;
             }

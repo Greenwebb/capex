@@ -927,7 +927,7 @@ trait LoanTrait
             'credit' => null,
             'principal_paid' => null,
             'interest_paid' => null,
-            'balance_after_payment' => $loan->amount - $amount,
+            'balance_after_payment' => Application::loanBalance($loan->id),
             'payment_method' => $method, // Can be dynamic
         ]);
     }
@@ -941,7 +941,7 @@ trait LoanTrait
             'credit' => null,
             'principal_paid' => null,
             'interest_paid' => null,
-            'balance_after_payment' => $loan->amount - $amount,
+            'balance_after_payment' => Application::loanBalance($loan->id),
             'payment_method' => $method, // Can be dynamic
         ]);
     }
@@ -955,7 +955,7 @@ trait LoanTrait
             'credit' => $amount,
             'principal_paid' => null,
             'interest_paid' => null,
-            'balance_after_payment' => $loan->amount - $amount,
+            'balance_after_payment' => Application::loanBalance($loan->id),
             'payment_method' => $method, // Can be dynamic
         ]);
     }

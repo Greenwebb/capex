@@ -45,7 +45,7 @@
                                 <div>
                                     <p class="mb-2 text-uppercase fw-medium">Total Loan Amount:</p>
                                     <h5 class="mb-0 text-danger">
-                                        {{ number_format($loan->amount, 2, '.', ',') }}
+                                        {{ number_format(App\Models\Application::payback($loan->amount,$loan->repayment_plan, $loan->loan_product_id, $loan ), 2, '.', ',') }}
                                     </h5>
                                 </div>
                                 <div>
@@ -57,7 +57,7 @@
                                 <div>
                                     <p class="mb-2 text-uppercase fw-medium">Outstanding Balance:</p>
                                     <h5 class="mb-0 text-danger">
-                                        {{ number_format(collect($loan->balance_statement)->last()->balance_after_payment, 2, '.', ',') }}
+                                        {{ number_format(App\Models\Application::loanBalance($loan->id), 2, '.', ',') }}
                                     </h5>
                                 </div>
                                 <div>
