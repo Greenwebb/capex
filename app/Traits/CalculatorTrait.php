@@ -9,13 +9,17 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\File;
-trait CalculatorTrait{
+use MathPHP\Finance;
+
+trait CalculatorTrait
+{
 
     use LoanTrait;
 
 
     //Returns value
-    public function calculateAmortizationScheduleTotalRepayment($loanAmount, $loanTermYears, $loanProductId, $loan = null) {
+    public function calculateAmortizationScheduleTotalRepayment($loanAmount, $loanTermYears, $loanProductId, $loan = null)
+    {
 
         try {
             $info = $this->get_LoanProductDetails($loanProductId);
@@ -24,24 +28,24 @@ trait CalculatorTrait{
             switch ($info->interest_methods?->first()->interest_method->name) {
 
                 case 'Flat Rate':
-                        return $this->flatRateAmortization($loanAmount, $loanTermYears, $info, $loan);
+                    return $this->flatRateAmortization($loanAmount, $loanTermYears, $info, $loan);
                     break;
 
-                    case 'Reducing Balance - Equal Principal':
-                        return $this->calculateReducingBalanceEqualPrincipal($loanAmount, $loanTermYears, $info, $loan);
+                case 'Reducing Balance - Equal Principal':
+                    return $this->calculateReducingBalanceEqualPrincipal($loanAmount, $loanTermYears, $info, $loan);
                     break;
 
-                    case 'Reducing Balance - Equal Installments':
-                        return $this->calculateReducingBalanceEqualInstallment($loanAmount, $loanTermYears, $info, $loan);
+                case 'Reducing Balance - Equal Installments':
+                    return $this->calculateReducingBalanceEqualInstallment($loanAmount, $loanTermYears, $info, $loan);
                     break;
 
-                    case 'Interest-Only':
-                        return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
-                        break;
+                case 'Interest-Only':
+                    return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
+                    break;
 
-                    case 'Compound Interest':
-                        return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
-                        break;
+                case 'Compound Interest':
+                    return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
+                    break;
                 default:
                     # code...
                     break;
@@ -52,7 +56,8 @@ trait CalculatorTrait{
     }
 
     //Returns table
-    public function calculateAmortizationScheduleTable($loanAmount, $loanTermYears, $loanProductId, $loan = null) {
+    public function calculateAmortizationScheduleTable($loanAmount, $loanTermYears, $loanProductId, $loan = null)
+    {
 
         try {
             $info = $this->get_LoanProductDetails($loanProductId);
@@ -61,24 +66,24 @@ trait CalculatorTrait{
             switch ($info->interest_methods?->first()->interest_method->name) {
 
                 case 'Flat Rate':
-                        return $this->flatRateAmortization($loanAmount, $loanTermYears, $info, $loan);
+                    return $this->flatRateAmortization($loanAmount, $loanTermYears, $info, $loan);
                     break;
 
-                    case 'Reducing Balance - Equal Principal':
-                        return $this->calculateReducingBalanceEqualPrincipal($loanAmount, $loanTermYears, $info, $loan);
+                case 'Reducing Balance - Equal Principal':
+                    return $this->calculateReducingBalanceEqualPrincipal($loanAmount, $loanTermYears, $info, $loan);
                     break;
 
-                    case 'Reducing Balance - Equal Installments':
-                        return $this->calculateReducingBalanceEqualInstallmentTable($loanAmount, $loanTermYears, $info, $loan);
+                case 'Reducing Balance - Equal Installments':
+                    return $this->calculateReducingBalanceEqualInstallmentTable($loanAmount, $loanTermYears, $info, $loan);
                     break;
 
-                    case 'Interest-Only':
-                        return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
-                        break;
+                case 'Interest-Only':
+                    return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
+                    break;
 
-                    case 'Compound Interest':
-                        return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
-                        break;
+                case 'Compound Interest':
+                    return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
+                    break;
                 default:
                     return $this->calculateReducingBalanceEqualInstallmentTable($loanAmount, $loanTermYears, $info, $loan);
                     break;
@@ -88,36 +93,65 @@ trait CalculatorTrait{
         }
     }
 
-    public function flatRateAmortization($principal, $termMonths, $info, $loan = null) {
-            $schedule = [];
+    public function flatRateAmortizationTable($principal, $termMonths, $info, $loan = null)
+    {
+        $schedule = [];
 
-            if($loan->interest){
-                $monthlyInterestRate = $loan->interest / 100 / 12;
-            }else{
-                $monthlyInterestRate = $info->def_loan_interest / 100 / 12;
-            }
+        if ($loan->interest) {
+            $monthlyInterestRate = $loan->interest / 100 / 12;
+        } else {
+            $monthlyInterestRate = $info->def_loan_interest / 100 / 12;
+        }
 
-            $monthlyPayment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$termMonths));
+        $monthlyPayment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$termMonths));
 
-            $remainingBalance = $principal;
+        $remainingBalance = $principal;
 
-            for ($i = 0; $i < $termMonths; $i++) {
-                $interest = $remainingBalance * $monthlyInterestRate;
-                $principalPayment = $monthlyPayment - $interest;
-                $remainingBalance -= $principalPayment;
+        for ($i = 0; $i < $termMonths; $i++) {
+            $interest = $remainingBalance * $monthlyInterestRate;
+            $principalPayment = $monthlyPayment - $interest;
+            $remainingBalance -= $principalPayment;
 
-                $schedule[] = [
-                    'month' => $i + 1,
-                    'payment' => $monthlyPayment,
-                    'principal' => $principalPayment,
-                    'interest' => $interest,
-                    'balance' => $remainingBalance
-                ];
-            }
-            return $schedule;
+            $schedule[] = [
+                'month' => $i + 1,
+                'payment' => $monthlyPayment,
+                'principal' => $principalPayment,
+                'interest' => $interest,
+                'balance' => $remainingBalance
+            ];
+        }
+        return $schedule;
+    }
+    public function flatRateAmortization($principal, $termMonths, $product, $loan = null)
+    {
+        try {
+            // Calculate total interest (interest × principal × term)
+            $totalInterest = $product->def_loan_interest * $principal * $termMonths;
+
+            // Total repayment = principal + total interest
+            $totalRepayment = $principal + $totalInterest;
+
+            // Return the complete repayment information
+            return [
+                'principal' => round($principal, 2),
+                'total_interest' => round($totalInterest, 2),
+                'total_repayment' => round($totalRepayment, 2),
+                'monthly_payment' => round($totalRepayment / $termMonths, 2),
+                'interest_rate' => $product->def_loan_interest,
+                'term' => $termMonths
+            ];
+        } catch (\Throwable $th) {
+            // Handle exceptions
+            return [
+                'error' => true,
+                'message' => 'Calculation failed: ' . $th->getMessage(),
+                'trace' => $th->getTraceAsString()
+            ];
+        }
     }
 
-    public function calculateEqualInstallment($principal, $termMonths, $info, $loan = null) {
+    public function calculateEqualInstallment($principal, $termMonths, $info, $loan = null)
+    {
         $schedule = [];
 
         // Determine the monthly interest rate based on loan interest or default interest
@@ -167,28 +201,30 @@ trait CalculatorTrait{
         return $schedule;
     }
 
-
-    public function calculateReducingBalanceEqualInstallment($principal, $termMonths, $product, $loan = null)
+    public function calculateReducingBalanceEqualInstallment($principal, $termMonths, $product)
     {
         try {
-            // Calculate total interest (interest × principal × term)
-            $totalInterest = $product->def_loan_interest * $principal * $termMonths;
-            
-            // Total repayment = principal + total interest
-            $totalRepayment = $principal + $totalInterest;
-            
-            // Return the complete repayment information
+            // Convert annual interest rate to a decimal monthly rate
+            $monthlyInterestRate = ($product->def_loan_interest / 100);
+
+            // dd($monthlyInterestRate);
+            // Use the PMT function from math-php
+            $monthlyPayment = Finance::pmt(round($monthlyInterestRate, 2), $termMonths, -$principal, 0, false);
+
+            // dd($monthlyPayment);
+            // Calculate total repayment and total interest
+            $totalRepayment = $monthlyPayment * $termMonths;
+            $totalInterest = $totalRepayment - $principal;
+
             return [
                 'principal' => round($principal, 2),
                 'total_interest' => round($totalInterest, 2),
                 'total_repayment' => round($totalRepayment, 2),
-                'monthly_payment' => round($totalRepayment / $termMonths, 2),
+                'monthly_payment' => round($monthlyPayment, 2),
                 'interest_rate' => $product->def_loan_interest,
                 'term' => $termMonths
             ];
-    
         } catch (\Throwable $th) {
-            // Handle exceptions
             return [
                 'error' => true,
                 'message' => 'Calculation failed: ' . $th->getMessage(),
@@ -196,6 +232,10 @@ trait CalculatorTrait{
             ];
         }
     }
+
+
+    // 6000	840	3643.74
+
 
     public function calculateReducingBalanceEqualInstallmentTable($principal, $termMonths, $info, $loan = null)
     {
@@ -236,7 +276,6 @@ trait CalculatorTrait{
 
             // Return the amortization schedule
             return $schedule;
-
         } catch (\Throwable $th) {
             // Handle exceptions
             // dd($th);
@@ -283,7 +322,6 @@ trait CalculatorTrait{
 
             // Return the amortization schedule
             return $schedule;
-
         } catch (\Throwable $th) {
             // Handle exceptions
             dd($th);
@@ -334,7 +372,6 @@ trait CalculatorTrait{
 
             // Return the amortization schedule
             return $schedule;
-
         } catch (\Throwable $th) {
             // Handle exceptions
             dd($th);
@@ -417,7 +454,6 @@ trait CalculatorTrait{
 
             // Return the complete amortization schedule
             return $schedule;
-
         } catch (\Exception $e) {
             // Log the error and rethrow for further handling
             Log::error('Error calculating compound interest: ' . $e->getMessage());
@@ -483,7 +519,8 @@ trait CalculatorTrait{
 
 
     // Getters
-    public function get_LoanProductDetails($id){
+    public function get_LoanProductDetails($id)
+    {
         return LoanProduct::where('id', $id)->with([
             'disbursed_by.disbursed_by',
             'interest_methods.interest_method',
@@ -496,9 +533,9 @@ trait CalculatorTrait{
         ])->first();
     }
 
-    public function loanStatement($id){
+    public function loanStatement($id)
+    {
         // dd($id);
         return BalanceStatement::where('loan_id', $id)->get();
-
     }
 }

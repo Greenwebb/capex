@@ -299,29 +299,18 @@ class LoanDetailView extends Component
     public function approve_final($x)
     {
         try {
-            $currentDate = Carbon::now();
-            
-            // Generate all installment dates
-            $installmentModel = new LoanInstallment();
-            $installments = $installmentModel->generateInstallmentDates($x);
-            
-            // Save the first installment
-            $firstInstallment = $installments[0];
-            LoanInstallment::create([
-                'loan_id' => $x->id,
-                'application_id' => $x->application_id,
-                'next_dates' => $firstInstallment['due_date'],
-                'amount' => $firstInstallment['amount'],
-                'type' => 'auto'
-            ]);
-            
-            // Set final due date as last installment date
-            $lastInstallment = end($installments);
-            $futureDate = Carbon::parse($lastInstallment['due_date']);
-            
+            // $x->updated_at is the start date to count the next payment with 30 days interval to the next date
+            // Save all the installments according to $x->repayment_plan (duration)
+            // LoanInstallment::create([
+            //     'loan_id' => $x->id,
+            //     'application_id' => $x->application_id,
+            //     'next_dates' => $firstInstallment['due_date'],
+            //     'amount' => $firstInstallment['amount'],
+            //     'type' => 'auto'
+            // ]);
             // Convert loan to open status = 1
             $x->status = 1;
-            $x->due_date = $futureDate;
+            // $x->due_date = $futureDate;
             $x->save();
             
             // Enter statement entry

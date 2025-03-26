@@ -226,6 +226,7 @@ class Application extends Model
     //important
     public static function payback($principal, $duration, $product_id = null, $loan = null){
 
+
         if($principal){
             $instance = new self();
             if ($loan) {
@@ -233,7 +234,7 @@ class Application extends Model
             } else {
                 $data = $instance->calculateAmortizationScheduleTotalRepayment($principal, $duration, $product_id, $loan);
             }
-            // dd($data['total_repayment']);
+            // dd($data);
             return $data['total_repayment'];
         }
         return 0;
