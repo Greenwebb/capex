@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\BalanceStatement;
+use App\Models\LoanInstallment;
 use App\Models\LoanProduct;
 use App\Models\UserFile;
 use Carbon\Carbon;
@@ -74,7 +75,7 @@ trait CalculatorTrait
                     break;
 
                 case 'Reducing Balance - Equal Installments':
-                    return $this->calculateReducingBalanceEqualInstallmentTable($loanAmount, $loanTermYears, $info, $loan);
+                    return $this->calculateReducingBalanceEqualInstallmentSchedule($loanAmount, $loanTermYears, $info, $loan);
                     break;
 
                 case 'Interest-Only':
@@ -85,7 +86,7 @@ trait CalculatorTrait
                     return $this->calculateInterestOnly($loanAmount, $loanTermYears, $info, $loan);
                     break;
                 default:
-                    return $this->calculateReducingBalanceEqualInstallmentTable($loanAmount, $loanTermYears, $info, $loan);
+                    return $this->calculateReducingBalanceEqualInstallmentSchedule($loanAmount, $loanTermYears, $info, $loan);
                     break;
             }
         } catch (\Throwable $th) {
@@ -237,50 +238,75 @@ trait CalculatorTrait
     // 6000	840	3643.74
 
 
-    public function calculateReducingBalanceEqualInstallmentTable($principal, $termMonths, $info, $loan = null)
-    {
-        try {
-            // Determine the annual interest rate based on loan-specific interest or a default
-            $annualInterestRate = $loan && $loan->interest ? $loan->interest / 100 : $info->def_loan_interest / 100;
-            $monthlyInterestRate = $annualInterestRate / 12;
+    public function calculateReducingBalanceEqualInstallmentSchedule($principal, $termMonths, $info, $loan = null)
+{
+    try {
+        $schedule = [];
 
-            // Initialize amortization table
-            $schedule = [];
+        // Convert annual interest rate to a decimal monthly rate
+        $monthlyInterestRate = ($info->interest_rate / 100) / 12;
 
-            // Initialize loan balance
-            $loan_balance = $principal;
+        // Use the PMT function to get the monthly installment amount
+        $monthlyPayment = Finance::pmt($monthlyInterestRate, $termMonths, -$principal, 0, false);
 
-            // Calculate monthly installment using reducing balance method
-            $monthly_installment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$termMonths));
+        // Initialize values for calculation
+        $remainingBalance = $principal;
+        $startDate = now(); // Starting from the current date
 
-            // Loop through each installment to calculate details
-            for ($i = 0; $i < $termMonths; $i++) {
-                // Calculate interest for the current installment
-                $interest = $loan_balance * $monthlyInterestRate;
+        for ($i = 1; $i <= $termMonths; $i++) {
+            // Calculate interest for the month
+            $interest = round($remainingBalance * $monthlyInterestRate, 2);
 
-                // Calculate principal for the current installment
-                $principal_payment = $monthly_installment - $interest;
+            // Calculate principal repayment for the month
+            $principalPaid = round($monthlyPayment - $interest, 2);
 
-                // Update loan balance
-                $loan_balance -= $principal_payment;
-
-                // Add current installment's data to the schedule
-                $schedule[] = [
-                    'month' => $i + 1,
-                    'payment' => $monthly_installment,
-                    'principal' => number_format($principal_payment, 2),
-                    'interest' => number_format($interest, 2),
-                    'balance' => number_format(max($loan_balance, 0), 2), // Ensure non-negative balance
-                ];
+            // Ensure no rounding errors by adjusting the final installment
+            if ($i == $termMonths) {
+                $principalPaid = $remainingBalance;
+                $monthlyPayment = $principalPaid + $interest;
             }
 
-            // Return the amortization schedule
-            return $schedule;
-        } catch (\Throwable $th) {
-            // Handle exceptions
-            // dd($th);
+            // Deduct principal paid from the remaining balance
+            $remainingBalance = round($remainingBalance - $principalPaid, 2);
+
+            // Define installment details
+            $installment = [
+                'loan_id' => $loan->id ?? null, // Ensure loan ID is stored
+                'application_id' => $info->application_id ?? null,
+                'txn_id' => null, // To be updated when payment is made
+                'due_date' => $startDate->copy()->addMonths($i)->toDateString(),
+                'installment_amount' => $monthlyPayment,
+                'principal' => $principalPaid,
+                'interest' => $interest,
+                'remaining_balance' => $remainingBalance,
+                'penalty' => 0,
+                'status' => 'Pending', // Default status
+                'type' => 'auto',
+                'paid_at' => null,
+                'is_cleared' => false,
+                'payment_method' => null,
+                'amount' => null
+            ];
+
+            // Apply penalty if overdue (mock logic: assume payments start getting overdue from month 7)
+            if ($i > 6) {
+                $installment['penalty'] = round($monthlyPayment * 0.02, 2); // 2% penalty
+                $installment['status'] = 'Overdue';
+            }
+
+            // Save installment to the database
+            LoanInstallment::create($installment);
+
+            $schedule[] = $installment;
         }
+
+        return $schedule;
+    } catch (\Throwable $th) {
+        // Handle exceptions
+        return [];
     }
+}
+
 
 
     public function calculateReducingBalanceEqualPrincipal($principal, $termMonths, $info, $loan = null)

@@ -299,23 +299,15 @@ class LoanDetailView extends Component
     public function approve_final($x)
     {
         try {
-            // $x->updated_at is the start date to count the next payment with 30 days interval to the next date
-            // Save all the installments according to $x->repayment_plan (duration)
-            // LoanInstallment::create([
-            //     'loan_id' => $x->id,
-            //     'application_id' => $x->application_id,
-            //     'next_dates' => $firstInstallment['due_date'],
-            //     'amount' => $firstInstallment['amount'],
-            //     'type' => 'auto'
-            // ]);
+            $this->calculateAmortizationScheduleTable($x->amount, $x->repayment_plan, $x->loan_product_id, $x);
             // Convert loan to open status = 1
             $x->status = 1;
             // $x->due_date = $futureDate;
             $x->save();
-            
+
             // Enter statement entry
             $this->sheet_disburse_entry($x, $x->amount, 'cash');
-            
+
             session()->flash('success', "Successfully disbursed K{$x->amount} to {$x->user->fname} {$x->user->lname} 🎉");
         } catch (\Throwable $th) {
             session()->flash('error', "Error processing loan: " . $th->getMessage());

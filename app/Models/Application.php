@@ -250,7 +250,7 @@ class Application extends Model
                 $data = $instance->calculateAmortizationScheduleTable($principal, $duration, $product_id, $loan);
             }
 
-            return number_format($instance->getAveragePayment($data), 2, '.', '');
+            return $data;
         }
         return 0;
     }
