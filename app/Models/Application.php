@@ -153,6 +153,10 @@ class Application extends Model
         return $this->hasMany(LoanNotification::class);
     }
 
+    public function balance_statement(){
+        return $this->hasMany(BalanceStatement::class, 'loan_id');
+    }
+
     //New Change
     public function loan_installments(){
         return $this->hasMany(LoanInstallment::class, 'application_id');
@@ -268,7 +272,7 @@ class Application extends Model
                 // Store each month's transaction in the statement
                 $statement[] = (object) [
                     'payment_date' => $entry['created_at'],
-                    'description' => "Loan Repayment - Installment ",
+                    'description' => $entry['description'],
                     'debit' => $entry['debit'], // No new loan charges
                     'credit' => $entry['credit'], // Total installment paid
                     'principal_paid' => 0,
@@ -297,6 +301,39 @@ class Application extends Model
         return $averagePayment;
     }
 
+    
+    public static function loanBalance($application_id)
+    {
+        try {
+            $loan = Application::where('id', $application_id)->first();
+            if ($loan !== null && $loan->status == 1) {
+                $paid = (string) Transaction::where('application_id', $application_id)->sum('amount_settled');
+                $payback = (string) Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan);
+
+                return (float) bcsub($payback, $paid, 2);
+            } else {
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+
+    
+    public static function loanPaidSofar($application_id)
+    {
+        try {
+            $loan = Application::where('id', $application_id)->first();
+            if ($loan !== null && $loan->status == 1) {
+                $paid = (string) Transaction::where('application_id', $application_id)->sum('amount_settled');
+                return (float)$paid; 
+            } else {
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
 
     public static function receiveAmount($principal, $duration, $product_id = null){
         $discount = $principal * 0.1;

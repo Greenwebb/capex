@@ -238,72 +238,80 @@ trait CalculatorTrait
     // 6000	840	3643.74
 
 
-    public function calculateReducingBalanceEqualInstallmentSchedule($principal, $termMonths, $info, $loan = null)
+    public function calculateReducingBalanceEqualInstallmentSchedule($principal, $termMonths, $product, $loan)
 {
     try {
-        $schedule = [];
-
         // Convert annual interest rate to a decimal monthly rate
-        $monthlyInterestRate = ($info->interest_rate / 100) / 12;
+        $monthlyInterestRate = ($product->def_loan_interest / 100);
+        
+        // Calculate monthly payment
+        $monthlyPayment = Finance::pmt(
+            $monthlyInterestRate, 
+            $termMonths, 
+            -$principal, 
+            0, 
+            false
+        );
+        
+        // Calculate totals
+        $totalRepayment = $monthlyPayment * $termMonths;
+        $totalInterest = $totalRepayment - $principal;
 
-        // Use the PMT function to get the monthly installment amount
-        $monthlyPayment = Finance::pmt($monthlyInterestRate, $termMonths, -$principal, 0, false);
+        // Generate and save installment schedule
+        $balance = $principal;
+        $schedule = [];
+        $currentDate = now();
 
-        // Initialize values for calculation
-        $remainingBalance = $principal;
-        $startDate = now(); // Starting from the current date
+        // First delete any existing installments for this loan
+        LoanInstallment::where('loan_id', $loan->id)->delete();
 
         for ($i = 1; $i <= $termMonths; $i++) {
-            // Calculate interest for the month
-            $interest = round($remainingBalance * $monthlyInterestRate, 2);
+            $interest = $balance * $monthlyInterestRate;
+            $principalPayment = $monthlyPayment - $interest;
+            $balance -= $principalPayment;
 
-            // Calculate principal repayment for the month
-            $principalPaid = round($monthlyPayment - $interest, 2);
-
-            // Ensure no rounding errors by adjusting the final installment
+            // Adjust final payment for rounding
             if ($i == $termMonths) {
-                $principalPaid = $remainingBalance;
-                $monthlyPayment = $principalPaid + $interest;
+                $principalPayment += $balance;
+                $balance = 0;
             }
 
-            // Deduct principal paid from the remaining balance
-            $remainingBalance = round($remainingBalance - $principalPaid, 2);
+            // Calculate due date (monthly)
+            $dueDate = (new Carbon($currentDate))->addMonths($i);
 
-            // Define installment details
-            $installment = [
-                'loan_id' => $loan->id ?? null, // Ensure loan ID is stored
-                'application_id' => $info->application_id ?? null,
-                'txn_id' => null, // To be updated when payment is made
-                'due_date' => $startDate->copy()->addMonths($i)->toDateString(),
-                'installment_amount' => $monthlyPayment,
-                'principal' => $principalPaid,
-                'interest' => $interest,
-                'remaining_balance' => $remainingBalance,
-                'penalty' => 0,
-                'status' => 'Pending', // Default status
+            // dd($dueDate);
+            // Create installment record
+            $installment = LoanInstallment::create([
+                'loan_id' => $loan->id,
+                'application_id' => $loan->application_id,
+                'due_date' => $dueDate,
+                'amount' => round($monthlyPayment, 2),
+                'principal' => round($principalPayment, 2),
+                'interest' => round($interest, 2),
+                'remaining_balance' => round(max($balance, 0), 2),
                 'type' => 'auto',
-                'paid_at' => null,
-                'is_cleared' => false,
-                'payment_method' => null,
-                'amount' => null
-            ];
-
-            // Apply penalty if overdue (mock logic: assume payments start getting overdue from month 7)
-            if ($i > 6) {
-                $installment['penalty'] = round($monthlyPayment * 0.02, 2); // 2% penalty
-                $installment['status'] = 'Overdue';
-            }
-
-            // Save installment to the database
-            LoanInstallment::create($installment);
+                'status' => 'Pending'
+            ]);
 
             $schedule[] = $installment;
         }
 
-        return $schedule;
+        return [
+            'principal' => round($principal, 2),
+            'total_interest' => round($totalInterest, 2),
+            'total_repayment' => round($totalRepayment, 2),
+            'monthly_payment' => round($monthlyPayment, 2),
+            'interest_rate' => $product->def_loan_interest,
+            'term' => $termMonths,
+            'schedule' => $schedule
+        ];
+
     } catch (\Throwable $th) {
-        // Handle exceptions
-        return [];
+        return [
+            'error' => true,
+            'message' => 'Calculation failed: ' . $th->getMessage(),
+            'trace' => $th->getTraceAsString()
+        ];
     }
 }
 

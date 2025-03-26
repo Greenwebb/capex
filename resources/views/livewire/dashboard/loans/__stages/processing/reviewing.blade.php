@@ -16,7 +16,7 @@
                 {{-- @endcan --}}
 
                 {{-- @can('asses loans') --}}
-                    <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-info btn-label right ms-auto nexttab" data-nexttab="steparrow-description-info-tab"><i class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>Disburse Now</button>
+                    <button title="Open loan application" wire:click="accept({{$loan->id}})" type="button" class="btn btn-info btn-label right ms-auto nexttab" data-nexttab="steparrow-description-info-tab"><i class="align-middle ri-arrow-right-line label-icon fs-16 ms-2"></i>Verify</button>
                 {{-- @endcan --}}
             </div>
             {{-- @endcan --}}

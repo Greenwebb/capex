@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Loans;
 use App\Models\PaymentProof;
 use App\Models\Transaction;
+use App\Traits\LoanTrait;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Traits\UserTrait;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Session;
 
 class ProofOfPaymentView extends Component
 {
-    use WithPagination, UserTrait;
+    use WithPagination, UserTrait, LoanTrait;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -50,6 +51,7 @@ class ProofOfPaymentView extends Component
                 $borrower_loan->save();
             }
 
+            $this->sheet_installment_entry($borrower_loan, $proof->amount, $proof->method);
             session()->flash('success', 'Payment proof accepted successfully.');
         } catch (\Throwable $th) {
             session()->flash('error', 'Payment proof acceptance failed.');

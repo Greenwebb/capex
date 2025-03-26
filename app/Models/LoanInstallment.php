@@ -20,7 +20,12 @@ class LoanInstallment extends Model
         'penalty',
         'is_cleared',
         'payment_method',
-        'amount'
+        'amount',
+        'due_date',
+        'principal',
+        'interest',
+        'remaining_balance',
+        'status'
     ];
 
     public function loans()

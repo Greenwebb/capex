@@ -21,4 +21,8 @@ class BalanceStatement extends Model
         'payment_method',
     ];
 
+    public function application()
+    {
+        return $this->belongsTo(Application::class);
+    }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OTPController;
+use App\Http\Controllers\DownloaderController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\LoanApplicationController;
@@ -210,6 +211,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('change-password', [UserController::class, 'changePassword'])->name('change-password');
 
 
+    Route::get('/loans/{loan}/download-schedule', [DownloaderController::class, 'downloadSchedule'])
+    ->name('loans.download-schedule');
+    Route::get('/loans/{loan}/download-balance-statement', [DownloaderController::class, 'downloadBalanceStatement'])
+    ->name('loans.download-balance-statement');
 });
 
 // ---- Open Routes

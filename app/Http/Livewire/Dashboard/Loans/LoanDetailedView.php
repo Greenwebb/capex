@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Status;
 use App\Models\ApplicationStage;
 use App\Models\LoanExpense;
+use App\Models\LoanInstallment;
 use App\Traits\CalculatorTrait;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
@@ -21,12 +22,12 @@ class LoanDetailedView extends Component
     public $loan_stage, $denied_status, $picked_status, $current;
     public $amortizationSchedule, $amortization_table;
     public $loan_interest_value, $principal, $lp;
-    public $exp_date, $exp_name, $exp_amount, $exp_type, $exp_details, $current_expenses, $balance_statement;
+    public $exp_date, $exp_name, $exp_amount, $exp_type, $exp_details, $current_expenses, $balance_statement, $repayment_schedule;
 
     public function mount($id){
         $this->loan_id = $id;
     }
-    
+
     public function render()
     {
         $this->authorize('processes loans');
@@ -40,6 +41,7 @@ class LoanDetailedView extends Component
         $this->current = ApplicationStage::where('application_id', $this->loan->id)->first();
         $this->getAmoritizationTable();
         $this->getLoanStatementTable();
+        $this->getLoanRepaymentTable();
         return view('livewire.dashboard.loans.loan-detailed-view')
         ->layout('layouts.main');
     }
@@ -75,6 +77,11 @@ class LoanDetailedView extends Component
     public function getLoanStatementTable()
     {
         $this->balance_statement = Application::paybackStatement($this->loan->id);
+    }
+
+    public function getLoanRepaymentTable()
+    {
+        $this->repayment_schedule = LoanInstallment::where('loan_id', $this->loan->id)->get();
     }
 
     public function createExpense(){

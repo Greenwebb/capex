@@ -61,8 +61,9 @@
                                     </h5>
                                 </div>
                                 <div>
-                                    <button type="button" class="btn btn-primary">Download Statement</button>
-                                </div>
+                                    <a href="{{ route('loans.download-balance-statement', $loan->id) }}" class="btn btn-primary">
+                                        Download Loan Statement
+                                    </a>                                </div>
                             </div>
                         </div>
 

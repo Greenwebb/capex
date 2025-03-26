@@ -100,6 +100,8 @@ class Loans extends Model
         }
         return $payback - $amount_paid;
     }
+    
+    //depricating
     public static function loan_balance($application_id)
     {
         try {
