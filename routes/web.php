@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OTPController;
+use App\Http\Controllers\BalanceStatementController;
 use App\Http\Controllers\DownloaderController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
@@ -215,6 +216,17 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     ->name('loans.download-schedule');
     Route::get('/loans/{loan}/download-balance-statement', [DownloaderController::class, 'downloadBalanceStatement'])
     ->name('loans.download-balance-statement');
+
+
+    // -------- Balance Statement COntroller
+    Route::get('/', [BalanceStatementController::class, 'index'])->name('balance-statement.index'); // List all statements
+    Route::post('/store', [BalanceStatementController::class, 'store'])->name('balance-statement.store'); // Store a new statement
+    Route::get('/{id}/edit', [BalanceStatementController::class, 'edit'])->name('balance-statement.edit'); // Edit form (if needed)
+    Route::put('/balance-statement/{id?}', [BalanceStatementController::class, 'update'])->name('balance-statement.update');
+    Route::delete('/balance-statement/{id?}/destroy', [BalanceStatementController::class, 'destroy'])
+    ->name('balance-statement.destroy');
+
+
 });
 
 // ---- Open Routes

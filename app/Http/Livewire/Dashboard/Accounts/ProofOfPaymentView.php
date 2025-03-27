@@ -29,17 +29,26 @@ class ProofOfPaymentView extends Component
             $proof->save();
 
             // dd((int)$proof->amount);
-            Transaction::create([
-                'application_id' => $proof->loan_id,
+            // Transaction::create([
+            //     'application_id' => $proof->loan_id,
+            //     'proof_id' => $proofId,
+            //     'amount_settled' => $proof->amount,
+            //     'transaction_fee' => 0,
+            //     'profit_margin' => 0,
+            //     'proccess_by' => $proof->user->fname . ' ' . $proof->user->lname,
+            //     'charge_amount' => 0,
+            //     'method' => $proof->method,
+            // ]);
+            $data = [
+                'loan_id'=> $proof->loan_id,
                 'proof_id' => $proofId,
-                'amount_settled' => $proof->amount,
-                'transaction_fee' => 0,
-                'profit_margin' => 0,
-                'proccess_by' => $proof->user->fname . ' ' . $proof->user->lname,
-                'charge_amount' => 0,
+                'fname'=> $proof->user->fname, //processed by
+                'lname'=> $proof->user->lname,//processed by
+                'amount' => $proof->amount,
                 'method' => $proof->method,
                 'user_id' => $proof->user_id,
-            ]);
+            ];
+            $this->transaction_entry($data);
             // Close loan if the balance is 0
             $borrower_loan = Application::where('id', $proof->loan_id)->first();
             if (Loans::loan_balance($proof->loan_id) < 1) {
