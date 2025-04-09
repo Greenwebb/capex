@@ -20,6 +20,7 @@ trait TxnTrait
             'method' => $data['method'] ?? 'unknown',
             'user_id' => $data['user_id'] ?? null,
             'installment_id' => $data['installment_id'] ?? null,
+            'created_at'=> $data['payment_date'] 
         ]);
     }
     public function transaction_update(array $data)

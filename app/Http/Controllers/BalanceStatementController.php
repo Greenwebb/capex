@@ -74,6 +74,7 @@ class BalanceStatementController extends Controller
                     'lname' => auth()->user()->lname,
                     'amount' => $amount,
                     'method' => $validated['payment_method'] ?? 'unknown',
+                    'payment_date'=> $validated['payment_date'] ,
                     'user_id' => $validated['user_id'] ?? auth()->id(),
                 ];
                 $this->transaction_entry($data);
