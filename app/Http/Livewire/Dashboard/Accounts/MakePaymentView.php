@@ -77,6 +77,6 @@ class MakePaymentView extends Component
     }
 
     public function exportTransanctions(){
-            return Excel::download(new TransactionExport, 'Transaction Log.xlsx');
+            // return Excel::download(new TransactionExport, 'Transaction Log.xlsx');
     }
 }

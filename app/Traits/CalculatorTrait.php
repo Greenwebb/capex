@@ -202,6 +202,8 @@ trait CalculatorTrait
         return $schedule;
     }
 
+
+
     public function calculateReducingBalanceEqualInstallment($principal, $termMonths, $product)
     {
         try {
@@ -234,86 +236,81 @@ trait CalculatorTrait
         }
     }
 
-
-    // 6000	840	3643.74
-
-
     public function calculateReducingBalanceEqualInstallmentSchedule($principal, $termMonths, $product, $loan)
-{
-    try {
-        // Convert annual interest rate to a decimal monthly rate
-        $monthlyInterestRate = ($product->def_loan_interest / 100);
-        
-        // Calculate monthly payment
-        $monthlyPayment = Finance::pmt(
-            $monthlyInterestRate, 
-            $termMonths, 
-            -$principal, 
-            0, 
-            false
-        );
-        
-        // Calculate totals
-        $totalRepayment = $monthlyPayment * $termMonths;
-        $totalInterest = $totalRepayment - $principal;
+    {
+        try {
+            // Convert annual interest rate to a decimal monthly rate
+            $monthlyInterestRate = ($product->def_loan_interest / 100);
 
-        // Generate and save installment schedule
-        $balance = $principal;
-        $schedule = [];
-        $currentDate = now();
+            // Calculate monthly payment
+            $monthlyPayment = Finance::pmt(
+                $monthlyInterestRate,
+                $termMonths,
+                -$principal,
+                0,
+                false
+            );
 
-        // First delete any existing installments for this loan
-        LoanInstallment::where('loan_id', $loan->id)->delete();
+            // Calculate totals
+            $totalRepayment = $monthlyPayment * $termMonths;
+            $totalInterest = $totalRepayment - $principal;
 
-        for ($i = 1; $i <= $termMonths; $i++) {
-            $interest = $balance * $monthlyInterestRate;
-            $principalPayment = $monthlyPayment - $interest;
-            $balance -= $principalPayment;
+            // Generate and save installment schedule
+            $balance = $principal;
+            $schedule = [];
+            $currentDate = now();
 
-            // Adjust final payment for rounding
-            if ($i == $termMonths) {
-                $principalPayment += $balance;
-                $balance = 0;
+            // First delete any existing installments for this loan
+            LoanInstallment::where('loan_id', $loan->id)->delete();
+
+            for ($i = 1; $i <= $termMonths; $i++) {
+                $interest = $balance * $monthlyInterestRate;
+                $principalPayment = $monthlyPayment - $interest;
+                $balance -= $principalPayment;
+
+                // Adjust final payment for rounding
+                if ($i == $termMonths) {
+                    $principalPayment += $balance;
+                    $balance = 0;
+                }
+
+                // Calculate due date (monthly)
+                $dueDate = (new Carbon($currentDate))->addMonths($i);
+                
+                // Create installment record
+                $installment = LoanInstallment::create([
+                    'loan_id' => $loan->id,
+                    'application_id' => $loan->application_id,
+                    'due_date' => $dueDate,
+                    'amount' => round($monthlyPayment, 2),
+                    'principal' => round($principalPayment, 2),
+                    'interest' => round($interest, 2),
+                    'remaining_balance' => round(max($balance, 0), 2),
+                    'type' => 'auto',
+                    'status' => 'Pending'
+                ]);
+
+                $schedule[] = $installment;
             }
 
-            // Calculate due date (monthly)
-            $dueDate = (new Carbon($currentDate))->addMonths($i);
+            return [
+                'principal' => round($principal, 2),
+                'total_interest' => round($totalInterest, 2),
+                'total_repayment' => round($totalRepayment, 2),
+                'monthly_payment' => round($monthlyPayment, 2),
+                'interest_rate' => $product->def_loan_interest,
+                'term' => $termMonths,
+                'schedule' => $schedule
+            ];
 
-            // dd($dueDate);
-            // Create installment record
-            $installment = LoanInstallment::create([
-                'loan_id' => $loan->id,
-                'application_id' => $loan->application_id,
-                'due_date' => $dueDate,
-                'amount' => round($monthlyPayment, 2),
-                'principal' => round($principalPayment, 2),
-                'interest' => round($interest, 2),
-                'remaining_balance' => round(max($balance, 0), 2),
-                'type' => 'auto',
-                'status' => 'Pending'
-            ]);
-
-            $schedule[] = $installment;
+        } catch (\Throwable $th) {
+            return [
+                'error' => true,
+                'message' => 'Calculation failed: ' . $th->getMessage(),
+                'trace' => $th->getTraceAsString()
+            ];
         }
-
-        return [
-            'principal' => round($principal, 2),
-            'total_interest' => round($totalInterest, 2),
-            'total_repayment' => round($totalRepayment, 2),
-            'monthly_payment' => round($monthlyPayment, 2),
-            'interest_rate' => $product->def_loan_interest,
-            'term' => $termMonths,
-            'schedule' => $schedule
-        ];
-
-    } catch (\Throwable $th) {
-        return [
-            'error' => true,
-            'message' => 'Calculation failed: ' . $th->getMessage(),
-            'trace' => $th->getTraceAsString()
-        ];
     }
-}
 
 
 
@@ -495,64 +492,6 @@ trait CalculatorTrait
         }
     }
 
-
-
-    // public function calculateEqualInstallment(array $data){
-
-    //     // API endpoint URL
-    //     $api_url = 'https://admin.capexfinancialservices.org/api/calculate-reducing-balance';
-    //     $lp = $this->get_loan_product($data['loan_product_id']);
-    //     $loan_interest_value = $this->lp->def_loan_interest / 100;
-    //     $principal = $lp->def_loan_amount ?? 0;
-    //     // Sample request data
-    //     $request_data = [
-    //         'loan_duration_period' => $data['loan_duration_period'],
-    //         'loan_duration_value' => $data['loan_duration_value'],
-    //         'principal' => $data['principal'],
-    //         'loan_interest_value' => $loan_interest_value,
-    //         'minimum_num_of_repayments' => $data['num_of_repayments'],
-    //         'release_date' => $data['release_date'],
-    //     ];
-
-    //     // dd($request_data);
-    //     // Initialize curl
-    //     $curl = curl_init();
-
-    //     // Set curl options
-    //     curl_setopt_array($curl, [
-    //         CURLOPT_URL => $api_url,
-    //         CURLOPT_RETURNTRANSFER => true,
-    //         CURLOPT_CUSTOMREQUEST => 'POST',
-    //         CURLOPT_POSTFIELDS => json_encode($request_data),
-    //         CURLOPT_HTTPHEADER => [
-    //             'Content-Type: application/json',
-    //         ],
-    //     ]);
-
-    //     // Execute curl request
-    //     $response = curl_exec($curl);
-
-    //     // Check for errors
-    //     if (curl_errno($curl)) {
-    //         $error_message = curl_error($curl);
-    //         echo "Error: $error_message";
-    //     } else {
-    //         // Decode the response JSON
-    //         $response_data = json_decode($response, true);
-
-    //         // dd($response_data);
-    //         // Print response
-    //         return $response_data;
-    //     }
-
-    //     // Close curl
-    //     curl_close($curl);
-
-
-    // }
-
-
-    // Getters
     public function get_LoanProductDetails($id)
     {
         return LoanProduct::where('id', $id)->with([

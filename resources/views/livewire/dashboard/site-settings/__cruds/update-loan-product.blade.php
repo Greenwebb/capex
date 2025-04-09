@@ -20,7 +20,7 @@
                     <small>
                         Please note that some of the fields below are optional. You can leave the fields empty if you do not want to place any restriction.
                     </small>
-                </div>
+                </div>  
             </div>
 
             <div class="mb-5 card mb-xl-10">

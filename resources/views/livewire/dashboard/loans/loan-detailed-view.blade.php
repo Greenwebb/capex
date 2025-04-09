@@ -106,22 +106,27 @@
                             <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active fw-semibold" data-bs-toggle="tab" href="#loan-overview" role="tab">
-                                        Overview
+                                        <i class="ri-dashboard-line me-1"></i> Overview
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#loan-repayment-schedule" role="tab">
-                                        Repayments
+                                        <i class="ri-calendar-line me-1"></i> Repayments
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#loan-product-info" role="tab">
-                                        Loan Product Information
+                                        <i class="ri-bank-card-line me-1"></i> Loan Product Information
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#loan-balance-statement" role="tab">
-                                        Statement
+                                        <i class="ri-file-text-line me-1"></i> Statement
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#loan-penalties" role="tab">
+                                        <i class="ri-alert-line me-1"></i> Accumulated Penalties
                                     </a>
                                 </li>
                             </ul>
@@ -181,7 +186,6 @@
                                                                     }
                                                                 @endphp
                                                             </b></div>
-                                                            
                                                                 @php
                                                                     $dueDate = new DateTime($loan?->due_date);
                                                                     $today = new DateTime('now');
@@ -314,6 +318,7 @@
                      @include('livewire.dashboard.loans.__parts.more-loan-info')
                      @include('livewire.dashboard.loans.__parts.loan-statement')
                      @include('livewire.dashboard.loans.__parts.loan-repayment-schedule')
+                     @include('livewire.dashboard.loans.__parts.loan-arrears')
                     <!-- end tab pane -->
                 </div>
             </div>

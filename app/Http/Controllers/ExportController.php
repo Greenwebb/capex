@@ -15,29 +15,28 @@ class ExportController extends Controller
     public function export_loans(Request $request){
         $fromDate = Carbon::parse($request->input('from_date'))->startOfDay();
         $toDate = Carbon::parse($request->input('to'))->endOfDay();
-    
+
         $applications = Application::with(['loan' => function ($query) use ($fromDate, $toDate) {
             $query->whereBetween('created_at', [$fromDate, $toDate]);
         }])->get();
-        
-        
+
+
         $headers = [
             'Loan ID', 'Loan Type', 'Principal', 'Duration', 'Date Borrowed', 'Due Date', 'Date Paid', 'Borrower', 'Contact', 'NRC', 'Payback', 'Employer', 'MOU Loan', 'Penalties', 'Status', 'Days Late', 'Note'
         ];
 
-    
+
         // Create a new Spreadsheet instance
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-    
+
         // Add headers to the sheet
         $sheet->fromArray([$headers], NULL, 'A1');
-    
+
         // Add data to the sheet
         $data = [];
-        
+
         foreach ($applications as $app) {
-            
             $data[] = [
                 $app->id,
                 $app->loan_product->name,
@@ -61,16 +60,16 @@ class ExportController extends Controller
 
         // dd($data);
         $sheet->fromArray($data, NULL, 'A2');
-    
+
         // Save the Excel file
         $fileName = 'Loan Applications.xlsx';
         $writer = new Xlsx($spreadsheet);
-    
+
         // Stream the file to the browser
         ob_start();
         $writer->save('php://output');
         $content = ob_get_clean();
-    
+
         return response($content)
             ->header('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
             ->header('Content-Disposition', 'attachment;filename="' . $fileName . '"')
@@ -82,28 +81,28 @@ class ExportController extends Controller
     public function export_users(Request $request){
         // $fromDate = Carbon::parse($request->input('from_date'))->startOfDay();
         // $toDate = Carbon::parse($request->input('to'))->endOfDay();
-    
+
         // $applications = Application::with(['loan' => function ($query) use ($fromDate, $toDate) {
         //     $query->whereBetween('created_at', [$fromDate, $toDate]);
-        // }])->get();    
+        // }])->get();
         $users = User::role('user')->orderBy('created_at', 'desc')->get();
         $headers = [
             'First Name', 'Last Name', 'Email', 'Phone', 'DOB', 'NRC Type', 'NRC No', 'Job Title', 'Address', 'Gender', 'Employee Number', 'Signed Up'
         ];
 
-    
+
         // Create a new Spreadsheet instance
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-    
+
         // Add headers to the sheet
         $sheet->fromArray([$headers], NULL, 'A1');
-    
+
         // Add data to the sheet
         $data = [];
-        
+
         foreach ($users as $user) {
-            
+
             $data[] = [
                 $user->fname,
                 $user->lname,
@@ -123,16 +122,16 @@ class ExportController extends Controller
 
         // dd($data);
         $sheet->fromArray($data, NULL, 'A2');
-    
+
         // Save the Excel file
         $fileName = 'Customers.xlsx';
         $writer = new Xlsx($spreadsheet);
-    
+
         // Stream the file to the browser
         ob_start();
         $writer->save('php://output');
         $content = ob_get_clean();
-    
+
         return response($content)
             ->header('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
             ->header('Content-Disposition', 'attachment;filename="' . $fileName . '"')

@@ -13,7 +13,7 @@
             @can('approve loan')
             <div class="justify-between col-12 d-flex">
                 {{-- @can('decline a loan') --}}
-                    <a title="Undo" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_review_rollback" wire:click="setLoanID({{$loan->id}})" class="btn btn-danger btn-label left nexttab"><i class="align-middle ri-arrow-left-line label-icon fs-16 ms-2"></i> Reject Submission </a>
+                    <a title="Undo" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_decline_warning" wire:click="setLoanID({{$loan->id}})" class="btn btn-danger btn-label left nexttab"><i class="align-middle ri-arrow-left-line label-icon fs-16 ms-2"></i> Reject Submission </a>
                 {{-- @endcan --}}
 
                 {{-- @can('verify loan') --}}

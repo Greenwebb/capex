@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Traits;
+
 use App\Models\Transaction;
 
 trait TxnTrait
 {
-    public function transaction_entry(array $data) {
+    public function transaction_entry(array $data)
+    {
         Transaction::create([
             'application_id' => $data['loan_id'] ?? null,
             'proof_id' => $data['proof_id'] ?? null,
@@ -20,5 +22,34 @@ trait TxnTrait
             'installment_id' => $data['installment_id'] ?? null,
         ]);
     }
-
+    public function transaction_update(array $data)
+    {
+        // Update the latest matching transaction for the given loan_id and user_id
+        $transaction = Transaction::where('application_id', $data['loan_id'])
+            ->where('user_id', $data['user_id'])
+            ->latest()
+            ->first();
+    
+        if ($transaction) {
+            $transaction->update([
+                'amount_settled' => $data['amount_settled'],
+                'method' => $data['method'],
+                'proccess_by' => $data['fname'] . ' ' . $data['lname'],
+            ]);
+        }
+    }
+    
+    public function transaction_removal(array $data)
+    {
+        // Remove the latest matching transaction by loan_id and amount
+        $transaction = Transaction::where('application_id', $data['loan_id'])
+            ->where('amount_settled', $data['amount_settled'])
+            ->latest()
+            ->first();
+    
+        if ($transaction) {
+            $transaction->delete();
+        }
+    }
+    
 }

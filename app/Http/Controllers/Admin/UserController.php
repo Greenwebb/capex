@@ -75,14 +75,12 @@ class UserController extends Controller
             DB::commit();
             Session::flash('success', 'User created successfully');
             return redirect()->back();
-
         } catch (\Throwable $th) {
             DB::rollback();
-            Session::flash('error', 'Oops..'.$th->getMessage());
+            Session::flash('error', 'Oops..' . $th->getMessage());
 
             return redirect()->back();
         }
-
     }
 
 
@@ -96,7 +94,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view ('admin.users.edit', compact('user', 'roles'));
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -111,7 +109,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $user = User::find($request->user_edit_id);
-            $data = array_merge($user->toArray(), $request->all(),[
+            $data = array_merge($user->toArray(), $request->all(), [
                 'profile_photo_path' => $url ?? ''
             ]);
             $user->fill($data);
@@ -125,25 +123,25 @@ class UserController extends Controller
             // dd($th);
             DB::rollback();
 
-            if($request->assigned_role == 'user'){
+            if ($request->assigned_role == 'user') {
                 Session::flash('error_msg', 'Oops.. There is a borrower account already using this email.');
-            }elseif($request->assigned_role == 'employee'){
+            } elseif ($request->assigned_role == 'employee') {
                 Session::flash('error_msg', 'Oops. There is an employee account already with this email.');
-            }else{
+            } else {
                 Session::flash('error_msg', 'Oops.. An with this email already exists. please try again.');
             }
             return back();
         }
-
     }
 
 
-    public function share_doc(Request $request){
+    public function share_doc(Request $request)
+    {
         $email = $request->toArray()['email'];
         $res = $this->send_pre_approval_forms($email);
-        if($res){
+        if ($res) {
             return response()->json(['msg' => 'success']);
-        }else{
+        } else {
             return response()->json(['msg' => 'error']);
         }
     }
@@ -173,7 +171,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'An error occurred while updating the profile photo.');
         }
     }
-    
+
     public function updateProfile(Request $request)
     {
         try {
@@ -196,7 +194,7 @@ class UserController extends Controller
 
             return redirect()->back()->with('success', 'Profile photo updated successfully.');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'An error occurred while updating the profile photo. '.$th->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while updating the profile photo. ' . $th->getMessage());
         }
     }
 

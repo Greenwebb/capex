@@ -6,11 +6,12 @@ use App\Models\BalanceStatement;
 use App\Http\Requests\StoreBalanceStatementRequest;
 use App\Http\Requests\UpdateBalanceStatementRequest;
 use App\Traits\LoanTrait;
+use App\Traits\TxnTrait;
 use Illuminate\Http\Request;
 
 class BalanceStatementController extends Controller
 {
-    use LoanTrait;
+    use LoanTrait, TxnTrait;
     /**
      * Display a listing of the resource.
      *
@@ -39,38 +40,93 @@ class BalanceStatementController extends Controller
      */
     public function store(Request $request)
     {
-        // Create the balance statement
-        BalanceStatement::create($request->all());
+        try {
+            $validated = $request->validate([
+                'loan_id' => 'required|integer',
+                'debit' => 'nullable|numeric',
+                'credit' => 'nullable|numeric',
+                'user_id' => 'nullable|integer',
+                'payment_method' => 'nullable|string',
+                'payment_date' => 'required',
+                'description' => 'required',
+            ]);
 
-        // Get debit and credit values
-        $debit = $request->input('debit');
-        $credit = $request->input('credit');
+            // Prevent duplicate: define what makes it "duplicate"
+            $existing = BalanceStatement::where([
+                'loan_id' => $validated['loan_id'],
+                'debit' => $validated['debit'] ?? 0,
+                'credit' => $validated['credit'] ?? 0,
+            ])->first();
 
-        // Only create transaction if there's a non-zero debit credit
-        if (!empty($credit)) {
-            $data = [
-                'loan_id' => $request->input('loan_id'),
-                'fname' => auth()->user()->fname,
-                'lname' => auth()->user()->lname,  // Fixed from fname to lname
-                'amount' => !empty($debit) ? $debit : $credit,
-                'method' => $request->input('payment_method', 'unknown'),
-                'user_id' => $request->input('user_id', auth()->id()),
-            ];
-            $this->transaction_entry($data);
+            if ($existing) {
+                return redirect()->back()->with('info', 'Duplicate entry detected. No new entry added.');
+            }
+
+            // Create balance statement
+            $balanceStatement = BalanceStatement::create($validated);
+
+            // Process transaction entry if credit or debit is non-zero
+            $amount = $validated['debit'] ?? $validated['credit'];
+            if (!empty($amount)) {
+                $data = [
+                    'loan_id' => $validated['loan_id'],
+                    'fname' => auth()->user()->fname,
+                    'lname' => auth()->user()->lname,
+                    'amount' => $amount,
+                    'method' => $validated['payment_method'] ?? 'unknown',
+                    'user_id' => $validated['user_id'] ?? auth()->id(),
+                ];
+                $this->transaction_entry($data);
+            }
+
+            return redirect()->back()->with('success', 'Entry added successfully.');
+        } catch (\Throwable $th) {
+            report($th);
+            return redirect()->back()->with('error', 'An error occurred while saving the entry.');
         }
-        return redirect()->back()->with('success', 'Entry added successfully.');
     }
+
 
     public function update(Request $request, $id = null)
     {
-        BalanceStatement::findOrFail($id)->update($request->all());
-        return redirect()->back()->with('success', 'Entry updated successfully.');
+        try {
+            $data = [
+                'loan_id' => $request->input('loan_id'),
+                'fname' => auth()->user()->fname,
+                'lname' => auth()->user()->lname,
+                'amount' => $request->input('amount'),
+                'method' => $request->input('method') ?? 'unknown',
+                'user_id' =>  $request->input('user_id') ?? auth()->id(),
+            ];
+            $this->transaction_update($data);
+            BalanceStatement::findOrFail($id)->update($request->all());
+            return redirect()->back()->with('success', 'Entry updated successfully.');
+            // return response()->json(['message' => 'Updated successfully']);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Updated failed']);
+            //throw $th;
+        }
     }
 
-    public function destroy(BalanceStatement $entry)  // Using route model binding
+    public function destroy($entry)  // Using route model binding
     {
-        $entry->delete();
-        return redirect()->back()->with('success', 'Entry deleted successfully');
+        $statement = BalanceStatement::where('id', $entry)->first();
+        try {
+
+            BalanceStatement::where('id', $statement->id)->delete();
+            $data = [
+                'entry_id' => $statement->id,
+                'loan_id' => $statement->loan_id,
+                'fname' => auth()->user()->fname,
+                'lname' => auth()->user()->lname,
+                'amount' => $statement->amount
+            ];
+            $this->transaction_removal($data);
+            return redirect()->back()->with('success', 'Deleted successfully.');
+        } catch (\Throwable $th) {
+            dd($th);
+            return response()->json(['error' => 'Deleted failed']);
+        }
     }
 
 
@@ -95,27 +151,4 @@ class BalanceStatementController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateBalanceStatementRequest  $request
-     * @param  \App\Models\BalanceStatement  $balanceStatement
-     * @return \Illuminate\Http\Response
-     */
-    // public function update(UpdateBalanceStatementRequest $request, BalanceStatement $balanceStatement)
-    // {
-    //     //
-    // }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\BalanceStatement  $balanceStatement
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy(BalanceStatement $balanceStatement)
-    // {
-    //     //
-    // }
 }

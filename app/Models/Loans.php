@@ -100,18 +100,15 @@ class Loans extends Model
         }
         return $payback - $amount_paid;
     }
-    
+
     //depricating
     public static function loan_balance($application_id)
     {
         try {
             $loan = Application::where('id', $application_id)->first();
             if ($loan !== null && $loan->status == 1) {
-                $paid = (string) Transaction::where('application_id', $application_id)->sum('amount_settled');
-                $payback = (string) Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan);
-
-                // dd($paid);
-                // dd((float) bcsub($payback, $paid, 2));
+                $paid = (float) Transaction::where('application_id', $application_id)->sum('amount_settled');
+                $payback = (float) Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan);
                 return (float) bcsub($payback, $paid, 2); // Subtract with high precision
             } else {
                 return 0;

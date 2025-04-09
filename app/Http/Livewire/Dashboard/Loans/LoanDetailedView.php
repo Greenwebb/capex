@@ -24,7 +24,8 @@ class LoanDetailedView extends Component
     public $loan_interest_value, $principal, $lp;
     public $exp_date, $exp_name, $exp_amount, $exp_type, $exp_details, $current_expenses, $balance_statement, $repayment_schedule;
 
-    public function mount($id){
+    public function mount($id)
+    {
         $this->loan_id = $id;
     }
 
@@ -35,18 +36,19 @@ class LoanDetailedView extends Component
         $this->loan_product = $this->get_loan_product($this->loan->loan_product_id);
         $this->loan_stage = $this->get_loan_current_stage($this->loan->loan_product_id);
         $this->denied_status = Status::where('stage', 'denied')
-        ->orderBy('id')
-        ->get();
+            ->orderBy('id')
+            ->get();
         $this->current_expenses = $this->get_loan_expenses($this->loan_id);
         $this->current = ApplicationStage::where('application_id', $this->loan->id)->first();
         $this->getAmoritizationTable();
         $this->getLoanStatementTable();
         $this->getLoanRepaymentTable();
         return view('livewire.dashboard.loans.loan-detailed-view')
-        ->layout('layouts.main');
+            ->layout('layouts.main');
     }
 
-    public function prefillLoanProductValues(){
+    public function prefillLoanProductValues()
+    {
         try {
             $this->lp = $this->get_loan_product($this->loan->loan_product_id);
             $this->loan_interest_value = $this->lp->def_loan_interest / 100;
@@ -56,10 +58,11 @@ class LoanDetailedView extends Component
         }
     }
 
-    public function getAmoritizationTable(){
+    public function getAmoritizationTable()
+    {
         try {
 
-        $this->prefillLoanProductValues();
+            $this->prefillLoanProductValues();
             $data = [
                 'loan_duration_period' => 'month',
                 'loan_duration_value' => $this->loan->repayment_plan,
@@ -84,7 +87,8 @@ class LoanDetailedView extends Component
         $this->repayment_schedule = LoanInstallment::where('loan_id', $this->loan->id)->get();
     }
 
-    public function createExpense(){
+    public function createExpense()
+    {
         try {
             LoanExpense::create([
                 'name' => $this->exp_name,

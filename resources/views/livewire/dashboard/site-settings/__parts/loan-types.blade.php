@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
+        <div class="bg-transparent page-title-box d-sm-flex align-items-center justify-content-between">
             <h4 class="mb-sm-0">{{ ucwords(str_replace('-', ' ', $settings)) }}</h4>
 
             <div class="page-title-right">
-                <ol class="breadcrumb m-0">
+                <ol class="m-0 breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboards</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('sys-settings') }}">System Settings</a></li>
                     <li class="breadcrumb-item active">{{ ucwords(str_replace('-', ' ', $settings)) }}</li>
@@ -22,8 +22,8 @@
         Add New Loan Product</a>
     </div>
 </div>
-    
-<div class="card-body py-3">
+
+<div class="py-3 card-body">
     <!--begin::Table container-->
     <div class="table-responsive">
         <!--begin::Table-->
@@ -49,22 +49,22 @@
                             <div class="symbol symbol-label bg-light-danger symbol-50px me-5">
                             </div>
                             <div class="d-flex justify-content-start flex-column">
-                                <a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $product->name }}</a>
-                                <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $product->name }}</span>
+                                <a href="#" class="mb-1 text-dark fw-bold text-hover-primary fs-6">{{ $product->name }}</a>
+                                <span class="text-muted fw-semibold d-block fs-7">{{ $product->name }}</span>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">{{ $product->def_loan_interest }}</a>
-                        <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $product->interest_types->first()->interest_type->name }}</span>
+                        <a href="#" class="mb-1 text-dark fw-bold text-hover-primary d-block fs-6">{{ $product->def_loan_interest }}</a>
+                        <span class="text-muted fw-semibold d-block fs-7">{{ $product->interest_types->first()->interest_type->name }}</span>
                     </td>
                     <td>
-                        <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">{{ $product->default_loan_duration ?? '1' }} month</a>
-                        {{-- <span class="text-muted fw-semibold text-muted d-block fs-7">Insurance</span> --}}
+                        <a href="#" class="mb-1 text-dark fw-bold text-hover-primary d-block fs-6">{{ $product->default_loan_duration ?? '1' }} month</a>
+                        {{-- <span class="text-muted fw-semibold d-block fs-7">Insurance</span> --}}
                     </td>
                     <td>
-                        <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">{{ $product->auto_payment == 1 ? 'Automatic' : 'Manual' }}</a>
-                        <span class="text-muted fw-semibold text-muted d-block fs-7">{{ $product->auto_payment == 1 ? 'Todate' : 'Set Date' }}</span>
+                        <a href="#" class="mb-1 text-dark fw-bold text-hover-primary d-block fs-6">{{ $product->auto_payment == 1 ? 'Automatic' : 'Manual' }}</a>
+                        <span class="text-muted fw-semibold d-block fs-7">{{ $product->auto_payment == 1 ? 'Todate' : 'Set Date' }}</span>
                     </td>
                     <td>
                         <div class="form-check form-switch">
@@ -81,7 +81,7 @@
                             $('.form-check-input').on('change', function() {
                                 var productId = $(this).data('id');
                                 var status = $(this).is(':checked') ? 1 : 0;
-                    
+
                                 $.ajax({
                                     url: '{{ route("loan-products.updateStatus") }}', // Define the route for updating status
                                     method: 'POST',
@@ -110,7 +110,7 @@
                             });
                         });
                     </script>
-                                        
+
                     <td class="text-end">
                         <a title="Manage loan statuses" href="{{ route('system-edit', ['page' => 'loan-statuses', 'item_id' => $product->id]) }}" class="btn btn-primary">
                             Manage Statuses

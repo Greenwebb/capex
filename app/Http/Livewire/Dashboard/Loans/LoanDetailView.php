@@ -300,7 +300,6 @@ class LoanDetailView extends Component
     {
         try {
             $this->calculateAmortizationScheduleTable($x->amount, $x->repayment_plan, $x->loan_product_id, $x);
-            // Convert loan to open status = 1
             $x->status = 1;
             // $x->due_date = $futureDate;
             $x->save();
@@ -385,7 +384,6 @@ class LoanDetailView extends Component
 
     public function rejectOnly()
     {
-
         try {
             $x = Application::find($this->loan_id);
             $x->status = 3;

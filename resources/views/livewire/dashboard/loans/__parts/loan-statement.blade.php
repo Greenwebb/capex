@@ -39,7 +39,7 @@
                                             <td class="fw-bold text-primary">
                                                 {{ number_format($entry->balance_after_payment, 2, '.', ',') }}
                                             </td>
-                                            {{-- <td>
+                                            <td>
                                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editBalanceStatementModal-{{ $entry->id }}">
                                                     Edit
                                                 </button>
@@ -47,7 +47,7 @@
                                                 <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteBalanceStatementModal-{{ $entry->id }}">
                                                     Delete
                                                 </button>
-                                            </td> --}}
+                                            </td>
 
                                         </tr>
                                     @endforeach
@@ -110,7 +110,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <input type="text" class="form-control" name="description" required>
+                        <input type="text" class="form-control" name="description" value="Loan repayment installment" required>
                     </div>
                     <div class="mb-3">
                         <label for="debit" class="form-label">Debit</label>
@@ -126,7 +126,7 @@
                     </div> --}}
                     <div class="mb-3">
                         <label for="payment_method" class="form-label">Payment Method</label>
-                        <input type="text" class="form-control" name="payment_method" value="Bank Transfer">
+                        <input type="text" class="form-control" name="payment_method" value="Wire Transfer">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -222,9 +222,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/', [BalanceStatementController::class, 'index'])->name('balance-statement.index'); // List all statements
     Route::post('/store', [BalanceStatementController::class, 'store'])->name('balance-statement.store'); // Store a new statement
     Route::get('/{id}/edit', [BalanceStatementController::class, 'edit'])->name('balance-statement.edit'); // Edit form (if needed)
-    Route::put('/balance-statement/{id?}', [BalanceStatementController::class, 'update'])->name('balance-statement.update');
-    Route::delete('/balance-statement/{id?}/destroy', [BalanceStatementController::class, 'destroy'])
-    ->name('balance-statement.destroy');
+    Route::put('/balance-statement/{id}', [BalanceStatementController::class, 'update'])
+    ->name('balance-statement.update');
+    Route::delete('/balance-statement/{id}/destroy', [BalanceStatementController::class, 'destroy'])
+        ->name('balance-statement.destroy');
+
 
 
 });

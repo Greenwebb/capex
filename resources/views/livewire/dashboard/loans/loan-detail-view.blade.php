@@ -100,7 +100,8 @@
 
                             @case('denied')
                                 @switch(strtolower($current->status))
-                                    @case('incomplet kyc')
+                                
+                                    @case('incomplete kyc')
                                         @include('livewire.dashboard.loans.__stages.denied.incomplete-kyc')
                                     @break
                                     @case('incomplete crb')

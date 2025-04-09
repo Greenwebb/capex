@@ -183,8 +183,6 @@ class LoanApplicationController extends Controller
         }
     }
 
-
-
     public function updateFiles(Request $request)
     {
         // DB::beginTransaction();
