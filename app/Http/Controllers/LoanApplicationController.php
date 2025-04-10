@@ -304,6 +304,7 @@ class LoanApplicationController extends Controller
                 'gender' => $user->gender,
                 'loan_product_id' => $form['loan_product_id'],
                 'repayment_plan' => $form['repayment_plan'],
+                'start_schedule_date' => $form['start_date'] ?? null,
 
                 // 'glname'=> $form['glname'],
                 // 'gfname'=> $form['gfname'],

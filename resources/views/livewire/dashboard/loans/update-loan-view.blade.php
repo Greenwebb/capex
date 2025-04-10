@@ -116,14 +116,14 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="fullnameInput" class="form-label">Start Date
-                                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Select the date when this loan is due for final repayments.">
+                                    <label for="fullnameInput" class="form-label">Schedule - Start Date
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Select the date when this loan will start from, to generate next repayment dates.">
                                             <i class="ri-information-line" style="cursor: pointer;"></i>
                                         </span>
                                         <span>
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
-                                    <input type="text" name="start_date" class="form-control" id="dueDate" placeholder="{{ $loan->due_date }}" required>
+                                    <input type="text" name="start_date" class="form-control" id="dueDate" placeholder="{{ $loan->start_schedule_date }}" required>
                                 </div>
 
                                 {{-- <div class="col-md-6">

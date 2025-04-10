@@ -35,6 +35,7 @@ class Application extends Model
         'complete',
         'source',
         'doa',
+        'start_schedule_date',
         'monthly_payments',
         'maximum_deductable',
         'net_pay_blr', //net before loan recovery
@@ -61,7 +62,8 @@ class Application extends Model
         'confirmed_by'
     ];
     protected $casts = [
-        'due_date' => 'datetime', // Automatically converts to Carbon
+        'due_date' => 'datetime',
+        'start_schedule_date' => 'date',
     ];
     protected static function boot()
     {

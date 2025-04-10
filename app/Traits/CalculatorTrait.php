@@ -258,7 +258,14 @@ trait CalculatorTrait
             // Generate and save installment schedule
             $balance = $principal;
             $schedule = [];
-            $currentDate = now();
+
+            //if start_schedule_date is null, else use it as currentDate
+            if($loan->start_schedule_date){
+                $currentDate = $loan->start_schedule_date;
+            }else{
+                $currentDate = now();
+            }
+
 
             // First delete any existing installments for this loan
             LoanInstallment::where('loan_id', $loan->id)->delete();
@@ -276,7 +283,7 @@ trait CalculatorTrait
 
                 // Calculate due date (monthly)
                 $dueDate = (new Carbon($currentDate))->addMonths($i);
-                
+
                 // Create installment record
                 $installment = LoanInstallment::create([
                     'loan_id' => $loan->id,
