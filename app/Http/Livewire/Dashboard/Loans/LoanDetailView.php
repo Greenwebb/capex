@@ -96,8 +96,6 @@ class LoanDetailView extends Component
     {
         if ($this->code) {
             if ($this->code === 's') {
-                // $response = $this->soapApiCRBDemoRequest($this->code, $this->loan->user);
-                // $response = $this->soapApiCRBDemoRequest($this->code, $this->loan->user);
             } else {
                 $response = $this->soapApiCRBRequest($this->code, $this->loan->user);
             }
@@ -193,24 +191,12 @@ class LoanDetailView extends Component
     }
 
 
-    // This method is the actual approval process - Recommended
     public function accept($id, $type = null)
     {
-        // dd(strtolower($type));
-        // DB::beginTransaction();
-
         try {
-            $application_request = Application::find($id);
-            // dd($this->change_stage());
+            $application = Application::find($id);
             if ($this->change_stage()) {
-                // dd($this->final_approver($id)['status']);
                 if ($this->final_approver($id)['status']) {
-                    // Make the loan when disbursed
-                    // $this->make_loan($x, $this->due_date);
-                    // $this->isCompanyEnough($x->amount);
-                    // dd($application_request);
-                    // Do this - If this officer is the last approver
-                    // dd(strtolower($type));
                     if (strtolower($type) == 'disburse') {
                         $this->current->update([
                             'state' => 'current',
@@ -220,19 +206,18 @@ class LoanDetailView extends Component
                             'curr_status' => 'bg-white',
                             'position' => 4,
                         ]);
-                        $this->approve_final($application_request);
+                        $this->approve_final($application);
                         Redirect::route('detailed', ['id' => $this->loan_id]);
                     } else {
                         $this->approve_continue($id);
                         Redirect::route('loan-details', ['id' => $this->loan_id]);
                     }
-
                 } else {
                     $this->approve_continue($id);
                 }
                 Redirect::route('loan-details', ['id' => $this->loan_id]);
-            } else {
-                $this->approve_final($application_request);
+            }else{
+                $this->approve_final($application);
                 Redirect::route('detailed', ['id' => $this->loan_id]);
             }
         } catch (\Throwable $th) {

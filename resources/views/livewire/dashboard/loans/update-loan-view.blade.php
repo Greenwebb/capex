@@ -70,7 +70,6 @@
                                         @endforeach
                                     </select>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#update_interest_details" class="btn btn-sm btn-primary">Custom Interest</a>
-                               
                                 </div>
 
 
@@ -117,6 +116,17 @@
                                 </div>
 
                                 <div class="col-md-6">
+                                    <label for="fullnameInput" class="form-label">Start Date
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Select the date when this loan is due for final repayments.">
+                                            <i class="ri-information-line" style="cursor: pointer;"></i>
+                                        </span>
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
+                                    <input type="text" name="start_date" class="form-control" id="dueDate" placeholder="{{ $loan->due_date }}" required>
+                                </div>
+
+                                {{-- <div class="col-md-6">
                                     <label for="fullnameInput" class="form-label">Due Date
                                         <span data-bs-toggle="tooltip" data-bs-placement="top" title="Select the date when this loan is due for final repayments.">
                                             <i class="ri-information-line" style="cursor: pointer;"></i>
@@ -125,7 +135,7 @@
                                             <i class="text-danger ri-asterisk"></i>
                                         </span> </label>
                                     <input type="text" name="due_date" class="form-control" id="dueDate" placeholder="{{ $loan->due_date }}" required>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-6">
                                     <label for="inputState" class="form-label">Pick stage
