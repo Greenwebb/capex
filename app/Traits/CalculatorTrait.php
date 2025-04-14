@@ -270,13 +270,13 @@ trait CalculatorTrait
             // First delete any existing installments for this loan
             LoanInstallment::where('loan_id', $loan->id)->delete();
 
-            for ($i = 1; $i <= $termMonths; $i++) {
+            for ($i = 1; $i <= (int)$termMonths; $i++) {
                 $interest = $balance * $monthlyInterestRate;
                 $principalPayment = $monthlyPayment - $interest;
                 $balance -= $principalPayment;
 
                 // Adjust final payment for rounding
-                if ($i == $termMonths) {
+                if ($i == (int)$termMonths) {
                     $principalPayment += $balance;
                     $balance = 0;
                 }

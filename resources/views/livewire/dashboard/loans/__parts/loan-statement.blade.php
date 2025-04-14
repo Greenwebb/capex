@@ -25,7 +25,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($balance_statement as $key => $entry)
+                                    @foreach ($balance_statement as $key => $entry)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ date('d M, Y', strtotime($entry->payment_date)) }}</td>
@@ -50,14 +50,14 @@
                                             </td>
 
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
 
                         <div class="pt-3 mt-4 border-top border-top-dashed">
                             <div class="d-flex justify-content-between align-items-center">
-                                {{-- <div>
+                                <div>
                                     <p class="mb-2 text-uppercase fw-medium">Total Loan Amount:</p>
                                     <h5 class="mb-0 text-danger">
                                         {{ number_format(App\Models\Application::payback($loan->amount,$loan->repayment_plan, $loan->loan_product_id, $loan ), 2, '.', ',') }}
@@ -78,7 +78,7 @@
                                 <div>
                                     <a href="{{ route('loans.download-balance-statement', $loan->id) }}" class="btn btn-primary">
                                         Download Loan Statement
-                                    </a>                                </div> --}}
+                                    </a>                                </div>
                             </div>
                         </div>
 
@@ -87,5 +87,129 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Add Balance Statement Modal -->
+    <div class="modal fade" id="addBalanceStatementModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Balance Statement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('balance-statement.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="loan_id" value="{{ $loan->id }}">
+                    <input type="hidden" name="user_id" value="{{ $loan->user->id }}">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="payment_date" class="form-label">Payment Date</label>
+                            <input type="date" class="form-control" name="payment_date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <input type="text" class="form-control" name="description" value="Loan repayment installment" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="debit" class="form-label">Debit</label>
+                            <input type="number" step="0.01" class="form-control" name="debit">
+                        </div>
+                        <div class="mb-3">
+                            <label for="credit" class="form-label">Credit</label>
+                            <input type="number" step="0.01" class="form-control" name="credit">
+                        </div>
+                        {{-- <div class="mb-3">
+                            <label for="balance_after_payment" class="form-label">Balance After Payment</label>
+                            <input type="number" step="0.01" class="form-control" name="balance_after_payment" required>
+                        </div> --}}
+                        <div class="mb-3">
+                            <label for="payment_method" class="form-label">Payment Method</label>
+                            <input type="text" class="form-control" name="payment_method" value="Wire Transfer">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Edit modal --}}
+    @foreach ($balance_statement as $entry)
+        <div class="modal fade" id="editBalanceStatementModal-{{ $entry->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Balance Statement</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('balance-statement.update', $entry->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="loan_id" value="{{ $loan->id }}">
+                        <input type="hidden" name="user_id" value="{{ $loan->user->id }}">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="payment_date" class="form-label">Payment Date</label>
+                                <input type="date" class="form-control" name="payment_date" value="{{ $entry->created_at }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <input type="text" class="form-control" name="description" value="{{ $entry->description }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="debit" class="form-label">Debit</label>
+                                <input type="number" step="0.01" class="form-control" name="debit" value="{{ $entry->debit }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="credit" class="form-label">Credit</label>
+                                <input type="number" step="0.01" class="form-control" name="credit" value="{{ $entry->credit }}">
+                            </div>
+                            {{-- <div class="mb-3">
+                                <label for="balance_after_payment" class="form-label">Balance After Payment</label>
+                                <input type="number" step="0.01" class="form-control" name="balance_after_payment" value="{{ $entry->balance_after_payment }}" required>
+                            </div> --}}
+                            <div class="mb-3">
+                                <label for="payment_method" class="form-label">Payment Method</label>
+                                <input type="text" class="form-control" name="payment_method" value="{{ $entry->payment_method }}">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+
+    @foreach ($balance_statement as $entry)
+        <div class="modal fade" id="deleteBalanceStatementModal-{{ $entry->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('balance-statement.destroy', $entry->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this entry?{{ $entry->id }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
 </div>
 
