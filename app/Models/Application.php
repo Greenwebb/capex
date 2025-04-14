@@ -14,7 +14,6 @@ class Application extends Model
     use CalculatorTrait;
 
     protected $fillable = [
-
         'email',
         'loan_product_id',
         'repayment_plan',

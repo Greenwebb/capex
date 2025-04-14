@@ -21,7 +21,6 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($repayment_schedule as $key => $installment)
-                                    {{-- @dd($installment) --}}
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ \Carbon\Carbon::parse($installment->due_date)->format('d M, Y') }}</td>
@@ -57,7 +56,7 @@
                                 <div>
                                     <a href="{{ route('loans.download-schedule', $loan->id) }}" class="btn btn-primary">
                                         Download Schedule
-                                    </a>                                
+                                    </a>
                                 </div>
                             </div>
                         </div>

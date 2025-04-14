@@ -693,15 +693,10 @@ trait LoanTrait
     }
 
 
-    public function apply_update_loan($data, $loan_id)
+    public function apply_update_loan($data)
     {
-        try {
-            // check if user already created a loan application that is not approved yet and not complete
-            $check = Application::where('id', $loan_id)->first();
-            $check->update($data);
-        } catch (\Throwable $th) {
-            return 0;
-        }
+        $check = Application::where('id', $data['id'])->first();
+        $check->update($data);
     }
 
     public function updateGuarantors($data)
@@ -917,7 +912,8 @@ trait LoanTrait
         return LoanNotification::where('application_id', $id)->get();
     }
 
-    public function sheet_disburse_entry($loan, $amount, $method){
+    public function sheet_disburse_entry($loan, $amount, $method)
+    {
         BalanceStatement::create([
             'loan_id' => $loan->id,
             'payment_date' => Carbon::now(),
@@ -931,7 +927,8 @@ trait LoanTrait
         ]);
     }
 
-    public function sheet_penalty_entry($loan, $amount, $method){
+    public function sheet_penalty_entry($loan, $amount, $method)
+    {
         BalanceStatement::create([
             'loan_id' => $loan->id,
             'payment_date' => Carbon::now(),
@@ -945,7 +942,8 @@ trait LoanTrait
         ]);
     }
 
-    public function sheet_installment_entry($loan, $amount, $method){
+    public function sheet_installment_entry($loan, $amount, $method)
+    {
         BalanceStatement::create([
             'loan_id' => $loan->id,
             'payment_date' => Carbon::now(),

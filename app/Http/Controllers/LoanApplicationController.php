@@ -290,49 +290,49 @@ class LoanApplicationController extends Controller
         DB::beginTransaction();
         try {
             $form = $request->toArray();
-            // Update files
             $this->uploadCommonFiles($request);
             $user = User::where('id', $form['borrower_id'])->first();
 
-            $data = [
-                'user_id' => $form['borrower_id'],
-                'lname' => $user->lname,
-                'fname' => $user->fname,
+            $loan = [
+                'id' => $form['loan_id'],
+                'user_id' => $user->id,
                 'email' => $user->email ?? '',
                 'amount' => $form['amount'],
-                'phone' => $user->phone,
-                'gender' => $user->gender,
                 'loan_product_id' => $form['loan_product_id'],
                 'repayment_plan' => $form['repayment_plan'],
                 'start_schedule_date' => $form['start_date'] ?? null,
-
-                // 'glname'=> $form['glname'],
-                // 'gfname'=> $form['gfname'],
-                // 'gemail'=> $form['gemail'],
-                // 'gphone'=> $form['gphone'],
-                // 'g_gender'=> $form['g_gender'],
-                // 'g_relation'=> $form['g_relation'],
-
-                // 'g2lname'=> $form['g2lname'],
-                // 'g2fname'=> $form['g2fname'],
-                // 'g2email'=> $form['g2email'],
-                // 'g2phone'=> $form['g2phone'],
-                // 'g2_gender'=> $form['g2_gender'],
-                // 'g2_relation'=> $form['g2_relation'],
-
-                // 'doa' => $form['doa'] ?? $loan_req->doa,
-
-                // 'tpin_file' => $form['tpin_file'] ?? $tpin_file,
-                // 'payslip_file' => $form['payslip_file'] ?? $payslip_file,
-                // 'nrc_file' => $form['nrc_file'] ?? $nrc_file,
-                // 'complete' => $form['complete'],
+                'loan_type_id' => $form['loan_type_id'],
+                'loan_child_type_id' => $form['loan_child_type_id'],
+                'skip_to' => $form['skip_to'],
+                'desc' => $form['desc'],
+                'note' => $form['note'],
                 'processed_by' => auth()->user()->id
             ];
 
-            $this->apply_update_loan($data, $form['loan_id``']);
+            // $more = [
+            // 'glname'=> $form['glname'],
+            // 'gfname'=> $form['gfname'],
+            // 'gemail'=> $form['gemail'],
+            // 'gphone'=> $form['gphone'],
+            // 'g_gender'=> $form['g_gender'],
+            // 'g_relation'=> $form['g_relation'],
+
+            // 'g2lname'=> $form['g2lname'],
+            // 'g2fname'=> $form['g2fname'],
+            // 'g2email'=> $form['g2email'],
+            // 'g2phone'=> $form['g2phone'],
+            // 'g2_gender'=> $form['g2_gender'],
+            // 'g2_relation'=> $form['g2_relation'],
+
+            // 'tpin_file' => $form['tpin_file'] ?? $tpin_file,
+            // 'payslip_file' => $form['payslip_file'] ?? $payslip_file,
+            // 'nrc_file' => $form['nrc_file'] ?? $nrc_file,
+            // 'complete' => $form['complete'],
+            // ];
+
+            $this->apply_update_loan($loan);
 
             // Email going to the Administrator
-            // $process = $this->send_loan_email($mail);
             DB::commit();
             Session::flash('success', $user->fname . ' ' . $user->lname . "'s Loan updated successfully");
             return redirect()->route('view-loan-requests');
