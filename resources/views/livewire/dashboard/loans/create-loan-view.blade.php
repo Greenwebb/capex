@@ -134,7 +134,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <label for="smoothDatePicker" class="form-label">Due Date
                                         <span data-bs-toggle="tooltip" data-bs-placement="top" title="Select the date when this loan is due for final repayments.">
                                             <i class="ri-information-line" style="cursor: pointer;"></i>
@@ -144,7 +144,7 @@
                                         </span>
                                     </label>
                                     <input autocomplete="off" type="text" name="due_date" class="form-control smoothDatePicker" placeholder="YYYY-MM-DD" required>
-                                </div>
+                                </div> --}}
 
 
                                 <div class="col-md-6">

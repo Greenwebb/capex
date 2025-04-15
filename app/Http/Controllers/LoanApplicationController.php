@@ -301,6 +301,7 @@ class LoanApplicationController extends Controller
                 'loan_product_id' => $form['loan_product_id'],
                 'repayment_plan' => $form['repayment_plan'],
                 'start_schedule_date' => $form['start_date'] ?? null,
+                'created_at' => $form['created_at'] ?? now(),
                 'loan_type_id' => $form['loan_type_id'],
                 'loan_child_type_id' => $form['loan_child_type_id'],
                 'skip_to' => $form['skip_to'],

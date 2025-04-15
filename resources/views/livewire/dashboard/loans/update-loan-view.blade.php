@@ -124,6 +124,16 @@
                                         </span> </label>
                                     <input type="text" name="start_date" class="form-control" id="dueDate" placeholder="{{ $loan->start_schedule_date }}" required>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="fullnameInput" class="form-label">Date Applied (Created)
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Select the date when this loan will start from, to generate next repayment dates.">
+                                            <i class="ri-information-line" style="cursor: pointer;"></i>
+                                        </span>
+                                        <span>
+                                            <i class="text-danger ri-asterisk"></i>
+                                        </span> </label>
+                                    <input type="text" name="created_at" class="form-control" id="dueDate" placeholder="{{ $loan->created_at }}" required>
+                                </div>
 
                                 {{-- <div class="col-md-6">
                                     <label for="fullnameInput" class="form-label">Due Date

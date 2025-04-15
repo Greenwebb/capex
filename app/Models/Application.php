@@ -36,6 +36,7 @@ class Application extends Model
         'source',
         'doa',
         'start_schedule_date',
+        'created_at',
         'monthly_payments',
         'maximum_deductable',
         'net_pay_blr', //net before loan recovery
@@ -385,6 +386,22 @@ class Application extends Model
                 $nextDate = $application->created_at;
 
                 return $nextDate;
+            } catch (\Throwable $th) {
+                return 'No Date';
+            }
+        } else {
+            return 'No Application';
+        }
+    }
+
+    public static function paybackLastDate($application)
+    {
+        // Assuming $application->created_at is a Carbon instance
+        if ($application) {
+            try {
+                $instance = new self();
+                $date = $instance->calculateAmortizationScheduleTable($application->amount, $application->repayment_plan, $application->loan_product_id, $application);
+                return $date['schedule'][(int)$application->repayment_plan - 1];
             } catch (\Throwable $th) {
                 return 'No Date';
             }

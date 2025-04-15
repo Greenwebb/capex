@@ -74,7 +74,10 @@
                                                     @elseif($loan->status == 1)
                                                     {{-- $principal, $duration, $product_id = null, $loan = null --}}
                                                     <div class="badge rounded-pill bg-info fs-12">Open Application </div>
-                                                    <div class="badge rounded-pill bg-muted text-muted fs-4">Date Opened: {{ $loan->start_schedule_date ?? 'Unset' }}</div>
+                                                    <div class="badge rounded-pill bg-muted text-muted fs-4">
+                                                        Date Opened:
+                                                        {{ $loan->start_schedule_date ? \Carbon\Carbon::parse($loan->start_schedule_date)->format('M d, Y') : 'Unset' }}
+                                                    </div>
 
                                                     @elseif($loan->status == 2)
                                                     <div class="badge rounded-pill bg-success fs-12">Processing  Application</div>
@@ -177,15 +180,7 @@
                                                             <div class="fs-12">{{ $loan->repayment_plan }} Months</div>
                                                             @if ($loan->status == 1)
                                                             <div class="fs-4">Up to <b>
-                                                                @php
-                                                                    try {
-                                                                        // Assuming $loan->due_date = '2026-01-21 08:10:53'
-                                                                        $dueDate = new DateTime($loan?->due_date);
-                                                                        echo $dueDate->format('M d, Y h:i A'); // Output: "Jan 21, 2026 08:10 AM"
-                                                                    } catch (Exception $e) {
-                                                                        echo "N/A"; // Handle the error gracefully
-                                                                    }
-                                                                @endphp
+                                                                {{ \Carbon\Carbon::parse(App\Models\Application::paybackLastDate($loan)->due_date)->format('F j, Y') }}
                                                             </b></div>
                                                                 @php
                                                                     $dueDate = new DateTime($loan?->due_date);
