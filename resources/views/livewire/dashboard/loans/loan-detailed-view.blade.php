@@ -74,6 +74,7 @@
                                                     @elseif($loan->status == 1)
                                                     {{-- $principal, $duration, $product_id = null, $loan = null --}}
                                                     <div class="badge rounded-pill bg-info fs-12">Open Application </div>
+                                                    <div class="badge rounded-pill bg-muted text-muted fs-4">Date Opened: {{ $loan->start_schedule_date ?? 'Unset' }}</div>
 
                                                     @elseif($loan->status == 2)
                                                     <div class="badge rounded-pill bg-success fs-12">Processing  Application</div>

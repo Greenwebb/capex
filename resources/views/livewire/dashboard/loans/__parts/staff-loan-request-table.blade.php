@@ -209,15 +209,19 @@
                                                 <li><a href="{{ route('detailed',['id' => $loan->id]) }}" class="dropdown-item"><i class="align-bottom ri-eye-fill me-2 text-muted"></i> View</a></li>
 
                                                 @if (Route::currentRouteName() === 'view-loan-requests')
-                                                    {{-- @can('asses loans') --}}
                                                     <li><a href="{{ route('loan-details', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="align-bottom ri-exchange-funds-fill me-2 text-muted"></i> Asses Loans</a></li>
-                                                    {{-- @endcan --}}
-                                                    {{-- @can('update loans') --}}
                                                     <li><a href="{{ route('edit-loan', ['id' => $loan->id]) }}" class="dropdown-item edit-item-btn"><i class="align-bottom ri-pencil-fill me-2 text-muted"></i> Edit</a></li>
-                                                    {{-- @endcan --}}
-
                                                 @endif
+
+                                                <li>
+                                                    <form action="{{ route('delete-loan', ['id' => $loan->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this loan?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item text-danger"><i class="align-bottom ri-delete-bin-line me-2 text-muted"></i> Delete</button>
+                                                    </form>
+                                                </li>
                                             </ul>
+
                                         </div>
                                     </td>
                                 </tr>

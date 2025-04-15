@@ -20,31 +20,36 @@ class Transaction extends Model
         'proccess_by',
         'installment_id',
         'proof_id',
-        'user_id'
+        'user_id',
+        'created_at'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function installment(){
+    public function installment()
+    {
         return $this->belongsTo(LoanInstallment::class, 'installment_id');
     }
 
-    public function application(){
+    public function application()
+    {
         return $this->belongsTo(Application::class, 'application_id');
     }
 
-    public static function customer_transactions($user_id){
+    public static function customer_transactions($user_id)
+    {
         return Transaction::with('application')->where('user_id', $user_id)->get();
     }
-    public static function hasTransaction($application_id){
+    public static function hasTransaction($application_id)
+    {
         return Transaction::where('application_id', $application_id)->exists();
     }
 
-    public static function total_collected(){
+    public static function total_collected()
+    {
         return Transaction::whereNotNull('application_id')->sum('amount_settled');
     }
-
-
 }

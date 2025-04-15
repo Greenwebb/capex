@@ -20,6 +20,9 @@ class BalanceStatement extends Model
         'balance_after_payment',
         'payment_method',
     ];
+    protected $casts = [
+        'payment_date' => 'datetime',
+    ];
 
     public function application()
     {

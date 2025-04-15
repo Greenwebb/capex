@@ -657,6 +657,13 @@
                             </a>
                         </li> <!-- end Dashboard Menu -->
                         {{-- @can('create loans') --}}
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('borrowers') }}" >
+                                <i class="ri-group-2-line"></i> <span data-key="t-authentication" class="text-warning">Add Customers</span>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('proxy-loan-create') }}" aria-expanded="false" aria-controls="sidebarApps">
                                 <i class="ri-apps-2-line"></i> <span data-key="t-apps">Create Loan Request</span>

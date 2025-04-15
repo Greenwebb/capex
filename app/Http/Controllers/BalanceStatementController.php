@@ -7,7 +7,9 @@ use App\Http\Requests\StoreBalanceStatementRequest;
 use App\Http\Requests\UpdateBalanceStatementRequest;
 use App\Traits\LoanTrait;
 use App\Traits\TxnTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BalanceStatementController extends Controller
 {
@@ -51,6 +53,7 @@ class BalanceStatementController extends Controller
                 'description' => 'required',
             ]);
 
+            DB::beginTransaction();
             // Prevent duplicate: define what makes it "duplicate"
             $existing = BalanceStatement::where([
                 'loan_id' => $validated['loan_id'],
@@ -74,38 +77,67 @@ class BalanceStatementController extends Controller
                     'lname' => auth()->user()->lname,
                     'amount' => $amount,
                     'method' => $validated['payment_method'] ?? 'unknown',
-                    'payment_date'=> $validated['payment_date'] ,
+                    'payment_date' => $validated['payment_date'],
                     'user_id' => $validated['user_id'] ?? auth()->id(),
                 ];
                 $this->transaction_entry($data);
             }
 
+            DB::commit();
             return redirect()->back()->with('success', 'Entry added successfully.');
         } catch (\Throwable $th) {
             report($th);
-            return redirect()->back()->with('error', 'An error occurred while saving the entry.');
+            DB::rollBack();
+            return redirect()->back()->with('error', 'An error occurred while saving the entry. '.$th->getMessage());
         }
     }
 
 
     public function update(Request $request, $id = null)
     {
+        DB::beginTransaction();
         try {
+            $request->validate([
+                'loan_id' => 'required',
+                'payment_date' => 'required',
+                'description' => 'nullable|string',
+                'debit' => 'nullable|numeric',
+                'credit' => 'nullable|numeric',
+                'payment_method' => 'nullable|string',
+                'user_id' => 'nullable',
+            ]);
+            if ($request->filled('debit') && $request->filled('credit')) {
+                return redirect()->back()->with('error', 'Only one of debit or credit should be filled.');
+            }
+
+            $balanceStatement = BalanceStatement::find($id);
+            if (!$balanceStatement) {
+                return redirect()->back()->with('error', 'Balance statement not found.');
+            }
+            $amount = $request->input('debit') ?? $request->input('credit');
             $data = [
                 'loan_id' => $request->input('loan_id'),
                 'fname' => auth()->user()->fname,
                 'lname' => auth()->user()->lname,
-                'amount' => $request->input('amount'),
-                'method' => $request->input('method') ?? 'unknown',
-                'user_id' =>  $request->input('user_id') ?? auth()->id(),
+                'amount' => $amount,
+                'user_id' => $request->input('user_id') ?? auth()->id(),
+                'created_at' => $request->input('payment_date'),
             ];
             $this->transaction_update($data);
-            BalanceStatement::findOrFail($id)->update($request->all());
+
+            //write the logic of first deleting the entry then recreating it(as a form of updating)
+            $balanceStatement->payment_date = Carbon::parse($request->input('payment_date'));
+            $balanceStatement->description = $request->input('description');
+            $balanceStatement->debit = $request->input('debit') ?? null;
+            $balanceStatement->credit = $request->input('credit') ?? null;
+            $balanceStatement->payment_method = $request->input('payment_method') ?? null;
+            $balanceStatement->save();
+            DB::commit();
+
             return redirect()->back()->with('success', 'Entry updated successfully.');
-            // return response()->json(['message' => 'Updated successfully']);
         } catch (\Throwable $th) {
-            return response()->json(['error' => 'Updated failed']);
-            //throw $th;
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Entry update failed. ' . $th->getMessage());
         }
     }
 

@@ -397,4 +397,12 @@ class LoanApplicationController extends Controller
             "success" => true
         ]);
     }
+    public function destroy($id)
+    {
+        $loan = Application::findOrFail($id);
+        $loan->delete();
+
+        return redirect()->back()->with('success', 'Loan deleted successfully.');
+    }
+
 }

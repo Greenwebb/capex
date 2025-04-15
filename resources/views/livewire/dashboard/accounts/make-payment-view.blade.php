@@ -114,7 +114,7 @@
                                         @forelse($transactions as $data)
                                             <tr>
                                                 <td style=""></td>
-                                                <td >{{ $data->ref_no ?? $data->application_id }}</td>
+                                                <td >{{ $data->application->loan_number }}</td>
                                                 <td >{{ $data->application->loan_product->name }} Loan</td>
                                                 <td >{{ $data->application->user->fname.' '.$data->application->user->mname.' '.$data->application->user->lname }}</td>
                                                 <td >K{{ App\Models\Application::payback($data->application->amount, $data->application->repayment_plan, $data->application->loan_product_id, $data->application) }}</td>

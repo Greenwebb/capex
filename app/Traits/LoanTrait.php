@@ -334,7 +334,7 @@ trait LoanTrait
     {
         $userId = auth()->user()->id;
         if (auth()->user()->hasRole('admin')) {
-            return Application::with('loan_product')->where('complete', 1)->where('status', 1)->orderBy('created_at', 'desc')->get();
+            return Application::with('loan_product')->where('status', 1)->orderBy('created_at', 'desc')->get();
         } else {
             switch ($type) {
                 case 'spooling':

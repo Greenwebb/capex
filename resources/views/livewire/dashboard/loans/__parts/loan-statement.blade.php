@@ -17,18 +17,20 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>#</th>
-                                        <th>Date</th>
+                                        <th>Entry Date</th>
                                         <th>Description</th>
                                         <th class="text-danger">Debit (Loan, Charges)</th>
                                         <th class="text-success">Credit (Payments, Adjustments)</th>
                                         <th>Balance</th>
                                     </tr>
                                 </thead>
+
+
                                 <tbody>
-                                    @foreach ($balance_statement as $key => $entry)
+                                    @foreach ($balance_statement as $entry)
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>{{ date('d M, Y', strtotime($entry->payment_date)) }}</td>
+                                            <td>E{{ $entry->id }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($entry->payment_date)->format('F j, Y') }}</td>
                                             <td>{{ $entry->description }}</td>
                                             <td class="text-danger fw-semibold">
                                                 {{ $entry->debit > 0 ? number_format($entry->debit, 2, '.', ',') : '-' }}
@@ -78,7 +80,8 @@
                                 <div>
                                     <a href="{{ route('loans.download-balance-statement', $loan->id) }}" class="btn btn-primary">
                                         Download Loan Statement
-                                    </a>                                </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -153,7 +156,8 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="payment_date" class="form-label">Payment Date</label>
-                                <input type="date" class="form-control" name="payment_date" value="{{ $entry->created_at }}" required>
+                                <input type="date" class="form-control" name="payment_date" value="{{ $entry->payment_date }}" placeholder="{{ $entry->created_at }}" required>
+                                <small>Current Payment Date:  {{ $entry->payment_date  }}</small>
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
