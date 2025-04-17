@@ -29,8 +29,8 @@
                                             <td>{{ number_format($installment->interest, 2, '.', ',') }}</td>
                                             <td class="text-danger fw-semibold">{{ number_format($installment->remaining_balance, 2, '.', ',') }}</td>
                                             <td>
-                                                @if ($installment->status == 'Paid')
-                                                    <span class="badge bg-success">Paid</span>
+                                                @if ($installment->status == 'Cleared')
+                                                    <span class="badge bg-success">Cleared</span>
                                                 @elseif ($installment->status == 'Pending')
                                                     <span class="badge bg-warning text-dark">Pending</span>
                                                 @elseif ($installment->status == 'Overdue')

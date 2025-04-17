@@ -7,7 +7,6 @@
                     <div class="text-muted">
                         <h3 class="mb-3 fw-semibold text-uppercase">Loan Balance Statement</h3>
                         <br>
-                        <!-- Add New Entry Button -->
                         <button class="mb-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBalanceStatementModal">
                             Add New Entry
                         </button>
@@ -24,10 +23,7 @@
                                         <th>Balance</th>
                                     </tr>
                                 </thead>
-
-
                                 <tbody>
-                                    {{-- @dd($balance_statement) --}}
                                     @foreach ($balance_statement as $entry)
                                         <tr>
                                             <td>E{{ $entry->id }}</td>
@@ -46,12 +42,10 @@
                                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editBalanceStatementModal-{{ $entry->id }}">
                                                     Edit
                                                 </button>
-
                                                 <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteBalanceStatementModal-{{ $entry->id }}">
                                                     Delete
                                                 </button>
                                             </td>
-
                                         </tr>
                                     @endforeach
                                 </tbody>

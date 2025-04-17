@@ -3,7 +3,9 @@
 namespace App\Traits;
 
 use App\Models\Application;
+use App\Models\LoanInstallment;
 use App\Models\Transaction;
+use Carbon\Carbon;
 
 trait TxnTrait
 {
@@ -12,20 +14,20 @@ trait TxnTrait
         $balance = Application::loanBalance($data['loan_id']);
 
         // if ($data['amount'] <= $balance) {
-            Transaction::create([
-                'application_id' => $data['loan_id'] ?? null,
-                'proof_id' => $data['proof_id'] ?? null,
-                'balance_statement_id' => $data['balance_statement_id'] ?? null,
-                'amount_settled' => $data['amount'] ?? 0,
-                'transaction_fee' => 0,
-                'profit_margin' => 0,
-                'proccess_by' => trim(($data['fname'] ?? '') . ' ' . ($data['lname'] ?? '')),
-                'charge_amount' => 0,
-                'method' => $data['method'] ?? 'unknown',
-                'user_id' => $data['user_id'] ?? null,
-                'installment_id' => $data['installment_id'] ?? null,
-                'created_at' => $data['payment_date'] ?? now(),
-            ]);
+        Transaction::create([
+            'application_id' => $data['loan_id'] ?? null,
+            'proof_id' => $data['proof_id'] ?? null,
+            'balance_statement_id' => $data['balance_statement_id'] ?? null,
+            'amount_settled' => $data['amount'] ?? 0,
+            'transaction_fee' => 0,
+            'profit_margin' => 0,
+            'proccess_by' => trim(($data['fname'] ?? '') . ' ' . ($data['lname'] ?? '')),
+            'charge_amount' => 0,
+            'method' => $data['method'] ?? 'unknown',
+            'user_id' => $data['user_id'] ?? null,
+            'installment_id' => $data['installment_id'] ?? null,
+            'created_at' => $data['payment_date'] ?? now(),
+        ]);
         // } else {
         //     // ❌ Do not allow over-payment
         //     throw new \Exception('The amount provided exceeds the remaining loan balance. No overpayments allowed.');
@@ -36,19 +38,19 @@ trait TxnTrait
     {
         $balance = Application::loanBalance($data['loan_id']);
         // if ($data['amount'] <= $balance) {
-            // Update the latest matching transaction for the given loan_id and user_id
-            $transaction = Transaction::where('application_id', $data['loan_id'])
-                ->where('user_id', $data['user_id'])
-                ->latest()
-                ->first();
+        // Update the latest matching transaction for the given loan_id and user_id
+        $transaction = Transaction::where('application_id', $data['loan_id'])
+            ->where('user_id', $data['user_id'])
+            ->latest()
+            ->first();
 
-            if ($transaction) {
-                $transaction->update([
-                    'amount_settled'=>$data['amount'],
-                    'proccess_by'=>$data['fname'] . ' ' . $data['lname'],
-                    'created_at'=>$data['created_at'] ?? now()
-                ]);
-            }
+        if ($transaction) {
+            $transaction->update([
+                'amount_settled' => $data['amount'],
+                'proccess_by' => $data['fname'] . ' ' . $data['lname'],
+                'created_at' => $data['created_at'] ?? now()
+            ]);
+        }
         // } else {
         //     // ❌ Do not allow over-payment
         //     throw new \Exception('The amount provided exceeds the remaining loan balance. No overpayments allowed.');
@@ -63,10 +65,48 @@ trait TxnTrait
             ->where('amount_settled', $data['amount_settled'])
             ->latest()
             ->first();
-
         if ($transaction) {
             $transaction->delete();
         }
     }
 
+    public function update_repayment_status($amount_paid, $date_paid, $loan_id)
+    {
+        $date_paid = Carbon::parse($date_paid);
+
+        $installments = LoanInstallment::where('loan_id', $loan_id)
+            ->where(function ($query) {
+                $query->where('status', '!=', 'cleared')
+                    ->orWhereNull('status');
+            })
+            ->orderBy('due_date', 'asc')
+            ->get();
+
+        foreach ($installments as $installment) {
+            if ($amount_paid <= 0) break;
+
+            $total_due = floatval($installment->amount);
+            $already_paid = floatval($installment->amount - $installment->remaining_balance);
+
+            $remaining_due = $total_due - $already_paid;
+
+            if ($amount_paid >= $remaining_due) {
+                // Enough to clear this installment
+                $installment->status = 'Cleared';
+                $installment->paid_at = $date_paid;
+
+                // Reduce paid amount
+                $amount_paid -= $remaining_due;
+            } else {
+                // Only partially covering this installment
+                $installment->status = 'Partial';
+                $installment->paid_at = $date_paid;
+
+                // All used
+                $amount_paid = 0;
+            }
+
+            $installment->save();
+        }
+    }
 }

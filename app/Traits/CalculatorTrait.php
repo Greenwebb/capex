@@ -298,7 +298,7 @@ trait CalculatorTrait
             }
             $loan->start_schedule_date = $currentDate;
             $loan->save();
-            
+
             // First delete any existing installments for this loan
             LoanInstallment::where('loan_id', $loan->id)->delete();
 
@@ -319,7 +319,7 @@ trait CalculatorTrait
                 // Create installment record
                 $installment = LoanInstallment::create([
                     'loan_id' => $loan->id,
-                    'application_id' => $loan->application_id,
+                    'application_id' => $loan->id,
                     'due_date' => $dueDate,
                     'amount' => round($monthlyPayment, 2),
                     'principal' => round($principalPayment, 2),

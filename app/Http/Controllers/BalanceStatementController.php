@@ -69,15 +69,6 @@ class BalanceStatementController extends Controller
                 return redirect()->back()->with('info', 'Duplicate entry detected. No new entry added.');
             }
 
-            // Create balance statement
-            $data = [
-                'loan' => Application::where('id', $validated['loan_id'])->first(),
-                'amount' => $validated['credit'] ?? $validated['debit'],
-                'method' => $validated['payment_method'] ?? 'other',
-                'date' => $validated['payment_date'],
-            ];
-            $this->sheet_installment_entry($data['loan'], $data['amount'], $data['method'], $data['date']);
-
             // Process transaction entry if credit or debit is non-zero
             $amount = $validated['debit'] ?? $validated['credit'];
             if (!empty($amount)) {
@@ -92,7 +83,20 @@ class BalanceStatementController extends Controller
                 ];
                 $this->transaction_entry($data);
             }
-            $this->close_loan($data['loan']);
+
+            // Create balance statement
+            $loan = Application::where('id', $validated['loan_id'])->first();
+            $data = [
+                'loan' => $loan,
+                'amount' => $validated['credit'] ?? $validated['debit'],
+                'method' => $validated['payment_method'] ?? 'other',
+                'date' => $validated['payment_date'],
+            ];
+            $this->sheet_installment_entry($data['loan'], $data['amount'], $data['method'], $data['date']);
+            $this->close_loan($loan->id);
+            if ($request->filled('credit')) {
+                $this->update_repayment_status($request->filled('credit'), $request->input('payment_date'), $loan->id);
+            }
             DB::commit();
             return redirect()->back()->with('success', 'Entry added successfully.');
         } catch (\Throwable $th) {
@@ -144,7 +148,10 @@ class BalanceStatementController extends Controller
             $balanceStatement->save();
 
             $loan = Application::where('id', $data['loan_id'])->first();
-            $this->close_loan($loan);
+            $this->close_loan($loan->id);
+            if ($request->filled('credit')) {
+                $this->update_repayment_status($request->filled('credit'), $request->input('payment_date'), $loan->id);
+            }
             DB::commit();
 
             return redirect()->back()->with('success', 'Entry updated successfully.');
@@ -159,7 +166,6 @@ class BalanceStatementController extends Controller
         $statement = BalanceStatement::where('id', $entry)->first();
         try {
 
-            BalanceStatement::where('id', $statement->id)->delete();
             $data = [
                 'entry_id' => $statement->id,
                 'loan_id' => $statement->loan_id,
@@ -168,6 +174,7 @@ class BalanceStatementController extends Controller
                 'amount' => $statement->amount
             ];
             $this->transaction_removal($data);
+            BalanceStatement::where('id', $statement->id)->delete();
             return redirect()->back()->with('success', 'Deleted successfully.');
         } catch (\Throwable $th) {
             dd($th);
