@@ -49,7 +49,9 @@ class DownloaderController extends Controller
             'date' => now()->format('d M, Y'),
             'total_paid' => collect($balance_statement)->sum('credit'),
             'outstanding_balance' => Application::loanBalance($loan->id) ?? 0,
-            'product' => $product
+            'product' => $product,
+            'status' => $loan->status,
+            'closed' => $loan->closed
         ];
 
         $pdf = Pdf::loadView('downloads.balance-statement-pdf', $data);

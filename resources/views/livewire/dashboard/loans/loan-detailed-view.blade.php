@@ -72,12 +72,20 @@
                                                     @if($loan->status == 0)
                                                     <div class="badge rounded-pill bg-warning fs-12">Pending  Application</div>
                                                     @elseif($loan->status == 1)
-                                                    {{-- $principal, $duration, $product_id = null, $loan = null --}}
-                                                    <div class="badge rounded-pill bg-info fs-12">Open Application </div>
-                                                    <div class="badge rounded-pill bg-muted text-muted fs-4">
-                                                        Date Opened:
-                                                        {{ $loan->start_schedule_date ? \Carbon\Carbon::parse($loan->start_schedule_date)->format('M d, Y') : 'Unset' }}
-                                                    </div>
+
+                                                        @if ($loan->closed == 1)
+                                                            <div class="badge rounded-pill bg-success fs-12">Closed Application </div>
+                                                            {{-- <div class="badge rounded-pill bg-muted text-muted fs-4">
+                                                                Date Opened:
+                                                                {{ $loan->start_schedule_date ? \Carbon\Carbon::parse($loan->start_schedule_date)->format('M d, Y') : 'Unset' }}
+                                                            </div> --}}
+                                                        @else
+                                                            <div class="badge rounded-pill bg-info fs-12">Open Application </div>
+                                                            <div class="badge rounded-pill bg-muted text-muted fs-4">
+                                                                Date Opened:
+                                                                {{ $loan->start_schedule_date ? \Carbon\Carbon::parse($loan->start_schedule_date)->format('M d, Y') : 'Unset' }}
+                                                            </div>
+                                                        @endif
 
                                                     @elseif($loan->status == 2)
                                                     <div class="badge rounded-pill bg-success fs-12">Processing  Application</div>
@@ -203,8 +211,12 @@
                                                             <p class="mb-2 text-uppercase fw-medium">Status :</p>
                                                             @if($loan->status == 0)
                                                                 <div class="badge bg-warning fs-12">Pending</div>
-                                                            @elseif($loan->status == 1)
-                                                                <div class="badge bg-success fs-12">Open (Pending Repayment)</div>
+                                                            @elseif($loan->status == 1 )
+                                                                @if ($loan->closed == 1)
+                                                                    <div class="badge bg-success fs-12">Closed </div>
+                                                                @else
+                                                                    <div class="badge bg-success fs-12">Open (Pending Repayment)</div>
+                                                                @endif
                                                             @elseif($loan->status == 2)
                                                                 <div class="badge bg-primary fs-12">Processing</div>
                                                             @else

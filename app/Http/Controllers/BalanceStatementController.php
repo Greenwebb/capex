@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BalanceStatement;
 use App\Http\Requests\StoreBalanceStatementRequest;
 use App\Http\Requests\UpdateBalanceStatementRequest;
+use App\Models\Application;
 use App\Traits\LoanTrait;
 use App\Traits\TxnTrait;
 use Carbon\Carbon;
@@ -53,6 +54,9 @@ class BalanceStatementController extends Controller
                 'description' => 'required',
             ]);
 
+            if ($request->filled('debit') && $request->filled('credit')) {
+                return redirect()->back()->with('error', 'Only one of debit or credit should be filled.');
+            }
             DB::beginTransaction();
             // Prevent duplicate: define what makes it "duplicate"
             $existing = BalanceStatement::where([
@@ -66,7 +70,13 @@ class BalanceStatementController extends Controller
             }
 
             // Create balance statement
-            $balanceStatement = BalanceStatement::create($validated);
+            $data = [
+                'loan' => Application::where('id', $validated['loan_id'])->first(),
+                'amount' => $validated['credit'] ?? $validated['debit'],
+                'method' => $validated['payment_method'] ?? 'other',
+                'date' => $validated['payment_date'],
+            ];
+            $this->sheet_installment_entry($data['loan'], $data['amount'], $data['method'], $data['date']);
 
             // Process transaction entry if credit or debit is non-zero
             $amount = $validated['debit'] ?? $validated['credit'];
@@ -82,13 +92,13 @@ class BalanceStatementController extends Controller
                 ];
                 $this->transaction_entry($data);
             }
-
+            $this->close_loan($data['loan']);
             DB::commit();
             return redirect()->back()->with('success', 'Entry added successfully.');
         } catch (\Throwable $th) {
             report($th);
             DB::rollBack();
-            return redirect()->back()->with('error', 'An error occurred while saving the entry. '.$th->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while saving the entry. ' . $th->getMessage());
         }
     }
 
@@ -132,6 +142,9 @@ class BalanceStatementController extends Controller
             $balanceStatement->credit = $request->input('credit') ?? null;
             $balanceStatement->payment_method = $request->input('payment_method') ?? null;
             $balanceStatement->save();
+
+            $loan = Application::where('id', $data['loan_id'])->first();
+            $this->close_loan($loan);
             DB::commit();
 
             return redirect()->back()->with('success', 'Entry updated successfully.');

@@ -216,7 +216,7 @@ class LoanDetailView extends Component
                     $this->approve_continue($id);
                 }
                 Redirect::route('loan-details', ['id' => $this->loan_id]);
-            }else{
+            } else {
                 $this->approve_final($application);
                 Redirect::route('detailed', ['id' => $this->loan_id]);
             }
@@ -289,8 +289,8 @@ class LoanDetailView extends Component
             // $x->due_date = $futureDate;
             $x->save();
 
-            // Enter statement entry
-            $this->sheet_disburse_entry($x, $x->amount, 'cash');
+            // Enter statement first entry
+            $this->sheet_disburse_first_entry($x, $x->amount, 'cash');
 
             session()->flash('success', "Successfully disbursed K{$x->amount} to {$x->user->fname} {$x->user->lname} 🎉");
         } catch (\Throwable $th) {

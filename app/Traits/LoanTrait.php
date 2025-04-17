@@ -912,11 +912,26 @@ trait LoanTrait
         return LoanNotification::where('application_id', $id)->get();
     }
 
+    public function sheet_disburse_first_entry($loan, $amount, $method)
+    {
+        BalanceStatement::create([
+            'loan_id' => $loan->id,
+            'payment_date' => $loan->start_schedule_date ?? now(),
+            'description' => "Loan Disbursed to Customer",
+            'debit' => $amount,
+            'credit' => null,
+            'principal_paid' => null,
+            'interest_paid' => null,
+            'balance_after_payment' => Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan),
+            'payment_method' => $method, // Can be dynamic
+        ]);
+    }
+
     public function sheet_disburse_entry($loan, $amount, $method)
     {
         BalanceStatement::create([
             'loan_id' => $loan->id,
-            'payment_date' => Carbon::now(),
+            'payment_date' => $loan->start_schedule_date ?? now(),
             'description' => "Loan Disbursed to Customer",
             'debit' => $amount,
             'credit' => null,
@@ -942,11 +957,11 @@ trait LoanTrait
         ]);
     }
 
-    public function sheet_installment_entry($loan, $amount, $method)
+    public function sheet_installment_entry($loan, $amount, $method, $date = null)
     {
         BalanceStatement::create([
             'loan_id' => $loan->id,
-            'payment_date' => Carbon::now(),
+            'payment_date' => $date ?? Carbon::now(),
             'description' => "Loan Repayment - Installment",
             'debit' => null,
             'credit' => $amount,
@@ -955,5 +970,15 @@ trait LoanTrait
             'balance_after_payment' => Application::loanBalance($loan->id),
             'payment_method' => $method, // Can be dynamic
         ]);
+    }
+
+    public function close_loan($loan)
+    {
+        // Close loan if the balance is 0
+        if (Application::loanBalance($loan) < 1) {
+            $loan->closed = 1;
+            $loan->date_paid = Carbon::now();
+            $loan->save();
+        }
     }
 }

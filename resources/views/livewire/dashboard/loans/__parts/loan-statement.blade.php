@@ -27,6 +27,7 @@
 
 
                                 <tbody>
+                                    {{-- @dd($balance_statement) --}}
                                     @foreach ($balance_statement as $entry)
                                         <tr>
                                             <td>E{{ $entry->id }}</td>
@@ -39,7 +40,7 @@
                                                 {{ $entry->credit > 0 ? number_format($entry->credit, 2, '.', ',') : '-' }}
                                             </td>
                                             <td class="fw-bold text-primary">
-                                                {{ number_format($entry->balance_after_payment, 2, '.', ',') }}
+                                                {{ $entry->balance_after_payment }}
                                             </td>
                                             <td>
                                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editBalanceStatementModal-{{ $entry->id }}">
@@ -62,7 +63,7 @@
                                 <div>
                                     <p class="mb-2 text-uppercase fw-medium">Total Loan Amount:</p>
                                     <h5 class="mb-0 text-danger">
-                                        {{ number_format(App\Models\Application::payback($loan->amount,$loan->repayment_plan, $loan->loan_product_id, $loan ), 2, '.', ',') }}
+                                        {{ number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan ), 2, '.', ',') }}
                                     </h5>
                                 </div>
                                 <div>
@@ -127,8 +128,21 @@
                         </div> --}}
                         <div class="mb-3">
                             <label for="payment_method" class="form-label">Payment Method</label>
-                            <input type="text" class="form-control" name="payment_method" value="Wire Transfer">
+                            <select name="payment_method" class="form-select" required>
+                                <option value="">-- Select Payment Method --</option>
+                                <option value="Wire Transfer">Wire Transfer</option>
+                                <option value="Airtel Money">Mobile Money (Airtel)</option>
+                                <option value="MTN Money">Mobile Money (MTN)</option>
+                                <option value="Zamtel Money">Mobile Money (Zamtel)</option>
+                                <option value="Bank Deposit">Bank Deposit</option>
+                                <option value="Cheque">Cheque</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="cash">Cash</option>
+                                <option value="Online Payment">Online Payment</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -171,14 +185,27 @@
                                 <label for="credit" class="form-label">Credit</label>
                                 <input type="number" step="0.01" class="form-control" name="credit" value="{{ $entry->credit }}">
                             </div>
-                            {{-- <div class="mb-3">
+                            <div class="mb-3">
                                 <label for="balance_after_payment" class="form-label">Balance After Payment</label>
                                 <input type="number" step="0.01" class="form-control" name="balance_after_payment" value="{{ $entry->balance_after_payment }}" required>
-                            </div> --}}
+                            </div>
                             <div class="mb-3">
                                 <label for="payment_method" class="form-label">Payment Method</label>
-                                <input type="text" class="form-control" name="payment_method" value="{{ $entry->payment_method }}">
+                                <select name="payment_method" class="form-select" required>
+                                    <option value="">-- Select Payment Method --</option>
+                                    <option value="Wire Transfer" {{ $entry->payment_method == 'Wire Transfer' ? 'selected' : '' }}>Wire Transfer</option>
+                                    <option value="Airtel Money" {{ $entry->payment_method == 'Airtel Money' ? 'selected' : '' }}>Mobile Money (Airtel)</option>
+                                    <option value="Zamtel Money" {{ $entry->payment_method == 'Zamtel Money' ? 'selected' : '' }}>Mobile Money (Zamtel)</option>
+                                    <option value="MTN Money" {{ $entry->payment_method == 'MTN Money' ? 'selected' : '' }}>Mobile Money (MTN)</option>
+                                    <option value="Bank Deposit" {{ $entry->payment_method == 'Bank Deposit' ? 'selected' : '' }}>Bank Deposit</option>
+                                    <option value="Cheque" {{ $entry->payment_method == 'Cheque' ? 'selected' : '' }}>Cheque</option>
+                                    <option value="Credit Card" {{ $entry->payment_method == 'Credit Card' ? 'selected' : '' }}>Credit Card</option>
+                                    <option value="cash" {{ $entry->payment_method == 'cash' ? 'selected' : '' }}>Cash</option>
+                                    <option value="Online Payment" {{ $entry->payment_method == 'Online Payment' ? 'selected' : '' }}>Online Payment</option>
+                                    <option value="Other" {{ $entry->payment_method == 'Other' ? 'selected' : '' }}>Other</option>
+                                </select>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

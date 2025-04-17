@@ -61,7 +61,7 @@
                                             @endphp
                                         </td>
                                         <td class="actions-btns d-flex">
-                                            <a  href="{{ route('loan-details',['id' => $loan->id]) }}">
+                                            <a  href="{{ route('detailed',['id' => $loan->id]) }}">
                                                 Details
                                             </a>
                                         </td>

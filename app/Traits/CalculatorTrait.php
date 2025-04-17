@@ -204,25 +204,55 @@ trait CalculatorTrait
 
 
 
+    // public function calculateReducingBalanceEqualInstallment($principal, $termMonths, $product)
+    // {
+    //     try {
+    //         // Convert annual interest rate to a decimal monthly rate
+    //         $monthlyInterestRate = ($product->def_loan_interest / 100);
+
+    //         // dd($monthlyInterestRate);
+    //         // Use the PMT function from math-php
+    //         $monthlyPayment = Finance::pmt(round($monthlyInterestRate, 2), $termMonths, -$principal, 0, false);
+
+    //         // Calculate total repayment and total interest
+    //         $totalRepayment = $monthlyPayment * (int)$termMonths;
+    //         // dd((int)$termMonths);
+    //         $totalInterest = $totalRepayment - $principal;
+
+    //         return [
+    //             'principal' => round($principal, 2),
+    //             'total_interest' => round($totalInterest, 2),
+    //             'total_repayment' => round($totalRepayment, 2),
+    //             'monthly_payment' => round($monthlyPayment, 2),
+    //             'interest_rate' => $product->def_loan_interest,
+    //             'term' => $termMonths
+    //         ];
+    //     } catch (\Throwable $th) {
+    //         return [
+    //             'error' => true,
+    //             'message' => 'Calculation failed: ' . $th->getMessage(),
+    //             'trace' => $th->getTraceAsString()
+    //         ];
+    //     }
+    // }
+
     public function calculateReducingBalanceEqualInstallment($principal, $termMonths, $product)
     {
         try {
-            // Convert annual interest rate to a decimal monthly rate
-            $monthlyInterestRate = ($product->def_loan_interest / 100);
+            // Do not round the rate here!
+            $monthlyInterestRate = $product->def_loan_interest / 100;
 
-            // dd($monthlyInterestRate);
-            // Use the PMT function from math-php
-            $monthlyPayment = Finance::pmt(round($monthlyInterestRate, 2), $termMonths, -$principal, 0, false);
+            // Calculate monthly payment using accurate rate
+            $monthlyPayment = Finance::pmt($monthlyInterestRate, $termMonths, -$principal, 0, false);
 
-            // dd($monthlyPayment);
-            // Calculate total repayment and total interest
-            $totalRepayment = $monthlyPayment * $termMonths;
-            $totalInterest = $totalRepayment - $principal;
+            // Multiply before rounding
+            $totalRepayment = round($monthlyPayment * $termMonths, 2);
+            $totalInterest = round($totalRepayment - $principal, 2);
 
             return [
                 'principal' => round($principal, 2),
-                'total_interest' => round($totalInterest, 2),
-                'total_repayment' => round($totalRepayment, 2),
+                'total_interest' => $totalInterest,
+                'total_repayment' => $totalRepayment,
                 'monthly_payment' => round($monthlyPayment, 2),
                 'interest_rate' => $product->def_loan_interest,
                 'term' => $termMonths
@@ -235,6 +265,7 @@ trait CalculatorTrait
             ];
         }
     }
+
 
     public function calculateReducingBalanceEqualInstallmentSchedule($principal, $termMonths, $product, $loan)
     {
@@ -260,13 +291,14 @@ trait CalculatorTrait
             $schedule = [];
 
             //if start_schedule_date is null, else use it as currentDate
-            if($loan->start_schedule_date){
+            if ($loan->start_schedule_date) {
                 $currentDate = $loan->start_schedule_date;
-            }else{
+            } else {
                 $currentDate = now();
             }
-
-
+            $loan->start_schedule_date = $currentDate;
+            $loan->save();
+            
             // First delete any existing installments for this loan
             LoanInstallment::where('loan_id', $loan->id)->delete();
 
@@ -309,8 +341,8 @@ trait CalculatorTrait
                 'term' => $termMonths,
                 'schedule' => $schedule
             ];
-
         } catch (\Throwable $th) {
+            dd($th);
             return [
                 'error' => true,
                 'message' => 'Calculation failed: ' . $th->getMessage(),

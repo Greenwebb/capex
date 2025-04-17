@@ -296,8 +296,8 @@ class Application extends Model
                     'credit' => $entry['credit'], // Total installment paid
                     'principal_paid' => 0,
                     'interest_paid' => 0,
-                    'balance_after_payment' => $entry['balance'],
-                    'payment_method' => "Bank Transfer", // Example, can be dynamic
+                    'balance_after_payment' => $entry['balance_after_payment'],
+                    'payment_method' => $entry['payment_method'], // Example, can be dynamic
                 ];
             }
 

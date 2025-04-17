@@ -30,9 +30,25 @@
         <h3>Borrower Details</h3>
         <p><strong>Name:</strong> {{ $user->fname }} {{ $user->lname }}</p>
         <p><strong>Loan ID:</strong> {{ $loan->id }}</p>
-        <p><strong>Loan Amount:</strong> {{ number_format($loan->amount, 2, '.', ',') }}</p>
+        <p><strong>Loan Principal Amount :</strong> {{ number_format($loan->amount, 2, '.', ',') }}</p>
+        <p><strong>Loan Payback Amount:</strong> {{ number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan), 2, '.', ',') }}</p>
         <p><strong>Interest Rate:</strong> {{ $product->def_loan_interest }}%</p>
         <p><strong>Term:</strong> {{ $loan->repayment_plan }} months</p>
+        <p><strong>Term:</strong>
+            @if($loan->status == 0)
+                Pending Review
+            @elseif($loan->status == 1 )
+                @if ($loan->closed == 1)
+                    Closed
+                @else
+                    Open (Pending Repayment)
+                @endif
+            @elseif($loan->status == 2)
+                Processing
+            @elseif($loan->status == 3)
+                Rejected
+            @endif
+        </p>
     </div>
 
     <table class="table">

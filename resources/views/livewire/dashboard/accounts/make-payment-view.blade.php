@@ -111,6 +111,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
+                                        {{-- @dd($transactions) --}}
                                         @forelse($transactions as $data)
                                             <tr>
                                                 <td style=""></td>
