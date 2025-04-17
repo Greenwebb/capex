@@ -63,22 +63,16 @@ trait TxnTrait
         // Remove the latest matching transaction by loan_id and amount
         $transaction = Transaction::where('application_id', $data['loan_id'])
             ->where('amount_settled', $data['amount_settled'])
-            ->latest()
             ->first();
-        if ($transaction) {
-            $transaction->delete();
-        }
+        $transaction?->delete();
     }
 
     public function update_repayment_status($amount_paid, $date_paid, $loan_id)
     {
-        $date_paid = Carbon::parse($date_paid);
+        $date_paid = \Carbon\Carbon::parse($date_paid);
 
         $installments = LoanInstallment::where('loan_id', $loan_id)
-            ->where(function ($query) {
-                $query->where('status', '!=', 'cleared')
-                    ->orWhereNull('status');
-            })
+            ->whereNot('status', 'Cleared')
             ->orderBy('due_date', 'asc')
             ->get();
 
@@ -86,27 +80,23 @@ trait TxnTrait
             if ($amount_paid <= 0) break;
 
             $total_due = floatval($installment->amount);
-            $already_paid = floatval($installment->amount - $installment->remaining_balance);
 
-            $remaining_due = $total_due - $already_paid;
-
-            if ($amount_paid >= $remaining_due) {
-                // Enough to clear this installment
+            if ($amount_paid >= $total_due) {
+                // Fully paid
                 $installment->status = 'Cleared';
                 $installment->paid_at = $date_paid;
-
-                // Reduce paid amount
-                $amount_paid -= $remaining_due;
+                $amount_paid -= $total_due;
             } else {
-                // Only partially covering this installment
+                // Partially paid
                 $installment->status = 'Partial';
                 $installment->paid_at = $date_paid;
-
-                // All used
                 $amount_paid = 0;
             }
 
             $installment->save();
         }
+
+        return;
     }
+
 }

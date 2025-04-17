@@ -22,7 +22,7 @@
                                 <tbody>
                                     @foreach ($repayment_schedule as $key => $installment)
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $installment->id}}</td>
                                             <td>{{ \Carbon\Carbon::parse($installment->due_date)->format('d M, Y') }}</td>
                                             <td class="fw-bold text-primary">{{ number_format($installment->amount, 2, '.', ',') }}</td>
                                             <td>{{ number_format($loan->amount, 2, '.', ',') }}</td>
