@@ -171,8 +171,9 @@ class BalanceStatementController extends Controller
                 'loan_id' => $statement->loan_id,
                 'fname' => auth()->user()->fname,
                 'lname' => auth()->user()->lname,
-                'amount' => $statement->amount
+                'amount' => $statement->credit ?? $statement->debit,
             ];
+
             $this->transaction_removal($data);
             BalanceStatement::where('id', $statement->id)->delete();
             return redirect()->back()->with('success', 'Deleted successfully.');

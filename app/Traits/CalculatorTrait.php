@@ -269,7 +269,9 @@ trait CalculatorTrait
 
     public function calculateReducingBalanceEqualInstallmentSchedule($principal, $termMonths, $product, $loan)
     {
+
         try {
+
             // Convert annual interest rate to a decimal monthly rate
             $monthlyInterestRate = ($product->def_loan_interest / 100);
 
@@ -317,19 +319,21 @@ trait CalculatorTrait
                 $dueDate = (new Carbon($currentDate))->addMonths($i);
 
                 // Create installment record
-                $installment = LoanInstallment::create([
-                    'loan_id' => $loan->id,
-                    'application_id' => $loan->id,
-                    'due_date' => $dueDate,
-                    'amount' => round($monthlyPayment, 2),
-                    'principal' => round($principalPayment, 2),
-                    'interest' => round($interest, 2),
-                    'remaining_balance' => round(max($balance, 0), 2),
-                    'type' => 'auto',
-                    'status' => 'Pending'
-                ]);
+                // if ($loan->status == 0 || $loan->status == 2)  {
+                    $installment = LoanInstallment::create([
+                        'loan_id' => $loan->id,
+                        'application_id' => $loan->id,
+                        'due_date' => $dueDate,
+                        'amount' => round($monthlyPayment, 2),
+                        'principal' => round($principalPayment, 2),
+                        'interest' => round($interest, 2),
+                        'remaining_balance' => round(max($balance, 0), 2),
+                        'type' => 'auto',
+                        'status' => 'Pending'
+                    ]);
 
-                $schedule[] = $installment;
+                    $schedule[] = $installment;
+                // }
             }
 
             return [

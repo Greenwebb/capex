@@ -188,7 +188,7 @@
                                                             <div class="fs-12">{{ $loan->repayment_plan }} Months</div>
                                                             @if ($loan->status == 1)
                                                             <div class="fs-4">Up to <b>
-                                                                {{ \Carbon\Carbon::parse(App\Models\Application::paybackLastDate($loan)->due_date)->format('F j, Y') }}
+                                                                {{ \Carbon\Carbon::parse(App\Models\Application::paybackLastDate($loan))->format('F j, Y') }}
                                                             </b></div>
                                                                 @php
                                                                     $dueDate = new DateTime($loan?->due_date);

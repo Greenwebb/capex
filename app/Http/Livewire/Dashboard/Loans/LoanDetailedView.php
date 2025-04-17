@@ -35,16 +35,10 @@ class LoanDetailedView extends Component
         $this->loan = $this->get_loan_details($this->loan_id);
         $this->loan_product = $this->get_loan_product($this->loan->loan_product_id);
         $this->loan_stage = $this->get_loan_current_stage($this->loan->loan_product_id);
-        $this->denied_status = Status::where('stage', 'denied')
-            ->orderBy('id')
-            ->get();
-        $this->current_expenses = $this->get_loan_expenses($this->loan_id);
         $this->current = ApplicationStage::where('application_id', $this->loan->id)->first();
-        $this->getAmoritizationTable();
         $this->getLoanStatementTable();
         $this->getLoanRepaymentTable();
-        return view('livewire.dashboard.loans.loan-detailed-view')
-            ->layout('layouts.main');
+        return view('livewire.dashboard.loans.loan-detailed-view')->layout('layouts.main');
     }
 
     public function prefillLoanProductValues()

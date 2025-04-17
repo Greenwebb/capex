@@ -268,6 +268,7 @@ class Application extends Model
     public static function paybackSchedule($principal, $duration, $product_id = null, $loan = null)
     {
 
+        dd('here');
         if ($principal) {
             $instance = new self();
             if ($loan) {
@@ -396,19 +397,21 @@ class Application extends Model
 
     public static function paybackLastDate($application)
     {
-        // Assuming $application->created_at is a Carbon instance
-        if ($application) {
-            try {
-                $instance = new self();
-                $date = $instance->calculateAmortizationScheduleTable($application->amount, $application->repayment_plan, $application->loan_product_id, $application);
-                return $date['schedule'][(int)$application->repayment_plan - 1];
-            } catch (\Throwable $th) {
-                return 'No Date';
-            }
-        } else {
+        if (!$application) {
             return 'No Application';
         }
+
+        try {
+            $lastInstallment = LoanInstallment::where('loan_id', $application->id)
+                ->orderBy('due_date', 'desc') // Sort by due_date to get the last due
+                ->first();
+
+            return $lastInstallment?->due_date ?? 'No Date';
+        } catch (\Throwable $th) {
+            return 'No Date';
+        }
     }
+
 
 
     // Deprecating

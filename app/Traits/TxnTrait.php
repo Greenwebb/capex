@@ -62,34 +62,71 @@ trait TxnTrait
     {
         // Remove the latest matching transaction by loan_id and amount
         $transaction = Transaction::where('application_id', $data['loan_id'])
-            ->where('amount_settled', $data['amount_settled'])
+            ->where('amount_settled', $data['amount'])
             ->first();
+
         $transaction?->delete();
     }
 
+    // public function update_repayment_status($amount_paid, $date_paid, $loan_id)
+    // {
+    //     $date_paid = \Carbon\Carbon::parse($date_paid);
+
+    //     $installments = LoanInstallment::where('loan_id', $loan_id)
+    //         ->whereNot('status', 'Cleared')
+    //         ->orderBy('due_date', 'asc')
+    //         ->get();
+
+    //     foreach ($installments as $installment) {
+    //         if ($amount_paid <= 0) break;
+
+    //         $total_due = floatval($installment->amount);
+
+    //         if ($amount_paid >= $total_due) {
+    //             // When Fully paid, and amount overlaps installment amount take/subtract from the next installment and update the next installment balance
+    //             $installment->status = 'Cleared';
+    //             $installment->paid_at = $date_paid;
+    //             $amount_paid -= $total_due;
+    //         } else {
+    //             // Partially paid
+    //             $installment->status = 'Partial';
+    //             $installment->paid_at = $date_paid;
+    //             $amount_paid = 0;
+    //         }
+
+    //         $installment->save();
+    //     }
+
+    //     return;
+    // }
     public function update_repayment_status($amount_paid, $date_paid, $loan_id)
     {
-        $date_paid = \Carbon\Carbon::parse($date_paid);
+        $date_paid = Carbon::parse($date_paid);
 
         $installments = LoanInstallment::where('loan_id', $loan_id)
             ->whereNot('status', 'Cleared')
             ->orderBy('due_date', 'asc')
             ->get();
 
+        // dd($installments);
+
         foreach ($installments as $installment) {
             if ($amount_paid <= 0) break;
 
             $total_due = floatval($installment->amount);
+            $remaining_balance = floatval($installment->remaining_balance ?? $total_due); // fallback if null
 
-            if ($amount_paid >= $total_due) {
-                // Fully paid
+            if ($amount_paid >= $remaining_balance) {
+                // Enough to clear this installment
                 $installment->status = 'Cleared';
                 $installment->paid_at = $date_paid;
-                $amount_paid -= $total_due;
+                $installment->remaining_balance = 0;
+                $amount_paid -= $remaining_balance;
             } else {
-                // Partially paid
+                // Partial payment
                 $installment->status = 'Partial';
                 $installment->paid_at = $date_paid;
+                $installment->remaining_balance = $remaining_balance - $amount_paid;
                 $amount_paid = 0;
             }
 
@@ -98,5 +135,4 @@ trait TxnTrait
 
         return;
     }
-
 }

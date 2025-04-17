@@ -974,9 +974,11 @@ trait LoanTrait
 
     public function close_loan($loan_id)
     {
+
+
         $loan = Application::where('id', $loan_id)->first();
         // Close loan if the balance is 0
-        if (Application::loanBalance($loan) < 1) {
+        if (Application::loanBalance($loan->id) < 1) {
             $loan->closed = 1;
             $loan->date_paid = Carbon::now();
             $loan->save();

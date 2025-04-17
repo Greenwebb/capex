@@ -34,7 +34,7 @@
         <p><strong>Loan Payback Amount:</strong> {{ number_format(App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan), 2, '.', ',') }}</p>
         <p><strong>Interest Rate:</strong> {{ $product->def_loan_interest }}%</p>
         <p><strong>Term:</strong> {{ $loan->repayment_plan }} months</p>
-        <p><strong>Term:</strong>
+        <p><strong>Current Status:</strong>
             @if($loan->status == 0)
                 Pending Review
             @elseif($loan->status == 1 )
