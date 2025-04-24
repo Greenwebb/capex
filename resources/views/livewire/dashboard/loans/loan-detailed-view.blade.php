@@ -161,16 +161,32 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="text-muted">
-                                            <h3 class="mb-3 fw-semibold text-uppercase">Loan #: {{ $loan->loan_number }}</h3>
-                                            <h1>(Paying Back: K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) }})</h1>
-                                            <br>
-                                            <h6 class="mb-3 fw-semibold text-uppercase">Summary Notes</h6>
-                                            <p>{{ $loan->desc ?? 'No Description' }}. {{ $loan->note }}</p>
-
-                                            <div>
-                                                <button type="button" class="p-0 btn btn-link link-primary">{{ $loan->loan_type->name }}</button>
-                                                <button type="button" class="p-0 btn btn-link link-primary">{{ $loan->loan_child_type->name }}</button>
-                                                <button type="button" class="p-0 btn btn-link link-primary">{{ $loan->loan_product->name }}</button>
+                                            <div class="py-4 d-flex loan-details">
+                                                <div>
+                                                    <!-- Header with loan number and payback amount -->
+                                                <div class="mb-3 justify-content-between align-items-center">
+                                                    <h3 class="mb-0 fw-bold text-primary">Loan #: {{ $loan->loan_number }}</h3>
+                                                    <span class="badge bg-info text-dark fs-2">Paying Back: K {{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) }}</span>
+                                                </div>
+                                                
+                                                <!-- Summary section -->
+                                                <div class="mb-3">
+                                                    <h6 class="text-secondary fw-bold">Summary Notes</h6>
+                                                    <p class="text-muted">{{ $loan->desc ?? 'No Description' }}. {{ $loan->note }}</p>
+                                                </div>
+                                                
+                                                <!-- Loan details tags -->
+                                                <div class="flex-wrap gap-2 d-flex">
+                                                    <span class="border badge bg-light text-dark">{{ $loan->loan_type->name }}</span>
+                                                    <span class="border badge bg-light text-dark">{{ $loan->loan_child_type->name }}</span>
+                                                    <span class="border badge bg-light text-dark">{{ $loan->loan_product->name }}</span>
+                                                </div>
+                                                </div>
+                                                
+                                                <!-- Include the stamp for closed loans -->
+                                                @if ($loan->closed == 1)
+                                                    @include('livewire.dashboard.loans.__parts.stamp-closed')
+                                                @endif
                                             </div>
 
                                             <div class="pt-3 mt-4 border-top border-top-dashed">
@@ -187,17 +203,31 @@
                                                             <p class="mb-2 text-uppercase fw-medium">Duration :</p>
                                                             <div class="fs-12">{{ $loan->repayment_plan }} Months</div>
                                                             @if ($loan->status == 1)
-                                                            <div class="fs-4">Up to <b>
-                                                                {{ \Carbon\Carbon::parse(App\Models\Application::paybackLastDate($loan))->format('F j, Y') }}
-                                                            </b></div>
                                                                 @php
-                                                                    $dueDate = new DateTime($loan?->due_date);
-                                                                    $today = new DateTime('now');
-                                                                    $daysLeft = $today?->diff($dueDate)?->days;
+                                                                    $paybackDateRaw = App\Models\Application::paybackLastDate($loan);
+                                                                    $isValidDate = \Carbon\Carbon::hasFormat($paybackDateRaw, 'Y-m-d') || strtotime($paybackDateRaw);
                                                                 @endphp
 
-                                                                Days left: <strong>{{ $daysLeft }}</strong>
+                                                                @if ($isValidDate)
+                                                                    <div class="fs-4">
+                                                                        Up to <b>{{ \Carbon\Carbon::parse($paybackDateRaw)->format('F j, Y') }}</b>
+                                                                    </div>
+
+                                                                    @php
+                                                                        $dueDate = new DateTime($loan?->due_date);
+                                                                        $today = new DateTime('now');
+                                                                        $daysLeft = $today?->diff($dueDate)?->days;
+                                                                    @endphp
+
+                                                                    Days left:
+                                                                    <strong>{{ \Carbon\Carbon::parse($paybackDateRaw)->diffForHumans() }}</strong>
+                                                                @else
+                                                                    <div class="text-danger">
+                                                                        <strong>Unassessed Loan</strong>
+                                                                    </div>
+                                                                @endif
                                                             @endif
+
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-6">
@@ -239,7 +269,7 @@
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div>
                                                             <p class="mb-2 text-uppercase fw-medium">Current Pending Repayment From Borrower:</p>
-                                                            <h5 class="mb-0 fs-15"> {{ number_format(App\Models\Loans::loan_balance($loan->id), 2, '.', ',') }}</h5>
+                                                            <h5 class="mb-0 fs-15"> {{ number_format(App\Models\Application::loanBalance($loan->id), 2, '.', ',') }}</h5>
                                                         </div>
                                                     </div>
 

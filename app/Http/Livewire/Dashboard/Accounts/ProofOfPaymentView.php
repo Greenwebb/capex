@@ -60,7 +60,7 @@ class ProofOfPaymentView extends Component
                 $borrower_loan->save();
             }
 
-            $this->sheet_installment_entry($borrower_loan, $proof->amount, $proof->method);
+            $this->sheet_installment_entry($borrower_loan, $proof->amount, 'credit', $proof->method, 'Loan Installment');
             session()->flash('success', 'Payment proof accepted successfully.');
         } catch (\Throwable $th) {
             session()->flash('error', 'Payment proof acceptance failed.');

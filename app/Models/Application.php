@@ -320,13 +320,31 @@ class Application extends Model
     }
 
 
+    // public static function loanBalance($application_id)
+    // {
+    //     try {
+    //         $loan = Application::where('id', $application_id)->first();
+    //         if ($loan !== null && $loan->status == 1) {
+    //             $paid = (string) Transaction::where('application_id', $application_id)->sum('amount_settled');
+    //             $payback = (string) Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) + $this->loanPenalties($application_id);
+
+    //             return (float) bcsub($payback, $paid, 2);
+    //         } else {
+    //             return 0;
+    //         }
+    //     } catch (\Throwable $th) {
+    //         dd($th);
+    //     }
+    // }
     public static function loanBalance($application_id)
     {
+        // dd(self::loanPenalties($application_id));
         try {
-            $loan = Application::where('id', $application_id)->first();
+            $loan = self::where('id', $application_id)->first();
             if ($loan !== null && $loan->status == 1) {
                 $paid = (string) Transaction::where('application_id', $application_id)->sum('amount_settled');
-                $payback = (string) Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan);
+                $payback = (string) self::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan)
+                          + self::loanPenalties($application_id);
 
                 return (float) bcsub($payback, $paid, 2);
             } else {
@@ -337,6 +355,14 @@ class Application extends Model
         }
     }
 
+    public static function loanPenalties($loan_id)
+    {
+        return BalanceStatement::where('loan_id', $loan_id)
+            ->orderBy('created_at', 'asc')
+            ->get()
+            ->skip(1) // Skip the first (most recent) record
+            ->sum('debit'); // Sum remaining
+    }
 
     public static function loanPaidSofar($application_id)
     {
@@ -411,7 +437,6 @@ class Application extends Model
             return 'No Date';
         }
     }
-
 
 
     // Deprecating

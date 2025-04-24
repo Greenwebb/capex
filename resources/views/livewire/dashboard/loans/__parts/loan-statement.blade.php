@@ -7,9 +7,11 @@
                     <div class="text-muted">
                         <h3 class="mb-3 fw-semibold text-uppercase">Loan Balance Statement</h3>
                         <br>
+                        @if ($loan->closed == 0)
                         <button class="mb-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBalanceStatementModal">
                             Add New Entry
                         </button>
+                        @endif
 
                         <div class="table-responsive">
                             <table class="table align-middle table-bordered table-hover">

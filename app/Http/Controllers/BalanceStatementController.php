@@ -53,12 +53,22 @@ class BalanceStatementController extends Controller
                 'payment_date' => 'required',
                 'description' => 'required',
             ]);
+            $data = [
+                'loan_id' => $validated['loan_id'],
+                'fname' => auth()->user()->fname,
+                'lname' => auth()->user()->lname,
+                'amount' => $validated['credit'], //Only credit (repayment transaction recording)
+                'method' => $validated['payment_method'] ?? 'unknown',
+                'payment_date' => $validated['payment_date'],
+                'user_id' => $validated['user_id'] ?? auth()->id(),
+            ];
+            $loan = Application::where('id', $validated['loan_id'])->first();
 
             if ($request->filled('debit') && $request->filled('credit')) {
                 return redirect()->back()->with('error', 'Only one of debit or credit should be filled.');
             }
+
             DB::beginTransaction();
-            // Prevent duplicate: define what makes it "duplicate"
             $existing = BalanceStatement::where([
                 'loan_id' => $validated['loan_id'],
                 'debit' => $validated['debit'] ?? 0,
@@ -68,35 +78,26 @@ class BalanceStatementController extends Controller
             if ($existing) {
                 return redirect()->back()->with('info', 'Duplicate entry detected. No new entry added.');
             }
-
-            // Process transaction entry if credit or debit is non-zero
-            $amount = $validated['debit'] ?? $validated['credit'];
-            if (!empty($amount)) {
-                $data = [
-                    'loan_id' => $validated['loan_id'],
-                    'fname' => auth()->user()->fname,
-                    'lname' => auth()->user()->lname,
-                    'amount' => $amount,
-                    'method' => $validated['payment_method'] ?? 'unknown',
-                    'payment_date' => $validated['payment_date'],
-                    'user_id' => $validated['user_id'] ?? auth()->id(),
+            if ($validated['credit']) {
+                $this->transaction_entry($data);// Create balance statement
+                $entry = [
+                    'loan' => $loan,
+                    'amount' => $validated['credit'] ?? $validated['debit'],
+                    'method' => $validated['payment_method'] ?? 'other',
+                    'desc' => $validated['description'],
+                    'date' => $validated['payment_date'],
                 ];
-                $this->transaction_entry($data);
+                $type = $request->filled('debit') ? 'debit':'credit';
+                $this->sheet_installment_entry($entry['loan'], $entry['amount'], $type, $entry['method'], $entry['desc'], $entry['date']);
+            }else{
+                //No transaction entry required.
+                $this->sheet_penalty_entry($loan, $validated['debit'], $validated['payment_method'], $validated['description']);
             }
 
-            // Create balance statement
-            $loan = Application::where('id', $validated['loan_id'])->first();
-            $data = [
-                'loan' => $loan,
-                'amount' => $validated['credit'] ?? $validated['debit'],
-                'method' => $validated['payment_method'] ?? 'other',
-                'date' => $validated['payment_date'],
-            ];
-            $this->sheet_installment_entry($data['loan'], $data['amount'], $data['method'], $data['date']);
-            $this->close_loan($loan->id);
-            if ($request->filled('credit')) {
+            if ($request->filled('credit')) { 
                 $this->update_repayment_status($request->filled('credit'), $request->input('payment_date'), $loan->id);
             }
+            $this->close_loan($loan->id);
             DB::commit();
             return redirect()->back()->with('success', 'Entry added successfully.');
         } catch (\Throwable $th) {
@@ -171,11 +172,13 @@ class BalanceStatementController extends Controller
                 'loan_id' => $statement->loan_id,
                 'fname' => auth()->user()->fname,
                 'lname' => auth()->user()->lname,
-                'amount' => $statement->credit ?? $statement->debit,
+                'amount' => $statement->credit,
+                'date' => $statement->payment_date,
             ];
 
             $this->transaction_removal($data);
             BalanceStatement::where('id', $statement->id)->delete();
+            $this->open_loan($data['amount'], $data['date'], $data['loan_id']);
             return redirect()->back()->with('success', 'Deleted successfully.');
         } catch (\Throwable $th) {
             dd($th);

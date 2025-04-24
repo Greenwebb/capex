@@ -193,7 +193,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('create-role', [RoleController::class, 'store'])->name('create-role');
     Route::post('update-role', [RoleController::class, 'update'])->name('update-role');
 
-    // ----- System Settings
+    // ------ System Settings
     Route::get('system-settings', SystemSettings::class)->name('sys-settings');
     Route::get('system-property-settings', SystemItemSettings::class)->name('item-settings');
     Route::get('system-create-setting', CreateSetting::class)->name('system-create');
@@ -212,24 +212,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('continue-loan', [LoanApplicationController::class, 'continue_loan'])->name('continue-loan');
     Route::post('change-password', [UserController::class, 'changePassword'])->name('change-password');
 
+    Route::get('/loans/{loan}/download-schedule', [DownloaderController::class, 'downloadSchedule'])->name('loans.download-schedule');
+    Route::get('/loans/{loan}/download-balance-statement', [DownloaderController::class, 'downloadBalanceStatement'])->name('loans.download-balance-statement');
 
-    Route::get('/loans/{loan}/download-schedule', [DownloaderController::class, 'downloadSchedule'])
-    ->name('loans.download-schedule');
-    Route::get('/loans/{loan}/download-balance-statement', [DownloaderController::class, 'downloadBalanceStatement'])
-    ->name('loans.download-balance-statement');
-
-
-    // -------- Balance Statement COntroller
+    // -------- Balance Statement Controller
     Route::get('/', [BalanceStatementController::class, 'index'])->name('balance-statement.index'); // List all statements
     Route::post('/store', [BalanceStatementController::class, 'store'])->name('balance-statement.store'); // Store a new statement
     Route::get('/{id}/edit', [BalanceStatementController::class, 'edit'])->name('balance-statement.edit'); // Edit form (if needed)
-    Route::put('/balance-statement/{id}', [BalanceStatementController::class, 'update'])
-    ->name('balance-statement.update');
-    Route::delete('/balance-statement/{id}/destroy', [BalanceStatementController::class, 'destroy'])
-        ->name('balance-statement.destroy');
-
-
-
+    Route::put('/balance-statement/{id}', [BalanceStatementController::class, 'update'])->name('balance-statement.update');
+    Route::delete('/balance-statement/{id}/destroy', [BalanceStatementController::class, 'destroy'])->name('balance-statement.destroy');
 });
 
 // ---- Open Routes

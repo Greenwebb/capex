@@ -11,9 +11,8 @@ trait TxnTrait
 {
     public function transaction_entry(array $data)
     {
+        
         $balance = Application::loanBalance($data['loan_id']);
-
-        // if ($data['amount'] <= $balance) {
         Transaction::create([
             'application_id' => $data['loan_id'] ?? null,
             'proof_id' => $data['proof_id'] ?? null,
@@ -28,16 +27,11 @@ trait TxnTrait
             'installment_id' => $data['installment_id'] ?? null,
             'created_at' => $data['payment_date'] ?? now(),
         ]);
-        // } else {
-        //     // ❌ Do not allow over-payment
-        //     throw new \Exception('The amount provided exceeds the remaining loan balance. No overpayments allowed.');
-        // }
     }
 
     public function transaction_update(array $data)
     {
         $balance = Application::loanBalance($data['loan_id']);
-        // if ($data['amount'] <= $balance) {
         // Update the latest matching transaction for the given loan_id and user_id
         $transaction = Transaction::where('application_id', $data['loan_id'])
             ->where('user_id', $data['user_id'])
@@ -51,22 +45,33 @@ trait TxnTrait
                 'created_at' => $data['created_at'] ?? now()
             ]);
         }
-        // } else {
-        //     // ❌ Do not allow over-payment
-        //     throw new \Exception('The amount provided exceeds the remaining loan balance. No overpayments allowed.');
-        // }
-
     }
-
+    
     public function transaction_removal(array $data)
     {
-        // Remove the latest matching transaction by loan_id and amount
+        $date = Carbon::parse($data['date'])->toDateTimeString();
+
         $transaction = Transaction::where('application_id', $data['loan_id'])
             ->where('amount_settled', $data['amount'])
+            ->whereDate('created_at', '=', $date)
             ->first();
 
-        $transaction?->delete();
+        if ($transaction) {
+            $transaction->delete();
+        }
     }
+
+
+    // public function transaction_removal(array $data)
+    // {
+    //     // Remove the latest matching transaction by loan_id and amount
+    //     $transaction = Transaction::where('application_id', $data['loan_id'])
+    //         ->where('amount_settled', $data['amount'])
+    //         ->where('created_at', $data['date'])
+    //         ->first();
+    //     // dd($transaction);
+    //     $transaction?->delete();
+    // }
 
     // public function update_repayment_status($amount_paid, $date_paid, $loan_id)
     // {
@@ -135,4 +140,40 @@ trait TxnTrait
 
         return;
     }
+
+    public function rollback_repayment_status($amount_to_rollback, $rollback_date, $loan_id)
+    {
+        $rollback_date = Carbon::parse($rollback_date);
+
+        $installments = LoanInstallment::where('loan_id', $loan_id)
+            ->whereIn('status', ['Cleared', 'Partial'])
+            ->where('paid_at', $rollback_date) // rollback only the ones affected on this date
+            ->orderBy('due_date', 'desc') // reverse order for rollback
+            ->get();
+
+        foreach ($installments as $installment) {
+            if ($amount_to_rollback <= 0) break;
+
+            $total_due = floatval($installment->amount);
+            $already_paid = $total_due - floatval($installment->remaining_balance ?? 0);
+
+            if ($amount_to_rollback >= $already_paid) {
+                // Rollback the full paid amount for this installment
+                $installment->status = 'Pending';
+                $installment->remaining_balance = $total_due;
+                $installment->paid_at = null;
+                $amount_to_rollback -= $already_paid;
+            } else {
+                // Partial rollback
+                $installment->status = 'Partial';
+                $installment->remaining_balance += $amount_to_rollback;
+                $amount_to_rollback = 0;
+            }
+
+            $installment->save();
+        }
+
+        return;
+    }
+
 }

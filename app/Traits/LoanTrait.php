@@ -332,9 +332,13 @@ trait LoanTrait
 
     public function getOpenLoanRequests($type)
     {
+        // dd($type);
         $userId = auth()->user()->id;
         if (auth()->user()->hasRole('admin')) {
-            return Application::with('loan_product')->where('status', 1)->orderBy('created_at', 'desc')->get();
+            return Application::with('loan_product')
+            ->where('status', 1)
+            ->whereNot('closed', 1)
+            ->orderBy('created_at', 'desc')->get();
         } else {
             switch ($type) {
                 case 'spooling':
@@ -942,40 +946,54 @@ trait LoanTrait
         ]);
     }
 
-    public function sheet_penalty_entry($loan, $amount, $method)
+    public function sheet_penalty_entry($loan, $amount, $method, $desc)
     {
+        //Penalty is always Debited
         BalanceStatement::create([
             'loan_id' => $loan->id,
             'payment_date' => Carbon::now(),
-            'description' => "Penalty charge",
+            'description' => $desc,
             'debit' => $amount,
             'credit' => null,
             'principal_paid' => null,
             'interest_paid' => null,
-            'balance_after_payment' => Application::loanBalance($loan->id),
+            'balance_after_payment' => Application::loanBalance($loan->id) + $amount, //add the penalty to current balance
             'payment_method' => $method, // Can be dynamic
         ]);
     }
 
-    public function sheet_installment_entry($loan, $amount, $method, $date = null)
+    public function sheet_installment_entry($loan, $amount, $type, $method, $desc, $date = null)
     {
-        BalanceStatement::create([
-            'loan_id' => $loan->id,
-            'payment_date' => $date ?? Carbon::now(),
-            'description' => "Loan Repayment - Installment",
-            'debit' => null,
-            'credit' => $amount,
-            'principal_paid' => null,
-            'interest_paid' => null,
-            'balance_after_payment' => Application::loanBalance($loan->id),
-            'payment_method' => $method, // Can be dynamic
-        ]);
+        if ($type == 'credit') {
+            BalanceStatement::create([
+                'loan_id' => $loan->id,
+                'payment_date' => $date ?? Carbon::now(),
+                'description' => $desc,
+                'debit' => null,
+                'credit' => $amount,
+                'principal_paid' => null,
+                'interest_paid' => null,
+                'balance_after_payment' => Application::loanBalance($loan->id),
+                'payment_method' => $method, // Can be dynamic
+            ]);
+        } else {
+            BalanceStatement::create([
+                'loan_id' => $loan->id,
+                'payment_date' => $date ?? Carbon::now(),
+                'description' => $desc,
+                'debit' => $amount,
+                'credit' => null,
+                'principal_paid' => null,
+                'interest_paid' => null,
+                'balance_after_payment' => Application::loanBalance($loan->id),
+                'payment_method' => $method, // Can be dynamic
+            ]);
+        }
+        
     }
 
     public function close_loan($loan_id)
     {
-
-
         $loan = Application::where('id', $loan_id)->first();
         // Close loan if the balance is 0
         if (Application::loanBalance($loan->id) < 1) {
@@ -983,5 +1001,16 @@ trait LoanTrait
             $loan->date_paid = Carbon::now();
             $loan->save();
         }
+    }
+
+    public function open_loan($amount, $date, $loan_id)
+    {
+        $loan = Application::where('id', $loan_id)->first();
+        // Close loan if the balance is 0
+        if (Application::loanBalance($loan->id) > 1) {
+            $loan->closed = 0;
+            $loan->save();
+        }
+        $this->rollback_repayment_status($amount, $date, $loan_id);
     }
 }
