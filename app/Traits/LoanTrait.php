@@ -946,12 +946,12 @@ trait LoanTrait
         ]);
     }
 
-    public function sheet_penalty_entry($loan, $amount, $method, $desc)
+    public function sheet_penalty_entry($loan, $amount, $method, $desc, $date)
     {
         //Penalty is always Debited
         BalanceStatement::create([
             'loan_id' => $loan->id,
-            'payment_date' => Carbon::now(),
+            'payment_date' => $date ?? Carbon::now(),
             'description' => $desc,
             'debit' => $amount,
             'credit' => null,
@@ -962,12 +962,12 @@ trait LoanTrait
         ]);
     }
 
-    public function sheet_installment_entry($loan, $amount, $type, $method, $desc, $date = null)
+    public function sheet_installment_entry($loan, $amount, $type, $method, $desc, $date)
     {
         if ($type == 'credit') {
             BalanceStatement::create([
                 'loan_id' => $loan->id,
-                'payment_date' => $date ?? Carbon::now(),
+                'payment_date' => Carbon::parse($date)->toDateTimeString(),
                 'description' => $desc,
                 'debit' => null,
                 'credit' => $amount,
@@ -975,11 +975,12 @@ trait LoanTrait
                 'interest_paid' => null,
                 'balance_after_payment' => Application::loanBalance($loan->id),
                 'payment_method' => $method, // Can be dynamic
+
             ]);
         } else {
             BalanceStatement::create([
                 'loan_id' => $loan->id,
-                'payment_date' => $date ?? Carbon::now(),
+                'payment_date' => Carbon::parse($date)->toDateTimeString(),
                 'description' => $desc,
                 'debit' => $amount,
                 'credit' => null,
@@ -989,7 +990,7 @@ trait LoanTrait
                 'payment_method' => $method, // Can be dynamic
             ]);
         }
-        
+
     }
 
     public function close_loan($loan_id)

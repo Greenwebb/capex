@@ -38,7 +38,7 @@
                                                 {{ $entry->credit > 0 ? number_format($entry->credit, 2, '.', ',') : '-' }}
                                             </td>
                                             <td class="fw-bold text-primary">
-                                                {{ $entry->balance_after_payment }}
+                                                {{ number_format($entry->balance_after_payment,2,'.',',') }}
                                             </td>
                                             <td>
                                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editBalanceStatementModal-{{ $entry->id }}">
@@ -180,10 +180,6 @@
                             <div class="mb-3">
                                 <label for="credit" class="form-label">Credit</label>
                                 <input type="number" step="0.01" class="form-control" name="credit" value="{{ $entry->credit }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="balance_after_payment" class="form-label">Balance After Payment</label>
-                                <input type="number" step="0.01" class="form-control" name="balance_after_payment" value="{{ $entry->balance_after_payment }}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="payment_method" class="form-label">Payment Method</label>

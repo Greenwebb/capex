@@ -11,7 +11,7 @@ trait TxnTrait
 {
     public function transaction_entry(array $data)
     {
-        
+
         $balance = Application::loanBalance($data['loan_id']);
         Transaction::create([
             'application_id' => $data['loan_id'] ?? null,
@@ -31,7 +31,6 @@ trait TxnTrait
 
     public function transaction_update(array $data)
     {
-        $balance = Application::loanBalance($data['loan_id']);
         // Update the latest matching transaction for the given loan_id and user_id
         $transaction = Transaction::where('application_id', $data['loan_id'])
             ->where('user_id', $data['user_id'])
@@ -46,7 +45,7 @@ trait TxnTrait
             ]);
         }
     }
-    
+
     public function transaction_removal(array $data)
     {
         $date = Carbon::parse($data['date'])->toDateTimeString();

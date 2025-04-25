@@ -346,6 +346,7 @@ class Application extends Model
                 $payback = (string) self::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan)
                           + self::loanPenalties($application_id);
 
+                        //   dd($paid);
                 return (float) bcsub($payback, $paid, 2);
             } else {
                 return 0;

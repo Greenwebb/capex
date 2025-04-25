@@ -43,6 +43,7 @@ class BalanceStatementController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             $validated = $request->validate([
                 'loan_id' => 'required|integer',
@@ -63,7 +64,7 @@ class BalanceStatementController extends Controller
                 'user_id' => $validated['user_id'] ?? auth()->id(),
             ];
             $loan = Application::where('id', $validated['loan_id'])->first();
-
+            $type = $request->filled('debit') ? 'debit':'credit';
             if ($request->filled('debit') && $request->filled('credit')) {
                 return redirect()->back()->with('error', 'Only one of debit or credit should be filled.');
             }
@@ -79,7 +80,8 @@ class BalanceStatementController extends Controller
                 return redirect()->back()->with('info', 'Duplicate entry detected. No new entry added.');
             }
             if ($validated['credit']) {
-                $this->transaction_entry($data);// Create balance statement
+                $this->transaction_entry($data);
+                // Create balance statement
                 $entry = [
                     'loan' => $loan,
                     'amount' => $validated['credit'] ?? $validated['debit'],
@@ -87,19 +89,18 @@ class BalanceStatementController extends Controller
                     'desc' => $validated['description'],
                     'date' => $validated['payment_date'],
                 ];
-                $type = $request->filled('debit') ? 'debit':'credit';
                 $this->sheet_installment_entry($entry['loan'], $entry['amount'], $type, $entry['method'], $entry['desc'], $entry['date']);
             }else{
                 //No transaction entry required.
-                $this->sheet_penalty_entry($loan, $validated['debit'], $validated['payment_method'], $validated['description']);
+                $this->sheet_penalty_entry($loan, $validated['debit'], $validated['payment_method'], $validated['description'], $validated['payment_date']);
             }
 
-            if ($request->filled('credit')) { 
+            if ($request->filled('credit')) {
                 $this->update_repayment_status($request->filled('credit'), $request->input('payment_date'), $loan->id);
             }
             $this->close_loan($loan->id);
             DB::commit();
-            return redirect()->back()->with('success', 'Entry added successfully.');
+            return redirect()->back()->with('success', $type.' entry added successfully.');
         } catch (\Throwable $th) {
             report($th);
             DB::rollBack();
@@ -124,11 +125,6 @@ class BalanceStatementController extends Controller
             if ($request->filled('debit') && $request->filled('credit')) {
                 return redirect()->back()->with('error', 'Only one of debit or credit should be filled.');
             }
-
-            $balanceStatement = BalanceStatement::find($id);
-            if (!$balanceStatement) {
-                return redirect()->back()->with('error', 'Balance statement not found.');
-            }
             $amount = $request->input('debit') ?? $request->input('credit');
             $data = [
                 'loan_id' => $request->input('loan_id'),
@@ -138,25 +134,27 @@ class BalanceStatementController extends Controller
                 'user_id' => $request->input('user_id') ?? auth()->id(),
                 'created_at' => $request->input('payment_date'),
             ];
-            $this->transaction_update($data);
-
-            //write the logic of first deleting the entry then recreating it(as a form of updating)
+            if($request->filled('credit')){
+                $this->transaction_update($data);
+                $this->close_loan($data['loan_id']);
+                $this->open_loan($amount, $data['created_at'], $data['loan_id']);
+                $this->update_repayment_status($request->filled('credit'), $request->input('payment_date'), $data['loan_id']);
+            }
+            $balanceStatement = BalanceStatement::find($id);
+            if (!$balanceStatement) {
+                return redirect()->back()->with('error', 'Balance statement not found.');
+            }
             $balanceStatement->payment_date = Carbon::parse($request->input('payment_date'));
             $balanceStatement->description = $request->input('description');
             $balanceStatement->debit = $request->input('debit') ?? null;
             $balanceStatement->credit = $request->input('credit') ?? null;
             $balanceStatement->payment_method = $request->input('payment_method') ?? null;
+            $balanceStatement->balance_after_payment = Application::loanBalance($data['loan_id']);
             $balanceStatement->save();
-
-            $loan = Application::where('id', $data['loan_id'])->first();
-            $this->close_loan($loan->id);
-            if ($request->filled('credit')) {
-                $this->update_repayment_status($request->filled('credit'), $request->input('payment_date'), $loan->id);
-            }
             DB::commit();
-
             return redirect()->back()->with('success', 'Entry updated successfully.');
         } catch (\Throwable $th) {
+            dd($th);
             DB::rollBack();
             return redirect()->back()->with('error', 'Entry update failed. ' . $th->getMessage());
         }

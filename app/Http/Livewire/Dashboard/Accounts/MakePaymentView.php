@@ -60,7 +60,7 @@ class MakePaymentView extends Component
                     $borrower_loan->date_paid = Carbon::now();
                     $borrower_loan->save();
                 }
-                $this->sheet_installment_entry($borrower_loan, $this->amount, 'credit', $this->payment_method, 'Loan Installment');
+                $this->sheet_installment_entry($borrower_loan, $this->amount, 'credit', $this->payment_method, 'Loan Installment',Carbon::now());
                 DB::commit();
                 session()->flash('success', 'Successfully repaid '.$this->amount);
                 return redirect()->route('make-payment');
