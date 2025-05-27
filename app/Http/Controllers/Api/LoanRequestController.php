@@ -22,7 +22,6 @@ class LoanRequestController extends Controller
 
     public function resetRequest(Request $request)
     {
-
         try {
             $request->input('loan_id');
             if ($request->input('loan_id')) {
@@ -68,7 +67,6 @@ class LoanRequestController extends Controller
                     'curr_status' => '',
                     'position' => 1
                 ]);
-
                 return response()->json(['success' => true, 'message' => 'Application stages initialized successfully.'], 200);
             }
 
@@ -131,7 +129,6 @@ class LoanRequestController extends Controller
 
     public function loanBalance($id)
     {
-
         $requests = Loans::loan_balance($id);
         return response()->json([$requests]);
     }
@@ -165,6 +162,41 @@ class LoanRequestController extends Controller
     {
         $data = $request->all();
         return $this->apply_loan($data);
+    }
+
+    public function resetLoans(Request $request)
+    {
+        $loanIds = $request->toArray(); // Assuming $request->toArray() contains an array of loan IDs
+
+        foreach ($loanIds as $id) {
+            // Assuming 'Application' is the model representing your loans table
+            $loan = Application::where('id', $id)->first();
+
+            if ($loan) {
+                $loan->status = 0; 
+                $loan->continue = 0;
+                $loan->complete = 1;
+                $loan->save();
+
+                DB::table('application_stages')->updateOrInsert(
+                    // Unique constraint condition to check existence
+                    ['application_id' => $loan->id],
+                    [
+                        'loan_status_id' => 1,
+                        'state' => 'current',
+                        'status' => 'processing', // ?? 'verification' is not valid PHP; assume 'processing'
+                        'stage' => 'processing',
+                        'prev_status' => 'current',
+                        'curr_status' => '',
+                        'position' => 1,
+                    ]
+                );
+            }
+        }
+        return response()->json([
+            "status" => 200,
+            "success" => true
+        ]);
     }
 
     public function checkCRB($user_id)

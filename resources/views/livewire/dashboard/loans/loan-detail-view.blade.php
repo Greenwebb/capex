@@ -64,7 +64,7 @@
                     <div class="tab-pane fade show active" id="steparrow-gen-info" role="tabpanel" aria-labelledby="steparrow-gen-info-tab">
     
                         @if(true)
-                            {{-- @if($loan->complete == 1) --}}
+                            {{-- @dd($current) --}}
                             @switch(strtolower($current->stage))
                                 @case('processing')
                                     @switch(strtolower($current->status))

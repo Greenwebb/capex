@@ -70,6 +70,7 @@ Route::get('/get-loan-not-taken-up-statuses', [SettingController::class, '__get_
 
 //Loan Notifications
 Route::post('/notify-onplp', [LoanNotificationController::class, 'plpNotification']);
+Route::post('/reset-loans', [LoanRequestController::class, 'resetLoans']);
 
 
 // Deprected

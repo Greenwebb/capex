@@ -263,7 +263,7 @@
 
                 if (confirmDelete) {
                     // Send an AJAX request to the Laravel route with the selected IDs
-                    fetch('reset-loans', {
+                fetch('reset-loans', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -273,8 +273,9 @@
                     })
                     .then(response => {
                         if (response.ok) {
-                            console.log('Items deleted successfully.');
-                            window.location.reload(true);
+                            
+                            // console.log('Items deleted successfully.');
+                            // window.location.reload(true);
                         } else {
                             console.error('Failed to delete items.');
                         }

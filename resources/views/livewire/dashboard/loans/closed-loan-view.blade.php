@@ -62,7 +62,10 @@
                                         </td>
                                         <td class="actions-btns d-flex">
                                             <a  href="{{ route('detailed',['id' => $loan->id]) }}">
-                                                Details
+                                                View
+                                            </a>
+                                            <a href="{{ route('reopen') }}">
+                                                Reopen
                                             </a>
                                         </td>
                                     </tr>
