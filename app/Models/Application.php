@@ -115,16 +115,6 @@ class Application extends Model
     }
 
     // Stats
-    public static function totalOpenLoanCount()
-    {
-        return self::where('status', 1)
-            ->where('closed', 0)->count();
-    }
-    public static function totalClosedLoanCount()
-    {
-        return self::where('status', 1)
-            ->where('closed', 1)->count();
-    }
     /**
      * Get all loan stats as an array
      * Extend this as needed for more stats
@@ -132,9 +122,11 @@ class Application extends Model
     public static function loanStats()
     {
         // Total open loans
-        $total_open_loan_count = self::totalOpenLoanCount();
+        $total_open_loan_count =  self::where('status', 1)->where('closed', 0)->count();
+        $total_open_loan_amount = self::where('status', 1)->where('closed', 0)->sum('amount');
         // Total closed loans
-        $total_closed_loan_count = self::totalClosedLoanCount();
+        $total_closed_loan_count = self::where('status', 1)->where('closed', 1)->count();
+        $total_closed_loan_amount = self::where('status', 1)->where('closed', 1)->sum('amount');
         // Total loans
         $total_loans_count = self::count();
         $total_loans_amount = self::sum('amount');
@@ -152,16 +144,25 @@ class Application extends Model
         $arears_amount = self::where('due_date', '<', now())->where('status', 1)->where('closed', 0)->sum('amount');
 
         return [
-            'total_open_loan_count' => $total_open_loan_count,
-            'total_closed_loan_count' => $total_closed_loan_count,
+
             'total_loans_count' => $total_loans_count,
             'total_loans_amount' => $total_loans_amount,
+            
+            'total_open_loan_count' => $total_open_loan_count,
+            'total_open_loan_amount' => $total_open_loan_amount,
+
+            'total_closed_loan_count' => $total_closed_loan_count,
+            'total_closed_loan_amount' => $total_closed_loan_amount,
+            
             'total_rejected_loans' => $total_rejected_loans_count,
             'total_rejected_loans_amount' => $total_rejected_loans_amount,
+
             'total_pending_loans_count' => $total_pending_loans_count,
             'total_pending_loans_amount' => $total_pending_loans_amount,
+
             'arears_count' => $arears_count,
             'arears_amount' => $arears_amount,
+
             'unresolved_loans_count' => $unresolved_loans_count,
             'unresolved_loans_amount' => $unresolved_loans_amount,
 
