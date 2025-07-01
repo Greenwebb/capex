@@ -296,7 +296,7 @@
                                                             return '
                                                                 <a target="_blank" href="' . getFileUrl($upload) . '" class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="public/' . Storage::url($upload->path) . '">
                                                                     <div class="col-md-2">
-                                                                        <div class="p-2 border border-dashed rounded">
+                                                                        <div class="p-2 rounded border border-dashed">
                                                                             <div class="d-flex align-items-center">
                                                                                 <div class="flex-shrink-0 me-3">
                                                                                     <div class="avatar-sm">
@@ -366,3 +366,26 @@
     </div>
     <!-- container-fluid -->
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the tab parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab');
+    if (tab) {
+        // Map tab values to tab pane IDs
+        const tabMap = {
+            'repayment': '#loan-repayment-schedule',
+            // Add more mappings if needed
+        };
+        const tabSelector = tabMap[tab];
+        if (tabSelector) {
+            // Find the nav-link for this tab and trigger click
+            const navLink = document.querySelector(`a.nav-link[href='${tabSelector}']`);
+            if (navLink) {
+                navLink.click();
+            }
+        }
+    }
+});
+</script>

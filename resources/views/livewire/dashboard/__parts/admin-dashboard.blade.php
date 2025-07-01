@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                {{ $this->total_loans() }}
+                                                {{ $this->loanStat['total_open_loan_count'] }}
                                             </span>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                {{ $this->total_pending_loans() }}
+                                                {{ $this->loanStat['total_pending_loans'] }}
                                             </span>
                                         </div>
                                     </div>
@@ -132,11 +132,11 @@
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
                                             <h4 class="mb-4 text-white fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{ App\Models\Transaction::total_collected() }}">{{ App\Models\Transaction::total_collected() }}</span> </h4>
-                                            <a href="{{ route('make-payment') }}" class="text-white text-decoration-underline">Successfully Closed</a>
+                                            <a href="{{ route('closed-loans') }}" class="text-white text-decoration-underline">Successfully Closed</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                               {{ $closedLoansCount }}
+                                               {{ $this->loanStat['total_closed_loan_count'] }}
                                             </span>
                                         </div>
                                     </div>
@@ -194,7 +194,7 @@
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                {{ $this->num_loans_arears() }}
+                                                No Stat
                                             </span>
                                         </div>
                                     </div>
@@ -223,7 +223,7 @@
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                {{ $this->num_disbursed_to_date() }}
+                                                {{ $this->loanStat['total_open_loan_count'] }}
                                             </span>
                                         </div>
                                     </div>
@@ -250,7 +250,7 @@
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-danger bg-primary-subtle fs-3">
-                                                {{ $this->num_unresolved_to_date() }}
+                                                {{ $this->loanStat['unresolved_loans_amount'] }}
                                             </span>
                                         </div>
                                     </div>
@@ -277,7 +277,7 @@
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-danger bg-primary-subtle fs-3">
-                                                {{ $this->num_rejected_to_date() }}
+                                                {{ $this->loanStat['stat'] }}
                                             </span>
                                         </div>
                                     </div>

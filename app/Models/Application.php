@@ -114,6 +114,60 @@ class Application extends Model
         return User::where('id', $this->processed_by)->first();
     }
 
+    // Stats
+    public static function totalOpenLoanCount()
+    {
+        return self::where('status', 1)
+            ->where('closed', 0)->count();
+    }
+    public static function totalClosedLoanCount()
+    {
+        return self::where('status', 1)
+            ->where('closed', 1)->count();
+    }
+    /**
+     * Get all loan stats as an array
+     * Extend this as needed for more stats
+     */
+    public static function loanStats()
+    {
+        // Total open loans
+        $total_open_loan_count = self::totalOpenLoanCount();
+        // Total closed loans
+        $total_closed_loan_count = self::totalClosedLoanCount();
+        // Total loans
+        $total_loans_count = self::count();
+        $total_loans_amount = self::sum('amount');
+        // Total rejected loans (status = 3)
+        $total_rejected_loans_count = self::where('status', 3)->count();
+        $total_rejected_loans_amount = self::where('status', 3)->sum('amount');
+        // Total pending loans (status = 0 or 2)
+        $total_pending_loans_count = self::whereIn('status', [0, 2])->count();
+        $total_pending_loans_amount = self::whereIn('status', [0, 2])->sum('amount');
+        // Unresolved loans amount (status = 0 or 2, complete = 1)
+        $unresolved_loans_count = self::where('complete', 1)->whereIn('status', [0, 2])->sum('amount');
+        $unresolved_loans_amount = self::where('complete', 1)->whereIn('status', [0, 2])->sum('amount');
+        // Arears
+        $arears_count = self::where('due_date', '<', now())->where('status', 1)->where('closed', 0)->count();
+        $arears_amount = self::where('due_date', '<', now())->where('status', 1)->where('closed', 0)->sum('amount');
+
+        return [
+            'total_open_loan_count' => $total_open_loan_count,
+            'total_closed_loan_count' => $total_closed_loan_count,
+            'total_loans_count' => $total_loans_count,
+            'total_loans_amount' => $total_loans_amount,
+            'total_rejected_loans' => $total_rejected_loans_count,
+            'total_rejected_loans_amount' => $total_rejected_loans_amount,
+            'total_pending_loans_count' => $total_pending_loans_count,
+            'total_pending_loans_amount' => $total_pending_loans_amount,
+            'arears_count' => $arears_count,
+            'arears_amount' => $arears_amount,
+            'unresolved_loans_count' => $unresolved_loans_count,
+            'unresolved_loans_amount' => $unresolved_loans_amount,
+
+        ];
+    }
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

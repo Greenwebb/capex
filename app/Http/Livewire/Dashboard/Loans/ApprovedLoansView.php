@@ -36,6 +36,8 @@ class ApprovedLoansView extends Component
                 $this->loan_requests = $this->getOpenLoanRequests('spooling');
                 $requests = $this->getOpenLoanRequests('spooling');
             }
+
+            // dd($requests);
             return view('livewire.dashboard.loans.approved-loans-view',[
                 'requests' => $requests
             ])->layout('layouts.main');

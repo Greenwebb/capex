@@ -332,7 +332,6 @@ trait LoanTrait
 
     public function getOpenLoanRequests($type)
     {
-        // dd($type);
         $userId = auth()->user()->id;
         if (auth()->user()->hasRole('admin')) {
             return Application::with('loan_product')

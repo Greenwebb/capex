@@ -19,11 +19,12 @@ class DashboardView extends Component
     public $loan_requests, $loan_request, $all_loan_requests, $my_loan, $wallet, $borrowers;
     public $payment_method, $withdraw_amount, $mobile_number, $card_name, $bank_name, $card_number;
     public $performingData = [], $nonPerformingData = [];
-    public $closedLoansCount, $rejectedLoansCount, $pendingLoansCount, $loansCount, $unresolvedLoansAmount;
+    public $loanStat, $closedLoansCount, $rejectedLoansCount, $pendingLoansCount, $loansCount, $unresolvedLoansAmount;
 
     public function mount()
     {
         $this->loadData();
+    
     }
 
     public function loadData()
@@ -41,11 +42,13 @@ class DashboardView extends Component
             ->orderBy('month')
             ->pluck('count', 'month')
             ->toArray();
+            
+        $this->loanStat = Application::loanStats();
 
         $this->closedLoansCount = $this->total_closed_loans();
         $this->rejectedLoansCount = $this->num_rejected_to_date();
         $this->pendingLoansCount = $this->total_pending_loans();
-        $this->loansCount = $this->total_loans();
+        $this->loansCount = Application::count();
         $this->unresolvedLoansAmount = $this->num_unresolved_to_date();
     }
 

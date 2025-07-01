@@ -64,9 +64,9 @@
                                             <a  href="{{ route('detailed',['id' => $loan->id]) }}">
                                                 View
                                             </a>
-                                            <a href="{{ route('reopen') }}">
+                                            {{-- <a href="{{ route('reopen') }}">
                                                 Reopen
-                                            </a>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @empty

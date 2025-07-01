@@ -1,379 +1,143 @@
+<head>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-<div class="page-content">
+<div class="min-h-screen bg-gray-50 page-content">
     <!-- start page title -->
-    <div class="row">
-        <div class="px-4 col-12">
-            <div class="bg-transparent page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Borrower Information</h4>
-
-                <div class="page-title-right">
-                    <ol class="m-0 breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('borrowers') }}">Borrowers</a></li>
-                        <li class="breadcrumb-item active">Borrower Information</li>
-                    </ol>
+    <div class="flex flex-col justify-between items-center px-6 py-4 bg-white border-b border-gray-200 md:flex-row">
+        <h4 class="mb-2 text-xl font-bold text-gray-800 md:mb-0">Borrower Information</h4>
+        <nav class="text-sm text-gray-500">
+            <ol class="flex space-x-2">
+                <li><a href="{{ route('dashboard') }}" class="hover:underline">Dashboard</a></li>
+                <li>/</li>
+                <li><a href="{{ route('borrowers') }}" class="hover:underline">Borrowers</a></li>
+                <li>/</li>
+                <li class="text-gray-700">Borrower Information</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="container px-4 py-6 mx-auto">
+        <div class="flex flex-col items-start mb-6 md:flex-row md:space-x-6">
+            <div class="flex flex-row flex-wrap gap-2 items-center md:gap-4">
+                @if ($user->photos->isNotEmpty())
+                    @foreach ($user->photos as $photo)
+                        @php
+                            $photoPath = $photo->source === 'admin'
+                                ? url('public/storage/' . $photo->path)
+                                : 'https://app.capexfinancialservices.org/' . $photo->path;
+                        @endphp
+                        <img src="{{ $photoPath }}" alt="user-img" class="object-cover w-24 h-24 rounded-lg border-2 border-gray-200 shadow" />
+                    @endforeach
+                @else
+                    @php
+                        $defaultImage = 'public/assets/images/user.png';
+                        if ($user->gender === 'Female') {
+                            $defaultImage = 'public/assets/images/girl.png';
+                        } elseif ($user->gender === 'Male') {
+                            $defaultImage = 'public/assets/images/boy.png';
+                        }
+                    @endphp
+                    <img src="{{ $defaultImage }}" alt="user-img" class="object-cover w-24 h-24 rounded-lg border-2 border-gray-200 shadow" />
+                @endif
+            </div>
+            <div class="flex-1 mt-4 md:mt-0">
+                <h2 class="mb-1 text-2xl font-semibold text-gray-800">{{ $user->fname.' '.$user->lname }}</h2>
+                <div class="flex flex-wrap gap-2 mb-2 text-sm text-gray-500">
+                    <span class="inline-flex items-center"><i class="mr-1 text-yellow-500 ri-card-line"></i><b>{{ $user->uuid }}</b></span>
+                    <span class="inline-flex items-center"><i class="mr-1 text-yellow-500 ri-map-pin-user-line"></i>{{ $user->address ?? 'No Address' }}</span>
+                    @if ($user->occupation || $user->jobTitle)
+                        <span class="inline-flex items-center"><i class="mr-1 text-yellow-500 ri-building-line"></i>{{ $user->jobTitle ?? $user->occupation ?? 'No Occupation' }}</span>
+                    @endif
                 </div>
+                <div class="flex flex-wrap gap-2 text-xs text-gray-400">
+                    <span><i class="mr-1 text-yellow-500 ri-card-line"></i><b>{{ $user->usource }}</b></span>
+                </div>
+            </div>
+            <div class="flex flex-col mt-4 md:items-end md:ml-auto md:mt-0">
+                <div class="flex space-x-6">
+                    <div class="text-center">
+                        <h4 class="text-lg font-bold text-blue-600">K{{ App\Models\Loans::customer_balance($user->id) }}</h4>
+                        <p class="text-xs text-gray-500">Current Amount Owing</p>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-lg font-bold text-green-600">K{{ App\Models\Loans::customer_total_borrowed($user->id) }}</h4>
+                        <p class="text-xs text-gray-500">Overall Total Amount Borrowed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2">
+            <!-- Basic & Personal Information -->
+            <div class="p-6 bg-white rounded-lg shadow">
+                <h5 class="mb-4 text-lg font-semibold text-gray-700">Basic & Personal Information</h5>
+                <div class="space-y-2 text-sm">
+                    <div><span class="font-semibold text-yellow-600">Full Name:</span> <span class="text-gray-700">{{ $user->fname.' '.$user->lname }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Date of Birth:</span> <span class="text-gray-700 uppercase">{{ $user->dob ?? 'Unknown' }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Gender:</span> <span class="text-gray-700 uppercase">{{ $user->gender ?? 'Unknown' }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Mobile:</span> <span class="text-gray-700">{{ $user->phone ?? 'Unknown' }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">E-mail:</span> <span class="text-gray-700">{{ $user->email ?? 'Unknown' }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Location:</span> <span class="text-gray-700">{{ $user->address ?? 'No Address' }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Joined Date:</span> <span class="text-gray-700">{{ $user->created_at->toFormattedDateString() }}</span></div>
+                </div>
+            </div>
+            <!-- Next of Kin -->
+            <div class="p-6 bg-white rounded-lg shadow">
+                <h5 class="mb-4 text-lg font-semibold text-gray-700">Next of Kin</h5>
+                <div class="space-y-2 text-sm">
+                    <div><span class="font-semibold text-yellow-600">Fullnames:</span> <span class="text-gray-700">{{ $user->nokfname.' '.$user->noklname ?? 'Unknown' }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Phone Number:</span> <span class="text-gray-700">{{ $user->nokphone ?? 'No Phone' }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Date of Birth:</span> <span class="text-gray-700">{{ $user->nokDob ?? 'No Record' }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Email Address:</span> <span class="text-gray-700">{{ $user->nokemail ?? 'No Email' }}</span></div>
+                </div>
+            </div>
+            <!-- Employment Details -->
+            <div class="p-6 bg-white rounded-lg shadow">
+                <h5 class="mb-4 text-lg font-semibold text-gray-700">Employment Details</h5>
+                <div class="space-y-2 text-sm">
+                    <div><span class="font-semibold text-yellow-600">Employer:</span> <span class="text-gray-700">{{ $user->employer }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Job Title:</span> <span class="text-gray-700">{{ $user->jobTitle ?? $user->occupation }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Employer Contacts:</span> <span class="text-gray-700">{{ $user->address2 }} {{ $user->phone }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Employer Address:</span> <span class="text-gray-700">{{ $user->empaddress }}</span></div>
+                    <div><span class="font-semibold text-yellow-600">Employer Email:</span> <span class="text-gray-700">{{ $user->empemail }}</span></div>
+                </div>
+            </div>
+            <!-- Supporting Documents -->
+            <div class="p-6 bg-white rounded-lg shadow">
+                <h5 class="mb-4 text-lg font-semibold text-gray-700">Supporting Documents</h5>
+                <div class="flex flex-wrap gap-4">
+                    @php
+                        function getFileUrl($upload) {
+                            return $upload->source === 'admin'
+                                ? url('public/' . Storage::url($upload->path))
+                                : 'https://app.capexfinancialservices.org/public/' . Storage::url($upload->path);
+                        }
+                        function renderFileBlock($upload, $label, $user) {
+                            return '
+                                <a target="_blank" href="' . getFileUrl($upload) . '" class="block p-2 w-32 text-center bg-gray-50 rounded-lg border border-gray-300 border-dashed transition hover:bg-blue-50">
+                                    <div class="flex flex-col justify-center items-center h-24">
+                                        <svg class="mb-2 w-8 h-8 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                                        <span class="text-xs text-gray-700">' . $user->fname . ' ' . $user->lname . '\'s ' . $label . '</span>
+                                    </div>
+                                    <div class="mt-1 text-xs text-gray-400">' . $upload->created_at->toFormattedDateString() . '</div>
+                                </a>';
+                        }
+                    @endphp
+                    @if ($user->uploads->where('name', 'nrc_file')->isNotEmpty())
+                        {!! renderFileBlock($user->uploads->where('name', 'nrc_file')->first(), 'NRC Front', $user) !!}
+                    @endif
+                    @if ($user->uploads->where('name', 'nrc_b_file')->isNotEmpty())
+                        {!! renderFileBlock($user->uploads->where('name', 'nrc_b_file')->first(), 'NRC Back', $user) !!}
+                    @endif
+                    @if ($user->uploads->where('name', 'tpin_file')->isNotEmpty())
+                        {!! renderFileBlock($user->uploads->where('name', 'tpin_file')->first(), 'TPIN', $user) !!}
+                    @endif
+                    @if ($user->uploads->where('name', 'payslip_file')->isNotEmpty())
+                        {!! renderFileBlock($user->uploads->where('name', 'payslip_file')->first(), 'Payslip', $user) !!}
+                    @endif
+                </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="gap-2 p-3 rounded-lg col-md-12 row">
-            @if ($user->photos->isNotEmpty())
-                @foreach ($user->photos as $photo)
-                    @php
-                        $photoPath = $photo->source === 'admin'
-                            ? url('public/storage/' . $photo->path)
-                            : 'https://app.capexfinancialservices.org/' . $photo->path;
-                    @endphp
-                    <img src="{{ $photoPath }}" alt="user-img" class="rounded-sm img-thumbnail col-3" />
-                @endforeach
-            @else
-                @php
-                    $defaultImage = 'public/assets/images/user.png';
-                    if ($user->gender === 'Female') {
-                        $defaultImage = 'public/assets/images/girl.png';
-                    } elseif ($user->gender === 'Male') {
-                        $defaultImage = 'public/assets/images/boy.png';
-                    }
-                @endphp
-                <img src="{{ $defaultImage }}" alt="user-img" class="rounded-sm img-thumbnail col-3" />
-            @endif
-        </div>
-        <div class="pt-4 mb-4 mb-lg-3 pb-lg-4 profile-wrapper">
-            <div class="row g-4">
-                <!--end col-->
-                <div class="col">
-                    <div class="p-2">
-                        <h3 class="mb-1"><b>{{ $user->fname.' '.$user->lname }}</b></h3>
-                        <div class="gap-1 hstack text-muted">
-                            <div class="me-2">
-                                <i class="align-bottom ri-card-line text-info fs-5 text-warning"></i><b>{{ $user->uuid  }}</b>
-                            </div>
-                            <div class="me-2"><i class="align-bottom ri-map-pin-user-line me-1 fs-16 text-warning"></i>{{ $user->address ?? 'No Address' }}</div>
-                            @if ($user->occupation || $user->jobTitle)
-                            <div class="me-2">
-                                <i class="align-bottom ri-building-line me-1 fs-16 text-warning"></i>{{ $user->jobTitle ?? $user->occupation ?? 'No Occupation'  }}
-                            </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="p-2">
-                        <div class="gap-1 hstack text-muted">
-                            <div class="me-2">
-                                <i class="align-bottom ri-card-line text-info fs-5 text-warning"></i><b>{{ $user->usource  }}</b>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end col-->
-                <div class="order-last col-12 col-lg-auto order-lg-0">
-                    <div class="text-center row text">
-                        <div class="col-lg-6 col-4">
-                            <div class="p-2">
-                                <h4 class="mb-1">K{{ App\Models\Loans::customer_balance($user->id) }}</h4>
-                                <p class="mb-0 fs-14 text-muted">Current Amount Owing</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-4">
-                            <div class="p-2">
-                                <h4 class="mb-1">K{{ App\Models\Loans::customer_total_borrowed($user->id) }}</h4>
-                                <p class="mb-0 fs-14 text-muted">Overall Total Amount Borrowed (Pending/Open/Closed)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end col-->
-
-            </div>
-            <!--end row-->
-        </div>
-
-
-
-        <div class="row">
-            <div class="col-lg-12">
-                <div>
-                    <!-- Tab panes -->
-                    <div class="pt-4 tab-content text-muted">
-                        <div class="tab-pane active" id="overview-tab" role="tabpanel">
-                            <div class="px-3">
-                                <div class="row">
-                                    <div class="card col-md-6">
-                                        <div class="card-body">
-                                            <h5 class="mb-3 card-title"><b>Basic & Personal Information</b></h5>
-                                            <div class="px-8 table-responsive row">
-                                                <div class="table px-8 mb-0 table-borderless">
-                                                    <div class="px-10 pt-2">
-                                                        <p>
-                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Full Name :</b></th>
-                                                            <td class="text-muted">{{ $user->fname.' '.$user->lname }}</td>
-                                                        </p>
-                                                        <p>
-                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Date of Birth :</b></th>
-                                                            <td class="uppercase text-muted">{{ $user->dob ?? 'Unknown' }}</td>
-                                                        </p>
-                                                        <p>
-                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Gender :</b></th>
-                                                            <td class="uppercase text-muted">{{ $user->gender ?? 'Unknown' }}</td>
-                                                        </p>
-                                                        <p>
-                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Mobile :</b></th>
-                                                            <td class="text-muted">{{ $user->phone ?? 'Unknown' }}</td>
-                                                        </p>
-                                                        <p>
-                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>E-mail :</b></th>
-                                                            <td class="text-muted">{{ $user->email ?? 'Unknown' }}</td>
-                                                        </p>
-                                                        <p>
-                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Location :</b></th>
-                                                            <td class="text-muted">{{ $user->address ?? 'No Address' }}
-                                                            </td>
-                                                        </p>
-                                                        <p>
-                                                            <th class="ps-0 text-warning fs-9" scope="row"><b>Joined Date</b></th>
-                                                            <td class="text-muted">{{ $user->created_at->toFormattedDateString() }}</td>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="card col-md-6">
-                                        <div class="card-body">
-                                            <div class="mb-2 d-flex align-items-center">
-                                                <div class="flex-grow-1">
-                                                    <h5 class="mb-0 card-title"><b>Next of Kin</b></h5>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="py-3 d-flex align-items-center">
-                                                    <div class="flex-shrink-0 avatar-xs me-3">
-                                                        <img src="public/assets/images/user.png" alt="" class="img-fluid rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <div>
-                                                            <h5 class="mb-1 fs-14">Fullnames</h5>
-                                                            <p class="mb-0 fs-13 text-muted">{{ $user->nokfname.' '.$user->noklname ?? 'Unknown' }}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="py-3 d-flex align-items-center">
-                                                    <div class="flex-shrink-0 avatar-xs me-3">
-                                                        <img src="public/assets/images/users/phone.png" alt="" class="img-fluid rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <div>
-                                                            <h5 class="mb-1 fs-14">Phone Number</h5>
-                                                            <p class="mb-0 fs-13 text-muted">{{ $user->nokphone ?? 'No Phone' }}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="py-3 d-flex align-items-center">
-                                                    <div class="flex-shrink-0 avatar-xs me-3">
-                                                        <img src="public/assets/images/users/calendar.png" alt="" class="img-fluid rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <div>
-                                                            <h5 class="mb-1 fs-14">Date of Birth</h5>
-                                                            <p class="mb-0 fs-13 text-muted">{{ $user->nokDob ?? 'No Record' }}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="py-3 d-flex align-items-center">
-                                                    <div class="flex-shrink-0 avatar-xs me-3">
-                                                        <img src="public/assets/images/users/email.png" alt="" class="img-fluid rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <div>
-                                                            <h5 class="mb-1 fs-14">Email Address</h5>
-                                                            <p class="mb-0 fs-13 text-muted">{{ $user->nokemail ?? 'No Email' }}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div><!-- end card body -->
-                                    </div>
-                                    <!--end card-->
-
-                                    <div class="card col-md-6">
-                                        <div class="card-body">
-                                            <div class="mb-4 d-flex align-items-center">
-                                                <div class="flex-grow-1">
-                                                    <h5 class="mb-0 card-title"><b>Employement Details</b></h5>
-                                                </div>
-                                            </div>
-                                            <div class="mb-4 d-flex">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/small/img-4.jpg" alt="" height="50" class="rounded" />
-                                                </div>
-                                                <div class="overflow-hidden flex-grow-1 ms-3">
-                                                    <a href="javascript:void(0);">
-                                                        <h6 class="text-truncate fs-14">Employer</h6>
-                                                    </a>
-                                                    <p class="mb-0 text-muted">{{ $user->employer }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="mb-4 d-flex">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/small/img-5.jpg" alt="" height="50" class="rounded" />
-                                                </div>
-                                                <div class="overflow-hidden flex-grow-1 ms-3">
-                                                    <a href="javascript:void(0);">
-                                                        <h6 class="text-truncate fs-14">Job Title</h6>
-                                                    </a>
-                                                    <p class="mb-0 text-muted">{{ $user->jobTitle ?? $user->occupation }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/small/img-6.jpg" alt="" height="50" class="rounded" />
-                                                </div>
-                                                <div class="overflow-hidden flex-grow-1 ms-3">
-                                                    <a href="javascript:void(0);">
-                                                        <h6 class="text-truncate fs-14">Employer Contacts</h6>
-                                                    </a>
-                                                    <p class="mb-0 text-muted">{{ $user->address2 }}</p>
-                                                    <p class="mb-0 text-muted">{{ $user->phone }}</p>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/small/img-6.jpg" alt="" height="50" class="rounded" />
-                                                </div>
-                                                <div class="overflow-hidden flex-grow-1 ms-3">
-                                                    <a href="javascript:void(0);">
-                                                        <h6 class="text-truncate fs-14">Employer Address</h6>
-                                                    </a>
-                                                    <p class="mb-0 text-muted">{{ $user->empaddress }}</p>
-                                                    <p class="mb-0 text-muted">{{ $user->empemail }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end card-body-->
-                                    </div>
-                                    <div class="card col-md-6">
-                                        <div class="card-body">
-                                            <div class="mb-4 d-flex align-items-center">
-                                                <div class="flex-grow-1">
-                                                    <h5 class="mb-0 card-title"><b>Supporting Documents</b></h5>
-                                                </div>
-                                            </div>
-                                            <div>
-                                            @php
-                                                function getFileUrl($upload) {
-                                                    return $upload->source === 'admin'
-                                                        ? url('public/' . Storage::url($upload->path))
-                                                        : 'https://app.capexfinancialservices.org/public/' . Storage::url($upload->path);
-                                                }
-
-                                                function renderFileBlock($upload, $label, $user) {
-                                                    return '
-                                                        <a target="_blank" href="' . getFileUrl($upload) . '" class="open-modal" data-toggle="modal" data-target="#fileModal" data-file-url="public/' . Storage::url($upload->path) . '">
-                                                            <div class="col-md-12">
-                                                                <div class="p-2 border border-dashed rounded">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="flex-shrink-0 me-3">
-                                                                            <div class="avatar-sm">
-                                                                                <div class="rounded avatar-title bg-light text-primary fs-24">
-                                                                                    <i class="ri-file-ppt-2-line"></i>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="overflow-hidden flex-grow-1">
-                                                                            <h5 class="mb-1 fs-13">
-                                                                                <a href="#" class="text-body text-truncate d-block">' . $user->fname . ' ' . $user->lname . '\'s ' . $label . '</a>
-                                                                            </h5>
-                                                                            <div>' . $upload->created_at->toFormattedDateString() . '</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>';
-                                                }
-                                            @endphp
-
-                                            @if ($user->uploads->where('name', 'nrc_file')->isNotEmpty())
-                                                {!! renderFileBlock($user->uploads->where('name', 'nrc_file')->first(), 'NRC Front', $user) !!}
-                                            @endif
-
-                                            @if ($user->uploads->where('name', 'nrc_b_file')->isNotEmpty())
-                                                {!! renderFileBlock($user->uploads->where('name', 'nrc_b_file')->first(), 'NRC Back', $user) !!}
-                                            @endif
-
-                                            @if ($user->uploads->where('name', 'tpin_file')->isNotEmpty())
-                                                {!! renderFileBlock($user->uploads->where('name', 'tpin_file')->first(), 'TPIN', $user) !!}
-                                            @endif
-
-                                            @if ($user->uploads->where('name', 'payslip_file')->isNotEmpty())
-                                                {!! renderFileBlock($user->uploads->where('name', 'payslip_file')->first(), 'Payslip', $user) !!}
-                                            @endif
-
-                                            </div>
-                                        </div>
-                                        <!--end card-body-->
-                                    </div>
-                                    <!--end card-->
-                                </div>
-                                <!--end col-->
-                                {{-- <div class="col-xxl-9">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="mb-3 card-title">About</h5>
-                                            <p>Hi I'm Anna Adame, It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is European languages are members of the same family.</p>
-                                            <p>You always want to make sure that your fonts work well together and try to limit the number of fonts you use to three or less. Experiment and play around with the fonts that you already have in the software you’re working with reputable font websites. This may be the most commonly encountered tip I received from the designers I spoke with. They highly encourage that you use different fonts in one design, but do not over-exaggerate and go overboard.</p>
-                                            <div class="row">
-                                                <div class="col-6 col-md-4">
-                                                    <div class="mt-4 d-flex">
-                                                        <div class="flex-shrink-0 avatar-xs align-self-center me-3">
-                                                            <div class="avatar-title bg-light rounded-circle fs-16 text-primary">
-                                                                <i class="ri-user-2-fill"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="overflow-hidden flex-grow-1">
-                                                            <p class="mb-1">Designation :</p>
-                                                            <h6 class="mb-0 text-truncate">Lead Designer / Developer</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--end col-->
-                                                <div class="col-6 col-md-4">
-                                                    <div class="mt-4 d-flex">
-                                                        <div class="flex-shrink-0 avatar-xs align-self-center me-3">
-                                                            <div class="avatar-title bg-light rounded-circle fs-16 text-primary">
-                                                                <i class="ri-global-line"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="overflow-hidden flex-grow-1">
-                                                            <p class="mb-1">Website :</p>
-                                                            <a href="#" class="fw-semibold">www.velzon.com</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--end col-->
-                                            </div>
-                                            <!--end row-->
-                                        </div>
-                                        <!--end card-body-->
-                                    </div><!-- end card -->
-
-                                </div> --}}
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                        </div>
-
-                        <!--end tab-pane-->
-                    </div>
-                    <!--end tab-content-->
-                </div>
-            </div>
-            <!--end col-->
-        </div>
-        <!--end row-->
-
-    </div><!-- container-fluid -->
-</div><!-- End Page-content -->
+</div>
