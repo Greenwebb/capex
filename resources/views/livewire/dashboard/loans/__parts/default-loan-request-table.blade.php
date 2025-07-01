@@ -21,7 +21,7 @@
   <tbody>
     @forelse($requests as $loan)
     <tr>
-      <td>{{ $loan->type }}</td>
+      <td>{{ $loan->loan_product->name }}</td>
       <td class="money-format">
         {{ number_format($loan->amount, 2, '.', ',') }}
       </td>

@@ -101,6 +101,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/search', SearchEngineView::class)->name('search');
     Route::get('view-all-loans', LoanViewAllView::class)->name('loans');
     Route::get('open-loans', ApprovedLoansView::class)->name('approved-loans');
+    Route::get('rejected-loans', \App\Http\Livewire\Dashboard\Loans\RejectedLoansView::class)->name('rejected-loans');
     Route::get('due-loans', DueLoanView::class)->name('due-loans');
     Route::get('new-loan-request', CreateLoanView::class)->name('new-loan');
     Route::get('client-loan-requests', LoanRequestView::class)->name('view-loan-requests');

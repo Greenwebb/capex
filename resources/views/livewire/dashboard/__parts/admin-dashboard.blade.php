@@ -214,12 +214,12 @@
                                     </div>
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
-                                            <h4 class="mb-4 fs-22 fw-semibold text-info ff-secondary">K<span class="counter-value" data-target="{{ $this->loanStat['total_loans_amount'] }}">{{ $this->loanStat['total_loans_amount'] }}</span></h4>
+                                            <h4 class="mb-4 fs-22 fw-semibold text-info ff-secondary">K<span class="counter-value" data-target="{{ $this->loanStat['total_open_loan_amount'] }}">{{ $this->loanStat['total_open_loan_amount'] }}</span></h4>
                                             <a href="{{ route('approved-loans') }}" class="text-decoration-underline text-info">Disbursed Loans</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                {{ $this->loanStat['total_loans_count'] }}
+                                                {{ $this->loanStat['total_open_loan_count'] }}
                                             </span>
                                         </div>
                                     </div>
@@ -269,7 +269,7 @@
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
                                             <h4 class="mb-4 text-white fs-22 fw-semibold ff-secondary">K<span class="counter-value" data-target="{{ $this->loanStat['total_rejected_loans_amount'] }}">{{ $this->loanStat['total_rejected_loans_amount'] }}</span> </h4>
-                                            <a href="{{ route('make-payment') }}" class="text-white text-decoration-underline">Denied Loans</a>
+                                            <a href="{{ route('rejected-loans') }}" class="text-white text-decoration-underline">Denied Loans</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-danger bg-primary-subtle fs-3">

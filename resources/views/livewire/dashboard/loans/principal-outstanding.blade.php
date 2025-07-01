@@ -50,7 +50,7 @@
                                     <tr>
                                         <td style="text-align:center;">#{{ $loan->loan_number }}</td>
                                         <td style="text-align:center;">{{ $loan->fname.' '. $loan->lname }}</td>
-                                        <td style="text-align:center;">{{ $loan->type }} Loan</td>
+                                        <td style="text-align:center;">{{ $loan->loan_product->name }} Loan</td>
                                         <td style="text-align:center;">{{ $loan->repayment_plan }} Month(s)</td>
                                         <td style="text-align:center;">K{{ $loan->amount }}</td>
                                         <td style="text-align:center;">K{{ App\Models\Application::payback($loan->amount, $loan->repayment_plan, $loan->loan_product_id, $loan) }}</td>

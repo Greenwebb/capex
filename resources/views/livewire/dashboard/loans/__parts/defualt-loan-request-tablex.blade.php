@@ -54,7 +54,7 @@
             <td style="text:align:center; text-transform: camelcase;">
                 <a target="_blank" href="{{ route('client-account', ['key'=>$loan->user->id])}}">{{ $loan->fname.' '. $loan->lname }}</a>
             </td>
-            <td style="text:align:center; text-transform: camelcase;">{{ $loan->type }} Loan</td>
+            <td style="text:align:center; text-transform: camelcase;">{{ $loan->loan_product->name }} Loan</td>
             <td style="text:align:center;">
                 <span class="mx-auto text-primary"><b>K{{ $loan->amount }}</b></span>
             </td>

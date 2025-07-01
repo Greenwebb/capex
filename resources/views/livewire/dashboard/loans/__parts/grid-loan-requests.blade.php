@@ -13,7 +13,7 @@
                            </div> --}}
                            <div class="user-details">
                                <h4 class="user-name" style="text-transform: camelcase;">{{ $loan->fname.' '. $loan->lname }}</h4>
-                               <span class="number" style="text-transform: camelcase;">{{ $loan->type }} Loan</span>
+                               <span class="number" style="text-transform: camelcase;">{{ $loan->loan_product->name }} Loan</span>
                                <span class="mail">K{{ $loan->amount }}</span> 
                            </div>
                        </div>

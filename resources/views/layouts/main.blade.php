@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-bs-theme="light" data-body-image="img-1" data-preloader="enabled">
 <head>
@@ -715,6 +714,9 @@
                                     @can('open loans')
                                     <li class="nav-item">
                                         <a href="{{ route('approved-loans') }}" class="nav-link" data-key="t-sweet-alerts">Open Loans</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('rejected-loans') }}" class="nav-link" data-key="t-rejected-loans">Rejected Loans</a>
                                     </li>
                                     @endcan
                                     @can('closed loans')
