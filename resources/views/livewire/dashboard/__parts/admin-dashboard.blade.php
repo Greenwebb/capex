@@ -529,7 +529,7 @@
                                                                  @endif
                                                             </div>
                                                             <div>
-                                                                <h5 class="my-1 fs-14"><a href="apps-ecommerce-product-details.html" class="text-reset">{{ $loan->user->fname.' '. $loan->user->lname }}</a></h5>
+                                                                <h5 class="my-1 fs-14"><a href="{{ route('client-account', ['key' => $loan->user->id]) }}" target="_blank" class="text-reset">{{ $loan->user->fname.' '. $loan->user->lname }}</a></h5>
                                                                 <span class="text-muted">{{ $loan->created_at->toFormattedDateString() }}</span>
                                                             </div>
                                                         </div>
@@ -596,7 +596,7 @@
                                                                 @endif
                                                            </div>
                                                            <div>
-                                                               <h5 class="my-1 fs-14"><a href="apps-ecommerce-product-details.html" class="text-reset">{{ $loan->user->fname.' '. $loan->user->lname }}</a></h5>
+                                                               <h5 class="my-1 fs-14"><a href="{{ route('client-account', ['key' => $loan->user->id]) }}" target="_blank" class="text-reset">{{ $loan->user->fname.' '. $loan->user->lname }}</a></h5>
                                                                <span class="text-muted">{{ $loan->created_at->toFormattedDateString() }}</span>
                                                            </div>
                                                        </div>
