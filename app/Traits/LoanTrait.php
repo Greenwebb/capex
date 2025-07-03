@@ -458,9 +458,7 @@ trait LoanTrait
 
     public function getLoanArears($type)
     {
-        return Application::where('due_date', '<', now()) // Loans past due date
-            ->where('status', 1) // Status is active (or whatever status 1 means)
-            ->get();
+        return Application::where('due_date', '<', now())->where('status', 1)->where('closed', 0)->get();
     }
 
 
