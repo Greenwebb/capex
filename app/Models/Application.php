@@ -137,8 +137,8 @@ class Application extends Model
         $total_pending_loans_count = self::whereIn('status', [0, 2])->count();
         $total_pending_loans_amount = self::whereIn('status', [0, 2])->sum('amount');
         // Unresolved loans amount (status = 0 or 2, complete = 1)
-        $unresolved_loans_count = self::where('complete', 1)->whereIn('status', [0, 2])->count();
-        $unresolved_loans_amount = self::where('complete', 1)->whereIn('status', [0, 2])->sum('amount');
+        $unresolved_loans_count = self::whereIn('status', [0, 2])->count();
+        $unresolved_loans_amount = self::whereIn('status', [0, 2])->sum('amount');
         // Arears
         $arears_count = self::where('due_date', '<', now())->where('status', 1)->where('closed', 0)->count();
         $arears_amount = self::where('due_date', '<', now())->where('status', 1)->where('closed', 0)->sum('amount');
