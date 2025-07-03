@@ -283,7 +283,7 @@
 
                     </div> <!-- end row-->
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <!-- card -->
                             <div class="card card-animate">
@@ -391,7 +391,7 @@
                                 </div><!-- end card body -->
                             </div><!-- end card -->
                         </div><!-- end col -->
-                    </div> <!-- end row-->
+                    </div> <!-- end row--> --}}
                     {{-- <div class="row">
                         <div class="col-xl-8">
                             <div class="card">

@@ -514,7 +514,6 @@ trait CalculatorTraitBKP{
     }
 
     public function loanStatement($id){
-        // dd($id);
         return BalanceStatement::where('loan_id', $id)->get();
 
     }
