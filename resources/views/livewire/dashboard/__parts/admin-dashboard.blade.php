@@ -237,7 +237,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div class="overflow-hidden flex-grow-1">
-                                         <p class="mb-0 text-uppercase fw-medium text-danger text-truncate">Unresolved Loans to Date</p>
+                                         <p class="mb-0 text-uppercase fw-medium text-danger text-truncate">Unresolved/Pending Loans</p>
                                         </div>
                                         <div class="flex-shrink-0">
 
