@@ -206,7 +206,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div class="overflow-hidden flex-grow-1">
-                                            <p class="mb-0 text-uppercase fw-medium text-info text-truncate">Total Amount Disbursed to Date</p>
+                                         <p class="mb-0 text-uppercase fw-medium text-info text-truncate">Total Amount Disbursed to Date</p>
                                         </div>
                                         <div class="flex-shrink-0">
 
@@ -214,18 +214,22 @@
                                     </div>
                                     <div class="mt-4 d-flex align-items-end justify-content-between">
                                         <div>
-                                            <h4 class="mb-4 fs-22 fw-semibold text-info ff-secondary">K<span class="counter-value" data-target="{{ $this->loanStat['total_open_loan_amount'] }}">{{ $this->loanStat['total_open_loan_amount'] }}</span></h4>
-                                            <a href="{{ route('approved-loans') }}" class="text-decoration-underline text-info">Disbursed Loans</a>
+                                            <h4 class="mb-4 fs-22 fw-semibold text-info ff-secondary">
+                                                K<span class="counter-value" data-target="{{ $this->loanStat['total_open_loan_amount'] + $this->loanStat['total_closed_loan_amount'] }}">
+                                                    {{ number_format($this->loanStat['total_open_loan_amount'] + $this->loanStat['total_closed_loan_amount'], 2, '.', ',') }}
+                                                </span>
+                                            </h4>
+                                            <a href="#" class="text-decoration-underline text-info">Disbursed Loans</a>
                                         </div>
                                         <div class="flex-shrink-0 avatar-sm">
                                             <span class="rounded avatar-title text-dark bg-primary-subtle fs-3">
-                                                {{ $this->loanStat['total_open_loan_count'] }}
+                                                {{ $this->loanStat['total_open_loan_count'] + $this->loanStat['total_closed_loan_count'] }}
                                             </span>
                                         </div>
                                     </div>
                                 </div><!-- end card body -->
                             </div><!-- end card -->
-                        </div><!-- end col -->
+                        </div>
 
                         <div class="col-xl-3 col-md-6">
                             <!-- card -->
